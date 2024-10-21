@@ -1,0 +1,80 @@
+/paas/mongodb:
+  get:
+    summary: List all MongoDB instances
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '../schemas/mongodb.yaml#/MongoDB'
+  put:
+    summary: Create or update a MongoDB instance
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/mongodb.yaml#/MongoDB'
+    responses:
+      '202':
+        description: Accepted
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/mongodb.yaml#/MongoDB'
+
+/paas/mongodb/{name}:
+  get:
+    summary: Get a specific MongoDB instance
+    parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/mongodb.yaml#/MongoDB'
+  put:
+    summary: Update a specific MongoDB instance
+    parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/mongodb.yaml#/MongoDB'
+    responses:
+      '202':
+        description: Accepted
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/mongodb.yaml#/MongoDB'
+  delete:
+    summary: Delete a specific MongoDB instance
+    parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '202':
+        description: Accepted
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/mongodb.yaml#/MongoDB'

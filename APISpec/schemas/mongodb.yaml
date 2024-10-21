@@ -1,0 +1,38 @@
+MongoDB:
+  type: object
+  required:
+    - metadata
+    - spec
+  properties:
+    metadata:
+      $ref: './resource.yaml#/ResourceMetadata'
+    spec:
+      type: object
+      required:
+        - sizeGB
+        - cores
+        - servers
+      properties:
+        sizeGB:
+          type: integer
+          description: Size of the MongoDB database in GB
+        cores:
+          type: integer
+          description: Number of CPU cores allocated to the MongoDB instance
+        servers:
+          type: integer
+          description: Number of MongoDB servers in the cluster
+        routingTable:
+          $ref: './routing-table.yaml#/RoutingTable'
+    status:
+      type: object
+      properties:
+        connectionString:
+          type: string
+          description: Connection string for the MongoDB instance
+        state:
+          type: string
+          enum: [CREATING, RUNNING, UPDATING, DELETING, ERROR]
+          description: Current state of the MongoDB instance
+        route:
+          $ref: './routing-table.yaml#/Route'
