@@ -20,7 +20,7 @@ Subnet:
     apiVersion:
       type: string
       description: API version of the resource
-      default: v1beta1
+      default: v1
       readOnly: true
     kind:
       type: string
@@ -98,7 +98,7 @@ Subnet:
   example:
     - description: Standard subnet with auto gateway
       value:
-        apiVersion: v1beta1
+        apiVersion: v1
         kind: subnet
         metadata:
           name: standard-subnet
@@ -109,7 +109,7 @@ Subnet:
     
     - description: Custom gateway through network appliance
       value:
-        apiVersion: v1beta1
+        apiVersion: v1
         kind: subnet
         metadata:
           name: firewall-subnet

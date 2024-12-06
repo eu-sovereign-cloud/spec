@@ -26,87 +26,87 @@ tags:
     description: Resource catalogues including server, volume profiles, and images
 paths:
   # Platform resources (regions)
-  /v1alpha1/tenants/{id}/providers/seca.core/workspaces:
+  /v1/tenants/{id}/providers/seca.core/workspaces:
     $ref: './paths/workspaces.yaml#/~1workspaces'
-  /v1alpha1/tenants/{id}/providers/seca.core/workspaces/{name}:
+  /v1/tenants/{id}/providers/seca.core/workspaces/{name}:
     $ref: './paths/workspaces.yaml#/~1workspaces~1{name}'  
-  /v1alpha1/tenants/{id}/providers/seca.core/regions:
+  /v1/tenants/{id}/providers/seca.core/regions:
     $ref: './paths/regions.yaml#/~1regions'
-  /v1alpha1/tenants/{id}/providers/seca.core/regions/{name}:
+  /v1/tenants/{id}/providers/seca.core/regions/{name}:
     $ref: './paths/regions.yaml#/~1regions~1{name}'
 
   #Tenant Cloud Images 
-  /v1alpha1/tenants/{id}/providers/seca.storage/images:
+  /v1/tenants/{id}/providers/seca.storage/images:
     $ref: './paths/images.yaml#/~1images'
-  /v1alpha1/tenants/{id}/providers/seca.storage/images/{name}:
+  /v1/tenants/{id}/providers/seca.storage/images/{name}:
     $ref: './paths/images.yaml#/~1images~1{name}'
 
   # Tenants Instance SKUs Resource
-  /v1alpha1/tenants/{id}/providers/seca.compute/skus:
+  /v1/tenants/{id}/providers/seca.compute/skus:
     $ref: './paths/instance-skus.yaml#/~1skus'
-  /v1alpha1/tenants/{id}/providers/seca.compute/skus/{name}:
+  /v1/tenants/{id}/providers/seca.compute/skus/{name}:
     $ref: './paths/instance-skus.yaml#/~1skus~1{name}'
 
   # Network SKUs Resource
-  /v1alpha1/tenants/{id}/providers/seca.network/skus:
+  /v1/tenants/{id}/providers/seca.network/skus:
     $ref: './paths/network-skus.yaml#/~1skus'
-  /v1alpha1/tenants/{id}/providers/seca.network/skus/{name}:
+  /v1/tenants/{id}/providers/seca.network/skus/{name}:
     $ref: './paths/network-skus.yaml#/~1skus~1{name}'
 
   # Block Storage SKUs Resource
-  /v1alpha1/tenants/{id}/providers/seca.storage/skus:
+  /v1/tenants/{id}/providers/seca.storage/skus:
     $ref: './paths/block-storage-skus.yaml#/~1skus'
-  /v1alpha1/tenants/{id}/providers/seca.storage/skus/{name}:
+  /v1/tenants/{id}/providers/seca.storage/skus/{name}:
     $ref: './paths/block-storage-skus.yaml#/~1skus~1{name}'
 
   # Network resources - LAN and its resources
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans:
     $ref: './paths/lans.yaml#/~1workspaces~1{workspace}~1providers~1network~1lans'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}:
     $ref: './paths/lans.yaml#/~1workspaces~1{workspace}~1providers~1network~1lans~1{lan}'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/subnets:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/subnets:
     $ref: './paths/subnets.yaml#/~1workspaces~1{workspace}~1providers~1network~1lans~1{lan}~1subnets'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/subnets/{name}:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/subnets/{name}:
     $ref: './paths/subnets.yaml#/~1workspaces~1{workspace}~1providers~1network~1lans~1{lan}~1subnets~1{name}'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/security-groups:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/security-groups:
     $ref: './paths/security-groups.yaml#/~1workspaces~1{workspace}~1providers~1network~1lans~1{lan}~1security-groups'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/security-groups/{name}:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/security-groups/{name}:
     $ref: './paths/security-groups.yaml#/~1workspaces~1{workspace}~1providers~1network~1lans~1{lan}~1security-groups~1{name}'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/nics:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/nics:
     $ref: './paths/nics.yaml#/~1workspaces~1{workspace}~1providers~1seca.network~1lans~1{lan}~1nics'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/nics/{name}:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.network/lans/{lan}/nics/{name}:
     $ref: './paths/nics.yaml#/~1workspaces~1{workspace}~1providers~1seca.network~1lans~1{lan}~1nics~1{name}'
 
   # Authorization resources - RBAC
-  /v1alpha1/tenants/{id}/providers/seca.authorization/roles:
+  /v1/tenants/{id}/providers/seca.authorization/roles:
     $ref: './paths/rbac.yaml#/~1providers~1authorization~1roles'
-  /v1alpha1/tenants/{id}/providers/seca.authorization/roles/{name}:
+  /v1/tenants/{id}/providers/seca.authorization/roles/{name}:
     $ref: './paths/rbac.yaml#/~1providers~1authorization~1roles~1{name}'
-  /v1alpha1/tenants/{id}/providers/seca.authorization/role-assignments:
+  /v1/tenants/{id}/providers/seca.authorization/role-assignments:
     $ref: './paths/rbac.yaml#/~1providers~1authorization~1role-assignments'
-  /v1alpha1/tenants/{id}/providers/seca.authorization/role-assignments/{name}:
+  /v1/tenants/{id}/providers/seca.authorization/role-assignments/{name}:
     $ref: './paths/rbac.yaml#/~1providers~1authorization~1role-assignments~1{name}'
   
   # Workspace resources with provider namespace
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.compute/instances:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.compute/instances:
     $ref: './paths/instances.yaml#/~1workspaces~1{workspace}~1providers~1compute~1instances'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.compute/instances/{name}:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.compute/instances/{name}:
     $ref: './paths/instances.yaml#/~1workspaces~1{workspace}~1providers~1compute~1instances~1{name}'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.compute/instances/{name}/power-cycle:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.compute/instances/{name}/power-cycle:
     $ref: './paths/instances.yaml#/~1workspaces~1{workspace}~1providers~1compute~1instances~1{name}~1power-cycle'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.compute/instances/{name}/power-off:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.compute/instances/{name}/power-off:
     $ref: './paths/instances.yaml#/~1workspaces~1{workspace}~1providers~1compute~1instances~1{name}~1power-off'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.compute/instances/{name}/power-on:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.compute/instances/{name}/power-on:
     $ref: './paths/instances.yaml#/~1workspaces~1{workspace}~1providers~1compute~1instances~1{name}~1power-on'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.storage/block-storages:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.storage/block-storages:
     $ref: './paths/block-storage.yaml#/~1workspaces~1{workspace}~1providers~1storage~1block-storages'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.storage/block-storages/{name}:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.storage/block-storages/{name}:
     $ref: './paths/block-storage.yaml#/~1workspaces~1{workspace}~1providers~1storage~1block-storages~1{name}'
 
   # New PublicIp Resource
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.network/public-ips:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.network/public-ips:
     $ref: './paths/public-ips.yaml#/~1workspaces~1{workspace}~1providers~1network~1public-ips'
-  /v1alpha1/tenants/{id}/workspaces/{workspace}/providers/seca.network/public-ips/{name}:
+  /v1/tenants/{id}/workspaces/{workspace}/providers/seca.network/public-ips/{name}:
     $ref: './paths/public-ips.yaml#/~1workspaces~1{workspace}~1providers~1network~1public-ips~1{name}'
 
 components:

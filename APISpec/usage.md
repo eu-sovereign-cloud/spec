@@ -16,7 +16,7 @@ A comprehensive REST API for managing cloud infrastructure resources in complian
 - **Identity**: Integrated authentication and authorization
 
 ## Technical Specifications
-- API Version: v1beta1
+- API Version: v1
 - Authentication: JWT-based Bearer tokens
 - Content Types: JSON for requests and responses
 - Status: Production-ready for core IaaS operations
@@ -53,7 +53,7 @@ To initialize a tenant we need the below requirements fullfilled:
 ```json
 //Role AuthorizationAdmin
 {
-    "apiVersion": "v1beta1",
+    "apiVersion": "v1",
     "kind": "role",
     "metadata": {
         "name": "authorization-admin"
@@ -68,7 +68,7 @@ To initialize a tenant we need the below requirements fullfilled:
 //RoleAssignent TenantAdmin
 
 {
-    "apiVersion": "v1beta1",
+    "apiVersion": "v1",
     "kind": "role-assignment",
     "metadata": {
       "name": "TenantAdmin",    
@@ -96,11 +96,11 @@ To initialize a tenant we need the below requirements fullfilled:
 Create a workspace to organize your resources:
 
 ```http
-PUT /v1beta1/tenants/{tenant_id}/workspaces/webshop-prod
+PUT /v1/tenants/{tenant_id}/workspaces/webshop-prod
 Content-Type: application/json
 
 {
-  "apiVersion": "v1beta1",
+  "apiVersion": "v1",
   "kind": "workspace",
   "metadata": {
     "description": "Production environment for webshop",
@@ -119,7 +119,7 @@ Note: Creating a workspace automatically grants you admin permissions for that w
 Before creating resources, you need to select a region and its availability zones:
 
 ```http
-GET /v1beta1/providers/seca.platform/regions
+GET /v1/providers/seca.platform/regions
 ```
 
 This will return available regions and their zones. Resources can be created at either the regional level (like LANs and Public IPs) or the zonal level (like Instances and Block Storage).
@@ -128,7 +128,7 @@ This will return available regions and their zones. Resources can be created at 
 
 ### Check Compute SKUs
 ```http
-GET /v1beta1/tenants/{tenant_id}/providers/seca.compute/skus
+GET /v1/tenants/{tenant_id}/providers/seca.compute/skus
 ```
 
 Available compute tiers:
@@ -139,7 +139,7 @@ Available compute tiers:
 
 ### Check Storage SKUs
 ```http
-GET /v1beta1/tenants/{tenant_id}/providers/seca.storage/skus
+GET /v1/tenants/{tenant_id}/providers/seca.storage/skus
 ```
 
 Important notes about storage:
@@ -152,7 +152,7 @@ Important notes about storage:
 
 ### Check Network SKUs
 ```http
-GET /v1beta1/tenants/{tenant_id}/providers/seca.network/skus
+GET /v1/tenants/{tenant_id}/providers/seca.network/skus
 ```
 
 Available network tiers:
@@ -162,7 +162,7 @@ Available network tiers:
 
 ### Review Available Images
 ```http
-GET /v1beta1/providers/seca.storage/images
+GET /v1/providers/seca.storage/images
 ```
 
 Available images:
@@ -175,11 +175,11 @@ Available images:
 Create a block storage volume from an image:
 
 ```http
-PUT /v1beta1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.storage/block-storages/webshop-os-disk
+PUT /v1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.storage/block-storages/webshop-os-disk
 Content-Type: application/json
 
 {
-  "apiVersion": "v1beta1",
+  "apiVersion": "v1",
   "kind": "block-storage",
   "metadata": {
     "labels": {
@@ -203,11 +203,11 @@ Content-Type: application/json
 
 ### 5.1 Create a LAN
 ```http
-PUT /v1beta1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.network/lans/webshop-network
+PUT /v1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.network/lans/webshop-network
 Content-Type: application/json
 
 {
-  "apiVersion": "v1beta1",
+  "apiVersion": "v1",
   "kind": "lan",
   "metadata": {
     "labels": {
@@ -222,11 +222,11 @@ Content-Type: application/json
 
 ### 5.2 Create a Subnet
 ```http
-PUT /v1beta1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.network/lans/webshop-network/subnets/webshop-subnet
+PUT /v1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.network/lans/webshop-network/subnets/webshop-subnet
 Content-Type: application/json
 
 {
-  "apiVersion": "v1beta1",
+  "apiVersion": "v1",
   "kind": "subnet",
   "metadata": {
     "name": "webshop-subnet",
@@ -247,11 +247,11 @@ Content-Type: application/json
 
 ### 5.3 Set Up Security Group
 ```http
-PUT /v1beta1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.network/lans/webshop-network/security-groups/webshop-sg
+PUT /v1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.network/lans/webshop-network/security-groups/webshop-sg
 Content-Type: application/json
 
 {
-  "apiVersion": "v1beta1",
+  "apiVersion": "v1",
   "kind": "security-group",
   "metadata": {
     "name": "webshop-sg",
@@ -299,11 +299,11 @@ Content-Type: application/json
 
 ### 5.4 Create Public IP
 ```http
-PUT /v1beta1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.network/public-ips
+PUT /v1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.network/public-ips
 Content-Type: application/json
 
 {
-  "apiVersion": "v1beta1",
+  "apiVersion": "v1",
   "kind": "public-ip",
   "metadata": {
     "name": "webshop-ip",
@@ -325,11 +325,11 @@ Content-Type: application/json
 Create the compute instance:
 
 ```http
-PUT /v1beta1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.compute/instances/webshop-server
+PUT /v1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.compute/instances/webshop-server
 Content-Type: application/json
 
 {
-  "apiVersion": "v1beta1",
+  "apiVersion": "v1",
   "kind": "instance",
   "metadata": {
     "name": "webshop-server",
@@ -369,12 +369,12 @@ Content-Type: application/json
 
 1. Wait for the instance to be in "running" state:
 ```http
-GET /v1beta1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.compute/instances/webshop-server
+GET /v1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.compute/instances/webshop-server
 ```
 
 2. Get the public IP:
 ```http
-GET /v1beta1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.network/public-ips/webshop-ip
+GET /v1/tenants/{tenant_id}/workspaces/webshop-prod/providers/seca.network/public-ips/webshop-ip
 ```
 
 3. Connect to your instance:

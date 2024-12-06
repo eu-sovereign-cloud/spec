@@ -23,7 +23,7 @@ SecurityGroup:
     apiVersion:
       type: string
       description: API version of the resource
-      default: v1beta1
+      default: v1
       readOnly: true
     kind:
       type: string
@@ -64,7 +64,7 @@ SecurityGroup:
   example:
     description: Allow web servers to access database servers
     value:
-      apiVersion: v1beta1
+      apiVersion: v1
       kind: security-group
       metadata:
         name: webserver-group
@@ -87,7 +87,7 @@ SecurityGroupRule:
     apiVersion:
       type: string
       description: API version of the resource
-      default: v1beta1
+      default: v1
       readOnly: true
     kind:
       type: string

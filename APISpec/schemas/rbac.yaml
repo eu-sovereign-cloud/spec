@@ -18,7 +18,7 @@ Role:
     apiVersion:
       type: string
       description: API version of the resource
-      default: v1beta1
+      default: v1
       readOnly: true
     kind:
       type: string
@@ -48,7 +48,7 @@ RoleAssignment:
     apiVersion:
       type: string
       description: API version of the resource
-      default: v1beta1
+      default: v1
       readOnly: true
     kind:
       type: string
