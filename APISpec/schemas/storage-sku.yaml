@@ -26,37 +26,42 @@ StorageSku:
               $ref: "#/StorageSku/properties/spec/allOf/1/properties/capabilities"
     spec:
       example:
-        - { provider: 'SECA', tier: 'seca.general', description: 'a storage with no guaranteed throughput for normal usage' }
-        - { provider: 'SECA', tier: 'seca.100', description: 'minimal 100 iops, 99% of time, when >50GB' }
-        - { provider: 'SECA', tier: 'seca.250', description: 'minimal 250 iops, 99% of time, when >50GB' }
-        - { provider: 'SECA', tier: 'seca.500', description: 'minimal 500 iops, 99% of time, when >50GB' }
+        - { provider: 'SECA', tier: 'seca.general', type: persistent, description: 'a storage with no guaranteed throughput for normal usage' }
+        - { provider: 'SECA', tier: 'seca.100', type: persistent, description: 'minimal 100 iops, 99% of time, when >50GB' }
+        - { provider: 'SECA', tier: 'seca.250', type: persistent, description: 'minimal 250 iops, 99% of time, when >50GB' }
+        - { provider: 'SECA', tier: 'seca.500', type: persistent, description: 'minimal 500 iops, 99% of time, when >50GB' }
+        - { provider: 'SECA', tier: 'seca.ephemeral', type: ephemeral, description: 'local disk'}
       allOf:
         - type: object
           enum:
-            - { provider: 'SECA', tier: 'seca.general', description: 'a storage with no guaranteed throughput for normal usage' }
-            - { provider: 'SECA', tier: 'seca.100', description: 'minimal 100 iops, 99% of time, when >50GB' }
-            - { provider: 'SECA', tier: 'seca.250', description: 'minimal 250 iops, 99% of time, when >50GB' }
-            - { provider: 'SECA', tier: 'seca.500', description: 'minimal 500 iops, 99% of time, when >50GB' }
+            - { provider: 'SECA', tier: 'seca.general', type: persistent, description: 'a storage with no guaranteed throughput for normal usage' }
+            - { provider: 'SECA', tier: 'seca.100', type: persistent, description: 'minimal 100 iops, 99% of time, when >50GB' }
+            - { provider: 'SECA', tier: 'seca.250', type: persistent, description: 'minimal 250 iops, 99% of time, when >50GB' }
+            - { provider: 'SECA', tier: 'seca.500', type: persistent, description: 'minimal 500 iops, 99% of time, when >50GB' }
+            - { provider: 'SECA', tier: 'seca.ephemeral', type: ephemeral, description: 'local disk'}
         - type: object
           properties:
             provider:
               type: string
-              description: Provider namespace for  storage SKUs
+              description: Provider namespace for storage SKUs
             tier:
               type: string
-              description:  storage performance tier
+              description: storage performance tier
             capabilities:
               additionalProperties: true
               type: object
-              description:  storage performance capabilities
+              description: Storage capabilities
+              properties:
+                type:
+                  enum: [ 'persistent', 'ephemeral' ]
             extensions:
               type: array
-              description: Additional  storage feature extensions
+              description: Additional storage feature extensions
               items:
                 type: string
             mandatoryParameters:
               type: array
-              description: Mandatory parameters for  storage resources
+              description: Mandatory parameters for storage resources
               items:
                 type: string
             description:

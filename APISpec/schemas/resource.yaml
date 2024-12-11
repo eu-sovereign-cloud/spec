@@ -82,6 +82,7 @@ ResourceState:
         - active: available for data layer usage
         - updating: available for data layer usage
         - deleting: maybe still available for data layer user, can fail any moment
+        - orphaned: not available, resource lost its required parent resource and cannot function independently.
         - suspended: not available, provider specific behavior (payment issue, user decided to suspend)
         - error: failed to fullfill the request; would be related to provider issue or customer related input.
       enum:
@@ -90,6 +91,7 @@ ResourceState:
         - active
         - updating
         - deleting
+        - orphaned
         - suspended
         - error
 

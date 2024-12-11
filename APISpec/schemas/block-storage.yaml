@@ -1,5 +1,10 @@
 BlockStorage:
   type: object
+  description: |
+    The Block Storage API manages two types of storage volumes:
+    * Ephemeral Storage: Lifecycle bound to an instance. Can only be attached once and must be deleted after attached resource is deleted.
+    * Persistent Storage: Independent lifecycle (can physically exist without instance attachment)
+    The type of the storage is tight to the selected SKU.
   properties:
     apiVersion:
       type: string
