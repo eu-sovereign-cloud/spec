@@ -90,7 +90,7 @@ const config = {
           },
           {
             type: 'docSidebar',
-            sidebarId: 'docSidebar',
+            sidebarId: 'apiSidebar',
             position: 'left',
             label: 'API',
           },          
@@ -167,15 +167,51 @@ const config = {
           docsPluginId: "classic",
           config: {
 
-            auditing: {
-              specPath: "../spec/activitylog.v1.yaml",
-              outputDir: "docs/documents/activitylog",
-              label: "ActivityLog",
-              sidebarOptions: {
-                groupPathsBy: "tag",
-                categoryLinkSource: "tag"
-              }
+            authorization: {
+              specPath: "../spec/authorization.v1.yaml",
+              outputDir: "docs/api/Authorization",
+              label: "Authorization"
             },
+            activityLog: {
+              specPath: "../spec/activitylog.v1.yaml",
+              outputDir: "docs/api/ActivityLog",
+              label: "ActivityLog"
+            },
+            compute: {
+              specPath: "../spec/compute.v1.yaml",
+              outputDir: "docs/api/Compute",
+              label: "Compute"
+            },          
+            loadbalancer: {
+              specPath: "../spec/loadbalancer.v1.yaml",
+              outputDir: "docs/api/LoadBalancer",
+              label: "Compute"
+            },                  
+            network: {
+              specPath: "../spec/network.v1.yaml",
+              outputDir: "docs/api/Network",
+              label: "Network"
+            },    
+            objectStorage: {
+              specPath: "../spec/objectstorage.v1.yaml",
+              outputDir: "docs/api/ObjectStorage",
+              label: "ObjectStorage"
+            },     
+            region: {
+              specPath: "../spec/region.v1.yaml",
+              outputDir: "docs/api/Region",
+              label: "Region"
+            },    
+            storage: {
+              specPath: "../spec/storage.v1.yaml",
+              outputDir: "docs/api/Storage",
+              label: "Storage"
+            },                                                          
+            workspace: {
+              specPath: "../spec/workspace.v1.yaml",
+              outputDir: "docs/api/Workspace",
+              label: "Workspace"
+            },              
         },
       } 
       ]
