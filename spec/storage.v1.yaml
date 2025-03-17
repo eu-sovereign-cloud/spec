@@ -97,6 +97,8 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific sku
+      description: |
+        Get a specific sku, useful for polling status updates of resources.
       operationId: getSku
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -126,6 +128,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List quotas
+      description: |
+        Lists quotas and provides paginated, filtered access.
       operationId: listQuotas
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -156,12 +160,18 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a quota
+      description: |
+        Creates or updates a quota. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateQuota
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the quota will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -169,13 +179,17 @@ paths:
               $ref: './schemas/quotas.yaml#/ResourceQuota'
       responses:
         '200':
-          description: Quota successfully updated
+          description: |
+            Quota successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/quotas.yaml#/ResourceQuota'
         '201':
-          description: Quota successfully created
+          description: |
+            Quota successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -204,6 +218,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List images
+      description: |
+        Lists images and provides paginated, filtered access.
       operationId: listImages
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -234,6 +250,8 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific image
+      description: |
+        Get a specific image, useful for polling status updates of resources.
       operationId: getImage
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -262,12 +280,18 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a image
+      description: |
+        Creates or updates a image. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateImage
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the image will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -275,13 +299,17 @@ paths:
               $ref: './schemas/image.yaml#/Image'
       responses:
         '200':
-          description: Image successfully updated
+          description: |
+            Image successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/image.yaml#/Image'
         '201':
-          description: Image successfully created
+          description: |
+            Image successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -309,6 +337,12 @@ paths:
       security:
         - bearerAuth: []
       summary: Delete a image
+      description: |
+        Deletes a image using the given name. In case the resource workspace
+        already deleted `404` is returned. For failure tolerance in case of retry the
+        client needs to accept `404` and `202` as a successful deletion. If deletion
+        of the resource takes longer deletion can be issued multiple times with the
+        same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteImage
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -337,6 +371,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List block-storages
+      description: |
+        Lists block-storages and provides paginated, filtered access.
       operationId: listBlock-Storages
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -368,6 +404,8 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific block-storage
+      description: |
+        Get a specific block-storage, useful for polling status updates of resources.
       operationId: getBlock-Storage
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -397,6 +435,10 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a block-storage
+      description: |
+        Creates or updates a block-storage. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateBlock-Storage
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -404,6 +446,8 @@ paths:
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the block-storage will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -411,13 +455,17 @@ paths:
               $ref: './schemas/block-storage.yaml#/BlockStorage'
       responses:
         '200':
-          description: Block-Storage successfully updated
+          description: |
+            Block-Storage successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/block-storage.yaml#/BlockStorage'
         '201':
-          description: Block-Storage successfully created
+          description: |
+            Block-Storage successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -445,6 +493,12 @@ paths:
       security:
         - bearerAuth: []
       summary: Delete a block-storage
+      description: |
+        Deletes a block-storage using the given name. In case the resource workspace
+        already deleted `404` is returned. For failure tolerance in case of retry the
+        client needs to accept `404` and `202` as a successful deletion. If deletion
+        of the resource takes longer deletion can be issued multiple times with the
+        same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteBlock-Storage
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -473,12 +527,14 @@ components:
 
   schemas:
     SkuIterator:
+      description: Iterator for skus
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of skus
           type: array
           items:
             $ref: './schemas/storage-sku.yaml#/StorageSku'
@@ -486,12 +542,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     QuotaIterator:
+      description: Iterator for quotas
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of quotas
           type: array
           items:
             $ref: './schemas/quotas.yaml#/ResourceQuota'
@@ -499,12 +557,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     ImageIterator:
+      description: Iterator for images
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of images
           type: array
           items:
             $ref: './schemas/image.yaml#/Image'
@@ -512,12 +572,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     Block-StorageIterator:
+      description: Iterator for block-storages
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of block-storages
           type: array
           items:
             $ref: './schemas/block-storage.yaml#/BlockStorage'

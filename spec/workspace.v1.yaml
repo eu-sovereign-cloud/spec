@@ -29,6 +29,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List workspaces
+      description: |
+        Lists workspaces and provides paginated, filtered access.
       operationId: listWorkspaces
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -59,6 +61,8 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific workspace
+      description: |
+        Get a specific workspace, useful for polling status updates of resources.
       operationId: getWorkspace
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -87,12 +91,18 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a workspace
+      description: |
+        Creates or updates a workspace. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateWorkspace
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the workspace will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -100,13 +110,17 @@ paths:
               $ref: './schemas/workspace.yaml#/Workspace'
       responses:
         '200':
-          description: Workspace successfully updated
+          description: |
+            Workspace successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/workspace.yaml#/Workspace'
         '201':
-          description: Workspace successfully created
+          description: |
+            Workspace successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -167,12 +181,14 @@ components:
 
   schemas:
     WorkspaceIterator:
+      description: Iterator for workspaces
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of workspaces
           type: array
           items:
             $ref: './schemas/workspace.yaml#/Workspace'

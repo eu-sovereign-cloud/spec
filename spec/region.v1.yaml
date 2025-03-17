@@ -30,6 +30,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List regions
+      description: |
+        Lists regions and provides paginated, filtered access.
       operationId: listRegions
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
@@ -59,6 +61,8 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific region
+      description: |
+        Get a specific region, useful for polling status updates of resources.
       operationId: getRegion
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
@@ -86,12 +90,14 @@ components:
 
   schemas:
     RegionIterator:
+      description: Iterator for regions
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of regions
           type: array
           items:
             $ref: './schemas/region.yaml#/Region'

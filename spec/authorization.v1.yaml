@@ -32,6 +32,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List roles
+      description: |
+        Lists roles and provides paginated, filtered access.
       operationId: listRoles
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -62,6 +64,8 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific role
+      description: |
+        Get a specific role, useful for polling status updates of resources.
       operationId: getRole
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -98,6 +102,8 @@ paths:
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the role will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -105,13 +111,17 @@ paths:
               $ref: './schemas/rbac.yaml#/Role'
       responses:
         '200':
-          description: Role successfully updated
+          description: |
+            Role successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/rbac.yaml#/Role'
         '201':
-          description: Role successfully created
+          description: |
+            Role successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -172,6 +182,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List role assignments
+      description: |
+        Lists role assignments and provides paginated, filtered access.
       operationId: listRoleAssignments
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -244,6 +256,8 @@ paths:
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the role assignment will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -251,13 +265,17 @@ paths:
               $ref: './schemas/rbac.yaml#/RoleAssignment'
       responses:
         '200':
-          description: Role Assignment successfully updated
+          description: |
+            Role Assignment successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/rbac.yaml#/RoleAssignment'
         '201':
-          description: Role Assignment successfully created
+          description: |
+            Role Assignment successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -315,12 +333,14 @@ components:
 
   schemas:
     RoleIterator:
+      description: Iterator for roles
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of roles
           type: array
           items:
             $ref: './schemas/rbac.yaml#/Role'
@@ -328,12 +348,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     RoleAssignmentIterator:
+      description: Iterator for role assignments
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of role assignments
           type: array
           items:
             $ref: './schemas/rbac.yaml#/RoleAssignment'

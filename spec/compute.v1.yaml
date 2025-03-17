@@ -108,6 +108,8 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific sku
+      description: |
+        Get a specific sku, useful for polling status updates of resources.
       operationId: getSku
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -137,6 +139,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List quotas
+      description: |
+        Lists quotas and provides paginated, filtered access.
       operationId: listQuotas
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -167,12 +171,18 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a quota
+      description: |
+        Creates or updates a quota. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateQuota
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the quota will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -180,13 +190,17 @@ paths:
               $ref: './schemas/quotas.yaml#/ResourceQuota'
       responses:
         '200':
-          description: Quota successfully updated
+          description: |
+            Quota successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/quotas.yaml#/ResourceQuota'
         '201':
-          description: Quota successfully created
+          description: |
+            Quota successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -215,6 +229,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List instances
+      description: |
+        Lists instances and provides paginated, filtered access.
       operationId: listInstances
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -246,6 +262,8 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific instance
+      description: |
+        Get a specific instance, useful for polling status updates of resources.
       operationId: getInstance
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -275,6 +293,10 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a instance
+      description: |
+        Creates or updates a instance. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateInstance
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -282,6 +304,8 @@ paths:
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the instance will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -289,13 +313,17 @@ paths:
               $ref: './schemas/instance.yaml#/Instance'
       responses:
         '200':
-          description: Instance successfully updated
+          description: |
+            Instance successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/instance.yaml#/Instance'
         '201':
-          description: Instance successfully created
+          description: |
+            Instance successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -323,6 +351,12 @@ paths:
       security:
         - bearerAuth: []
       summary: Delete a instance
+      description: |
+        Deletes a instance using the given name. In case the resource workspace
+        already deleted `404` is returned. For failure tolerance in case of retry the
+        client needs to accept `404` and `202` as a successful deletion. If deletion
+        of the resource takes longer deletion can be issued multiple times with the
+        same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteInstance
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -435,12 +469,14 @@ components:
 
   schemas:
     SkuIterator:
+      description: Iterator for skus
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of skus
           type: array
           items:
             $ref: './schemas/instance-sku.yaml#/InstanceSku'
@@ -448,12 +484,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     QuotaIterator:
+      description: Iterator for quotas
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of quotas
           type: array
           items:
             $ref: './schemas/quotas.yaml#/ResourceQuota'
@@ -461,12 +499,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     InstanceIterator:
+      description: Iterator for instances
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of instances
           type: array
           items:
             $ref: './schemas/instance.yaml#/Instance'

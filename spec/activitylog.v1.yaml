@@ -29,6 +29,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List activity logs
+      description: |
+        Lists activity logs and provides paginated, filtered access.
       operationId: listActivityLogs
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -59,12 +61,14 @@ components:
 
   schemas:
     ActivityLogIterator:
+      description: Iterator for activity logs
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of activity logs
           type: array
           items:
             $ref: './schemas/activity-log.yaml#/ActivityLog'

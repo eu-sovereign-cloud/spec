@@ -84,6 +84,8 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific sku
+      description: |
+        Get a specific sku, useful for polling status updates of resources.
       operationId: getSku
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -113,6 +115,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List quotas
+      description: |
+        Lists quotas and provides paginated, filtered access.
       operationId: listQuotas
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -143,12 +147,18 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a quota
+      description: |
+        Creates or updates a quota. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateQuota
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the quota will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -156,13 +166,17 @@ paths:
               $ref: './schemas/quotas.yaml#/ResourceQuota'
       responses:
         '200':
-          description: Quota successfully updated
+          description: |
+            Quota successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/quotas.yaml#/ResourceQuota'
         '201':
-          description: Quota successfully created
+          description: |
+            Quota successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -191,6 +205,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List lans
+      description: |
+        Lists lans and provides paginated, filtered access.
       operationId: listLans
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -222,6 +238,8 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific lan
+      description: |
+        Get a specific lan, useful for polling status updates of resources.
       operationId: getLan
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -251,6 +269,10 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a lan
+      description: |
+        Creates or updates a lan. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateLan
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -258,6 +280,8 @@ paths:
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the lan will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -265,13 +289,17 @@ paths:
               $ref: './schemas/lan.yaml#/Lan'
       responses:
         '200':
-          description: Lan successfully updated
+          description: |
+            Lan successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/lan.yaml#/Lan'
         '201':
-          description: Lan successfully created
+          description: |
+            Lan successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -299,6 +327,12 @@ paths:
       security:
         - bearerAuth: []
       summary: Delete a lan
+      description: |
+        Deletes a lan using the given name. In case the resource workspace
+        already deleted `404` is returned. For failure tolerance in case of retry the
+        client needs to accept `404` and `202` as a successful deletion. If deletion
+        of the resource takes longer deletion can be issued multiple times with the
+        same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteLan
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -328,10 +362,13 @@ paths:
       security:
         - bearerAuth: []
       summary: List subnets
+      description: |
+        Lists subnets and provides paginated, filtered access.
       operationId: listSubnets
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -375,17 +412,20 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}subnets/{name}:
+  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/subnets/{name}:
     get:
       tags:
         - Subnet
       security:
         - bearerAuth: []
       summary: Get a specific subnet
+      description: |
+        Get a specific subnet, useful for polling status updates of resources.
       operationId: getSubnet
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -411,13 +451,20 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a subnet
+      description: |
+        Creates or updates a subnet. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateSubnet
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the subnet will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -425,13 +472,17 @@ paths:
               $ref: './schemas/subnet.yaml#/Subnet'
       responses:
         '200':
-          description: Subnet successfully updated
+          description: |
+            Subnet successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/subnet.yaml#/Subnet'
         '201':
-          description: Subnet successfully created
+          description: |
+            Subnet successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -459,10 +510,17 @@ paths:
       security:
         - bearerAuth: []
       summary: Delete a subnet
+      description: |
+        Deletes a subnet using the given name. In case the resource workspace
+        already deleted `404` is returned. For failure tolerance in case of retry the
+        client needs to accept `404` and `202` as a successful deletion. If deletion
+        of the resource takes longer deletion can be issued multiple times with the
+        same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteSubnet
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -488,10 +546,13 @@ paths:
       security:
         - bearerAuth: []
       summary: List security-groups
+      description: |
+        Lists security-groups and provides paginated, filtered access.
       operationId: listSecurity-Groups
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -512,17 +573,20 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}security-groups/{name}:
+  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/security-groups/{name}:
     get:
       tags:
         - Security Group
       security:
         - bearerAuth: []
       summary: Get a specific security group
+      description: |
+        Get a specific security group, useful for polling status updates of resources.
       operationId: getSecurityGroup
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -548,13 +612,20 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a security group
+      description: |
+        Creates or updates a security group. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateSecurityGroup
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the security group will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -562,13 +633,17 @@ paths:
               $ref: './schemas/security-group.yaml#/SecurityGroup'
       responses:
         '200':
-          description: Security Group successfully updated
+          description: |
+            Security Group successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/security-group.yaml#/SecurityGroup'
         '201':
-          description: Security Group successfully created
+          description: |
+            Security Group successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -596,10 +671,17 @@ paths:
       security:
         - bearerAuth: []
       summary: Delete a security group
+      description: |
+        Deletes a security group using the given name. In case the resource workspace
+        already deleted `404` is returned. For failure tolerance in case of retry the
+        client needs to accept `404` and `202` as a successful deletion. If deletion
+        of the resource takes longer deletion can be issued multiple times with the
+        same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteSecurityGroup
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -625,10 +707,13 @@ paths:
       security:
         - bearerAuth: []
       summary: List nics
+      description: |
+        Lists nics and provides paginated, filtered access.
       operationId: listNics
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -649,17 +734,20 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}nics/{name}:
+  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/nics/{name}:
     get:
       tags:
         - Nic
       security:
         - bearerAuth: []
       summary: Get a specific nic
+      description: |
+        Get a specific nic, useful for polling status updates of resources.
       operationId: getNic
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -685,13 +773,20 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a nic
+      description: |
+        Creates or updates a nic. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateNic
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the nic will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -699,13 +794,17 @@ paths:
               $ref: './schemas/nic.yaml#/Nic'
       responses:
         '200':
-          description: Nic successfully updated
+          description: |
+            Nic successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/nic.yaml#/Nic'
         '201':
-          description: Nic successfully created
+          description: |
+            Nic successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -733,10 +832,17 @@ paths:
       security:
         - bearerAuth: []
       summary: Delete a nic
+      description: |
+        Deletes a nic using the given name. In case the resource workspace
+        already deleted `404` is returned. For failure tolerance in case of retry the
+        client needs to accept `404` and `202` as a successful deletion. If deletion
+        of the resource takes longer deletion can be issued multiple times with the
+        same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteNic
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -762,10 +868,13 @@ paths:
       security:
         - bearerAuth: []
       summary: List route-tables
+      description: |
+        Lists route-tables and provides paginated, filtered access.
       operationId: listRoute-Tables
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -786,17 +895,20 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}route-tables/{name}:
+  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/route-tables/{name}:
     get:
       tags:
         - Route-Table
       security:
         - bearerAuth: []
       summary: Get a specific route-table
+      description: |
+        Get a specific route-table, useful for polling status updates of resources.
       operationId: getRoute-Table
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -822,13 +934,20 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a route-table
+      description: |
+        Creates or updates a route-table. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateRoute-Table
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the route-table will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -836,13 +955,17 @@ paths:
               $ref: './schemas/route-table.yaml#/RouteTable'
       responses:
         '200':
-          description: Route-Table successfully updated
+          description: |
+            Route-Table successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/route-table.yaml#/RouteTable'
         '201':
-          description: Route-Table successfully created
+          description: |
+            Route-Table successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -870,10 +993,17 @@ paths:
       security:
         - bearerAuth: []
       summary: Delete a route-table
+      description: |
+        Deletes a route-table using the given name. In case the resource workspace
+        already deleted `404` is returned. For failure tolerance in case of retry the
+        client needs to accept `404` and `202` as a successful deletion. If deletion
+        of the resource takes longer deletion can be issued multiple times with the
+        same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteRoute-Table
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -899,10 +1029,13 @@ paths:
       security:
         - bearerAuth: []
       summary: List public ips
+      description: |
+        Lists public ips and provides paginated, filtered access.
       operationId: listPublicIps
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -923,17 +1056,20 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}public-ips/{name}:
+  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/public-ips/{name}:
     get:
       tags:
         - Public Ip
       security:
         - bearerAuth: []
       summary: Get a specific public ip
+      description: |
+        Get a specific public ip, useful for polling status updates of resources.
       operationId: getPublicIp
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -959,13 +1095,20 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a public ip
+      description: |
+        Creates or updates a public ip. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdatePublicIp
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the public ip will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -973,13 +1116,17 @@ paths:
               $ref: './schemas/public-ip.yaml#/PublicIp'
       responses:
         '200':
-          description: Public Ip successfully updated
+          description: |
+            Public Ip successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/public-ip.yaml#/PublicIp'
         '201':
-          description: Public Ip successfully created
+          description: |
+            Public Ip successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -1007,10 +1154,17 @@ paths:
       security:
         - bearerAuth: []
       summary: Delete a public ip
+      description: |
+        Deletes a public ip using the given name. In case the resource workspace
+        already deleted `404` is returned. For failure tolerance in case of retry the
+        client needs to accept `404` and `202` as a successful deletion. If deletion
+        of the resource takes longer deletion can be issued multiple times with the
+        same result `202`, in all cased the resource will be only deleted once.
       operationId: deletePublicIp
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
         - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -1035,12 +1189,14 @@ components:
 
   schemas:
     SkuIterator:
+      description: Iterator for skus
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of skus
           type: array
           items:
             $ref: './schemas/network-sku.yaml#/NetworkSku'
@@ -1048,12 +1204,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     QuotaIterator:
+      description: Iterator for quotas
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of quotas
           type: array
           items:
             $ref: './schemas/quotas.yaml#/ResourceQuota'
@@ -1061,12 +1219,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     LanIterator:
+      description: Iterator for lans
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of lans
           type: array
           items:
             $ref: './schemas/lan.yaml#/Lan'
@@ -1074,12 +1234,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     SubnetIterator:
+      description: Iterator for subnets
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of subnets
           type: array
           items:
             $ref: './schemas/subnet.yaml#/Subnet'
@@ -1087,12 +1249,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     SecurityGroupIterator:
+      description: Iterator for security-groups
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of security-groups
           type: array
           items:
             $ref: './schemas/security-group.yaml#/SecurityGroup'
@@ -1100,12 +1264,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     NicIterator:
+      description: Iterator for nics
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of nics
           type: array
           items:
             $ref: './schemas/nic.yaml#/Nic'
@@ -1113,12 +1279,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     Route-TableIterator:
+      description: Iterator for route-tables
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of route-tables
           type: array
           items:
             $ref: './schemas/route-table.yaml#/RouteTable'
@@ -1126,12 +1294,14 @@ components:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
     PublicIpIterator:
+      description: Iterator for public ips
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of public ips
           type: array
           items:
             $ref: './schemas/public-ip.yaml#/PublicIp'

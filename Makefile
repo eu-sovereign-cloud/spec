@@ -77,11 +77,11 @@ $(DIST)/$(DOCS)/%.html: $(DOCS)/%.md
 	$(GO) run $(MD2HTML) -headingids -css ../../assets/github-markdown.css $< $@
 
 .PHONY: lint
-lint: $(SCHEMAS_FINAL)
+lint: $(GOMPLATE_FINAL) $(SCHEMAS_FINAL)
 	$(VACUUM) lint $(VACUUM_LINT_FLAGS) $(SCHEMAS_FINAL)
 
 .PHONY: lint-verbose
-lint-verbose: $(SCHEMAS_FINAL)
+lint-verbose: $(GOMPLATE_FINAL) $(SCHEMAS_FINAL)
 	$(VACUUM) lint $(VACUUM_LINT_FLAGS) -d $(SCHEMAS_FINAL)
 
 .PHONY: clean

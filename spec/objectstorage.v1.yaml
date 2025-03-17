@@ -29,6 +29,8 @@ paths:
       security:
         - bearerAuth: []
       summary: List accounts
+      description: |
+        Lists accounts and provides paginated, filtered access.
       operationId: listAccounts
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -60,6 +62,8 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific account
+      description: |
+        Get a specific account, useful for polling status updates of resources.
       operationId: getAccount
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -89,6 +93,10 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a account
+      description: |
+        Creates or updates a account. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
       operationId: createOrUpdateAccount
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -96,6 +104,8 @@ paths:
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
+        description: |
+          Any provided `metadata` on the account will be ignored by the resource server.
         required: true
         content:
           application/json:
@@ -103,13 +113,17 @@ paths:
               $ref: './schemas/object-storage.yaml#/ObjectStorageAccount'
       responses:
         '200':
-          description: Account successfully updated
+          description: |
+            Account successfully updated, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
                 $ref: './schemas/object-storage.yaml#/ObjectStorageAccount'
         '201':
-          description: Account successfully created
+          description: |
+            Account successfully created, doesn't indicate successful
+            resource provisioning.
           content:
             application/json:
               schema:
@@ -137,6 +151,12 @@ paths:
       security:
         - bearerAuth: []
       summary: Delete a account
+      description: |
+        Deletes a account using the given name. In case the resource workspace
+        already deleted `404` is returned. For failure tolerance in case of retry the
+        client needs to accept `404` and `202` as a successful deletion. If deletion
+        of the resource takes longer deletion can be issued multiple times with the
+        same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteAccount
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
@@ -165,12 +185,14 @@ components:
 
   schemas:
     AccountIterator:
+      description: Iterator for accounts
       type: object
       required:
         - items
         - metadata
       properties:
         items:
+          description: List of accounts
           type: array
           items:
             $ref: './schemas/object-storage.yaml#/ObjectStorageAccount'
