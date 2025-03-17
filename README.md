@@ -192,3 +192,6 @@ This is the first release of the SECA API. For this release we decided to restri
 
 * [ ] SKU
 * [ ] Basic API
+
+## Contributing
+Check our contribution [guide](CONTRIBUTING.md)
