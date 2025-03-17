@@ -12,4 +12,3 @@ resources:
     workspace: false
     schema: './schemas/region.yaml#/Region'
     operations: [list, get]
-    description: {}

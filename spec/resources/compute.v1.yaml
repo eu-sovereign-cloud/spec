@@ -45,7 +45,6 @@ resources:
     workspace: true
     schema: ./schemas/instance.yaml#/Instance
     operations: [list, get, put, delete]
-    description: {}
     actions:
     - name: power cycle
       description: Power cycle (reboot) a specific instance
