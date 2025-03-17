@@ -1,0 +1,14 @@
+title: Load Balancer
+name: loadbalancer
+version: v1
+description: |
+  The Load Balancer API provides access to Network Load Balancer resources.
+  This API is part of the Sovereign European Cloud API.
+resources:
+  - name: network load balancer
+    plural: network load balancers
+    tenant: true
+    workspace: true
+    schema: ./schemas/load-balancer.yaml#/NetworkLoadBalancer
+    operations: [list, get, put, delete]
+    description: {}

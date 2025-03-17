@@ -26,7 +26,7 @@ tags:
 paths:
 {{- range $spec.resources }}
   {{- if coll.Has .operations "list" }}
-  /{{ $spec.version }}/{{ if .tenant }}tenants/{id}/{{ end }}{{ .plural }}:
+  /{{ $spec.version }}/{{ if .tenant }}tenants/{id}/{{ end }}{{ if .workspace }}workspaces/{workspace}/{{ end }}{{ .plural | strings.Slug }}:
     get:
       tags:
         - {{ .name | strings.Title }}
@@ -37,10 +37,13 @@ paths:
       description: |
 {{ .description.list | strings.TrimSpace | indent 8 }}
       {{- end }}
-      operationId: list{{ .plural | strings.Title }}
+      operationId: list{{ .plural | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- if .tenant }}
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+      {{- end }}
+      {{- if .workspace }}
+        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
       {{- end }}
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
@@ -52,7 +55,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/{{ .name | strings.Title }}Iterator"
+                $ref: "#/components/schemas/{{ .name | strings.Title | strings.ReplaceAll " " "" }}Iterator"
         '400':
           $ref: './schemas/errors.yaml#/responses/Error400'
         '401':
@@ -64,7 +67,7 @@ paths:
   {{- end }}
 
   {{- if or (coll.Has .operations "get") (coll.Has .operations "put") (coll.Has .operations "delete") }}
-  /{{ $spec.version }}/{{ if .tenant }}tenants/{id}/{{ end }}{{ .plural }}/{name}:
+  /{{ $spec.version }}/{{ if .tenant }}tenants/{id}/{{ end }}{{ if .workspace }}workspaces/{workspace}/{{ end }}{{ .plural | strings.Slug  }}/{name}:
   {{- if coll.Has .operations "get" }}
     get:
       tags:
@@ -76,10 +79,13 @@ paths:
       description: |
 {{ .description.get | strings.TrimSpace | indent 8 }}
       {{- end }}
-      operationId: get{{ .name | strings.Title }}
+      operationId: get{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- if .tenant }}
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+      {{- end }}
+      {{- if .workspace }}
+        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
       {{- end }}
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
@@ -112,10 +118,13 @@ paths:
       description: |
 {{ .description.put | strings.TrimSpace | indent 8 }}
       {{- end }}
-      operationId: createOrUpdate{{ .name | strings.Title }}
+      operationId: createOrUpdate{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- if .tenant }}
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+      {{- end }}
+      {{- if .workspace }}
+        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
       {{- end }}
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -161,10 +170,13 @@ paths:
       description: |
 {{ .description.delete | strings.TrimSpace | indent 8 }}
       {{- end }}
-      operationId: delete{{ .name | strings.Title }}
+      operationId: delete{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- if .tenant }}
         - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+      {{- end }}
+      {{- if .workspace }}
+        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
       {{- end }}
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -193,7 +205,7 @@ components:
 
   schemas:
 {{- range $spec.resources }}
-    {{ .name | strings.Title }}Iterator:
+    {{ .name | strings.Title | strings.ReplaceAll " " "" }}Iterator:
       type: object
       required:
         - items

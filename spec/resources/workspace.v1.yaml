@@ -8,6 +8,7 @@ resources:
   - name: workspace
     plural: workspaces
     tenant: true
+    workspace: false
     schema: ./schemas/workspace.yaml#/Workspace
     operations: [list, get, put, delete]
     description:
