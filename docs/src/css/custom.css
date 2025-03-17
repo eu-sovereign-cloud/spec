@@ -1,0 +1,41 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #0969b2;/*#9b3803;*/
+  --ifm-color-primary-dark: #8c3203;
+  --ifm-color-primary-darker: #843003;
+  --ifm-color-primary-darkest: #6d2702;
+  --ifm-color-primary-light: #ab3e03;
+  --ifm-color-primary-lighter: #b24003;
+  --ifm-color-primary-lightest: #ca4904;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #4aa8ff; /* Bright but soft blue */
+  --ifm-color-primary-dark: #3b8fde; /* Slightly deeper blue */
+  --ifm-color-primary-darker: #2f7fc2; /* More contrast */
+  --ifm-color-primary-darkest: #2268a5; /* Darkest contrast */
+  --ifm-color-primary-light: #66b5ff; /* Slightly lighter */
+  --ifm-color-primary-lighter: #7fc2ff; /* Softer pastel blue */
+  --ifm-color-primary-lightest: #a1d5ff; /* Lightest tint */
+
+  /* Code block improvements */
+  --docusaurus-highlighted-code-line-bg: rgba(74, 168, 255, 0.2);
+  --ifm-code-background: #1e1e2e; /* Dark background for better contrast */
+  --ifm-code-color: #a8d5ff; /* Soft cyan for readability */
+
+  /* Background and text contrast */
+  --ifm-background-color: #121826; /* Dark but not pure black */
+  --ifm-background-surface-color: #1a2332; /* Slight contrast for cards */
+  --ifm-text-color: #dce1ea; /* Light but not harsh white */
+  --ifm-navbar-background-color: #141b27; /* Navbar with subtle blue tint */
+  --ifm-footer-background-color: #141b27; /* Footer matching navbar */
+}
