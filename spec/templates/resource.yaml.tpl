@@ -136,7 +136,13 @@ paths:
               $ref: '{{ .schema }}'
       responses:
         '200':
-          description: {{ .name | strings.Title }} successfully updated or created
+          description: {{ .name | strings.Title }} successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '{{ .schema }}'
+        '201':
+          description: {{ .name | strings.Title }} successfully created
           content:
             application/json:
               schema:

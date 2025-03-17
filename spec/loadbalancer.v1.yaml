@@ -101,7 +101,13 @@ paths:
               $ref: './schemas/load-balancer.yaml#/NetworkLoadBalancer'
       responses:
         '200':
-          description: Network Load Balancer successfully updated or created
+          description: Network Load Balancer successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/load-balancer.yaml#/NetworkLoadBalancer'
+        '201':
+          description: Network Load Balancer successfully created
           content:
             application/json:
               schema:

@@ -98,7 +98,13 @@ paths:
               $ref: './schemas/workspace.yaml#/Workspace'
       responses:
         '200':
-          description: Workspace successfully updated or created
+          description: Workspace successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/workspace.yaml#/Workspace'
+        '201':
+          description: Workspace successfully created
           content:
             application/json:
               schema:
