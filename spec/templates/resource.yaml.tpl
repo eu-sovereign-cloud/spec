@@ -33,7 +33,7 @@ paths:
       security:
         - bearerAuth: []
       summary: List {{ .plural }}
-      {{- if coll.Has .description "list" }}
+      {{- if and (coll.Has . "description") (coll.Has .description "list") }}
       description: |
 {{ .description.list | strings.TrimSpace | indent 8 }}
       {{- end }}
@@ -56,6 +56,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/{{ .name | strings.Title | strings.ReplaceAll " " "" }}Iterator"
+              {{- if and (coll.Has . "example") (coll.Has .description "list") }}
+              example:
+{{ .example.list | data.ToYAML | indent 16 }}
+              {{- end }}
         '400':
           $ref: './schemas/errors.yaml#/responses/Error400'
         '401':
@@ -64,8 +68,7 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error403'
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
-  {{- end }}
-
+  {{ end }}
   {{- if or (coll.Has .operations "get") (coll.Has .operations "put") (coll.Has .operations "delete") }}
   /{{ $spec.version }}/{{ if .tenant }}tenants/{id}/{{ end }}{{ if .workspace }}workspaces/{workspace}/{{ end }}{{ .plural | strings.Slug  }}/{name}:
   {{- if coll.Has .operations "get" }}
@@ -75,7 +78,7 @@ paths:
       security:
         - bearerAuth: []
       summary: Get a specific {{ .name }}
-      {{- if coll.Has .description "get" }}
+      {{- if and (coll.Has . "description") (coll.Has .description "get") }}
       description: |
 {{ .description.get | strings.TrimSpace | indent 8 }}
       {{- end }}
@@ -95,6 +98,10 @@ paths:
             application/json:
               schema:
                 $ref: '{{ .schema }}'
+              {{- if and (coll.Has . "example") (coll.Has .description "get") }}
+              example:
+{{ .example.get | data.ToYAML | indent 16 }}
+              {{- end }}
         '400':
           $ref: './schemas/errors.yaml#/responses/Error400'
         '401':
@@ -105,8 +112,7 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error404'
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
-    {{- end }}
-
+    {{ end }}
     {{- if coll.Has .operations "put" }}
     put:
       tags:
@@ -114,7 +120,7 @@ paths:
       security:
         - bearerAuth: []
       summary: Create or update a {{ .name }}
-      {{- if coll.Has .description "put" }}
+      {{- if and (coll.Has . "description") (coll.Has .description "put") }}
       description: |
 {{ .description.put | strings.TrimSpace | indent 8 }}
       {{- end }}
@@ -134,6 +140,10 @@ paths:
           application/json:
             schema:
               $ref: '{{ .schema }}'
+              {{- if and (coll.Has . "example") (coll.Has .description "putRequest") }}
+              example:
+{{ .example.putRequest | data.ToYAML | indent 16 }}
+              {{- end }}
       responses:
         '200':
           description: {{ .name | strings.Title }} successfully updated
@@ -141,12 +151,20 @@ paths:
             application/json:
               schema:
                 $ref: '{{ .schema }}'
+              {{- if and (coll.Has . "example") (coll.Has .description "putResponse") }}
+              example:
+{{ .example.putResponse | data.ToYAML | indent 16 }}
+              {{- end }}
         '201':
           description: {{ .name | strings.Title }} successfully created
           content:
             application/json:
               schema:
                 $ref: '{{ .schema }}'
+              {{- if and (coll.Has . "example") (coll.Has .description "putResponse") }}
+              example:
+{{ .example.putResponse | data.ToYAML | indent 16 }}
+              {{- end }}
         '400':
           $ref: './schemas/errors.yaml#/responses/Error400'
         '401':
@@ -163,8 +181,7 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error422'
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
-    {{- end }}
-
+    {{ end }}
     {{- if coll.Has .operations "delete" }}
     delete:
       tags:
@@ -172,7 +189,7 @@ paths:
       security:
         - bearerAuth: []
       summary: Delete a {{ .name }}
-      {{- if coll.Has .description "delete" }}
+      {{- if and (coll.Has . "description") (coll.Has .description "delete") }}
       description: |
 {{ .description.delete | strings.TrimSpace | indent 8 }}
       {{- end }}
@@ -201,10 +218,47 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error412'
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
+    {{ end }}
+    {{- $resource := . }}
+    {{- if coll.Has . "actions" }}
+    {{- range .actions }}
+  /{{ $spec.version }}/{{ if $resource.tenant }}tenants/{id}/{{ end }}{{ if $resource.workspace }}workspaces/{workspace}/{{ end }}{{ $resource.plural | strings.Slug  }}/{name}/{{ .name | strings.Slug }}:
+    post:
+      tags:
+        - {{ $resource.name | strings.Title }}
+      security:
+        - bearerAuth: []
+      summary: {{ .name }} {{ $resource.name }}
+      {{- if coll.Has . "description" }}
+      description: |
+{{ .description | strings.TrimSpace | indent 8 }}
+      {{- end }}
+      operationId: {{ .name | strings.Title | strings.ReplaceAll " " "" }}{{ $resource.name | strings.Title }}
+      parameters:
+      {{- if $resource.tenant }}
+        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+      {{- end }}
+      {{- if $resource.workspace }}
+        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+      {{- end }}
+        - $ref: './schemas/parameters.yaml#/parameters/resourceName'
+      responses:
+        '202':
+          description: action accepted
+        '400':
+          $ref: './schemas/errors.yaml#/responses/Error400'
+        '401':
+          $ref: './schemas/errors.yaml#/responses/Error401'
+        '403':
+          $ref: './schemas/errors.yaml#/responses/Error403'
+        '404':
+          $ref: './schemas/errors.yaml#/responses/Error404'
+        '500':
+          $ref: './schemas/errors.yaml#/responses/Error500'
+    {{ end }}
     {{- end }}
   {{- end }}
 {{- end }}
-
 components:
   securitySchemes:
     $ref: './schemas/security.yaml#/securitySchemes'
@@ -223,4 +277,4 @@ components:
             $ref: '{{ .schema }}'
         metadata:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
-{{- end }}
+{{ end }}

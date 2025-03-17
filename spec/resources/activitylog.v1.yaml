@@ -11,4 +11,3 @@ resources:
     workspace: true
     schema: ./schemas/activity-log.yaml#/ActivityLog
     operations: [list]
-    description: {}

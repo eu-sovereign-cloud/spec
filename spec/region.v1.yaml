@@ -51,6 +51,7 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error403'
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
+  
   /v1/regions/{name}:
     get:
       tags:
@@ -78,7 +79,7 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error404'
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
-
+    
 components:
   securitySchemes:
     $ref: './schemas/security.yaml#/securitySchemes'

@@ -52,6 +52,7 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error403'
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
+  
   /v1/tenants/{id}/workspaces/{workspace}/network-load-balancers/{name}:
     get:
       tags:
@@ -81,6 +82,7 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error404'
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
+    
     put:
       tags:
         - Network Load Balancer
@@ -128,6 +130,7 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error422'
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
+    
     delete:
       tags:
         - Network Load Balancer
@@ -155,7 +158,7 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error412'
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
-
+    
 components:
   securitySchemes:
     $ref: './schemas/security.yaml#/securitySchemes'

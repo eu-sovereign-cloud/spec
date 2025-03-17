@@ -11,4 +11,3 @@ resources:
     workspace: true
     schema: ./schemas/load-balancer.yaml#/NetworkLoadBalancer
     operations: [list, get, put, delete]
-    description: {}
