@@ -26,6 +26,8 @@ paths:
     get:
       tags:
         - Workspace
+      security:
+        - bearerAuth: []
       summary: List workspaces
       operationId: listWorkspaces
       parameters:
@@ -53,6 +55,8 @@ paths:
     get:
       tags:
         - Workspace
+      security:
+        - bearerAuth: []
       summary: Get a specific workspace
       operationId: getWorkspace
       parameters:
@@ -78,6 +82,8 @@ paths:
     put:
       tags:
         - Workspace
+      security:
+        - bearerAuth: []
       summary: Create or update a workspace
       operationId: createOrUpdateWorkspace
       parameters:
@@ -116,6 +122,8 @@ paths:
     delete:
       tags:
         - Workspace
+      security:
+        - bearerAuth: []
       summary: Delete a workspace
       description: |
         Deletes the specified workspace. When a workspace is deleted:

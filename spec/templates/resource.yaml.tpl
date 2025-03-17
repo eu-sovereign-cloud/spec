@@ -30,6 +30,8 @@ paths:
     get:
       tags:
         - {{ .name | strings.Title }}
+      security:
+        - bearerAuth: []
       summary: List {{ .plural }}
       {{- if coll.Has .description "list" }}
       description: |
@@ -67,6 +69,8 @@ paths:
     get:
       tags:
         - {{ .name | strings.Title }}
+      security:
+        - bearerAuth: []
       summary: Get a specific {{ .name }}
       {{- if coll.Has .description "get" }}
       description: |
@@ -101,6 +105,8 @@ paths:
     put:
       tags:
         - {{ .name | strings.Title }}
+      security:
+        - bearerAuth: []
       summary: Create or update a {{ .name }}
       {{- if coll.Has .description "put" }}
       description: |
@@ -148,6 +154,8 @@ paths:
     delete:
       tags:
         - {{ .name | strings.Title }}
+      security:
+        - bearerAuth: []
       summary: Delete a {{ .name }}
       {{- if coll.Has .description "delete" }}
       description: |

@@ -41,6 +41,8 @@ $(DIST_ZIP): build
 
 build: $(DIST) $(GOMPLATE_FINAL) $(SCHEMAS_FINAL) $(DOCS_FINAL) $(MD_FINAL) $(DIST)/index.html fix-links
 
+resource-apis: $(GOMPLATE_FINAL)
+
 fix-links:
 	# Detect OS and set proper sed flags
 	@if sed --version >/dev/null 2>&1; then \
