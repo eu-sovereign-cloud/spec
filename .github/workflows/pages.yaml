@@ -1,15 +1,14 @@
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "feature/doc-integration" ]
+    #branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 name: Pages
 
-env:
-  GOPRIVATE: "github.com/eu-sovereign-cloud"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -25,27 +24,43 @@ concurrency:
 
 jobs:
   deploy:
-    name: Build and Publish
+    name: Build and Deploy Docusaurus
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install Go
-        uses: actions/setup-go@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          go-version: '>=1.23.0'
-      - name: Build
-        run: make
-      - name: Setup Pages
+          node-version: 18
+          cache: npm
+          cache-dependency-path: docs/package-lock.json  # Ensure caching works for `docs/`
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: docs  # Run inside `docs/`
+
+      - name: Build Docusaurus
+        run: npm run gen-api-docs all
+        working-directory: docs  # Build inside `docs/`
+
+      - name: Build Docusaurus
+        run: npm run build
+        working-directory: docs  # Build inside `docs/`
+
+      - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/
+          path: docs/build/  # Ensure correct upload path
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
