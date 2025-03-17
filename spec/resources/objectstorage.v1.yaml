@@ -1,0 +1,13 @@
+title: Object Storage
+name: objectstorage
+version: v1
+description: |
+  The Object Storage API provides access to Object Storage resources.
+  This API is part of the Sovereign European Cloud API.
+resources:
+  - name: account
+    plural: accounts
+    tenant: true
+    workspace: true
+    schema: ./schemas/object-storage.yaml#/ObjectStorageAccount
+    operations: [list, get, put, delete]
