@@ -26,7 +26,7 @@ tags:
 paths:
 {{- range $spec.resources }}
   {{- if coll.Has .operations "list" }}
-  /{{ $spec.version }}/{{ if .tenant }}tenants/{id}/{{ end }}{{ if .workspace }}workspaces/{workspace}/{{ end }}{{ .plural | strings.Slug }}:
+  /{{ $spec.version }}/{{ if .tenant }}tenants/{id}/{{ end }}{{ if .workspace }}workspaces/{workspace}/{{ end }}{{ if and (coll.Has . "lan") .lan }}lans/{lan}/{{ end }}{{ .plural | strings.Slug }}:
     get:
       tags:
         - {{ .name | strings.Title }}
@@ -56,7 +56,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/{{ .name | strings.Title | strings.ReplaceAll " " "" }}Iterator"
-              {{- if and (coll.Has . "example") (coll.Has .description "list") }}
+              {{- if and (coll.Has . "example") (coll.Has .example "list") }}
               example:
 {{ .example.list | data.ToYAML | indent 16 }}
               {{- end }}
@@ -70,7 +70,7 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error500'
   {{ end }}
   {{- if or (coll.Has .operations "get") (coll.Has .operations "put") (coll.Has .operations "delete") }}
-  /{{ $spec.version }}/{{ if .tenant }}tenants/{id}/{{ end }}{{ if .workspace }}workspaces/{workspace}/{{ end }}{{ .plural | strings.Slug  }}/{name}:
+  /{{ $spec.version }}/{{ if .tenant }}tenants/{id}/{{ end }}{{ if .workspace }}workspaces/{workspace}/{{ end }}{{ if and (coll.Has . "lan") .lan }}lans/{lan}{{ end }}{{ .plural | strings.Slug  }}/{name}:
   {{- if coll.Has .operations "get" }}
     get:
       tags:
@@ -98,7 +98,7 @@ paths:
             application/json:
               schema:
                 $ref: '{{ .schema }}'
-              {{- if and (coll.Has . "example") (coll.Has .description "get") }}
+              {{- if and (coll.Has . "example") (coll.Has .example "get") }}
               example:
 {{ .example.get | data.ToYAML | indent 16 }}
               {{- end }}
@@ -140,7 +140,7 @@ paths:
           application/json:
             schema:
               $ref: '{{ .schema }}'
-              {{- if and (coll.Has . "example") (coll.Has .description "putRequest") }}
+              {{- if and (coll.Has . "example") (coll.Has .example "putRequest") }}
               example:
 {{ .example.putRequest | data.ToYAML | indent 16 }}
               {{- end }}
@@ -151,7 +151,7 @@ paths:
             application/json:
               schema:
                 $ref: '{{ .schema }}'
-              {{- if and (coll.Has . "example") (coll.Has .description "putResponse") }}
+              {{- if and (coll.Has . "example") (coll.Has .example "putResponse") }}
               example:
 {{ .example.putResponse | data.ToYAML | indent 16 }}
               {{- end }}
@@ -161,7 +161,7 @@ paths:
             application/json:
               schema:
                 $ref: '{{ .schema }}'
-              {{- if and (coll.Has . "example") (coll.Has .description "putResponse") }}
+              {{- if and (coll.Has . "example") (coll.Has .example "putResponse") }}
               example:
 {{ .example.putResponse | data.ToYAML | indent 16 }}
               {{- end }}
@@ -222,7 +222,7 @@ paths:
     {{- $resource := . }}
     {{- if coll.Has . "actions" }}
     {{- range .actions }}
-  /{{ $spec.version }}/{{ if $resource.tenant }}tenants/{id}/{{ end }}{{ if $resource.workspace }}workspaces/{workspace}/{{ end }}{{ $resource.plural | strings.Slug  }}/{name}/{{ .name | strings.Slug }}:
+  /{{ $spec.version }}/{{ if $resource.tenant }}tenants/{id}/{{ end }}{{ if $resource.workspace }}workspaces/{workspace}/{{ end }}{{ if and (coll.Has . "lan") .lan }}lans/{lan}{{ end }}{{ $resource.plural | strings.Slug  }}/{name}/{{ .name | strings.Slug }}:
     post:
       tags:
         - {{ $resource.name | strings.Title }}
