@@ -17,7 +17,7 @@ To foster a positive and inclusive environment, we adhere to a Code of Conduct t
 ## Contribution Types
 
 The contributions that the community can provide are the following:
-- Proposing New API Features or Modifications: Suggest new endpoints, parameter changes, or response structures.
+- Proposing New API Features or Modifications: Suggest new endpoints, parameter changes, response structures or cloud resources.
 - Reporting Issues: Identify inconsistencies, ambiguities, or errors in the API.
 - Improving Documentation: Enhance clarity, add examples, …
 
