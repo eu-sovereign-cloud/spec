@@ -1,6 +1,7 @@
 GO ?= go
 VACUUM = github.com/daveshanley/vacuum@latest
 MD2HTML = github.com/gomarkdown/mdtohtml@latest
+GOMPLATE = github.com/hairyhenderson/gomplate/v4/cmd/gomplate@latest
 ROOT = spec
 DIST = dist
 DIST_ZIP = dist.zip
@@ -21,6 +22,10 @@ SCHEMAS := $(shell find $(ROOT)/schemas -type f)
 SCHEMAS_SOURCES := $(shell ls $(ROOT)/*.yaml)
 SCHEMAS_FINAL = $(SCHEMAS_SOURCES:$(ROOT)/%.yaml=$(DIST)/specs/%.yaml)
 
+GOMPLATE_TEMPLATE = spec/templates/resource.yaml.tpl
+GOMPLATE_SOURCES = $(shell find $(ROOT)/resources -type f -name '*.yaml')
+GOMPLATE_FINAL = $(GOMPLATE_SOURCES:$(ROOT)/resources/%.yaml=$(ROOT)/%.yaml)
+
 DOCS_FINAL = $(SCHEMAS_SOURCES:$(ROOT)/%.yaml=$(DIST)/%.html)
 
 MD_FINAL = $(DOCS_FILES:$(DOCS)/%.md=$(DIST)/$(DOCS)/%.html)
@@ -34,7 +39,7 @@ $(DIST_ZIP): build
 	rm -f $@
 	cd $(DIST) && zip -r ../$@ *
 
-build: $(DIST) $(SCHEMAS_FINAL) $(DOCS_FINAL) $(MD_FINAL) $(DIST)/index.html fix-links
+build: $(DIST) $(GOMPLATE_FINAL) $(SCHEMAS_FINAL) $(DOCS_FINAL) $(MD_FINAL) $(DIST)/index.html fix-links
 
 fix-links:
 	# Detect OS and set proper sed flags
@@ -53,6 +58,9 @@ $(DIST)/index.html: $(README)
 $(DIST): $(ASSETS_FILES) 
 	@mkdir -p $(DIST)/$(ASSETS)
 	@find $(ASSETS) -type f -exec cp {} $(DIST)/$(ASSETS)/ \;
+
+$(ROOT)/%.yaml: $(ROOT)/resources/%.yaml $(GOMPLATE_TEMPLATE)
+	$(GO) run $(GOMPLATE) -d spec=$< -f $(GOMPLATE_TEMPLATE) -o $@
 
 $(DIST)/specs/%.yaml: $(ROOT)/%.yaml $(SCHEMAS)
 	@mkdir -p $(shell dirname $@)
