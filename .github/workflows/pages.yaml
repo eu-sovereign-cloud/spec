@@ -24,11 +24,11 @@ concurrency:
 
 jobs:
   deploy:
-    name: Build and Deploy Docusaurus
+    name: Build and Deploy Doc Page
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+#    environment:
+#      name: github-pages
+#      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout repository
@@ -39,19 +39,23 @@ jobs:
         with:
           node-version: 18
           cache: npm
-          cache-dependency-path: docs/package-lock.json  # Ensure caching works for `docs/`
+          cache-dependency-path: website/package-lock.json 
 
       - name: Install dependencies
         run: npm ci
-        working-directory: docs  # Run inside `docs/`
+        working-directory: website  
+
+      - name: Generate Docusaurus config
+        run: npm run gen-api-docs all
+        working-directory: website  
 
       - name: Build Docusaurus
-        run: npm run gen-api-docs all
-        working-directory: docs  # Build inside `docs/`
+        run: npm run generate-config
+        working-directory: website  
 
       - name: Build Docusaurus
         run: npm run build
-        working-directory: docs  # Build inside `docs/`
+        working-directory: website
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
@@ -59,7 +63,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/build/  # Ensure correct upload path
+          path: website/build/  # Ensure correct upload path
 
       - name: Deploy to GitHub Pages
         id: deployment

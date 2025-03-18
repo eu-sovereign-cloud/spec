@@ -1,21 +1,24 @@
-# Ignore dependencies and package manager lock files inside docs/
-docs/node_modules/
-docs/package-lock.json
-docs/pnpm-lock.yaml
-docs/yarn.lock
+# Ignore dependencies and package manager lock files inside website/
+website/node_modules/
+website/package-lock.json
+website/pnpm-lock.yaml
+website/yarn.lock
 
 # Ignore Docusaurus build output
-docs/build/
-docs/.cache/
-docs/.docusaurus/
+website/build/
+website/.cache/
+website/.docusaurus/
 
-# Ignore auto-generated API docs
-docs/docs/api/
+# Ignore auto-generated API website
+website/website/api/
 
 # Logs
-docs/npm-debug.log*
-docs/yarn-debug.log*
-docs/yarn-error.log*
+website/npm-debug.log*
+website/yarn-debug.log*
+website/yarn-error.log*
+
+#Docusaurus Config
+website/docusaurus.config.js
 
 # Editor/IDE files
 .vscode/
