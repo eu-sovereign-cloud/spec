@@ -22,7 +22,7 @@ tags:
     description: Activity Log management
 
 paths:
-  /v1/tenants/{id}/workspaces/{workspace}/activity-logs:
+  /v1/tenants/{tenant}/workspaces/{workspace}/activity-logs:
     get:
       tags:
         - Activity Log
@@ -33,8 +33,8 @@ paths:
         Lists activity logs and provides paginated, filtered access.
       operationId: listActivityLogs
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'

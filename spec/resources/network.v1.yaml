@@ -7,8 +7,7 @@ description: |
 resources:
   - name: sku
     plural: skus
-    tenant: true
-    workspace: false
+    hierarchy: [tenant]
     schema: ./schemas/network-sku.yaml#/NetworkSku
     operations: [list, get]
     description:
@@ -25,21 +24,17 @@ resources:
         | SECA | seca.1000 | 1000 Mbps | High-bandwidth network tier |
   - name: quota
     plural: quotas
-    tenant: true
-    workspace: false
+    hierarchy: [tenant]
     schema: ./schemas/quotas.yaml#/ResourceQuota
     operations: [list, put]
   - name: lan
     plural: lans
-    tenant: true
-    workspace: true
+    hierarchy: [tenant, workspace]
     schema: './schemas/lan.yaml#/Lan'
     operations: [list, get, put, delete]
   - name: subnet
     plural: subnets
-    tenant: true
-    workspace: true
-    lan: true
+    hierarchy: [tenant, workspace, lan]
     schema: './schemas/subnet.yaml#/Subnet'
     operations: [list, get, put, delete]
     example:
@@ -67,29 +62,21 @@ resources:
               value: 'network-firewall-01'
   - name: security group
     plural: security-groups
-    tenant: true
-    workspace: true
-    lan: true
+    hierarchy: [tenant, workspace, lan]
     schema: './schemas/security-group.yaml#/SecurityGroup'
     operations: [list, get, put, delete]
   - name: nic
     plural: nics
-    tenant: true
-    workspace: true
-    lan: true
+    hierarchy: [tenant, workspace, lan]
     schema: './schemas/nic.yaml#/Nic'
     operations: [list, get, put, delete]
   - name: route-table
     plural: route-tables
-    tenant: true
-    workspace: true
-    lan: true
+    hierarchy: [tenant, workspace, lan]
     schema: './schemas/route-table.yaml#/RouteTable'
     operations: [list, get, put, delete]
   - name: public ip
     plural: public ips
-    tenant: true
-    workspace: true
-    lan: true
+    hierarchy: [tenant, workspace, lan]
     schema: './schemas/public-ip.yaml#/PublicIp'
     operations: [list, get, put, delete]

@@ -8,8 +8,7 @@ description: |
 resources:
   - name: role
     plural: roles
-    tenant: true
-    workspace: false
+    hierarchy: [tenant]
     schema: ./schemas/rbac.yaml#/Role
     operations: [list, get, put, delete]
     description:
@@ -22,8 +21,7 @@ resources:
         - System roles (ADMIN, WORKSPACE_ADMIN, WORKSPACE_EDITOR, WORKSPACE_VIEWER) cannot be deleted
   - name: role assignment
     plural: role assignments
-    tenant: true
-    workspace: false
+    hierarchy: [tenant]
     schema: ./schemas/rbac.yaml#/RoleAssignment
     operations: [list, get, put, delete]
     description:

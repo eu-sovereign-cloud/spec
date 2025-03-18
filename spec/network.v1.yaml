@@ -36,7 +36,7 @@ tags:
     description: Public Ip management
 
 paths:
-  /v1/tenants/{id}/skus:
+  /v1/tenants/{tenant}/skus:
     get:
       tags:
         - Sku
@@ -56,7 +56,7 @@ paths:
         | SECA | seca.1000 | 1000 Mbps | High-bandwidth network tier |
       operationId: listSkus
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -77,7 +77,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/skus/{name}:
+  /v1/tenants/{tenant}/skus/{name}:
     get:
       tags:
         - Sku
@@ -88,7 +88,7 @@ paths:
         Get a specific sku, useful for polling status updates of resources.
       operationId: getSku
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -108,7 +108,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{id}/quotas:
+  /v1/tenants/{tenant}/quotas:
     get:
       tags:
         - Quota
@@ -119,7 +119,7 @@ paths:
         Lists quotas and provides paginated, filtered access.
       operationId: listQuotas
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -140,7 +140,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/quotas/{name}:
+  /v1/tenants/{tenant}/quotas/{name}:
     put:
       tags:
         - Quota
@@ -153,7 +153,7 @@ paths:
         must accept both as successful response to the request.
       operationId: createOrUpdateQuota
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
@@ -198,7 +198,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{id}/workspaces/{workspace}/lans:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans:
     get:
       tags:
         - Lan
@@ -209,8 +209,8 @@ paths:
         Lists lans and provides paginated, filtered access.
       operationId: listLans
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -231,7 +231,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{name}:
     get:
       tags:
         - Lan
@@ -242,8 +242,8 @@ paths:
         Get a specific lan, useful for polling status updates of resources.
       operationId: getLan
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -275,8 +275,8 @@ paths:
         must accept both as successful response to the request.
       operationId: createOrUpdateLan
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
@@ -335,8 +335,8 @@ paths:
         same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteLan
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -355,7 +355,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/subnets:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/subnets:
     get:
       tags:
         - Subnet
@@ -366,8 +366,8 @@ paths:
         Lists subnets and provides paginated, filtered access.
       operationId: listSubnets
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
@@ -412,7 +412,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/subnets/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/subnets/{name}:
     get:
       tags:
         - Subnet
@@ -423,8 +423,8 @@ paths:
         Get a specific subnet, useful for polling status updates of resources.
       operationId: getSubnet
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
@@ -457,8 +457,8 @@ paths:
         must accept both as successful response to the request.
       operationId: createOrUpdateSubnet
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -518,8 +518,8 @@ paths:
         same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteSubnet
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -539,7 +539,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/security-groups:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/security-groups:
     get:
       tags:
         - Security Group
@@ -550,8 +550,8 @@ paths:
         Lists security-groups and provides paginated, filtered access.
       operationId: listSecurity-Groups
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
@@ -573,7 +573,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/security-groups/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/security-groups/{name}:
     get:
       tags:
         - Security Group
@@ -584,8 +584,8 @@ paths:
         Get a specific security group, useful for polling status updates of resources.
       operationId: getSecurityGroup
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
@@ -618,8 +618,8 @@ paths:
         must accept both as successful response to the request.
       operationId: createOrUpdateSecurityGroup
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -679,8 +679,8 @@ paths:
         same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteSecurityGroup
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -700,7 +700,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/nics:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/nics:
     get:
       tags:
         - Nic
@@ -711,8 +711,8 @@ paths:
         Lists nics and provides paginated, filtered access.
       operationId: listNics
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
@@ -734,7 +734,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/nics/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/nics/{name}:
     get:
       tags:
         - Nic
@@ -745,8 +745,8 @@ paths:
         Get a specific nic, useful for polling status updates of resources.
       operationId: getNic
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
@@ -779,8 +779,8 @@ paths:
         must accept both as successful response to the request.
       operationId: createOrUpdateNic
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -840,8 +840,8 @@ paths:
         same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteNic
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -861,7 +861,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/route-tables:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/route-tables:
     get:
       tags:
         - Route-Table
@@ -872,8 +872,8 @@ paths:
         Lists route-tables and provides paginated, filtered access.
       operationId: listRoute-Tables
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
@@ -895,7 +895,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/route-tables/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/route-tables/{name}:
     get:
       tags:
         - Route-Table
@@ -906,8 +906,8 @@ paths:
         Get a specific route-table, useful for polling status updates of resources.
       operationId: getRoute-Table
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
@@ -940,8 +940,8 @@ paths:
         must accept both as successful response to the request.
       operationId: createOrUpdateRoute-Table
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -1001,8 +1001,8 @@ paths:
         same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteRoute-Table
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -1022,7 +1022,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/public-ips:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/public-ips:
     get:
       tags:
         - Public Ip
@@ -1033,8 +1033,8 @@ paths:
         Lists public ips and provides paginated, filtered access.
       operationId: listPublicIps
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
@@ -1056,7 +1056,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/lans/{lan}/public-ips/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/public-ips/{name}:
     get:
       tags:
         - Public Ip
@@ -1067,8 +1067,8 @@ paths:
         Get a specific public ip, useful for polling status updates of resources.
       operationId: getPublicIp
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
@@ -1101,8 +1101,8 @@ paths:
         must accept both as successful response to the request.
       operationId: createOrUpdatePublicIp
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -1162,8 +1162,8 @@ paths:
         same result `202`, in all cased the resource will be only deleted once.
       operationId: deletePublicIp
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/lan'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'

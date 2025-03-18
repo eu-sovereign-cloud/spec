@@ -25,7 +25,7 @@ tags:
     description: Role Assignment management
 
 paths:
-  /v1/tenants/{id}/roles:
+  /v1/tenants/{tenant}/roles:
     get:
       tags:
         - Role
@@ -36,7 +36,7 @@ paths:
         Lists roles and provides paginated, filtered access.
       operationId: listRoles
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -57,7 +57,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/roles/{name}:
+  /v1/tenants/{tenant}/roles/{name}:
     get:
       tags:
         - Role
@@ -68,7 +68,7 @@ paths:
         Get a specific role, useful for polling status updates of resources.
       operationId: getRole
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -98,7 +98,7 @@ paths:
         System roles (ADMIN, WORKSPACE_ADMIN, WORKSPACE_EDITOR, WORKSPACE_VIEWER) cannot be modified.
       operationId: createOrUpdateRole
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
@@ -156,7 +156,7 @@ paths:
         - System roles (ADMIN, WORKSPACE_ADMIN, WORKSPACE_EDITOR, WORKSPACE_VIEWER) cannot be deleted
       operationId: deleteRole
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -175,7 +175,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{id}/role-assignments:
+  /v1/tenants/{tenant}/role-assignments:
     get:
       tags:
         - Role Assignment
@@ -186,7 +186,7 @@ paths:
         Lists role assignments and provides paginated, filtered access.
       operationId: listRoleAssignments
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -207,7 +207,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/role-assignments/{name}:
+  /v1/tenants/{tenant}/role-assignments/{name}:
     get:
       tags:
         - Role Assignment
@@ -218,7 +218,7 @@ paths:
         Retrieves the details of a specific role assignment group by its name
       operationId: getRoleAssignment
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -252,7 +252,7 @@ paths:
         the role assignment record.
       operationId: createOrUpdateRoleAssignment
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
@@ -308,7 +308,7 @@ paths:
         This removes the entire group and all its associated role assignments.
       operationId: deleteRoleAssignment
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:

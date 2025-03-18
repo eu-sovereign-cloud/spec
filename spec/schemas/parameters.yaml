@@ -62,15 +62,15 @@ parameters:
       - `"application/json; deleted=true"`: Returns both deleted and non-deleted resources
       - `"application/json; deleted=only"`: Returns only deleted resources
 
-  tenantID:
-    name: id
+  tenant:
+    name: tenant
     in: path
     required: true
     schema:
       type: string
     description: Tenant ID
 
-  workspaceName:
+  workspace:
     name: workspace
     in: path
     required: true

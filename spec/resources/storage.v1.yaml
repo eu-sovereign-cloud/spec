@@ -8,8 +8,7 @@ description: |
 resources:
   - name: sku
     plural: skus
-    tenant: true
-    workspace: false
+    hierarchy: [tenant]
     schema: ./schemas/storage-sku.yaml#/StorageSku
     operations: [list, get]
     description:
@@ -34,19 +33,16 @@ resources:
         - { spec: { provider: 'SECA', tier: 'seca.500', description: 'minimal 500 iops, 99% of time, when >50GB' }}
   - name: quota
     plural: quotas
-    tenant: true
-    workspace: false
+    hierarchy: [tenant]
     schema: ./schemas/quotas.yaml#/ResourceQuota
     operations: [list, put]
   - name: image
     plural: images
-    tenant: true
-    workspace: false
+    hierarchy: [tenant]
     schema: ./schemas/image.yaml#/Image
     operations: [list, get, put, delete]
   - name: block-storage
     plural: block-storages
-    tenant: true
-    workspace: true
+    hierarchy: [tenant, workspace]
     schema: ./schemas/block-storage.yaml#/BlockStorage
     operations: [list, get, put, delete]

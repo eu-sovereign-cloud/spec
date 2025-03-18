@@ -26,7 +26,7 @@ tags:
 paths:
 {{- range $spec.resources }}
   {{- if coll.Has .operations "list" }}
-  /{{ $spec.version }}/{{ if .tenant }}tenants/{id}/{{ end }}{{ if .workspace }}workspaces/{workspace}/{{ end }}{{ if and (coll.Has . "lan") .lan }}lans/{lan}/{{ end }}{{ .plural | strings.Slug }}:
+  /{{ $spec.version }}{{ range .hierarchy }}/{{ . }}s/{{ printf "{%s}" . }}{{ end }}/{{ .plural | strings.Slug }}:
     get:
       tags:
         - {{ .name | strings.Title }}
@@ -42,14 +42,8 @@ paths:
       {{- end }}
       operationId: list{{ .plural | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
-      {{- if .tenant }}
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-      {{- end }}
-      {{- if .workspace }}
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
-      {{- end }}
-      {{- if and (coll.Has . "lan") .lan }}
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+      {{- range .hierarchy }}
+        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}'
       {{- end}}
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
@@ -76,7 +70,7 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error500'
   {{ end }}
   {{- if or (coll.Has .operations "get") (coll.Has .operations "put") (coll.Has .operations "delete") }}
-  /{{ $spec.version }}/{{ if .tenant }}tenants/{id}/{{ end }}{{ if .workspace }}workspaces/{workspace}/{{ end }}{{ if and (coll.Has . "lan") .lan }}lans/{lan}/{{ end }}{{ .plural | strings.Slug  }}/{name}:
+  /{{ $spec.version }}{{ range .hierarchy }}/{{ . }}s/{{ printf "{%s}" . }}{{ end }}/{{ .plural | strings.Slug }}/{name}:
   {{- if coll.Has .operations "get" }}
     get:
       tags:
@@ -93,14 +87,8 @@ paths:
       {{- end }}
       operationId: get{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
-      {{- if .tenant }}
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-      {{- end }}
-      {{- if .workspace }}
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
-      {{- end }}
-      {{- if and (coll.Has . "lan") .lan }}
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+      {{- range .hierarchy }}
+        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}'
       {{- end}}
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
@@ -143,14 +131,8 @@ paths:
       {{- end }}
       operationId: createOrUpdate{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
-      {{- if .tenant }}
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-      {{- end }}
-      {{- if .workspace }}
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
-      {{- end }}
-      {{- if and (coll.Has . "lan") .lan }}
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+      {{- range .hierarchy }}
+        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}'
       {{- end}}
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -228,14 +210,8 @@ paths:
       {{- end }}
       operationId: delete{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
-      {{- if .tenant }}
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-      {{- end }}
-      {{- if .workspace }}
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
-      {{- end }}
-      {{- if and (coll.Has . "lan") .lan }}
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+      {{- range .hierarchy }}
+        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}'
       {{- end}}
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
@@ -258,7 +234,7 @@ paths:
     {{- $resource := . }}
     {{- if coll.Has . "actions" }}
     {{- range .actions }}
-  /{{ $spec.version }}/{{ if $resource.tenant }}tenants/{id}/{{ end }}{{ if $resource.workspace }}workspaces/{workspace}/{{ end }}{{ if and (coll.Has . "lan") .lan }}lans/{lan}/{{ end }}{{ $resource.plural | strings.Slug  }}/{name}/{{ .name | strings.Slug }}:
+  /{{ $spec.version }}{{ range $resource.hierarchy }}/{{ . }}s/{{ printf "{%s}" . }}{{ end }}/{{ $resource.plural | strings.Slug  }}/{name}/{{ .name | strings.Slug }}:
     post:
       tags:
         - {{ $resource.name | strings.Title }}
@@ -271,12 +247,9 @@ paths:
       {{- end }}
       operationId: {{ .name | strings.Title | strings.ReplaceAll " " "" }}{{ $resource.name | strings.Title }}
       parameters:
-      {{- if $resource.tenant }}
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-      {{- end }}
-      {{- if $resource.workspace }}
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
-      {{- end }}
+      {{- range $resource.hierarchy }}
+        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}'
+      {{- end}}
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '202':

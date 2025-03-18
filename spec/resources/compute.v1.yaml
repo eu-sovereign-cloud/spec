@@ -8,8 +8,7 @@ description: |
 resources:
   - name: sku
     plural: skus
-    tenant: true
-    workspace: false
+    hierarchy: [tenant]
     schema: ./schemas/instance-sku.yaml#/InstanceSku
     operations: [list, get]
     description:
@@ -35,14 +34,12 @@ resources:
         - { spec: { provider: 'SECA', tier: 'seca.xl', vCPU: 16, ramGB: 32, cpuType: 'amd64', benchmarkPoints: 24000 }}
   - name: quota
     plural: quotas
-    tenant: true
-    workspace: false
+    hierarchy: [tenant]
     schema: ./schemas/quotas.yaml#/ResourceQuota
     operations: [list, put]
   - name: instance
     plural: instances
-    tenant: true
-    workspace: true
+    hierarchy: [tenant, workspace]
     schema: ./schemas/instance.yaml#/Instance
     operations: [list, get, put, delete]
     actions:

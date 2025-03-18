@@ -8,7 +8,6 @@ description: |
 resources:
   - name: region
     plural: regions
-    tenant: false
-    workspace: false
+    hierarchy: []
     schema: './schemas/region.yaml#/Region'
     operations: [list, get]

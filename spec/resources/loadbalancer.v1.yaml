@@ -7,7 +7,6 @@ description: |
 resources:
   - name: network load balancer
     plural: network load balancers
-    tenant: true
-    workspace: true
+    hierarchy: [tenant, workspace]
     schema: ./schemas/load-balancer.yaml#/NetworkLoadBalancer
     operations: [list, get, put, delete]

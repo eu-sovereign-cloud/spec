@@ -22,7 +22,7 @@ tags:
     description: Account management
 
 paths:
-  /v1/tenants/{id}/workspaces/{workspace}/accounts:
+  /v1/tenants/{tenant}/workspaces/{workspace}/accounts:
     get:
       tags:
         - Account
@@ -33,8 +33,8 @@ paths:
         Lists accounts and provides paginated, filtered access.
       operationId: listAccounts
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -55,7 +55,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{id}/workspaces/{workspace}/accounts/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/accounts/{name}:
     get:
       tags:
         - Account
@@ -66,8 +66,8 @@ paths:
         Get a specific account, useful for polling status updates of resources.
       operationId: getAccount
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -99,8 +99,8 @@ paths:
         must accept both as successful response to the request.
       operationId: createOrUpdateAccount
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
@@ -159,8 +159,8 @@ paths:
         same result `202`, in all cased the resource will be only deleted once.
       operationId: deleteAccount
       parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenantID'
-        - $ref: './schemas/parameters.yaml#/parameters/workspaceName'
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:

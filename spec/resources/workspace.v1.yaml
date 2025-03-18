@@ -7,8 +7,7 @@ description: |
 resources:
   - name: workspace
     plural: workspaces
-    tenant: true
-    workspace: false
+    hierarchy: [tenant]
     schema: ./schemas/workspace.yaml#/Workspace
     operations: [list, get, put, delete]
     description:
