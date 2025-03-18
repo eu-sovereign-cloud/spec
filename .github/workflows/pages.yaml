@@ -38,8 +38,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.11.0
+          cache: npm # Automatically caches dependencies
 
-      - name: Install dependencies
+      - name: Install dependencies with npm ci
         run: npm ci
         working-directory: website  
 
