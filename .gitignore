@@ -1,6 +1,6 @@
 # Ignore dependencies and package manager lock files inside website/
 website/node_modules/
-website/package-lock.json
+#website/package-lock.json
 website/pnpm-lock.yaml
 website/yarn.lock
 
