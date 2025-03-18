@@ -39,6 +39,7 @@ jobs:
         with:
           node-version: 20.11.0
           cache: npm # Automatically caches dependencies
+          cache-dependency-path: website/package-lock.json  # 👈 Ensure caching works for the correct path
 
       - name: Install dependencies with npm ci
         run: npm ci
