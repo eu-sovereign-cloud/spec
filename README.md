@@ -37,7 +37,7 @@ npm run gen-api-docs all
 npm run start
 ```
 
-## RoadMap
+## Roadmap
 TO DO
 
 ## Contributing
