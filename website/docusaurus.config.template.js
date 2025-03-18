@@ -91,7 +91,7 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Partecipate',
+            title: 'Participate',
             items: [
               {
                 label: 'JoinUs',
