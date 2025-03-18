@@ -3,9 +3,9 @@ openapi: 3.0.3
 {{- $spec := (ds "spec") }}
 
 servers:
-  - url: https://demo.secapi.cloud/providers/seca.{{ $spec.name }}
+  - url: https://demo.secapi.cloud/providers/seca.{{ $spec.name | strings.Slug }}
     description: Path Schema
-  - url: https://{{ $spec.name }}.seca.demo.secapi.cloud
+  - url: https://{{ $spec.name | strings.Slug }}.seca.demo.secapi.cloud
     description: DNS Schema
 
 info:

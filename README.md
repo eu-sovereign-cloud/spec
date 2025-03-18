@@ -192,7 +192,7 @@ This is the first release of the SECA API. For this release we decided to restri
 * [ ] SKU
 * [/] Basic API
 
-### [SECA Activity-Log (v1)](activitylogs.v1.html) **WIP**
+### [SECA Activity-Log (v1)](activitylog.v1.html) **WIP**
 
 * [ ] SKU
 * [x] Basic API

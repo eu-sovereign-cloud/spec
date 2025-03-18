@@ -1,5 +1,5 @@
 title: Activity Log
-name: activitylog
+name: activity log
 version: v1
 description: |
   The Activity Log API provides access to audit logs for all resources.

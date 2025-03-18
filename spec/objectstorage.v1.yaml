@@ -2,9 +2,9 @@
 openapi: 3.0.3
 
 servers:
-  - url: https://demo.secapi.cloud/providers/seca.objectstorage
+  - url: https://demo.secapi.cloud/providers/seca.object-storage
     description: Path Schema
-  - url: https://objectstorage.seca.demo.secapi.cloud
+  - url: https://object-storage.seca.demo.secapi.cloud
     description: DNS Schema
 
 info:

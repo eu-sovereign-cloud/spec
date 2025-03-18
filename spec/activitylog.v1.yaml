@@ -2,9 +2,9 @@
 openapi: 3.0.3
 
 servers:
-  - url: https://demo.secapi.cloud/providers/seca.activitylog
+  - url: https://demo.secapi.cloud/providers/seca.activity-log
     description: Path Schema
-  - url: https://activitylog.seca.demo.secapi.cloud
+  - url: https://activity-log.seca.demo.secapi.cloud
     description: DNS Schema
 
 info:

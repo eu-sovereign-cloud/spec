@@ -2,9 +2,9 @@
 openapi: 3.0.3
 
 servers:
-  - url: https://demo.secapi.cloud/providers/seca.loadbalancer
+  - url: https://demo.secapi.cloud/providers/seca.load-balancer
     description: Path Schema
-  - url: https://loadbalancer.seca.demo.secapi.cloud
+  - url: https://load-balancer.seca.demo.secapi.cloud
     description: DNS Schema
 
 info:

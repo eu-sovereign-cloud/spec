@@ -1,5 +1,5 @@
 title: Object Storage
-name: objectstorage
+name: object storage
 version: v1
 description: |
   The Object Storage API provides access to Object Storage resources.

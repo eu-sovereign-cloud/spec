@@ -1,5 +1,5 @@
 title: Load Balancer
-name: loadbalancer
+name: load balancer
 version: v1
 description: |
   The Load Balancer API provides access to Network Load Balancer resources.
