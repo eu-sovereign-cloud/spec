@@ -6,6 +6,7 @@ website/yarn.lock
 
 # Ignore Docusaurus build output
 website/build/
+website/docs/api/
 website/.cache/
 website/.docusaurus/
 
