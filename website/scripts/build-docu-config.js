@@ -5,6 +5,10 @@ const specDirectory = path.join(__dirname, "../../spec"); // Directory containin
 const templateFile = path.join(__dirname, "../docusaurus.config.template.js"); // Template file
 const outputFilePath = path.join(__dirname, "../docusaurus.config.js"); // Final generated file
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 if (!fs.existsSync(specDirectory)) {
   console.error(`Error: Directory "${specDirectory}" does not exist!`);
   process.exit(1);
@@ -19,8 +23,8 @@ if (fileList.length === 0) {
   process.exit(1);
 }
 
-// Generate authorization object dynamically
-const authorizationObjects = fileList
+// Generate api object dynamically
+const apiObjects = fileList
   .map(file => {
     const baseName = path.basename(file, ".yaml"); // Remove .yaml extension
     const keyName = baseName.replace(".v1", ""); // Extract only the key (remove `.v1`)
@@ -28,12 +32,12 @@ const authorizationObjects = fileList
     return `    "${keyName}": {
       specPath: "../spec/${file}",
       outputDir: "docs/api/${keyName}",
-      label: "${keyName}"
+      label: "${capitalizeFirstLetter(keyName)}"
     }`;
   })
   .join(",\n");
 
-const authorizationConfig = `{\n${authorizationObjects}\n  }`;
+const apiConfig = `{\n${apiObjects}\n  }`;
 
 // Read the template file
 if (!fs.existsSync(templateFile)) {
@@ -43,8 +47,8 @@ if (!fs.existsSync(templateFile)) {
 
 let templateContent = fs.readFileSync(templateFile, "utf-8");
 
-// Replace placeholder with generated authorization config
-templateContent = templateContent.replace("__API_CONFIG__", authorizationConfig);
+// Replace placeholder with generated api config
+templateContent = templateContent.replace("__API_CONFIG__", apiConfig);
 
 // Write the final generated file
 fs.writeFileSync(outputFilePath, templateContent);
