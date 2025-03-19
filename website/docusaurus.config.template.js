@@ -107,7 +107,7 @@ const config = {
                 href: 'mailto://press@staff.aruba.it',
               },
               {
-                label: 'Ionos Group',
+                label: 'IONOS Group',
                 href: 'mailto://press@ionos.com',
               },
               {
