@@ -22,7 +22,7 @@ Ensure you have [Node.js](https://nodejs.org/) installed.
 # Clone the repository
 git clone https://github.com/eu-sovereign-cloud/spec.git
 
-cd spec
+cd spec/website
 
 # Install dependencies
 npm install
