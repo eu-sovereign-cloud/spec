@@ -8,7 +8,7 @@ servers:
     description: DNS Schema
 
 info:
-  title: Sovereign European Cloud API - Load Balancer
+  title: Load Balancer
   version: v1
   description: |
     The Load Balancer API provides access to Network Load Balancer resources.
@@ -61,7 +61,7 @@ paths:
         - Network Load Balancer
       security:
         - bearerAuth: []
-      summary: Get a specific network load balancer
+      summary: Get network load balancer
       description: |
         Get a specific network load balancer, useful for polling status updates of resources.
       operationId: getNetworkLoadBalancer
@@ -92,7 +92,7 @@ paths:
         - Network Load Balancer
       security:
         - bearerAuth: []
-      summary: Create or update a network load balancer
+      summary: Create or update network load balancer
       description: |
         Creates or updates a network load balancer. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -150,7 +150,7 @@ paths:
         - Network Load Balancer
       security:
         - bearerAuth: []
-      summary: Delete a network load balancer
+      summary: Delete network load balancer
       description: |
         Deletes a network load balancer using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the

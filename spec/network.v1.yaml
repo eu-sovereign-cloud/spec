@@ -8,7 +8,7 @@ servers:
     description: DNS Schema
 
 info:
-  title: Sovereign European Cloud API - Network
+  title: Network
   version: v1
   description: |
     The Network Foundation API provides access to network resources, including LANs, NICs, security groups, subnets, and routing tables.
@@ -83,7 +83,7 @@ paths:
         - Sku
       security:
         - bearerAuth: []
-      summary: Get a specific sku
+      summary: Get sku
       description: |
         Get a specific sku, useful for polling status updates of resources.
       operationId: getSku
@@ -146,7 +146,7 @@ paths:
         - Quota
       security:
         - bearerAuth: []
-      summary: Create or update a quota
+      summary: Create or update quota
       description: |
         Creates or updates a quota. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -237,7 +237,7 @@ paths:
         - Lan
       security:
         - bearerAuth: []
-      summary: Get a specific lan
+      summary: Get lan
       description: |
         Get a specific lan, useful for polling status updates of resources.
       operationId: getLan
@@ -268,7 +268,7 @@ paths:
         - Lan
       security:
         - bearerAuth: []
-      summary: Create or update a lan
+      summary: Create or update lan
       description: |
         Creates or updates a lan. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -326,7 +326,7 @@ paths:
         - Lan
       security:
         - bearerAuth: []
-      summary: Delete a lan
+      summary: Delete lan
       description: |
         Deletes a lan using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the
@@ -418,7 +418,7 @@ paths:
         - Subnet
       security:
         - bearerAuth: []
-      summary: Get a specific subnet
+      summary: Get subnet
       description: |
         Get a specific subnet, useful for polling status updates of resources.
       operationId: getSubnet
@@ -450,7 +450,7 @@ paths:
         - Subnet
       security:
         - bearerAuth: []
-      summary: Create or update a subnet
+      summary: Create or update subnet
       description: |
         Creates or updates a subnet. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -509,7 +509,7 @@ paths:
         - Subnet
       security:
         - bearerAuth: []
-      summary: Delete a subnet
+      summary: Delete subnet
       description: |
         Deletes a subnet using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the
@@ -579,7 +579,7 @@ paths:
         - Security Group
       security:
         - bearerAuth: []
-      summary: Get a specific security group
+      summary: Get security group
       description: |
         Get a specific security group, useful for polling status updates of resources.
       operationId: getSecurityGroup
@@ -611,7 +611,7 @@ paths:
         - Security Group
       security:
         - bearerAuth: []
-      summary: Create or update a security group
+      summary: Create or update security group
       description: |
         Creates or updates a security group. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -670,7 +670,7 @@ paths:
         - Security Group
       security:
         - bearerAuth: []
-      summary: Delete a security group
+      summary: Delete security group
       description: |
         Deletes a security group using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the
@@ -740,7 +740,7 @@ paths:
         - Nic
       security:
         - bearerAuth: []
-      summary: Get a specific nic
+      summary: Get nic
       description: |
         Get a specific nic, useful for polling status updates of resources.
       operationId: getNic
@@ -772,7 +772,7 @@ paths:
         - Nic
       security:
         - bearerAuth: []
-      summary: Create or update a nic
+      summary: Create or update nic
       description: |
         Creates or updates a nic. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -831,7 +831,7 @@ paths:
         - Nic
       security:
         - bearerAuth: []
-      summary: Delete a nic
+      summary: Delete nic
       description: |
         Deletes a nic using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the
@@ -901,7 +901,7 @@ paths:
         - Route-Table
       security:
         - bearerAuth: []
-      summary: Get a specific route-table
+      summary: Get route-table
       description: |
         Get a specific route-table, useful for polling status updates of resources.
       operationId: getRoute-Table
@@ -933,7 +933,7 @@ paths:
         - Route-Table
       security:
         - bearerAuth: []
-      summary: Create or update a route-table
+      summary: Create or update route-table
       description: |
         Creates or updates a route-table. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -992,7 +992,7 @@ paths:
         - Route-Table
       security:
         - bearerAuth: []
-      summary: Delete a route-table
+      summary: Delete route-table
       description: |
         Deletes a route-table using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the
@@ -1062,7 +1062,7 @@ paths:
         - Public Ip
       security:
         - bearerAuth: []
-      summary: Get a specific public ip
+      summary: Get public ip
       description: |
         Get a specific public ip, useful for polling status updates of resources.
       operationId: getPublicIp
@@ -1094,7 +1094,7 @@ paths:
         - Public Ip
       security:
         - bearerAuth: []
-      summary: Create or update a public ip
+      summary: Create or update public ip
       description: |
         Creates or updates a public ip. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -1153,7 +1153,7 @@ paths:
         - Public Ip
       security:
         - bearerAuth: []
-      summary: Delete a public ip
+      summary: Delete public ip
       description: |
         Deletes a public ip using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the

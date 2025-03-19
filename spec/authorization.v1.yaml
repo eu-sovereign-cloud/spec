@@ -8,7 +8,7 @@ servers:
     description: DNS Schema
 
 info:
-  title: Sovereign European Cloud API - Authorization
+  title: Authorization
   version: v1
   description: |
     The Authorization API provides access to authorization resources
@@ -63,7 +63,7 @@ paths:
         - Role
       security:
         - bearerAuth: []
-      summary: Get a specific role
+      summary: Get role
       description: |
         Get a specific role, useful for polling status updates of resources.
       operationId: getRole
@@ -93,7 +93,7 @@ paths:
         - Role
       security:
         - bearerAuth: []
-      summary: Create or update a role
+      summary: Create or update role
       description: |
         System roles (ADMIN, WORKSPACE_ADMIN, WORKSPACE_EDITOR, WORKSPACE_VIEWER) cannot be modified.
       operationId: createOrUpdateRole
@@ -148,7 +148,7 @@ paths:
         - Role
       security:
         - bearerAuth: []
-      summary: Delete a role
+      summary: Delete role
       description: |
         Deletes the specified role. When a role is deleted:
         - The role is removed from all role assignments
@@ -213,7 +213,7 @@ paths:
         - Role Assignment
       security:
         - bearerAuth: []
-      summary: Get a specific role assignment
+      summary: Get role assignment
       description: |
         Retrieves the details of a specific role assignment group by its name
       operationId: getRoleAssignment
@@ -243,7 +243,7 @@ paths:
         - Role Assignment
       security:
         - bearerAuth: []
-      summary: Create or update a role assignment
+      summary: Create or update role assignment
       description: |
         Replaces all role assignments for the specified group within the workspace.
         At least one role must be assigned.
@@ -302,7 +302,7 @@ paths:
         - Role Assignment
       security:
         - bearerAuth: []
-      summary: Delete a role assignment
+      summary: Delete role assignment
       description: |
         Deletes the specified role assignment group within the workspace.
         This removes the entire group and all its associated role assignments.

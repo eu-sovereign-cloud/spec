@@ -8,7 +8,7 @@ servers:
     description: DNS Schema
 
 info:
-  title: Sovereign European Cloud API - Storage
+  title: Storage
   version: v1
   description: |
     The Storage Foundation API provides access to storage resources including 
@@ -96,7 +96,7 @@ paths:
         - Sku
       security:
         - bearerAuth: []
-      summary: Get a specific sku
+      summary: Get sku
       description: |
         Get a specific sku, useful for polling status updates of resources.
       operationId: getSku
@@ -159,7 +159,7 @@ paths:
         - Quota
       security:
         - bearerAuth: []
-      summary: Create or update a quota
+      summary: Create or update quota
       description: |
         Creates or updates a quota. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -249,7 +249,7 @@ paths:
         - Image
       security:
         - bearerAuth: []
-      summary: Get a specific image
+      summary: Get image
       description: |
         Get a specific image, useful for polling status updates of resources.
       operationId: getImage
@@ -279,7 +279,7 @@ paths:
         - Image
       security:
         - bearerAuth: []
-      summary: Create or update a image
+      summary: Create or update image
       description: |
         Creates or updates a image. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -336,7 +336,7 @@ paths:
         - Image
       security:
         - bearerAuth: []
-      summary: Delete a image
+      summary: Delete image
       description: |
         Deletes a image using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the
@@ -403,7 +403,7 @@ paths:
         - Block-Storage
       security:
         - bearerAuth: []
-      summary: Get a specific block-storage
+      summary: Get block-storage
       description: |
         Get a specific block-storage, useful for polling status updates of resources.
       operationId: getBlock-Storage
@@ -434,7 +434,7 @@ paths:
         - Block-Storage
       security:
         - bearerAuth: []
-      summary: Create or update a block-storage
+      summary: Create or update block-storage
       description: |
         Creates or updates a block-storage. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -492,7 +492,7 @@ paths:
         - Block-Storage
       security:
         - bearerAuth: []
-      summary: Delete a block-storage
+      summary: Delete block-storage
       description: |
         Deletes a block-storage using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the

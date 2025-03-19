@@ -8,7 +8,7 @@ servers:
     description: DNS Schema
 
 info:
-  title: Sovereign European Cloud API - Object Storage
+  title: Object Storage
   version: v1
   description: |
     The Object Storage API provides access to Object Storage resources.
@@ -61,7 +61,7 @@ paths:
         - Account
       security:
         - bearerAuth: []
-      summary: Get a specific account
+      summary: Get account
       description: |
         Get a specific account, useful for polling status updates of resources.
       operationId: getAccount
@@ -92,7 +92,7 @@ paths:
         - Account
       security:
         - bearerAuth: []
-      summary: Create or update a account
+      summary: Create or update account
       description: |
         Creates or updates a account. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -150,7 +150,7 @@ paths:
         - Account
       security:
         - bearerAuth: []
-      summary: Delete a account
+      summary: Delete account
       description: |
         Deletes a account using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the

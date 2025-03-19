@@ -8,7 +8,7 @@ servers:
     description: DNS Schema
 
 info:
-  title: Sovereign European Cloud API - Activity Log
+  title: Activity Log
   version: v1
   description: |
     The Activity Log API provides access to audit logs for all resources.

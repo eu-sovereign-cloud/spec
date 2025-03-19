@@ -8,7 +8,7 @@ servers:
     description: DNS Schema
 
 info:
-  title: Sovereign European Cloud API - Workspace
+  title: Workspace
   version: v1
   description: |
     The Workspace API provides access to resources that are specific to a tenant's workspace.
@@ -60,7 +60,7 @@ paths:
         - Workspace
       security:
         - bearerAuth: []
-      summary: Get a specific workspace
+      summary: Get workspace
       description: |
         Get a specific workspace, useful for polling status updates of resources.
       operationId: getWorkspace
@@ -90,7 +90,7 @@ paths:
         - Workspace
       security:
         - bearerAuth: []
-      summary: Create or update a workspace
+      summary: Create or update workspace
       description: |
         Creates or updates a workspace. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -147,7 +147,7 @@ paths:
         - Workspace
       security:
         - bearerAuth: []
-      summary: Delete a workspace
+      summary: Delete workspace
       description: |
         Deletes the specified workspace. When a workspace is deleted:
         - All resources within the workspace are permanently deleted

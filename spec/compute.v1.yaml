@@ -8,7 +8,7 @@ servers:
     description: DNS Schema
 
 info:
-  title: Sovereign European Cloud API - Compute
+  title: Compute
   version: v1
   description: |
     The Compute Foundation API provides access to compute resources 
@@ -107,7 +107,7 @@ paths:
         - Sku
       security:
         - bearerAuth: []
-      summary: Get a specific sku
+      summary: Get sku
       description: |
         Get a specific sku, useful for polling status updates of resources.
       operationId: getSku
@@ -170,7 +170,7 @@ paths:
         - Quota
       security:
         - bearerAuth: []
-      summary: Create or update a quota
+      summary: Create or update quota
       description: |
         Creates or updates a quota. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -261,7 +261,7 @@ paths:
         - Instance
       security:
         - bearerAuth: []
-      summary: Get a specific instance
+      summary: Get instance
       description: |
         Get a specific instance, useful for polling status updates of resources.
       operationId: getInstance
@@ -292,7 +292,7 @@ paths:
         - Instance
       security:
         - bearerAuth: []
-      summary: Create or update a instance
+      summary: Create or update instance
       description: |
         Creates or updates a instance. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
@@ -350,7 +350,7 @@ paths:
         - Instance
       security:
         - bearerAuth: []
-      summary: Delete a instance
+      summary: Delete instance
       description: |
         Deletes a instance using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the

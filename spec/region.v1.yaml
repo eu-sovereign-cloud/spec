@@ -8,7 +8,7 @@ servers:
     description: DNS Schema
 
 info:
-  title: Sovereign European Cloud API - Regions
+  title: Regions
   version: v1
   description: |
     The Global Regions API provides access to foundational resources
@@ -60,7 +60,7 @@ paths:
         - Region
       security:
         - bearerAuth: []
-      summary: Get a specific region
+      summary: Get region
       description: |
         Get a specific region, useful for polling status updates of resources.
       operationId: getRegion

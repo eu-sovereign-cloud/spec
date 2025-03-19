@@ -9,7 +9,7 @@ servers:
     description: DNS Schema
 
 info:
-  title: Sovereign European Cloud API - {{ $spec.title }}
+  title: {{ $spec.title }}
   version: {{ $spec.version }}
   description: |
 {{ $spec.description | strings.TrimSpace | indent 4 }}
@@ -77,7 +77,7 @@ paths:
         - {{ .name | strings.Title }}
       security:
         - bearerAuth: []
-      summary: Get a specific {{ .name }}
+      summary: Get {{ .name }}
       {{- if and (coll.Has . "description") (coll.Has .description "get") }}
       description: |
 {{ .description.get | strings.TrimSpace | indent 8 }}
@@ -119,7 +119,7 @@ paths:
         - {{ .name | strings.Title }}
       security:
         - bearerAuth: []
-      summary: Create or update a {{ .name }}
+      summary: Create or update {{ .name }}
       {{- if and (coll.Has . "description") (coll.Has .description "put") }}
       description: |
 {{ .description.put | strings.TrimSpace | indent 8 }}
@@ -196,7 +196,7 @@ paths:
         - {{ .name | strings.Title }}
       security:
         - bearerAuth: []
-      summary: Delete a {{ .name }}
+      summary: Delete {{ .name }}
       {{- if and (coll.Has . "description") (coll.Has .description "delete") }}
       description: |
 {{ .description.delete | strings.TrimSpace | indent 8 }}
