@@ -104,15 +104,15 @@ const config = {
             items: [
               {
                 label: 'Aruba',
-                href: 'mailto://press@staff.aruba.it',
+                href: 'mailto:press@staff.aruba.it',
               },
               {
                 label: 'IONOS Group',
-                href: 'mailto://press@ionos.com',
+                href: 'mailto:press@ionos.com',
               },
               {
                 label: 'Dynamo',
-                href: 'mailto://press@dynamo.cloud',
+                href: 'mailto:press@dynamo.cloud',
               },
             ],
           },
