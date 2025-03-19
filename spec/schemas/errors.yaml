@@ -96,6 +96,16 @@ schemas:
         title: "Not Found"
         detail: "The requested resource could not be found."
 
+  Error409:
+    allOf:
+    - $ref: '#/schemas/Error'
+    - description: A 409 Conflict error response
+      example:
+        status: 409
+        type: "http://secapi.eu/errors/resource-conflict"
+        title: "Conflict"
+        detail: "The request could not be completed due to a conflict with the current state of the resource."
+
   Error412:
     allOf:
     - $ref: '#/schemas/Error'
@@ -176,6 +186,18 @@ responses:
           type: "http://secapi.eu/errors/resource-not-found"
           title: "Not Found"
           detail: "The requested resource could not be found."
+
+  Error409:
+    description: Conflict
+    content:
+      application/json:
+        schema:
+          $ref: '#/schemas/Error409'
+        example:
+          status: 409
+          type: "http://secapi.eu/errors/resource-conflict"
+          title: "Conflict"
+          detail: "The request could not be completed due to a conflict with the current state of the resource."
 
   Error412:
     description: Precondition Failed

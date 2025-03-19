@@ -466,23 +466,23 @@ rules:
         then:
             function: oasExampleExternal
         type: validation
-    oas3-missing-example:
-        category:
-            description: Examples help consumers understand how API calls should look. They are really important for automated tooling for mocking and testing. These rules check examples have been added to component schemas, parameters and operations. These rules also check that examples match the schema and types provided.
-            id: examples
-            name: Examples
-        description: Ensure everything that can have an example, contains one
-        formats:
-            - oas3
-            - oas3_1
-        given: $
-        howToFix: Examples are critical for consumers to be able to understand schemas and models defined by the spec. Without examples, developers can't understand the type of data the API will return in real life. Examples are turned into mocks and can provide a rich testing capability for APIs. Add detailed examples everywhere!
-        id: oas3-missing-example
-        recommended: true
-        severity: warn
-        then:
-            function: oasExampleMissing
-        type: validation
+    # oas3-missing-example:
+    #     category:
+    #         description: Examples help consumers understand how API calls should look. They are really important for automated tooling for mocking and testing. These rules check examples have been added to component schemas, parameters and operations. These rules also check that examples match the schema and types provided.
+    #         id: examples
+    #         name: Examples
+    #     description: Ensure everything that can have an example, contains one
+    #     formats:
+    #         - oas3
+    #         - oas3_1
+    #     given: $
+    #     howToFix: Examples are critical for consumers to be able to understand schemas and models defined by the spec. Without examples, developers can't understand the type of data the API will return in real life. Examples are turned into mocks and can provide a rich testing capability for APIs. Add detailed examples everywhere!
+    #     id: oas3-missing-example
+    #     recommended: true
+    #     severity: warn
+    #     then:
+    #         function: oasExampleMissing
+    #     type: validation
     oas3-no-$ref-siblings:
         category:
             description: Schemas are how request bodies and response payloads are defined. They define the data going in and the data flowing out of an operation. These rules check for structural validity, checking types, checking required fields and validating correct use of structures.

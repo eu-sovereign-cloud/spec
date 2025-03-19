@@ -1,0 +1,52 @@
+title: Compute
+name: compute
+version: v1
+description: |
+    The Compute Foundation API provides access to compute resources 
+    including virtual machines and instance management.
+    This API is part of the Sovereign European Cloud API.
+resources:
+  - name: sku
+    plural: skus
+    hierarchy: [tenant]
+    schema: ./schemas/instance-sku.yaml#/InstanceSku
+    operations: [list, get]
+    description:
+      list: |
+        Retrieves a list of available SKU (Stock Keeping Unit) configurations for compute instances.
+
+        ## Available SECA SKUs with their capabilities.
+        Seca-Resources don't have mandatory parameters and extensions.
+        (Provider may have more SKUs available.)
+
+        | provider | tier | vCPU | ramGB | cpuType | benchmarkPoints |
+        |-|-|-|-|-|-|
+        | SECA | seca.s | 2 | 4 | amd64 | min 3000 |
+        | SECA | seca.m | 4 | 8 | amd64 | min 6000 |
+        | SECA | seca.l | 8 | 16 | amd64 | min 12000 |
+        | SECA | seca.xl | 16 | 32 | amd64 | min 24000 |
+    example:
+      list:
+        items:
+        - { spec: { provider: 'SECA', tier: 'seca.s',  vCPU:  2, ramGB:  4, cpuType: 'amd64', benchmarkPoints:  3000 }}
+        - { spec: { provider: 'SECA', tier: 'seca.m',  vCPU:  4, ramGB:  8, cpuType: 'amd64', benchmarkPoints:  6000 }}
+        - { spec: { provider: 'SECA', tier: 'seca.l',  vCPU:  8, ramGB: 16, cpuType: 'amd64', benchmarkPoints: 12000 }}
+        - { spec: { provider: 'SECA', tier: 'seca.xl', vCPU: 16, ramGB: 32, cpuType: 'amd64', benchmarkPoints: 24000 }}
+  - name: quota
+    plural: quotas
+    hierarchy: [tenant]
+    schema: ./schemas/quotas.yaml#/ResourceQuota
+    operations: [list, put]
+  - name: instance
+    plural: instances
+    hierarchy: [tenant, workspace]
+    schema: ./schemas/instance.yaml#/Instance
+    operations: [list, get, put, delete]
+    actions:
+    - name: power cycle
+      description: Power cycle (reboot) a specific instance
+    - name: power off
+      description: Power off (shutdown) a specific instance
+    - name: power on
+      description: Power on (boot) a specific instance
+    

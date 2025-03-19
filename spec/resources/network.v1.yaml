@@ -1,0 +1,82 @@
+title: Network
+name: network
+version: v1
+description: |
+  The Network Foundation API provides access to network resources, including LANs, NICs, security groups, subnets, and routing tables.
+  This API is part of the Sovereign European Cloud API.
+resources:
+  - name: sku
+    plural: skus
+    hierarchy: [tenant]
+    schema: ./schemas/network-sku.yaml#/NetworkSku
+    operations: [list, get]
+    description:
+      list: |
+        Retrieves a list of available SKU (Stock Keeping Unit) configurations for network resources.
+
+        ## Available SECA Network SKUs with their capabilities
+        Network SKUs represent guaranteed bandwidth performance for 95% of time within a 24h period.
+
+        | provider | tier | bandwidth | description |
+        |-|-|-|-|
+        | SECA | seca.10 | 10 Mbps | Low-bandwidth network tier |
+        | SECA | seca.100 | 100 Mbps | Medium-bandwidth network tier |
+        | SECA | seca.1000 | 1000 Mbps | High-bandwidth network tier |
+  - name: quota
+    plural: quotas
+    hierarchy: [tenant]
+    schema: ./schemas/quotas.yaml#/ResourceQuota
+    operations: [list, put]
+  - name: lan
+    plural: lans
+    hierarchy: [tenant, workspace]
+    schema: './schemas/lan.yaml#/Lan'
+    operations: [list, get, put, delete]
+  - name: subnet
+    plural: subnets
+    hierarchy: [tenant, workspace, lan]
+    schema: './schemas/subnet.yaml#/Subnet'
+    operations: [list, get, put, delete]
+    example:
+      list:
+        items:
+        - metadata:
+            name: standard-subnet
+            description: Standard subnet with auto gateway
+            apiVersion: v1
+            kind: subnet
+          spec:
+            ipv4Range: '192.168.1.0/24'
+            networkSkuRef: 'seca.100'
+            dhcpEnabled: true
+        - metadata:
+            name: firewall-subnet
+            description: Custom gateway through network appliance
+            apiVersion: v1
+            kind: subnet
+          spec:
+            ipv4Range: '10.0.0.0/24'
+            dhcpEnabled: true
+            defaultGateway:
+              type: instanceRef
+              value: 'network-firewall-01'
+  - name: security group
+    plural: security-groups
+    hierarchy: [tenant, workspace, lan]
+    schema: './schemas/security-group.yaml#/SecurityGroup'
+    operations: [list, get, put, delete]
+  - name: nic
+    plural: nics
+    hierarchy: [tenant, workspace, lan]
+    schema: './schemas/nic.yaml#/Nic'
+    operations: [list, get, put, delete]
+  - name: route-table
+    plural: route-tables
+    hierarchy: [tenant, workspace, lan]
+    schema: './schemas/route-table.yaml#/RouteTable'
+    operations: [list, get, put, delete]
+  - name: public ip
+    plural: public ips
+    hierarchy: [tenant, workspace, lan]
+    schema: './schemas/public-ip.yaml#/PublicIp'
+    operations: [list, get, put, delete]

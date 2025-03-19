@@ -1,4 +1,4 @@
-Lan:
+Lan: # -> rename to PrivateNetwork works like a VPC
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -18,7 +18,11 @@ LanSpec:
     profile:
       type: object
       properties:
-        networkSkuRef:
+        # CIDR is missing for v4/v6 - make stacke, v4, v6 or dual stack selectable?
+        networkSkuRef: # -> maybe just as a default
+          # reasoning: two machines in the network should have the 
+          # same speed when talking otherwise the customer might not
+          # see the benefit...
           type: string
           description: Reference to the SKU used for this LAN
         skuExtensions:

@@ -1,0 +1,48 @@
+title: Storage
+name: storage
+version: v1
+description: |
+  The Storage Foundation API provides access to storage resources including 
+  block storage and images.
+  This API is part of the Sovereign European Cloud API.
+resources:
+  - name: sku
+    plural: skus
+    hierarchy: [tenant]
+    schema: ./schemas/storage-sku.yaml#/StorageSku
+    operations: [list, get]
+    description:
+      list: |
+        Retrieves a list of available SKU (Stock Keeping Unit) configurations for block storage resources.
+
+        ## Available SECA Block Storage SKUs with their capabilities
+        Block Storage SKUs represent guaranteed IOPS performance for 99% of time within a 24h period.
+        Minimum volume size of 50GB is required for guaranteed performance.
+
+        | provider | tier | IOPS | description |
+        |-|-|-|-|
+        | SECA | seca.10 | 10 IOPS | Low-performance block storage tier |
+        | SECA | seca.50 | 50 IOPS | Medium-performance block storage tier |
+        | SECA | seca.100 | 100 IOPS | High-performance block storage tier |
+    example:
+      list:
+        items:
+        - { spec: { provider: 'SECA', tier: 'seca.general', description: 'a storage with no guaranteed throughput for normal usage' }}
+        - { spec: { provider: 'SECA', tier: 'seca.100', description: 'minimal 100 iops, 99% of time, when >50GB' }}
+        - { spec: { provider: 'SECA', tier: 'seca.250', description: 'minimal 250 iops, 99% of time, when >50GB' }}
+        - { spec: { provider: 'SECA', tier: 'seca.500', description: 'minimal 500 iops, 99% of time, when >50GB' }}
+  - name: quota
+    plural: quotas
+    hierarchy: [tenant]
+    schema: ./schemas/quotas.yaml#/ResourceQuota
+    operations: [list, put]
+  - name: image
+    plural: images
+    hierarchy: [tenant]
+    schema: ./schemas/image.yaml#/Image
+    operations: [list, get, put, delete]
+  - name: block-storage
+    plural: block-storages
+    hierarchy: [tenant, workspace]
+    schema: ./schemas/block-storage.yaml#/BlockStorage
+    operations: [list, get, put, delete]

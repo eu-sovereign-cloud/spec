@@ -32,7 +32,13 @@ RouteStatus:
       items:
         $ref: "./resource.yaml#/StatusCondition"
 
-RoutingTable:
+# If a network is created a RouteTable is created by default,
+# some providers permit the creation and usage of additional
+# RouteTables. Supporting multiple RouteTables is not a requirement
+# for the CSP.
+# By default the RouteTable has a default route to the internet gateway
+# this requires the 
+RouteTable:
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -42,11 +48,11 @@ RoutingTable:
       metadata:
         $ref: './resource.yaml#/RegionalResourceMetadata'
       spec:
-        $ref: '#/RoutingTableSpec'
+        $ref: '#/RouteTableSpec'
       status:
-        $ref: '#/RoutingTableStatus'
+        $ref: '#/RouteTableStatus'
 
-RoutingTableSpec:
+RouteTableSpec:
   type: object
   properties:
     routes:
@@ -54,7 +60,7 @@ RoutingTableSpec:
       items:
         $ref: '#/Route'
 
-RoutingTableStatus:
+RouteTableStatus:
   allOf:
     - $ref: "./resource.yaml#/Status"
     - type: object

@@ -1,6 +1,7 @@
 GO ?= go
 VACUUM = github.com/daveshanley/vacuum@latest
 MD2HTML = github.com/gomarkdown/mdtohtml@latest
+GOMPLATE = github.com/hairyhenderson/gomplate/v4/cmd/gomplate@latest
 ROOT = spec
 DIST = dist
 DIST_ZIP = dist.zip
@@ -21,6 +22,10 @@ SCHEMAS := $(shell find $(ROOT)/schemas -type f)
 SCHEMAS_SOURCES := $(shell ls $(ROOT)/*.yaml)
 SCHEMAS_FINAL = $(SCHEMAS_SOURCES:$(ROOT)/%.yaml=$(DIST)/specs/%.yaml)
 
+GOMPLATE_TEMPLATE = spec/templates/resource.yaml.tpl
+GOMPLATE_SOURCES = $(shell find $(ROOT)/resources -type f -name '*.yaml')
+GOMPLATE_FINAL = $(GOMPLATE_SOURCES:$(ROOT)/resources/%.yaml=$(ROOT)/%.yaml)
+
 DOCS_FINAL = $(SCHEMAS_SOURCES:$(ROOT)/%.yaml=$(DIST)/%.html)
 
 MD_FINAL = $(DOCS_FILES:$(DOCS)/%.md=$(DIST)/$(DOCS)/%.html)
@@ -34,7 +39,9 @@ $(DIST_ZIP): build
 	rm -f $@
 	cd $(DIST) && zip -r ../$@ *
 
-build: $(DIST) $(SCHEMAS_FINAL) $(DOCS_FINAL) $(MD_FINAL) $(DIST)/index.html fix-links
+build: $(DIST) $(GOMPLATE_FINAL) $(SCHEMAS_FINAL) $(DOCS_FINAL) $(MD_FINAL) $(DIST)/index.html fix-links
+
+resource-apis: $(GOMPLATE_FINAL)
 
 fix-links:
 	# Detect OS and set proper sed flags
@@ -54,6 +61,9 @@ $(DIST): $(ASSETS_FILES)
 	@mkdir -p $(DIST)/$(ASSETS)
 	@find $(ASSETS) -type f -exec cp {} $(DIST)/$(ASSETS)/ \;
 
+$(ROOT)/%.yaml: $(ROOT)/resources/%.yaml $(GOMPLATE_TEMPLATE)
+	$(GO) run $(GOMPLATE) -d spec=$< -f $(GOMPLATE_TEMPLATE) -o $@
+
 $(DIST)/specs/%.yaml: $(ROOT)/%.yaml $(SCHEMAS)
 	@mkdir -p $(shell dirname $@)
 	$(REDOCLY) bundle $(REDOCLY_BUNDLE_FLAGS) $< --output=$@
@@ -67,11 +77,11 @@ $(DIST)/$(DOCS)/%.html: $(DOCS)/%.md
 	$(GO) run $(MD2HTML) -headingids -css ../../assets/github-markdown.css $< $@
 
 .PHONY: lint
-lint: $(SCHEMAS_FINAL)
+lint: $(GOMPLATE_FINAL) $(SCHEMAS_FINAL)
 	$(VACUUM) lint $(VACUUM_LINT_FLAGS) $(SCHEMAS_FINAL)
 
 .PHONY: lint-verbose
-lint-verbose: $(SCHEMAS_FINAL)
+lint-verbose: $(GOMPLATE_FINAL) $(SCHEMAS_FINAL)
 	$(VACUUM) lint $(VACUUM_LINT_FLAGS) -d $(SCHEMAS_FINAL)
 
 .PHONY: clean

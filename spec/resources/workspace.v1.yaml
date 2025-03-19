@@ -1,0 +1,19 @@
+title: Workspace
+name: workspace
+version: v1
+description: |
+  The Workspace API provides access to resources that are specific to a tenant's workspace.
+  This API is part of the Sovereign European Cloud API.
+resources:
+  - name: workspace
+    plural: workspaces
+    hierarchy: [tenant]
+    schema: ./schemas/workspace.yaml#/Workspace
+    operations: [list, get, put, delete]
+    description:
+      delete: |
+        Deletes the specified workspace. When a workspace is deleted:
+        - All resources within the workspace are permanently deleted
+        - This includes all compute, network, storage, and other resources
+        - Role assignments specific to this workspace are also deleted
+        - Deletion is a cascading operation that removes all associated resources

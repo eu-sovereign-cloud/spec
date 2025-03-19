@@ -52,11 +52,12 @@ NicStatus:
         type: string
       securityGroupRef:
         type: string
+      # add network sku as an override
 
 NicPrivateIp:
   type: object
   properties:
-    adressType:
+    addressType:
       type: string
       enum: [ 'IPv4' ]
     ipAddress:

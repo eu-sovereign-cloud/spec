@@ -1,0 +1,12 @@
+title: Activity Log
+name: activity log
+version: v1
+description: |
+  The Activity Log API provides access to audit logs for all resources.
+  This API is part of the Sovereign European Cloud API.
+resources:
+  - name: activity log
+    plural: activity logs
+    hierarchy: [tenant, workspace]
+    schema: ./schemas/activity-log.yaml#/ActivityLog
+    operations: [list]

@@ -31,7 +31,7 @@ SubnetSpec:
   type: object
   description: Specification of the subnet
   properties:
-    profile:
+    profile: # allow networkSkuOverride
       type: object
       properties:
         networkSkuRef:
@@ -40,14 +40,15 @@ SubnetSpec:
             Reference to a network SKU defining bandwidth performance.
             Allows selection of network performance tier.
             Pattern: '^seca\.(10|100|1000)$'
-    cidr:
+    cidr: # v6 is missing
       $ref: '#/cidr'
-    dhcpEnabled:
-      type: boolean
-      enum: [true]
-      default: true
-      description: "for now we allow only dhcp enabled"
-    defaultGateway:
+     
+    # : # remove
+    # : boolean
+    # : [true]
+    # : true
+    # : "for now we allow only dhcp enabled"
+    defaultGateway: # should be part of the routing table
       type: object
       description: |
         Configuration for the subnet's default gateway.
@@ -87,10 +88,11 @@ SubnetStatus:
     ipv4Range:
       type: string
       format: CIDR
+    # v6 is missing
     zone:
       type: string
-    defaultGateway:
-      $ref: '#/SubnetGateway'
+    #defaultGateway: remove
+    #   $ref: '#/SubnetGateway'
     conditions:
       type: array
       items:
@@ -102,6 +104,7 @@ SubnetStatus:
         reason: "GatewayProvisioned"
         message: "Subnet gateway has been configured"
 
+# part of routing table
 SubnetGateway:
   type: object
   description: Actual default gateway configuration

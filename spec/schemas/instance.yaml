@@ -25,6 +25,8 @@ InstanceSpec:
           $ref: './sku.yaml#/SkuExtensions'
     network:
       $ref: '#/InstanceNetwork'
+    zone: # missing
+      type: string
     operatingSystem:
       type: object
       properties:
@@ -101,7 +103,7 @@ InstanceNetwork:
       items:
         $ref: '#/InstanceNicRef'
 
-InstancePlacementStrategy:
+InstancePlacementStrategy: # missing the grouping of instances
   type: object
   properties:
     strategy:

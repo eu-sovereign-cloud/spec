@@ -1,0 +1,38 @@
+title: Authorization
+name: authorization
+version: v1
+description: |
+  The Authorization API provides access to authorization resources
+  that are shared across all tenants and workspaces in all regions.
+  This API is part of the Sovereign European Cloud API.
+resources:
+  - name: role
+    plural: roles
+    hierarchy: [tenant]
+    schema: ./schemas/rbac.yaml#/Role
+    operations: [list, get, put, delete]
+    description:
+      put: |
+        System roles (ADMIN, WORKSPACE_ADMIN, WORKSPACE_EDITOR, WORKSPACE_VIEWER) cannot be modified.
+      delete: |
+        Deletes the specified role. When a role is deleted:
+        - The role is removed from all role assignments
+        - Role assignments are NOT deleted, even if the role array becomes empty
+        - System roles (ADMIN, WORKSPACE_ADMIN, WORKSPACE_EDITOR, WORKSPACE_VIEWER) cannot be deleted
+  - name: role assignment
+    plural: role assignments
+    hierarchy: [tenant]
+    schema: ./schemas/rbac.yaml#/RoleAssignment
+    operations: [list, get, put, delete]
+    description:
+      get: |
+        Retrieves the details of a specific role assignment group by its name
+      put: |
+        Replaces all role assignments for the specified group within the workspace.
+        At least one role must be assigned.
+        Note: Role assignments can be created with an empty role array,
+        which effectively removes all roles from the group while maintaining
+        the role assignment record.
+      delete: |
+        Deletes the specified role assignment group within the workspace.
+        This removes the entire group and all its associated role assignments.

@@ -1,0 +1,13 @@
+title: Regions
+name: region
+version: v1
+description: |
+  The Global Regions API provides access to foundational resources
+  that are shared across all tenants and workspaces in all regions.
+  This API is part of the Sovereign European Cloud API.
+resources:
+  - name: region
+    plural: regions
+    hierarchy: []
+    schema: './schemas/region.yaml#/Region'
+    operations: [list, get]
