@@ -10,8 +10,19 @@ website/docs/api/
 website/.cache/
 website/.docusaurus/
 
+# Generated files
+website/.docusaurus
+website/.cache-loader
+
 # Ignore auto-generated API website
 website/website/api/
+
+# Misc
+website/.DS_Store
+website/.env.local
+website/.env.development.local
+website/.env.test.local
+website/.env.production.local
 
 # Logs
 website/npm-debug.log*
