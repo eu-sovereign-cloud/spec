@@ -22,11 +22,6 @@ resources:
         | SECA | seca.10 | 10 Mbps | Low-bandwidth network tier |
         | SECA | seca.100 | 100 Mbps | Medium-bandwidth network tier |
         | SECA | seca.1000 | 1000 Mbps | High-bandwidth network tier |
-  - name: quota
-    plural: quotas
-    hierarchy: [tenant]
-    schema: ./schemas/quotas.yaml#/ResourceQuota
-    operations: [list, put]
   - name: lan
     plural: lans
     hierarchy: [tenant, workspace]

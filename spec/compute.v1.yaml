@@ -21,8 +21,6 @@ security:
 tags:
   - name: Sku
     description: Sku management
-  - name: Quota
-    description: Quota management
   - name: Instance
     description: Instance management
 
@@ -129,96 +127,6 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error403'
         '404':
           $ref: './schemas/errors.yaml#/responses/Error404'
-        '500':
-          $ref: './schemas/errors.yaml#/responses/Error500'
-    
-  /v1/tenants/{tenant}/quotas:
-    get:
-      tags:
-        - Quota
-      security:
-        - bearerAuth: []
-      summary: List quotas
-      description: |
-        Lists quotas and provides paginated, filtered access.
-      operationId: listQuotas
-      parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenant'
-        - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
-        - $ref: './schemas/parameters.yaml#/parameters/limitParam'
-        - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
-        - $ref: './schemas/parameters.yaml#/parameters/acceptHeader'
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/QuotaIterator"
-        '400':
-          $ref: './schemas/errors.yaml#/responses/Error400'
-        '401':
-          $ref: './schemas/errors.yaml#/responses/Error401'
-        '403':
-          $ref: './schemas/errors.yaml#/responses/Error403'
-        '500':
-          $ref: './schemas/errors.yaml#/responses/Error500'
-  
-  /v1/tenants/{tenant}/quotas/{name}:
-    put:
-      tags:
-        - Quota
-      security:
-        - bearerAuth: []
-      summary: Create or update quota
-      description: |
-        Creates or updates a quota. The return code of the endpoint
-        provides indicates if the resource was created or updated. A client
-        must accept both as successful response to the request.
-      operationId: createOrUpdateQuota
-      parameters:
-        - $ref: './schemas/parameters.yaml#/parameters/tenant'
-        - $ref: './schemas/parameters.yaml#/parameters/resourceName'
-        - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
-      requestBody:
-        description: |
-          Any provided `metadata` on the quota will be ignored by the resource server.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: './schemas/quotas.yaml#/ResourceQuota'
-      responses:
-        '200':
-          description: |
-            Quota successfully updated, doesn't indicate successful
-            resource provisioning.
-          content:
-            application/json:
-              schema:
-                $ref: './schemas/quotas.yaml#/ResourceQuota'
-        '201':
-          description: |
-            Quota successfully created, doesn't indicate successful
-            resource provisioning.
-          content:
-            application/json:
-              schema:
-                $ref: './schemas/quotas.yaml#/ResourceQuota'
-        '400':
-          $ref: './schemas/errors.yaml#/responses/Error400'
-        '401':
-          $ref: './schemas/errors.yaml#/responses/Error401'
-        '403':
-          $ref: './schemas/errors.yaml#/responses/Error403'
-        '404':
-          $ref: './schemas/errors.yaml#/responses/Error404'
-        '409':
-          $ref: './schemas/errors.yaml#/responses/Error409'
-        '412':
-          $ref: './schemas/errors.yaml#/responses/Error412'
-        '422':
-          $ref: './schemas/errors.yaml#/responses/Error422'
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
@@ -480,21 +388,6 @@ components:
           type: array
           items:
             $ref: './schemas/instance-sku.yaml#/InstanceSku'
-        metadata:
-          $ref: './schemas/resource.yaml#/ResponseMetadata'
-
-    QuotaIterator:
-      description: Iterator for quotas
-      type: object
-      required:
-        - items
-        - metadata
-      properties:
-        items:
-          description: List of quotas
-          type: array
-          items:
-            $ref: './schemas/quotas.yaml#/ResourceQuota'
         metadata:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 

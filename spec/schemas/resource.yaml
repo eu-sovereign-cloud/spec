@@ -56,7 +56,6 @@ TypeMetadata:
       - nic
       - object-storage-account 
       - public-ip
-      - quota
       - region
       - role
       - role-assignment

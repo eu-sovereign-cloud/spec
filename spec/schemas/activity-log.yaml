@@ -26,7 +26,6 @@ ActivityLogSpec:
             - $ref: './workspace.yaml#/WorkspaceSpec'
             - $ref: './rbac.yaml#/RoleSpec'
             - $ref: './rbac.yaml#/RoleAssignmentSpec'
-            - $ref: './quotas.yaml#/ResourceQuotaSpec'
             - $ref: './instance-sku.yaml#/InstanceSkuSpec'
             - $ref: './network-sku.yaml#/NetworkSkuSpec'
             - $ref: './storage-sku.yaml#/StorageSkuSpec'
