@@ -54,16 +54,16 @@ TypeMetadata:
       - network-load-balancer
       - network-sku
       - nic
-      - object-storage-account 
+      - object-storage-account
       - public-ip
       - quota
       - region
       - role
       - role-assignment
-      - routing-table 
+      - routing-table
       - security-group
-      - security-group-rule 
-      - storage-sku 
+      - security-group-rule
+      - storage-sku
       - subnet
       - workspace
 
@@ -72,9 +72,9 @@ PermissionMetadata:
   readOnly: true
   description: Metadata for permission management
   required:
-    - scope
-    - resource
-    - verb
+  - scope
+  - resource
+  - verb
   properties:
     scope:
       type: string
@@ -89,11 +89,11 @@ PermissionMetadata:
 ModificationMetadata:
   type: object
   readOnly: true
-  description: Base metadata for all resources
-   with optional region references
+  description: Base metadata for all resources with optional region references
   required:
-    - lastModifiedTimestamp
-    - deletionTimestamp
+  - lastModifiedTimestamp
+  - deletionTimestamp
+  - resourceVersion
   properties:
     deletionTimestamp:
       type: string
@@ -103,12 +103,15 @@ ModificationMetadata:
       type: string
       format: date-time
       description: Indicates the time when the resource was created or last modified. Field is used for "If-Unmodified-Since" logic for concurrency control. The provider guarantees that a modification on a single resource can happen only once every millisecond.
+    resourceVersion:
+      type: integer
+      description: Incremented on every modification of the resource. Used for optimistic concurrency control.
 
 NameMetadata:
   type: object
   readOnly: true
   required:
-    - name
+  - name
   properties:
     name:
       type: string
@@ -126,7 +129,7 @@ UserResourceMetadata:
   properties:
     labels:
       type: object
-      description: | 
+      description: |
         User-defined key/value pairs that are mutable and can be used to
         organize and categorize resources. They can be used to filter resources.
       additionalProperties:
@@ -200,20 +203,20 @@ ResourceState:
         - suspended: not available, provider specific behavior (payment issue, user decided to suspend)
         - error: failed to fulfill the request; would be related to provider issue or customer related input.
       enum:
-        - pending
-        - creating
-        - active
-        - updating
-        - deleting
-        - suspended
-        - error
+      - pending
+      - creating
+      - active
+      - updating
+      - deleting
+      - suspended
+      - error
 
 Status:
   type: object
   readOnly: true
   description: Current status of the resource
   required:
-    - conditions
+  - conditions
   properties:
     conditions:
       type: array
@@ -227,9 +230,9 @@ StatusCondition:
     Conditions are provider-specific and can represent different states depending on the
     resource type and provider implementation.
   required:
-    - type
-    - status
-    - lastTransitionTime
+  - type
+  - status
+  - lastTransitionTime
   properties:
     type:
       type: string
@@ -265,7 +268,7 @@ StatusCondition:
 
 ResponseMetadata:
   allOf:
-  - $ref: '#/PermissionMetadata'  
+  - $ref: '#/PermissionMetadata'
   - type: object
     properties:
       skipToken:
