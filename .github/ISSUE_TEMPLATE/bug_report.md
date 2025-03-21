@@ -1,6 +1,6 @@
 ---
 name: "Bug Report"
-description: "Report a bug in the SECA project"
+about: "Report a bug in the SECA project"
 labels: ["bug"]
 ---
 

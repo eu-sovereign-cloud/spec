@@ -32,11 +32,6 @@ resources:
         - { spec: { provider: 'SECA', tier: 'seca.m',  vCPU:  4, ramGB:  8, cpuType: 'amd64', benchmarkPoints:  6000 }}
         - { spec: { provider: 'SECA', tier: 'seca.l',  vCPU:  8, ramGB: 16, cpuType: 'amd64', benchmarkPoints: 12000 }}
         - { spec: { provider: 'SECA', tier: 'seca.xl', vCPU: 16, ramGB: 32, cpuType: 'amd64', benchmarkPoints: 24000 }}
-  - name: quota
-    plural: quotas
-    hierarchy: [tenant]
-    schema: ./schemas/quotas.yaml#/ResourceQuota
-    operations: [list, put]
   - name: instance
     plural: instances
     hierarchy: [tenant, workspace]

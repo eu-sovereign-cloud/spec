@@ -1,6 +1,6 @@
 ---
 name: "Feature Request"
-description: "Propose a new feature or enhancement for SECA API"
+about: "Propose a new feature or enhancement for SECA API"
 labels: ["enhancement"]
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: "Support Request"
-description: "Request support or ask a question"
+about: "Request support or ask a question"
 labels: ["question"]
 ---
 

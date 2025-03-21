@@ -31,11 +31,6 @@ resources:
         - { spec: { provider: 'SECA', tier: 'seca.100', description: 'minimal 100 iops, 99% of time, when >50GB' }}
         - { spec: { provider: 'SECA', tier: 'seca.250', description: 'minimal 250 iops, 99% of time, when >50GB' }}
         - { spec: { provider: 'SECA', tier: 'seca.500', description: 'minimal 500 iops, 99% of time, when >50GB' }}
-  - name: quota
-    plural: quotas
-    hierarchy: [tenant]
-    schema: ./schemas/quotas.yaml#/ResourceQuota
-    operations: [list, put]
   - name: image
     plural: images
     hierarchy: [tenant]
