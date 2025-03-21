@@ -32,21 +32,13 @@ PublicIpSpec:
         - Static
         - Dynamic
       default: Static
-    assignedTo:
-      type: array
-      description: References to resources this IP is assigned to
-      items:
-        $ref: '#/PublicIpAssignment'
+
 
 PublicIpAssignment:
   type: object
   properties:
-    kind:
+    objectRef:
       type: string
-      description: Kind of resource the IP is assigned to
-    name:
-      type: string
-      description: Name of the resource the IP is assigned to
 
 PublicIpStatus:
   type: object
@@ -60,6 +52,8 @@ PublicIpStatus:
   properties:
     state:
       $ref: './resource.yaml#/ResourceState'
+    attachedTo:
+      $ref: '#/PublicIpAssignment'      
     conditions:
       type: array
       items:
@@ -75,3 +69,4 @@ PublicIpStatus:
         lastTransitionTime: "2024-11-21T14:39:22Z"
         reason: "BoundToResource"
         message: "IP is bound to a resource"
+
