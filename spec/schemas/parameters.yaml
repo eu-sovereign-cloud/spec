@@ -38,12 +38,11 @@ parameters:
     in: header
     name: if-unmodified-since
     schema:
-      type: string
-      format: date-time
+      type: integer
     required: false
     description: |
-      Returns resources only if they have not been modified since the specified time.
-      Uses metadata.lastUpdatedTimestamp for comparison.
+      Returns resources only if they have not been modified since the specified version.
+      Uses metadata.resourceVersion for comparison.
 
   acceptHeader:
     in: header
