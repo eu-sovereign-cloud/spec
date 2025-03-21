@@ -44,12 +44,8 @@ jobs:
         run: npm ci
         working-directory: website  
 
-      - name: Build Docusaurus
-        run: npm run generate-config
-        working-directory: website  
-
-      - name: Generate Docusaurus config
-        run: npm run gen-api-docs all
+      - name: Generate API Docs
+        run: npm run generate:all
         working-directory: website  
 
       - name: Build Docusaurus
