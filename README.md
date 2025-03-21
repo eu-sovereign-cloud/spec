@@ -27,11 +27,8 @@ cd spec/website
 # Install dependencies
 npm install
 
-# Generate Website Config
-npm run generate-config
-
 # Generate API Docs
-npm run gen-api-docs all
+npm run generate:all
 
 # Run it
 npm run start

@@ -1,12 +1,23 @@
 const fs = require("fs");
 const path = require("path");
 
-const specDirectory = path.join(__dirname, "../../spec"); // Directory containing YAML files
-const templateFile = path.join(__dirname, "../docusaurus.config.template.js"); // Template file
-const outputFilePath = path.join(__dirname, "../docusaurus.config.js"); // Final generated file
+// Helper functions
+const capitalizeFirstLetter = (string) =>
+  string.charAt(0).toUpperCase() + string.slice(1);
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+const sanitizeFolderName = (name) => {
+  const sanitized = name.replace(/\./g, '-').replace(/[^a-zA-Z0-9-]/g, '');
+  return capitalizeFirstLetter(sanitized);
+};
+
+const specDirectory = path.join(__dirname, "../../spec"); // Directory containing YAML files
+
+// Read all .yaml specs
+const fileList = fs.readdirSync(specDirectory).filter(f => f.endsWith('.yaml'));
+
+if (fileList.length === 0) {
+  console.error("No YAML files found in the directory.");
+  process.exit(1);
 }
 
 if (!fs.existsSync(specDirectory)) {
@@ -14,43 +25,26 @@ if (!fs.existsSync(specDirectory)) {
   process.exit(1);
 }
 
-// Read all YAML files from the directory
-const fileList = fs.readdirSync(specDirectory)
-  .filter(file => file.endsWith(".yaml"));
+const apiConfigs = {};
 
-if (fileList.length === 0) {
-  console.error("No YAML files found in the directory.");
-  process.exit(1);
+for (const file of fileList) {
+  const id = path.basename(file, '.yaml'); // e.g., "authorization.v1"
+  const label = capitalizeFirstLetter(id);
+  const folderName = sanitizeFolderName(id); // e.g., "authorization-v1"
+
+  apiConfigs[id] = {
+    specPath: `../spec/${file}`,
+    outputDir: `docs/api/${folderName}`,
+    label,
+  };
 }
 
-// Generate api object dynamically
-const apiObjects = fileList
-  .map(file => {
-    const baseName = path.basename(file, ".yaml"); // Remove .yaml extension
-    const keyName = baseName.replace(".v1", ""); // Extract only the key (remove `.v1`)
+const templatePath = path.join(__dirname, '../docusaurus.config.template.js');// Template file
+const targetPath = path.join(__dirname, '../docusaurus.config.js');// Final generated file
 
-    return `    "${keyName}": {
-      specPath: "../spec/${file}",
-      outputDir: "docs/api/${keyName}",
-      label: "${capitalizeFirstLetter(keyName)}"
-    }`;
-  })
-  .join(",\n");
+const template = fs.readFileSync(templatePath, 'utf8');
+const result = template.replace('__API_CONFIG__', JSON.stringify(apiConfigs, null, 2));
+fs.writeFileSync(targetPath, result);
 
-const apiConfig = `{\n${apiObjects}\n  }`;
+console.log('✅ docusaurus.config.js generated!');
 
-// Read the template file
-if (!fs.existsSync(templateFile)) {
-  console.error("Error: Template file (template.js) not found!");
-  process.exit(1);
-}
-
-let templateContent = fs.readFileSync(templateFile, "utf-8");
-
-// Replace placeholder with generated api config
-templateContent = templateContent.replace("__API_CONFIG__", apiConfig);
-
-// Write the final generated file
-fs.writeFileSync(outputFilePath, templateContent);
-
-console.log(`✅ Docusaurus OpenAPI config generated in ${outputFilePath}`);
