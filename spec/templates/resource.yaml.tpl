@@ -226,6 +226,8 @@ paths:
           $ref: './schemas/errors.yaml#/responses/Error403'
         '404':
           $ref: './schemas/errors.yaml#/responses/Error404'
+        '409':
+          $ref: './schemas/errors.yaml#/responses/Error409'  
         '412':
           $ref: './schemas/errors.yaml#/responses/Error412'
         '500':
@@ -251,6 +253,7 @@ paths:
         - $ref: './schemas/parameters.yaml#/parameters/{{ . }}'
       {{- end}}
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
+        - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
         '202':
           description: action accepted
