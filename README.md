@@ -35,8 +35,9 @@ npm run start
 ```
 
 ## Contributing
+
 All contributors are warmly welcome. If you want to become a new contributor, we are so happy! Just, before doing it, read the tips and guidelines presented in the [dedicated documentation page](./CONTRIBUTING.md).
 
 ## License
-SECA is distributed under the Apache-2.0 [License](./LICENSE). See License for more information.
 
+SECA is distributed under the Apache-2.0 [License](./LICENSE). See License for more information.
