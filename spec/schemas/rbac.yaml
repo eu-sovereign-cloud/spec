@@ -39,15 +39,15 @@ RoleSpec:
         resources:
         - "seca.compute/instances"
         - "seca.compute/instances/*"
-        - "seca.network/lans"
-        - "seca.network/lans/*"
+        - "seca.network/networks"
+        - "seca.network/networks/*"
         verb: ["put", "delete"]
       - scopes: ["workspaces/develop"]
         resources:
         - "seca.compute/instances"
         - "seca.compute/instances/*"
-        - "seca.network/lans"
-        - "seca.network/lans/*"
+        - "seca.network/networks"
+        - "seca.network/networks/*"
         verb: ["get"]
 
 Permission:

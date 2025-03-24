@@ -2,7 +2,7 @@ title: Network
 name: network
 version: v1
 description: |
-  The Network Foundation API provides access to network resources, including LANs, NICs, security groups, subnets, and routing tables.
+  The Network Foundation API provides access to network resources, including Networks, NICs, security groups, subnets, and routing tables.
   This API is part of the Sovereign European Cloud API.
 resources:
   - name: sku
@@ -22,14 +22,14 @@ resources:
         | SECA | seca.10 | 10 Mbps | Low-bandwidth network tier |
         | SECA | seca.100 | 100 Mbps | Medium-bandwidth network tier |
         | SECA | seca.1000 | 1000 Mbps | High-bandwidth network tier |
-  - name: lan
-    plural: lans
+  - name: network
+    plural: networks
     hierarchy: [tenant, workspace]
-    schema: './schemas/lan.yaml#/Lan'
+    schema: './schemas/network.yaml#/Network'
     operations: [list, get, put, delete]
   - name: subnet
     plural: subnets
-    hierarchy: [tenant, workspace, lan]
+    hierarchy: [tenant, workspace, network]
     schema: './schemas/subnet.yaml#/Subnet'
     operations: [list, get, put, delete]
     example:
@@ -41,7 +41,7 @@ resources:
             apiVersion: v1
             kind: subnet
           spec:
-            ipv4Range: '192.168.1.0/24'
+            ipv4Range: '10.0.100.0/24'
             networkSkuRef: 'seca.100'
             dhcpEnabled: true
         - metadata:
@@ -50,28 +50,28 @@ resources:
             apiVersion: v1
             kind: subnet
           spec:
-            ipv4Range: '10.0.0.0/24'
+            ipv4Range: '10.0.120.0/24'
             dhcpEnabled: true
             defaultGateway:
               type: instanceRef
               value: 'network-firewall-01'
   - name: security group
     plural: security-groups
-    hierarchy: [tenant, workspace, lan]
+    hierarchy: [tenant, workspace, network]
     schema: './schemas/security-group.yaml#/SecurityGroup'
     operations: [list, get, put, delete]
   - name: nic
     plural: nics
-    hierarchy: [tenant, workspace, lan]
+    hierarchy: [tenant, workspace, network]
     schema: './schemas/nic.yaml#/Nic'
     operations: [list, get, put, delete]
   - name: route-table
     plural: route-tables
-    hierarchy: [tenant, workspace, lan]
+    hierarchy: [tenant, workspace, network]
     schema: './schemas/route-table.yaml#/RouteTable'
     operations: [list, get, put, delete]
   - name: public ip
     plural: public ips
-    hierarchy: [tenant, workspace, lan]
+    hierarchy: [tenant, workspace, network]
     schema: './schemas/public-ip.yaml#/PublicIp'
     operations: [list, get, put, delete]

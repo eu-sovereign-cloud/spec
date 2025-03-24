@@ -32,7 +32,7 @@ ActivityLogSpec:
             - $ref: './instance.yaml#/InstanceSpec'
             - $ref: './block-storage.yaml#/BlockStorageSpec'
             - $ref: './object-storage.yaml#/ObjectStorageAccountSpec'
-            - $ref: './lan.yaml#/LanSpec'
+            - $ref: './network.yaml#/NetworkSpec'
             - $ref: './subnet.yaml#/SubnetSpec'
             - $ref: './security-group.yaml#/SecurityGroupSpec'
             - $ref: './nic.yaml#/NicSpec'

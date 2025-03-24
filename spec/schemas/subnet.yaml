@@ -3,7 +3,7 @@ Subnet:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
     description: |
-      A Subnet represents a logical subdivision of a LAN's IP address space.
+      A Subnet represents a logical subdivision of a Network's IP address space.
 
       Key Network Routing Concepts:
       - Defines a range of IP addresses for compute instances
@@ -72,7 +72,7 @@ cidr:
       format: ipv4
       description: |
         IPv4 address range for the subnet.
-        Must be unique within the LAN and cannot be modified after creation.
+        Must be unique within the Network and cannot be modified after creation.
         Example: '192.168.1.0/24'
 
 SubnetStatus:

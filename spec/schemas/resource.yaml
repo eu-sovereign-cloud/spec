@@ -50,7 +50,7 @@ TypeMetadata:
       - image
       - instance
       - instance-sku
-      - lan
+      - network
       - network-load-balancer
       - network-sku
       - nic

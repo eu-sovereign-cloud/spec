@@ -16,7 +16,7 @@ A comprehensive REST API for managing cloud infrastructure resources in complian
 
 - **Compute**: Virtual machine management with various performance tiers
 - **Storage**: Block storage volumes with guaranteed IOPS levels
-- **Network**: LANs, subnets, security groups, and public IP management
+- **Network**: Networks, subnets, security groups, and public IP management
 - **Identity**: Integrated authentication and authorization
 
 ## Technical Specifications
@@ -121,7 +121,7 @@ here you get **provider-url** that can be:
 - dns-based (e.g https://eu-workspace.ionos.secapi.eu)
 - path-based (e.g. https://aruba.secapi.eu/providers/seca.workspace)
 
-This will return available regions and their zones. Resources can be created at either the regional level (like LANs and Public IPs) or the zonal level (like Instances).
+This will return available regions and their zones. Resources can be created at either the regional level (like Networks and Public IPs) or the zonal level (like Instances).
 
 ## Step 1: Create a Workspace
 
@@ -237,10 +237,10 @@ Content-Type: application/json
 
 ## Step 5: Set Up Network
 
-### 5.1 Create a LAN
+### 5.1 Create a Network
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/lans/web-shop-network
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network
 Content-Type: application/json
 
 {
@@ -268,7 +268,7 @@ Content-Type: application/json
 ### 5.2 Create a Subnet
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/lans/web-shop-network/subnets/web-shop-subnet
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network/subnets/web-shop-subnet
 Content-Type: application/json
 
 {
@@ -301,7 +301,7 @@ Content-Type: application/json
 ### 5.3 Set Up Security Group
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/lans/web-shop-network/security-groups/web-shop-sg
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network/security-groups/web-shop-sg
 Content-Type: application/json
 
 {
@@ -391,7 +391,7 @@ Content-Type: application/json
     "externalID": "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
   },
   "spec": {
-    "subnetRef": "tenants/{tenant_id}/workspaces/web-shop-prod/lans/web-shop-network/subnets/web-shop-subnet",
+    "subnetRef": "tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network/subnets/web-shop-subnet",
     "staticPrivateIPs": [],
     "publicIPRef": "tenants/{tenant_id}/workspaces/web-shop-prod/public-ips"
   }

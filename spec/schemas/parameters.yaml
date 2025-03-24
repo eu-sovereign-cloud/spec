@@ -77,13 +77,13 @@ parameters:
       type: string
     description: Workspace name
 
-  lan:
-    name: lan
+  network:
+    name: network
     in: path
     required: true
     schema:
       type: string
-    description: LAN name
+    description: Network name
     
   resourceName:
     name: name

@@ -1,4 +1,4 @@
-Lan: # -> rename to PrivateNetwork works like a VPC
+Network: # -> rename to PrivateNetwork works like a VPC
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -8,11 +8,11 @@ Lan: # -> rename to PrivateNetwork works like a VPC
       metadata:
         $ref: './resource.yaml#/RegionalResourceMetadata'
       spec:
-        $ref: './lan.yaml#/LanSpec'
+        $ref: './network.yaml#/NetworkSpec'
       status:
-        $ref: './lan.yaml#/LanStatus'
+        $ref: './network.yaml#/NetworkStatus'
 
-LanSpec:
+NetworkSpec:
   type: object
   properties:
     profile:
@@ -24,11 +24,11 @@ LanSpec:
           # same speed when talking otherwise the customer might not
           # see the benefit...
           type: string
-          description: Reference to the SKU used for this LAN
+          description: Reference to the SKU used for this Network
         skuExtensions:
           $ref: './sku.yaml#/SkuExtensions'
 
-LanStatus:
+NetworkStatus:
   type: object
   readOnly: true
   description: |

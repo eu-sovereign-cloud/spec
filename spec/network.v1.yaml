@@ -11,7 +11,7 @@ info:
   title: Network
   version: v1
   description: |
-    The Network Foundation API provides access to network resources, including LANs, NICs, security groups, subnets, and routing tables.
+    The Network Foundation API provides access to network resources, including Networks, NICs, security groups, subnets, and routing tables.
     This API is part of the Sovereign European Cloud API.
 
 security:
@@ -20,8 +20,8 @@ security:
 tags:
   - name: Sku
     description: Sku management
-  - name: Lan
-    description: Lan management
+  - name: Network
+    description: Network management
   - name: Subnet
     description: Subnet management
   - name: Security Group
@@ -106,16 +106,16 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks:
     get:
       tags:
-        - Lan
+        - Network
       security:
         - bearerAuth: []
-      summary: List lans
+      summary: List networks
       description: |
-        Lists lans and provides paginated, filtered access.
-      operationId: listLans
+        Lists networks and provides paginated, filtered access.
+      operationId: listNetworks
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
@@ -129,7 +129,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LanIterator"
+                $ref: "#/components/schemas/NetworkIterator"
         '400':
           $ref: './schemas/errors.yaml#/responses/Error400'
         '401':
@@ -139,16 +139,16 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{name}:
     get:
       tags:
-        - Lan
+        - Network
       security:
         - bearerAuth: []
-      summary: Get lan
+      summary: Get network
       description: |
-        Get a specific lan, useful for polling status updates of resources.
-      operationId: getLan
+        Get a specific network, useful for polling status updates of resources.
+      operationId: getNetwork
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
@@ -159,7 +159,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './schemas/lan.yaml#/Lan'
+                $ref: './schemas/network.yaml#/Network'
         '400':
           $ref: './schemas/errors.yaml#/responses/Error400'
         '401':
@@ -173,15 +173,15 @@ paths:
     
     put:
       tags:
-        - Lan
+        - Network
       security:
         - bearerAuth: []
-      summary: Create or update lan
+      summary: Create or update network
       description: |
-        Creates or updates a lan. The return code of the endpoint
+        Creates or updates a network. The return code of the endpoint
         provides indicates if the resource was created or updated. A client
         must accept both as successful response to the request.
-      operationId: createOrUpdateLan
+      operationId: createOrUpdateNetwork
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
@@ -189,29 +189,29 @@ paths:
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
         description: |
-          Any provided `metadata` on the lan will be ignored by the resource server.
+          Any provided `metadata` on the network will be ignored by the resource server.
         required: true
         content:
           application/json:
             schema:
-              $ref: './schemas/lan.yaml#/Lan'
+              $ref: './schemas/network.yaml#/Network'
       responses:
         '200':
           description: |
-            Lan successfully updated, doesn't indicate successful
+            Network successfully updated, doesn't indicate successful
             resource provisioning.
           content:
             application/json:
               schema:
-                $ref: './schemas/lan.yaml#/Lan'
+                $ref: './schemas/network.yaml#/Network'
         '201':
           description: |
-            Lan successfully created, doesn't indicate successful
+            Network successfully created, doesn't indicate successful
             resource provisioning.
           content:
             application/json:
               schema:
-                $ref: './schemas/lan.yaml#/Lan'
+                $ref: './schemas/network.yaml#/Network'
         '400':
           $ref: './schemas/errors.yaml#/responses/Error400'
         '401':
@@ -231,17 +231,17 @@ paths:
     
     delete:
       tags:
-        - Lan
+        - Network
       security:
         - bearerAuth: []
-      summary: Delete lan
+      summary: Delete network
       description: |
-        Deletes a lan using the given name. In case the resource workspace
+        Deletes a network using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the
         client needs to accept `404` and `202` as a successful deletion. If deletion
         of the resource takes longer deletion can be issued multiple times with the
         same result `202`, in all cased the resource will be only deleted once.
-      operationId: deleteLan
+      operationId: deleteNetwork
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
@@ -249,7 +249,7 @@ paths:
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
         '202':
-          description: Lan deletion accepted
+          description: Network deletion accepted
         '400':
           $ref: './schemas/errors.yaml#/responses/Error400'
         '401':
@@ -265,7 +265,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/subnets:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/subnets:
     get:
       tags:
         - Subnet
@@ -278,7 +278,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -322,7 +322,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/subnets/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/subnets/{name}:
     get:
       tags:
         - Subnet
@@ -335,7 +335,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -369,7 +369,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
@@ -430,7 +430,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -451,7 +451,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/security-groups:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/security-groups:
     get:
       tags:
         - Security Group
@@ -464,7 +464,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -485,7 +485,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/security-groups/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/security-groups/{name}:
     get:
       tags:
         - Security Group
@@ -498,7 +498,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -532,7 +532,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
@@ -593,7 +593,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -614,7 +614,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/nics:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/nics:
     get:
       tags:
         - Nic
@@ -627,7 +627,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -648,7 +648,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/nics/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/nics/{name}:
     get:
       tags:
         - Nic
@@ -661,7 +661,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -695,7 +695,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
@@ -756,7 +756,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -777,7 +777,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/route-tables:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/route-tables:
     get:
       tags:
         - Route-Table
@@ -790,7 +790,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -811,7 +811,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/route-tables/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/route-tables/{name}:
     get:
       tags:
         - Route-Table
@@ -824,7 +824,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -858,7 +858,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
@@ -919,7 +919,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -940,7 +940,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/public-ips:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/public-ips:
     get:
       tags:
         - Public Ip
@@ -953,7 +953,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
         - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
@@ -974,7 +974,7 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
   
-  /v1/tenants/{tenant}/workspaces/{workspace}/lans/{lan}/public-ips/{name}:
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/public-ips/{name}:
     get:
       tags:
         - Public Ip
@@ -987,7 +987,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
       responses:
         '200':
@@ -1021,7 +1021,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
@@ -1082,7 +1082,7 @@ paths:
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
         - $ref: './schemas/parameters.yaml#/parameters/workspace'
-        - $ref: './schemas/parameters.yaml#/parameters/lan'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
         - $ref: './schemas/parameters.yaml#/parameters/resourceName'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
@@ -1123,18 +1123,18 @@ components:
         metadata:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
-    LanIterator:
-      description: Iterator for lans
+    NetworkIterator:
+      description: Iterator for networks
       type: object
       required:
         - items
         - metadata
       properties:
         items:
-          description: List of lans
+          description: List of networks
           type: array
           items:
-            $ref: './schemas/lan.yaml#/Lan'
+            $ref: './schemas/network.yaml#/Network'
         metadata:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 
