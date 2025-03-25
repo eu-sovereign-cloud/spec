@@ -22,6 +22,12 @@ InstanceSkuSpec:
       type: string
     capabilities:
       $ref: "./instance-sku.yaml#/InstanceSkuCapability"
+    skuRefs:
+      description: |
+        Reference to the network SKU allowed for this instance SKU.
+      type: array
+      items:
+        type: string
     extensions:
       type: array
       description: Additional instance feature extensions

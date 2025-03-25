@@ -2,7 +2,10 @@ PublicIp:
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
-    description: Represents a public IP address that can be assigned to network resources
+    description: |
+      Represents a public IP address that can be assigned to network 
+      resources. A CSP might enable Bring Your Own IP (BYOIP) where
+      the IP address are made available.
     required:
     - spec
     properties:
@@ -15,30 +18,20 @@ PublicIp:
 
 PublicIpSpec:
   type: object
-  description: Specification of the public IP
+  description: |
+    Specification of the public IP.
+  required:
+    - ipVersion
   properties:
-    ipAddress:
-      type: string
-      description: The public IP address
     ipVersion:
       type: string
-      description: IP version of the address (limited to IPv4 for now)
+      description: IP version of the address
       enum:
         - IPv4
-    type:
+        - IPv6
+    ipAddress:
       type: string
-      description: Type of public IP allocation
-      enum:
-        - Static
-        - Dynamic
-      default: Static
-
-
-PublicIpAssignment:
-  type: object
-  properties:
-    objectRef:
-      type: string
+      description: The public IP address in case of BYOIP.
 
 PublicIpStatus:
   type: object
@@ -53,7 +46,10 @@ PublicIpStatus:
     state:
       $ref: './resource.yaml#/ResourceState'
     attachedTo:
-      $ref: '#/PublicIpAssignment'      
+      $ref: './resource.yaml#/Reference'
+    ipAddress:
+      type: string
+      description: The public IP address in case.
     conditions:
       type: array
       items:

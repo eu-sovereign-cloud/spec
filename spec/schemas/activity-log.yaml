@@ -23,21 +23,21 @@ ActivityLogSpec:
           enum: [ 'GET', 'POST', 'PUT', 'DELETE' ]
         body:
           oneOf:
-            - $ref: './workspace.yaml#/WorkspaceSpec'
-            - $ref: './rbac.yaml#/RoleSpec'
-            - $ref: './rbac.yaml#/RoleAssignmentSpec'
-            - $ref: './instance-sku.yaml#/InstanceSkuSpec'
-            - $ref: './network-sku.yaml#/NetworkSkuSpec'
-            - $ref: './storage-sku.yaml#/StorageSkuSpec'
-            - $ref: './instance.yaml#/InstanceSpec'
             - $ref: './block-storage.yaml#/BlockStorageSpec'
-            - $ref: './object-storage.yaml#/ObjectStorageAccountSpec'
-            - $ref: './network.yaml#/NetworkSpec'
-            - $ref: './subnet.yaml#/SubnetSpec'
-            - $ref: './security-group.yaml#/SecurityGroupSpec'
-            - $ref: './nic.yaml#/NicSpec'
-            - $ref: './public-ip.yaml#/PublicIpSpec'
+            - $ref: './instance-sku.yaml#/InstanceSkuSpec'
+            - $ref: './instance.yaml#/InstanceSpec'
             - $ref: './load-balancer.yaml#/NetworkLoadBalancerSpec'
+            - $ref: './network-sku.yaml#/NetworkSkuSpec'
+            - $ref: './network.yaml#/NetworkSpec'
+            - $ref: './nic.yaml#/NicSpec'
+            - $ref: './object-storage.yaml#/ObjectStorageAccountSpec'
+            - $ref: './public-ip.yaml#/PublicIpSpec'
+            - $ref: './rbac.yaml#/RoleAssignmentSpec'
+            - $ref: './rbac.yaml#/RoleSpec'
+            - $ref: './security-group.yaml#/SecurityGroupSpec'
+            - $ref: './storage-sku.yaml#/StorageSkuSpec'
+            - $ref: './subnet.yaml#/SubnetSpec'
+            - $ref: './workspace.yaml#/WorkspaceSpec'
         scope:
           type: string
     response:

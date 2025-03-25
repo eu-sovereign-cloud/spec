@@ -15,12 +15,8 @@ NetworkLoadBalancer:
 NetworkLoadBalancerSpec:
   type: object
   properties:
-    profile:
-      type: object
-      properties:
-        networkLoadBalancerSkuRef:
-          type: string
-          description: Reference to the SKU used for this network-load-balancer
+    skuRef:
+      $ref: './resource.yaml#/Reference'
     ipConfigurations:
       type: array
       items:
@@ -45,6 +41,13 @@ NetworkLoadBalancerStatus:
 
 NetworkLoadBalancerFrontend:
   type: object
+  description: |
+    If the LoadBalancer will be internal or external depends on the associated NIC.
+  required:
+  - protocol
+  - port
+  - nicRef
+  - target
   properties:
     protocol:
       type: string
@@ -57,8 +60,7 @@ NetworkLoadBalancerFrontend:
       minimum: 0
       maximum: 65535
     nicRef:
-      description: NIC reference to the LoadBalancer. If ipAddressType will be ipv4 or dual-stack or if the LoadBalancer will be internal or external depends on the associated NIC
-      type: string
+      $ref: './resource.yaml#/Reference'
     target:
       $ref: '#/LoadBalancerTarget'
 
@@ -79,8 +81,9 @@ LoadBalancerTarget:
       description: A valid network port number.
       minimum: 0
       maximum: 65535
-    members:
+    membersRefs:
       type: array
+      description: 'Nic Reference to the LoadBalancerMember as part of the LoadBalancerTarget'
       items:
         $ref: '#/LoadBalancerMember'
     healthcheck:
@@ -105,4 +108,4 @@ LoadBalancerMember:
   properties:
     nicRef:
       type: string
-      description: 'Nic Reference to the LoadBalancerMember as part of the LoadBalancerTarget'
+      description: Reference to the SKU used for this network-load-balancer

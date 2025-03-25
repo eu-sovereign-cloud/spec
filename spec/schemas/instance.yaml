@@ -15,18 +15,16 @@ Instance:
 InstanceSpec:
   type: object
   properties:
-    profile:
-      type: object
-      properties:
-        instanceSkuRef:
-          type: string
-          description: Reference to the SKU used for this instance
-        skuExtensions:
-          $ref: './sku.yaml#/SkuExtensions'
+    skuRef:
+      $ref: './resource.yaml#/Reference'
+    skuExtensions:
+      additionalProperties: true
     network:
       $ref: '#/InstanceNetwork'
-    zone: # missing
+    zone:
       type: string
+    securityGroupRef:
+      $ref: './resource.yaml#/Reference'
     operatingSystem:
       type: object
       properties:
@@ -43,7 +41,7 @@ InstanceSpec:
                 packages:
                   - nginx
                 ```
-            sshKeyExternalRef:
+            sshKeys:
               type: array
               items:
                 type: string
@@ -52,12 +50,12 @@ InstanceSpec:
                 Provider-specific references to SSH keys used in cloud-init vendorData.
                 These references are used to inject SSH public keys during instance initialization
                 through cloud-init's vendor data configuration.
-        osBlockStorageRef:
+        osBlockStorage:
           $ref: './block-storage.yaml#/VolumeAttachment'
     storage:
       type: object
       properties:
-        dataBlockStorageRef:
+        dataBlockStorages:
           type: array
           items:
             $ref: './block-storage.yaml#/VolumeAttachment'
@@ -72,10 +70,12 @@ InstanceStatus:
       $ref: '#/InstancePlacementStrategy'
     network:
       $ref: '#/InstanceNetwork'
-    dataBlockStorageRef:
+    dataBlockStorageRefs:
       type: array
       items:
         type: string
+    skuRef:
+      $ref: './resource.yaml#/Reference'
     conditions:
       type: array
       items:
@@ -94,14 +94,13 @@ InstanceStatus:
 InstanceNetwork:
   type: object
   properties:
-    primaryNicRef:
-      type: string
-      description: Reference to the primary NIC for this instance
+    primaryNic:
+      $ref: './resource.yaml#/Reference'
     otherNics:
       type: array
       description: Additional NICs attached to this instance
       items:
-        $ref: '#/InstanceNicRef'
+        $ref: '#/InstanceNic'
 
 InstancePlacementStrategy: # missing the grouping of instances
   type: object
@@ -114,10 +113,16 @@ InstancePlacementStrategy: # missing the grouping of instances
     antiAffinityGroup:
       type: string
 
-InstanceNicRef:
+InstanceNic:
   type: object
+  description: |
+    Represents a NIC attached to an instance, the slot
+    is used to identify the pci slot of the NIC.
+  required:
+  - nicRef
+  - slot
   properties:
     nicRef:
-      type: string
+      $ref: './resource.yaml#/Reference'
     slot:
       type: integer

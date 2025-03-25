@@ -32,6 +32,8 @@ tags:
     description: Route-Table management
   - name: Public Ip
     description: Public Ip management
+  - name: Internet Gateway
+    description: Internet Gateway management
 
 paths:
   /v1/tenants/{tenant}/skus:
@@ -43,15 +45,16 @@ paths:
       summary: List skus
       description: |
         Retrieves a list of available SKU (Stock Keeping Unit) configurations for network resources.
+        Not all bandwidth tiers are available for all instances in all regions.
 
         ## Available SECA Network SKUs with their capabilities
         Network SKUs represent guaranteed bandwidth performance for 95% of time within a 24h period.
 
         | provider | tier | bandwidth | description |
         |-|-|-|-|
-        | SECA | seca.10 | 10 Mbps | Low-bandwidth network tier |
-        | SECA | seca.100 | 100 Mbps | Medium-bandwidth network tier |
-        | SECA | seca.1000 | 1000 Mbps | High-bandwidth network tier |
+        | SECA | seca.1000 | 1 Gbit/s | 1G-bandwidth network tier |
+        | SECA | seca.5000 | 5 Gbit/s | 5G-bandwidth network tier |
+        | SECA | seca.10000 | 10 Gbit/s | 10G-bandwidth network tier |
       operationId: listSkus
       parameters:
         - $ref: './schemas/parameters.yaml#/parameters/tenant'
@@ -299,8 +302,8 @@ paths:
                       name: standard-subnet
                     spec:
                       dhcpEnabled: true
-                      ipv4Range: 192.168.1.0/24
-                      networkSkuRef: seca.100
+                      ipv4Range: 10.0.100.0/24
+                      skuRef: '.../seca.100'
                   - metadata:
                       apiVersion: v1
                       description: Custom gateway through network appliance
@@ -311,7 +314,7 @@ paths:
                         type: instanceRef
                         value: network-firewall-01
                       dhcpEnabled: true
-                      ipv4Range: 10.0.0.0/24
+                      ipv4Range: 10.0.120.0/24
 
         '400':
           $ref: './schemas/errors.yaml#/responses/Error400'
@@ -1103,6 +1106,169 @@ paths:
         '500':
           $ref: './schemas/errors.yaml#/responses/Error500'
     
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/internet-gateways:
+    get:
+      tags:
+        - Internet Gateway
+      security:
+        - bearerAuth: []
+      summary: List internet gateways
+      description: |
+        Lists internet gateways and provides paginated, filtered access.
+      operationId: listInternetGateways
+      parameters:
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
+        - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
+        - $ref: './schemas/parameters.yaml#/parameters/limitParam'
+        - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
+        - $ref: './schemas/parameters.yaml#/parameters/acceptHeader'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternetGatewayIterator"
+        '400':
+          $ref: './schemas/errors.yaml#/responses/Error400'
+        '401':
+          $ref: './schemas/errors.yaml#/responses/Error401'
+        '403':
+          $ref: './schemas/errors.yaml#/responses/Error403'
+        '500':
+          $ref: './schemas/errors.yaml#/responses/Error500'
+  
+  /v1/tenants/{tenant}/workspaces/{workspace}/networks/{network}/internet-gateways/{name}:
+    get:
+      tags:
+        - Internet Gateway
+      security:
+        - bearerAuth: []
+      summary: Get internet gateway
+      description: |
+        Get a specific internet gateway, useful for polling status updates of resources.
+      operationId: getInternetGateway
+      parameters:
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
+        - $ref: './schemas/parameters.yaml#/parameters/resourceName'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/internet-gateway.yaml#/InternetGateway'
+        '400':
+          $ref: './schemas/errors.yaml#/responses/Error400'
+        '401':
+          $ref: './schemas/errors.yaml#/responses/Error401'
+        '403':
+          $ref: './schemas/errors.yaml#/responses/Error403'
+        '404':
+          $ref: './schemas/errors.yaml#/responses/Error404'
+        '500':
+          $ref: './schemas/errors.yaml#/responses/Error500'
+    
+    put:
+      tags:
+        - Internet Gateway
+      security:
+        - bearerAuth: []
+      summary: Create or update internet gateway
+      description: |
+        Creates or updates a internet gateway. The return code of the endpoint
+        provides indicates if the resource was created or updated. A client
+        must accept both as successful response to the request.
+      operationId: createOrUpdateInternetGateway
+      parameters:
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
+        - $ref: './schemas/parameters.yaml#/parameters/resourceName'
+        - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
+      requestBody:
+        description: |
+          Any provided `metadata` on the internet gateway will be ignored by the resource server.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/internet-gateway.yaml#/InternetGateway'
+      responses:
+        '200':
+          description: |
+            Internet Gateway successfully updated, doesn't indicate successful
+            resource provisioning.
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/internet-gateway.yaml#/InternetGateway'
+        '201':
+          description: |
+            Internet Gateway successfully created, doesn't indicate successful
+            resource provisioning.
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/internet-gateway.yaml#/InternetGateway'
+        '400':
+          $ref: './schemas/errors.yaml#/responses/Error400'
+        '401':
+          $ref: './schemas/errors.yaml#/responses/Error401'
+        '403':
+          $ref: './schemas/errors.yaml#/responses/Error403'
+        '404':
+          $ref: './schemas/errors.yaml#/responses/Error404'
+        '409':
+          $ref: './schemas/errors.yaml#/responses/Error409'
+        '412':
+          $ref: './schemas/errors.yaml#/responses/Error412'
+        '422':
+          $ref: './schemas/errors.yaml#/responses/Error422'
+        '500':
+          $ref: './schemas/errors.yaml#/responses/Error500'
+    
+    delete:
+      tags:
+        - Internet Gateway
+      security:
+        - bearerAuth: []
+      summary: Delete internet gateway
+      description: |
+        Deletes a internet gateway using the given name. In case the resource workspace
+        already deleted `404` is returned. For failure tolerance in case of retry the
+        client needs to accept `404` and `202` as a successful deletion. If deletion
+        of the resource takes longer deletion can be issued multiple times with the
+        same result `202`, in all cased the resource will be only deleted once.
+      operationId: deleteInternetGateway
+      parameters:
+        - $ref: './schemas/parameters.yaml#/parameters/tenant'
+        - $ref: './schemas/parameters.yaml#/parameters/workspace'
+        - $ref: './schemas/parameters.yaml#/parameters/network'
+        - $ref: './schemas/parameters.yaml#/parameters/resourceName'
+        - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
+      responses:
+        '202':
+          description: Internet Gateway deletion accepted
+        '400':
+          $ref: './schemas/errors.yaml#/responses/Error400'
+        '401':
+          $ref: './schemas/errors.yaml#/responses/Error401'
+        '403':
+          $ref: './schemas/errors.yaml#/responses/Error403'
+        '404':
+          $ref: './schemas/errors.yaml#/responses/Error404'
+        '409':
+          $ref: './schemas/errors.yaml#/responses/Error409'  
+        '412':
+          $ref: './schemas/errors.yaml#/responses/Error412'
+        '500':
+          $ref: './schemas/errors.yaml#/responses/Error500'
+    
 components:
   securitySchemes:
     $ref: './schemas/security.yaml#/securitySchemes'
@@ -1210,5 +1376,20 @@ components:
           type: array
           items:
             $ref: './schemas/public-ip.yaml#/PublicIp'
+        metadata:
+          $ref: './schemas/resource.yaml#/ResponseMetadata'
+
+    InternetGatewayIterator:
+      description: Iterator for internet gateways
+      type: object
+      required:
+        - items
+        - metadata
+      properties:
+        items:
+          description: List of internet gateways
+          type: array
+          items:
+            $ref: './schemas/internet-gateway.yaml#/InternetGateway'
         metadata:
           $ref: './schemas/resource.yaml#/ResponseMetadata'

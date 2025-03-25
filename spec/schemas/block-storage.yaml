@@ -14,24 +14,21 @@ BlockStorage:
 
 BlockStorageSpec:
   type: object
+  description: |
+    References the SKU used for this block.
+    If a reference to the source image is used as the base for creating this block storage.
   properties:
-    profile:
-      type: object
-      properties:
-        storageSkuRef:
-          type: string
-          description: Reference to the SKU used for this block storage
-        skuExtensions:
-          $ref: './sku.yaml#/SkuExtensions'
+    skuRef:
+      $ref: './resource.yaml#/Reference'
+    skuExtensions:
+      additionalProperties: true
     sizeGB:
       type: integer
     origin:
       type: object
       properties:
         sourceImageRef:
-          type: string
-          readOnly: true
-          description: Reference to the source image used as the base for creating this block storage. This cannot be modified.
+          $ref: './resource.yaml#/Reference'
 
 BlockStorageStatus:
   type: object
@@ -63,15 +60,14 @@ VolumeAttachment:
   description: Represents a connection between a Block Storage and a device
   properties:
     objectRef:
-      type: string
+      $ref: './resource.yaml#/Reference'
     properties:
       $ref: '#/VolumeAttachmentProperties'
   example:
-    objectRef: "instance-123"
+    objectRef: ".../instance-123"
     properties:
       connectionType: "iSCSI"
-      deviceKind: "instance"
-      deviceRef: "instance-123"
+      deviceRef: ".../instance-123"
 
 VolumeAttachmentProperties:
   type: object
@@ -80,9 +76,5 @@ VolumeAttachmentProperties:
       type: string
       description: The connection type depends on the type of device and type of block storage.
       example: iSCSI, nvme
-    deviceKind:
-      type: string
-      description: the type of device a block-storage is connected to. For now only 'instance' possible
-      example: instance
     deviceRef:
-      type: string
+      $ref: './resource.yaml#/Reference' 

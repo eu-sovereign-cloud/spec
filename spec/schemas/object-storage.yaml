@@ -14,13 +14,6 @@ ObjectStorageAccount:
 
 ObjectStorageAccountSpec:
   type: object
-  # properties:
-  #   profile:
-  #     type: object
-  #     properties:
-  #       objectStorageSkuRef:
-  #         type: string
-  #         description: Reference to the SKU used for this object-storage
 
 ObjectStorageAccountStatus:
   allOf:

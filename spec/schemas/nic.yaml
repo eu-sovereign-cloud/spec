@@ -15,22 +15,42 @@ Nic:
 
 NicSpec:
   type: object
-  description: Specification of the Network Interface Card
+  description: |
+    Specification of the Network Interface Card
+
+    The referenced SKU overwrites the default. In case of different network SKU references
+    the highest possible network SKU reference is used. The network SKU reference
+    might be restricted by the instance size.
+
+    Optional override of Reference to the route table used by this NIC.
+  required:
+  - addresses
   properties:
-    subnetRef:
-      type: string
-      description: Subnet this NIC is connected to
-    staticPrivateIPs:
+    addresses:
       type: array
-      description: List of static private IP addresses for this NIC. Can only be used when the subnet has dhcpEnabled=false.
+      description: |
+        List of IP addresses for the NIC. A specific IP address needs to be in the
+        CIDR range of the subnet and not used by any other NIC in the subnet. Multiple
+        IP addresses can be assigned to a NIC. The number of IP addresses is might be
+        limited by the CSP or the subnet size.
       items:
-        $ref: '#/NicPrivateIp'
-    publicIPRef:
-      type: string
-      description: References to public IP addresses associated with this NIC. The IP may be external and not directly visible on the server/NIC itself. Maximum one IP allowed.
+        $ref: '#/NicIp'
+    publicIpRefs:
+      type: array
+      description: |
+        References to public IP addresses associated with this NIC. The IP may be external
+        and not directly visible on the server/NIC itself.
       items:
         type: string
-        format: ipv4
+    skuRef:
+      $ref: './resource.yaml#/Reference'
+    routeTableRef:
+      $ref: './resource.yaml#/Reference'
+  example:
+    addresses:
+    - "10.100.0.10"
+    - "0.0.0.0"
+    - "::"
 
 NicStatus:
   allOf:
@@ -40,25 +60,26 @@ NicStatus:
     properties:
       state:
         $ref: './resource.yaml#/ResourceState'
-      privateIPs:
+      addresses:
         type: array
         items:
-          $ref: '#/NicPrivateIp'
-      publicIPRef:
+          $ref: '#/NicIp'
+      publicIpRefs:
+        description: |
+          Array of public IP addresses associated with this NIC.
         type: array
         items:
-          type: string
-      subnetRef:
-        type: string
-      securityGroupRef:
-        type: string
-      # add network sku as an override
+          $ref: './resource.yaml#/Reference'
+    example:
+      state: "active"
+      addresses:
+      - "10.100.0.10"
+      - "10.100.0.11"
+      - "2001:db8:1234:5678::a"
 
-NicPrivateIp:
-  type: object
-  properties:
-    addressType:
-      type: string
-      enum: [ 'IPv4' ]
-    ipAddress:
-      type: string
+NicIp:
+  type: string
+  description: |
+    IP address for the NIC. The IP is either IPv4 or IPv6. The IP
+    can be `0.0.0.0` or `::` to indicate that the IP needs to be assigned
+    automatically. The IP can also be a specific IP address.

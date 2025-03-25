@@ -65,6 +65,18 @@ TypeMetadata:
       - storage-sku
       - subnet
       - workspace
+    ref:
+      $ref: '#/Reference'
+
+Reference:
+  type: string
+  description: |
+    A unique resource name used to reference this resource in other resources. The reference
+    is represented as the full URN (Uniform Resource Name) of the resource. In most cases,
+    the prefix of the URN can be automatically derived from the provider. To simplify usage,
+    only the resource name can be specified as a reference using the prefix `.../` to enable
+    automatic prefix inference.
+  example: .../resource-a1b2c3
 
 PermissionMetadata:
   type: object
@@ -240,9 +252,7 @@ StatusCondition:
         reflect the specific states relevant to your resource.
       example: "power-mgmt"
     status:
-      type: string
-      description: Status of the condition.
-      example: True, false, unknown
+      $ref: '#/ResourceState'
     lastTransitionTime:
       type: string
       format: date-time

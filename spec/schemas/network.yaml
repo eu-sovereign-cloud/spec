@@ -14,37 +14,102 @@ Network: # -> rename to PrivateNetwork works like a VPC
 
 NetworkSpec:
   type: object
-  properties:
-    profile:
-      type: object
-      properties:
-        # CIDR is missing for v4/v6 - make stacke, v4, v6 or dual stack selectable?
-        networkSkuRef: # -> maybe just as a default
-          # reasoning: two machines in the network should have the 
-          # same speed when talking otherwise the customer might not
-          # see the benefit...
-          type: string
-          description: Reference to the SKU used for this Network
-        skuExtensions:
-          $ref: './sku.yaml#/SkuExtensions'
+  description: |
+    A Network represents a virtual network that can be used to isolate resources.
+    Key network concepts:
 
+    * Defines a range of IP addresses for compute resources (e.g. instances)
+    * Enables network segmentation and isolation
+    * Provides common performance configuration across the network using a SKU
+
+    The `cidr` is the base CIDR block for the network. Additional CIDR blocks can be
+    added to the network using the `additionalCidrs` field. The `additionalCidrs` can 
+    be changed after the network is created in case they are not used. The main CIDR
+    block cannot be changed after the network is created. All cidrs must be non-overlapping.
+    The cidrs have to be part of the RFC 1918 address space in case of IPv4 and or RFC 4193.
+
+    In case the system should automatically assign IP addresses to the network cidrs
+    only the network prefix is required. E.g. to request a /16 IPv4 CIDR block the
+    CIDR block would be `0.0.0.0/16` and for a /64 IPv6 CIDR block the CIDR block would
+    be `::/64`.
+
+    If a network is created a RouteTable is created by default, some providers permit the
+    creation and usage of additional RouteTables. Supporting multiple RouteTables is not a 
+    requirement for the CSP. By default a RouteTable has a default route to the internet.
+    This default route however can only be used if the NIC has a public IP address.
+  required:
+  - cidr
+  - skuRef
+  properties:
+    cidr:
+      $ref: './network.yaml#/cidr'
+    additionalCidrs:
+      type: array
+      items:
+        $ref: './network.yaml#/cidr'
+    skuRef:
+      type: string
+      description: |
+        Reference to the SKU used by default for all NIC in this Network.
+        Can be overridden by the NIC.
+      example: "seca.1000"
+    skuExtensions:
+      additionalProperties: true
+  example:
+    skuRef: ".../seca.1000"
+    cidr:
+      ipv4Range: "0.0.0.0/16"
+      ipv6Range: "::/64"
+  
 NetworkStatus:
   type: object
   readOnly: true
   description: |
-    Conditions type `connectivity` indicates the status of the network connection.
-    The status can be `connected` or `disconnected`.
+    Current status of the network and its CIDR blocks. Will report
+    the status of the CIDR blocks and the network as a whole including
+    automatically assigned IP networks.
+  required:
+  - state
+  - cidr
   properties:
     state:
       $ref: './resource.yaml#/ResourceState'
+    cidr:
+      $ref: './network.yaml#/cidr'
+    additionalCidrs:
+      type: array
+      items:
+        $ref: './network.yaml#/cidr'
     conditions:
       type: array
       items:
         $ref: "./resource.yaml#/StatusCondition"
+    routeTableRef:
+      $ref: './resource.yaml#/Reference'
   example:
-    conditions:
-    - type: "connectivity"
-      status: "connected"
-      lastTransitionTime: "2024-11-21T14:39:22Z"
-      reason: "NetworkConfigured"
-      message: "Network is properly configured and connected"
+    state: "active"
+    cidr:
+      ipv4Range: "10.100.0.0/16"
+      ipv6Range: "2001:db8:1234:5678::/64"
+
+cidr:
+  type: object
+  description: |
+    Combined IPv4 and IPv6 CIDR block for a subnet. Depending on the network
+    configuration, either the IPv4 or IPv6 range can be omitted. So the following
+    combinations are possible:
+
+    * IPv4 only
+    * IPv6 only
+    * IPv4 and IPv6 (Dual Stack)
+  properties:
+    ipv4Range:
+      type: string
+      description: |
+        IPv4 CIDR block for the subnet.
+      example: '10.0.100.0/24'
+    ipv6Range:
+      type: string
+      description: |
+        IPv6 CIDR block for the subnet.
+      example: '2001:db8::/32'

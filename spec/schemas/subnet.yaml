@@ -1,3 +1,4 @@
+
 Subnet:
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
@@ -7,16 +8,7 @@ Subnet:
 
       Key Network Routing Concepts:
       - Defines a range of IP addresses for compute instances
-      - Supports custom default gateway configuration
       - Enables network segmentation and isolation
-
-      Default Gateway Behavior:
-      - 'auto': Automatically selects the first usable IP in the subnet range
-      - Custom configuration allows routing through specific instances or IPs
-      - Useful for implementing advanced network topologies like:
-        * Application-level firewalls
-        * Custom routing through network appliances
-        * Multi-tier network architectures
     required:
     - spec
     properties:
@@ -29,89 +21,38 @@ Subnet:
 
 SubnetSpec:
   type: object
-  description: Specification of the subnet
+  description: |
+    Detailed specification of the subnet. Automatic address
+    assignment is supported, similar to the network configuration. The
+    subnet's prefix length must be smaller than the network's prefix
+    length, ensuring proper subdivision of the address space.
+    The first and last IP addresses in the subnet are reserved
+    the network address and broadcast address, respectively.
+  required:
+  - cidr
   properties:
-    profile: # allow networkSkuOverride
-      type: object
-      properties:
-        networkSkuRef:
-          type: string
-          description: |
-            Reference to a network SKU defining bandwidth performance.
-            Allows selection of network performance tier.
-            Pattern: '^seca\.(10|100|1000)$'
-    cidr: # v6 is missing
-      $ref: '#/cidr'
-     
-    # : # remove
-    # : boolean
-    # : [true]
-    # : true
-    # : "for now we allow only dhcp enabled"
-    defaultGateway: # should be part of the routing table
-      type: object
-      description: |
-        Configuration for the subnet's default gateway.
-        Provides flexibility in routing traffic.
-      properties:
-        type:
-          type: string
-          enum: ['auto', 'instanceRef', 'internalIp']
-          default: 'auto'
-        value:
-          type: string
-          description: |
-            - For 'instanceRef': Name of the compute instance acting as gateway
-            - For 'internalIp': Specific IP address to use as gateway
-
-cidr:
-  type: object
-  properties:
-    ipv4Range:
+    cidr:
+      $ref: './network.yaml#/cidr'
+    routeTableRef:
       type: string
-      format: ipv4
       description: |
-        IPv4 address range for the subnet.
-        Must be unique within the Network and cannot be modified after creation.
-        Example: '192.168.1.0/24'
+        Reference to the route table used by default for all NIC in this Subnet.
+        Can be overridden by the NIC
+    skuRef:
+      type: string
+      description: |
+        Reference to the SKU used by default for all NIC in this Network.
+        Can be overridden by the NIC
+      example: ".../seca.1000"
 
 SubnetStatus:
   type: object
   readOnly: true
   description: |
-    Current status of the subnet.
-    Condition type `gateway` indicates the status of the subnet's default gateway.
-    The status can be `configured` or `unconfigured`.
+    The status of the subnet, including the current state and any
+    associated IP addresses.
   properties:
     state:
       $ref: './resource.yaml#/ResourceState'
-    ipv4Range:
-      type: string
-      format: CIDR
-    # v6 is missing
-    zone:
-      type: string
-    #defaultGateway: remove
-    #   $ref: '#/SubnetGateway'
-    conditions:
-      type: array
-      items:
-        $ref: "./resource.yaml#/StatusCondition"
-      example:
-      - type: "gateway"
-        status: "configured"
-        lastTransitionTime: "2024-11-21T14:39:22Z"
-        reason: "GatewayProvisioned"
-        message: "Subnet gateway has been configured"
-
-# part of routing table
-SubnetGateway:
-  type: object
-  description: Actual default gateway configuration
-  properties:
-    type:
-      type: string
-      enum: ['auto', 'instanceRef', 'internalIp']
-    value:
-      type: string
-
+    cidr:
+      $ref: './network.yaml#/cidr'

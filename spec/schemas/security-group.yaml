@@ -40,11 +40,10 @@ SecurityGroupSpec:
         Network access rules defining communication between security groups and external networks.
 
         Rule Evaluation:
-        - Rules are processed in order of priority (lower number = higher priority)
-        - First matching rule determines the action (allow/deny)
         - Default behavior is to deny all traffic not explicitly allowed
+        - Rules provide granular control over allowed traffic types, sources, and destinations
       items:
-        $ref: '#/SecurityGroupRule'
+        $ref: '#/SecurityGroupRuleSpec'
 
 SecurityGroupStatus:
   type: object
@@ -60,6 +59,10 @@ SecurityGroupStatus:
       type: array
       items:
         $ref: "./resource.yaml#/StatusCondition"
+    rules:
+      type: array
+      items:
+        $ref: '#/SecurityGroupRuleStatus'
   example:
     conditions:
     - type: "rules"
@@ -68,47 +71,45 @@ SecurityGroupStatus:
       reason: "RulesApplied"
       message: "All security rules have been applied"
 
-SecurityGroupRule:
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    description: Represents a security group rule
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/RegionalResourceMetadata'
-      spec:
-        $ref: '#/SecurityGroupRuleSpec'
-      status:
-        $ref: '#/SecurityGroupRuleStatus'
-
 SecurityGroupRuleSpec:
   type: object
+  required:
+    - direction
+    - protocol
   properties:
-    description:
-      type: string
-      description: Human-readable description of the rule's purpose
+    annotations:
+      $ref: './resource.yaml#/UserResourceMetadata/properties/annotations'
     direction:
       type: string
-      enum: ['ingress', 'egress']
+      enum: ['ingress', 'egress', 'bidirectional']
       description: |
-        - ingress: Only incoming traffic is allowed
-        - egress: Only outgoing traffic is allowed
-        - bidirectional: Traffic can flow both ways
+        Direction of the traffic flow:
+
+        * ingress: Only incoming traffic is allowed
+        * egress: Only outgoing traffic is allowed
+        * bidirectional: Traffic can flow both ways
     protocol:
       type: string
-      enum: ['tcp', 'udp', 'icmp', 'all']
+      enum: ['tcp', 'udp', 'icmp', 'tcpv4', 'udpv4', 'icmpv4', 'tcpv6', 'udpv6', 'icmpv6', 'all']
       description: Network protocol for the rule
     portRange:
       $ref: '#/PortRange'
-    source:
-      $ref: '#/SecurityGroupRuleSource'
-    priority:
-      type: integer
-      description: Rule priority (lower number = higher priority)
-      minimum: 1
-      maximum: 10000
+    sourceRefs:
+      type: array
+      description: |
+        List of CIDR blocks, IP addresses, gateways, instances or security group references that are allowed to communicate
+        with the security group. If a security group is specified, all instances in that group are allowed.
+        If no sourceRefs are specified, all traffic is allowed.
+      items:
+        $ref: './resource.yaml#/Reference'
+  example:
+    annotations:
+      description: "Allow incoming HTTP traffic"
+    direction: ingress
+    protocol: tcp
+    portRange:
+      from: 80
+      to: 80
 
 PortRange:
   type: object
@@ -122,22 +123,6 @@ PortRange:
       type: integer
       minimum: 1
       maximum: 65535
-
-SecurityGroupRuleSource:
-  type: object
-  description: |
-    Source of the traffic. Can be a security group, CIDR range, or 'publicInternet'.
-    'publicInternet' allows explicit control over internet-facing traffic.
-  properties:
-    type:
-      type: string
-      enum: ['securityGroup', 'cidr', 'publicInternet']
-    value:
-      type: string
-      description: |
-        - For securityGroup: name of the source security group
-        - For cidr: IPv4 CIDR range
-        - For publicInternet: 'any' or a IPv4 CIDR Range
 
 SecurityGroupRuleStatus:
   $ref: "./resource.yaml#/Status"

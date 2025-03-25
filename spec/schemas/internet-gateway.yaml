@@ -1,0 +1,23 @@
+InternetGateway:
+  type: object
+  description: |
+    The InternetGateway resource enables access to the public internet
+    when used in conjunction with a RouteTable.
+  required:
+  - spec
+  properties:
+    metadata:
+      $ref: './resource.yaml#/GlobalResourceMetadata'
+    spec:
+      $ref: './internet-gateway.yaml#/InternetGatewaySpec'
+    status:
+      $ref: './internet-gateway.yaml#/InternetGatewayStatus'
+
+InternetGatewaySpec:
+  type: object
+  description: |
+    The internet gateway will use the reserved IP address allOf:
+    the subnet CIDR block to provide internet access to the subnet.
+
+InternetGatewayStatus:
+  $ref: "./resource.yaml#/Status"

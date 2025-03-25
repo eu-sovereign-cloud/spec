@@ -13,15 +13,16 @@ resources:
     description:
       list: |
         Retrieves a list of available SKU (Stock Keeping Unit) configurations for network resources.
+        Not all bandwidth tiers are available for all instances in all regions.
 
         ## Available SECA Network SKUs with their capabilities
         Network SKUs represent guaranteed bandwidth performance for 95% of time within a 24h period.
 
         | provider | tier | bandwidth | description |
         |-|-|-|-|
-        | SECA | seca.10 | 10 Mbps | Low-bandwidth network tier |
-        | SECA | seca.100 | 100 Mbps | Medium-bandwidth network tier |
-        | SECA | seca.1000 | 1000 Mbps | High-bandwidth network tier |
+        | SECA | seca.1000 | 1 Gbit/s | 1G-bandwidth network tier |
+        | SECA | seca.5000 | 5 Gbit/s | 5G-bandwidth network tier |
+        | SECA | seca.10000 | 10 Gbit/s | 10G-bandwidth network tier |
   - name: network
     plural: networks
     hierarchy: [tenant, workspace]
@@ -42,7 +43,7 @@ resources:
             kind: subnet
           spec:
             ipv4Range: '10.0.100.0/24'
-            networkSkuRef: 'seca.100'
+            skuRef: '.../seca.100'
             dhcpEnabled: true
         - metadata:
             name: firewall-subnet
@@ -74,4 +75,9 @@ resources:
     plural: public ips
     hierarchy: [tenant, workspace, network]
     schema: './schemas/public-ip.yaml#/PublicIp'
+    operations: [list, get, put, delete]
+  - name: internet gateway
+    plural: internet gateways
+    hierarchy: [tenant, workspace, network]
+    schema: './schemas/internet-gateway.yaml#/InternetGateway'
     operations: [list, get, put, delete]
