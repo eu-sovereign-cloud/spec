@@ -46,13 +46,12 @@ SubnetSpec:
       example: ".../seca.1000"
 
 SubnetStatus:
-  type: object
-  readOnly: true
-  description: |
-    The status of the subnet, including the current state and any
-    associated IP addresses.
-  properties:
-    state:
-      $ref: './resource.yaml#/ResourceState'
-    cidr:
-      $ref: './network.yaml#/cidr'
+  allOf:
+  - $ref: "./resource.yaml#/Status"
+  - type: object
+    readOnly: true
+    description: |
+      The status of the subnet, including the current state and any
+      associated IP addresses.
+      cidr:
+        $ref: './network.yaml#/cidr'

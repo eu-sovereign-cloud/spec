@@ -55,6 +55,7 @@ NetworkSpec:
       example: "seca.1000"
     skuExtensions:
       additionalProperties: true
+      example: {}
   example:
     skuRef: ".../seca.1000"
     cidr:
@@ -62,35 +63,29 @@ NetworkSpec:
       ipv6Range: "::/64"
   
 NetworkStatus:
-  type: object
-  readOnly: true
-  description: |
-    Current status of the network and its CIDR blocks. Will report
-    the status of the CIDR blocks and the network as a whole including
-    automatically assigned IP networks.
-  required:
-  - state
-  - cidr
-  properties:
-    state:
-      $ref: './resource.yaml#/ResourceState'
-    cidr:
-      $ref: './network.yaml#/cidr'
-    additionalCidrs:
-      type: array
-      items:
+  allOf:
+  - $ref: "./resource.yaml#/Status"
+  - type: object
+    readOnly: true
+    description: |
+      Current status of the network and its CIDR blocks. Will report
+      the status of the CIDR blocks and the network as a whole including
+      automatically assigned IP networks.
+    required:
+    - cidr
+    properties:
+      cidr:
         $ref: './network.yaml#/cidr'
-    conditions:
-      type: array
-      items:
-        $ref: "./resource.yaml#/StatusCondition"
-    routeTableRef:
-      $ref: './resource.yaml#/Reference'
-  example:
-    state: "active"
-    cidr:
-      ipv4Range: "10.100.0.0/16"
-      ipv6Range: "2001:db8:1234:5678::/64"
+      additionalCidrs:
+        type: array
+        items:
+          $ref: './network.yaml#/cidr'
+      routeTableRef:
+        $ref: './resource.yaml#/Reference'
+    example:
+      cidr:
+        ipv4Range: "10.100.0.0/16"
+        ipv6Range: "2001:db8:1234:5678::/64"
 
 cidr:
   type: object

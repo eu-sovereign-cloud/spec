@@ -46,30 +46,19 @@ SecurityGroupSpec:
         $ref: '#/SecurityGroupRuleSpec'
 
 SecurityGroupStatus:
-  type: object
-  readOnly: true
-  description: |
-    Current status of the security group
-    Condition type `rules` indicates the status of the security group rules.
-    The status can be `applied` or `pending`.
-  properties:
-    state:
-      $ref: './resource.yaml#/ResourceState'
-    conditions:
-      type: array
-      items:
-        $ref: "./resource.yaml#/StatusCondition"
-    rules:
-      type: array
-      items:
-        $ref: '#/SecurityGroupRuleStatus'
-  example:
-    conditions:
-    - type: "rules"
-      status: "applied"
-      lastTransitionTime: "2024-11-21T14:39:22Z"
-      reason: "RulesApplied"
-      message: "All security rules have been applied"
+  allOf:
+  - $ref: "./resource.yaml#/Status"
+  - type: object
+    readOnly: true
+    description: |
+      Current status of the security group
+      Condition type `rules` indicates the status of the security group rules.
+      The status can be `applied` or `pending`.
+    properties:
+      rules:
+        type: array
+        items:
+          $ref: '#/SecurityGroupRuleStatus'
 
 SecurityGroupRuleSpec:
   type: object

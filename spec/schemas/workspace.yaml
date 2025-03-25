@@ -20,13 +20,6 @@ WorkspaceStatus:
   - type: object
     readOnly: true
     properties:
-      phase:
-        type: string
-        description: Current lifecycle phase of the workspace
-        enum:
-          - Pending
-          - Ready
-          - Deleting
       resourceCount:
         type: integer
         description: Number of resources currently in the workspace

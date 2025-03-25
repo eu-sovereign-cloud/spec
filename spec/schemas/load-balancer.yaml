@@ -28,8 +28,6 @@ NetworkLoadBalancerStatus:
   - type: object
     readOnly: true
     properties:
-      state:
-        $ref: './resource.yaml#/ResourceState'
       ipConfigurations:
         type: array
         items:

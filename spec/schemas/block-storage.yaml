@@ -22,59 +22,41 @@ BlockStorageSpec:
       $ref: './resource.yaml#/Reference'
     skuExtensions:
       additionalProperties: true
+      example: {}
     sizeGB:
       type: integer
-    origin:
-      type: object
-      properties:
-        sourceImageRef:
-          $ref: './resource.yaml#/Reference'
+    sourceImageRef:
+      $ref: './resource.yaml#/Reference'
 
 BlockStorageStatus:
-  type: object
-  readOnly: true
-  description: |
-    Conditions type `attachment` indicates the status of the volume attachment.
-    The status can be `attached` or `detached`.
-  properties:
-    state:
-      $ref: './resource.yaml#/ResourceState'
-    sizeGB:
-      type: integer
-      example: 10
-    attachedTo:
-      $ref: '#/VolumeAttachment'
-    conditions:
-      type: array
-      items:
-        $ref: "./resource.yaml#/StatusCondition"
-      example:
-      - type: "attachment"
-        status: "attached"
-        lastTransitionTime: "2024-11-21T14:39:22Z"
-        reason: "AttachedToInstance"
-        message: "Volume is attached to instance-123"
+  allOf:
+  - $ref: './resource.yaml#/Status'
+  - type: object
+    readOnly: true
+    description: |
+      Conditions type `attachment` indicates the status of the volume attachment.
+      The status can be `attached` or `detached`.
+    properties:
+      sizeGB:
+        type: integer
+        example: 10
+      attachedTo:
+        $ref: './resource.yaml#/Reference' 
 
-VolumeAttachment:
+VolumeReference:
   type: object
-  description: Represents a connection between a Block Storage and a device
+  description: Represents a connection between a Block Storage and an a user of the block storage.
+  required:
+  - deviceRef
   properties:
-    objectRef:
+    deviceRef:
       $ref: './resource.yaml#/Reference'
-    properties:
-      $ref: '#/VolumeAttachmentProperties'
-  example:
-    objectRef: ".../instance-123"
-    properties:
-      connectionType: "iSCSI"
-      deviceRef: ".../instance-123"
-
-VolumeAttachmentProperties:
-  type: object
-  properties:
-    connectionType:
+    type:
       type: string
       description: The connection type depends on the type of device and type of block storage.
-      example: iSCSI, nvme
-    deviceRef:
-      $ref: './resource.yaml#/Reference' 
+      enum:
+      - virtio
+  example:
+    type: "iSCSI"
+    deviceRef: ".../block-123"
+

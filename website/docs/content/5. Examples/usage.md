@@ -60,11 +60,9 @@ This guide walks you through the process of creating and managing cloud instance
 
 Let's suppose you, as subject user@secapi.eu, and tenant administrator, start a new project!
 
-
 ## Step 0: Make sure you have the grant to get region details
 
-Create the **Role**: region-administrator 
-
+Create the **Role**: region-administrator
 
 ```
 PUT ${authorization-provider-url}/v1/tenants/tenant-id/roles/region-administrator
@@ -92,7 +90,7 @@ PUT ${authorization-provider-url}/v1/tenants/tenant-id/roles/region-administrato
 }
 ```
 
-Create the **Role-Assignment**: region-administrator 
+Create the **Role-Assignment**: region-administrator
 
 ```
 PUT ${authorization-provider-url}/v1/tenants/tenant-id/role-assignments/region-administrator
@@ -117,7 +115,9 @@ PUT ${authorization-provider-url}/v1/tenants/tenant-id/role-assignments/region-a
 ```http
 GET /v1/regions
 ```
+
 here you get **provider-url** that can be:
+
 - dns-based (e.g https://eu-workspace.ionos.secapi.eu)
 - path-based (e.g. https://aruba.secapi.eu/providers/seca.workspace)
 
@@ -143,7 +143,6 @@ Content-Type: application/json
 ```
 
 Note: Creating a workspace automatically grants you admin permissions for that workspace.
-
 
 ## Step 2: Review Available SKUs
 
@@ -218,11 +217,7 @@ Content-Type: application/json
   "spec": {
     "skuRef": ".../seca.250",
     "sizeGB": 50,
-    "origin": {
-      type: {
-        "sourceImageRef": "tenants/{tenant_id}/images/ubuntu-24.04"
-      }
-    }
+    "sourceImageRef": "tenants/{tenant_id}/images/ubuntu-24.04"
   }
 }
 ```
@@ -331,14 +326,14 @@ Content-Type: application/json
 
 {
   "spec": {
-    "ipVersion": "IPv4",
-    "type": "Static"
+    "version": "IPv4"
   }
 }
 ```
+
 ## Step 6: Create NIC
 
-Create the NIC instance:
+Create the a NIC with a public IP for the instance (automatically generate the private IPv4):
 
 ```http
 PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/nics/n1
@@ -347,7 +342,7 @@ Content-Type: application/json
 {
   "spec": {
     "subnetRef": ".../web-shop-subnet",
-    "staticPrivateIPs": [],
+    "addresses": ["0.0.0.0"],
     "publicIPRef": ".../ip1"
   }
 }
@@ -374,28 +369,14 @@ Content-Type: application/json
   },
   "spec": {
     "skuRef": .../gold",
-    "network": {
-      "primaryNicRef": ".../n1"
-    },
-    "operatingSystem": {
-      "cloudInitData": {
-        "userData": "string",
-        "sshKeys": [
-          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g..."
-        ]
-      },
-      "osBlockStorageRef": {
-        "objectRef": ".../web-shop-os-disk",
-        "properties": {
-          "connectionType": "iSCSI",
-          "deviceRef": "instance-123"
-        }
-      }
-    },
-    "storage": {
-      "dataBlockStorageRef": []
+    "primaryNicRef": ".../n1"
+    "sshKeys": [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g..."
+    ]
+    "bootVolume": {
+      "deviceRef": ".../web-shop-os-disk"
     }
-  }
+  } 
 }
 
 ```

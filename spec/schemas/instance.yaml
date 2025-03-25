@@ -14,115 +14,59 @@ Instance:
 
 InstanceSpec:
   type: object
+  required:
+  - skuRef
+  - zone
+  - bootVolume
   properties:
     skuRef:
       $ref: './resource.yaml#/Reference'
     skuExtensions:
       additionalProperties: true
-    network:
-      $ref: '#/InstanceNetwork'
+      example: {}
+    primaryNicRef:
+      $ref: './resource.yaml#/Reference'
+    additionalNicRefs:
+      type: array
+      description: Additional NICs attached to this instance
+      items:
+        $ref: './resource.yaml#/Reference'
     zone:
       type: string
     securityGroupRef:
       $ref: './resource.yaml#/Reference'
-    operatingSystem:
-      type: object
-      properties:
-        cloudInitData:
-          type: object
-          properties:
-            userData:
-              type: string
-              description: |
-                Cloud-init user data for instance initialization
-                Example cloud-init user configuration with SSH key:
-                ```yaml
-                #cloud-config
-                packages:
-                  - nginx
-                ```
-            sshKeys:
-              type: array
-              items:
-                type: string
-                example: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g...'
-              description: |
-                Provider-specific references to SSH keys used in cloud-init vendorData.
-                These references are used to inject SSH public keys during instance initialization
-                through cloud-init's vendor data configuration.
-        osBlockStorage:
-          $ref: './block-storage.yaml#/VolumeAttachment'
-    storage:
-      type: object
-      properties:
-        dataBlockStorages:
-          type: array
-          items:
-            $ref: './block-storage.yaml#/VolumeAttachment'
-
-InstanceStatus:
-  type: object
-  readOnly: true
-  properties:
-    state:
-      $ref: './resource.yaml#/ResourceState'
-    placement:
-      $ref: '#/InstancePlacementStrategy'
-    network:
-      $ref: '#/InstanceNetwork'
-    dataBlockStorageRefs:
+    userData:
+      type: string
+      description: |
+        Cloud-init user data for instance initialization
+        Example cloud-init user configuration with SSH key:
+        ```yaml
+        #cloud-config
+        packages:
+          - nginx
+        ```
+    antiAffinityGroup:
+      description: |
+        Anti-affinity group to which this instance belongs.
+        Instances in the same anti-affinity group are placed on different physical hosts.
+        The number of maximum instances in an anti-affinity group is provider-specific.
+      type: string
+    sshKeys:
       type: array
       items:
         type: string
-    skuRef:
-      $ref: './resource.yaml#/Reference'
-    conditions:
+        example: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g...'
+      description: |
+        Provider-specific references to SSH keys used in cloud-init vendorData.
+        These references are used to inject SSH public keys during instance initialization
+        through cloud-init's vendor data configuration.
+    bootVolume:
+      $ref: './block-storage.yaml#/VolumeReference'
+    dataVolumes:
       type: array
       items:
-        $ref: "./resource.yaml#/StatusCondition"
-  example:
-    state: "Ready"
-    placement:
-      strategy: "zone"
-    conditions:
-    - type: "power"
-      status: "on"
-      lastTransitionTime: "2024-11-21T14:39:22Z"
-      reason: "user_request"
-      message: "executed successfully"
+        $ref: './block-storage.yaml#/VolumeReference'
 
-InstanceNetwork:
-  type: object
-  properties:
-    primaryNic:
-      $ref: './resource.yaml#/Reference'
-    otherNics:
-      type: array
-      description: Additional NICs attached to this instance
-      items:
-        $ref: '#/InstanceNic'
-
-InstancePlacementStrategy: # missing the grouping of instances
-  type: object
-  properties:
-    strategy:
-      type: string
-      enum: ['zone', 'auto', 'anti-affinity']
-    zone:
-      type: string
-    antiAffinityGroup:
-      type: string
-
-InstanceNic:
-  type: object
-  description: |
-    Represents a NIC attached to an instance, the slot
-    is used to identify the pci slot of the NIC.
-  required:
-  - nicRef
-  - slot
-  properties:
-    nicRef:
-      $ref: './resource.yaml#/Reference'
-    slot:
-      type: integer
+InstanceStatus:
+  allOf:
+  - $ref: "./resource.yaml#/Status"

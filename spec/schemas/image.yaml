@@ -3,17 +3,7 @@ Image:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
     description: |
-      Represents an Image Stock Keeping Unit (SKU) for cloud instances.
-
-      | Provider | Tier | Description |
-      |----------|------|-------------|
-      | SECA | ubuntu-24.04 | Ubuntu 24.04 LTS Image |
-      | SECA | redhat-9.3 | Red Hat Enterprise Linux 9.3 Image |
-      | SECA | debian-12 | Debian 12 (Bookworm) Image |
-
-      Properties, capabilities, and extensions can also be found in the metadata.labels sections.
-      These can be used for searching with the appropriate namespace "properties.", "capabilities.", and "extensions.".
-      Example: filter="capabilities.OS=Linux"
+      Represents  an Image resource that can be used to create a virtual machine.
     properties:
       metadata:
         $ref: './resource.yaml#/RegionalResourceMetadata'
@@ -21,49 +11,40 @@ Image:
         $ref: './image.yaml#/ImageSpec'
       status:
         $ref: './image.yaml#/ImageStatus'
+  example:
+    labels:
+      os: Linux
+      vendor: Ubuntu
+      version: 24.04
+    annotations:
+      description: Ubuntu 24.04 LTS Image
+    spec:
+      cpuArchitecture: amd64
+      boot: UEFI
+      initializer: cloudinit-22
 
 ImageSpec:
   type: object
+  required:
+  - cpuArchitecture
   properties:
-    provider:
+    cpuArchitecture:
       type: string
-      description: Provider of the Image specification
-    tier:
+      description: CPU architecture for the Image
+      enum:
+      - amd64
+      - arm64
+    initializer:  
       type: string
-      description: Tier of the Image
-    capabilities:
-      $ref: '#/ImageCapabilities'
-    extensions:
-      type: array
-      description: List of possible extensions for this Image
-      items:
-        type: string
-    mandatoryParameters:
-      type: array
-      description: List of mandatory parameters for this Image
-      items:
-        type: string
-    description:
-          type: string
-  example:
-    provider: 'SECA'
-    tier: 'ubuntu-24.04'
-    cpuArchitecture: 'AMD64'
-    boot: 'UEFI'
-    cloudInitVersion: '22.01'
-    endOfLife: '2029-03-31'
+      description: Initializer for the Image
+      enum:
+      - cloudinit-22
+    boot:
+      type: string
+      description: Boot type for the Image
+      enum:
+      - UEFI
+      - BIOS
 
 ImageStatus:
   $ref: "./resource.yaml#/Status"
-
-ImageCapabilities:
-  type: object
-  properties:
-    tier:
-      type: string
-      description: "keyword to identify the product tier"
-      example: ubuntu-24.04
-    provider:
-      type: string
-      description: "keyword to identify the provider"
-      example: SECA

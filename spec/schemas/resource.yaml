@@ -196,31 +196,6 @@ ZonalMetadata:
       type: string
       description: Reference to the specific zone where the resource is located
 
-ResourceState:
-  type: object
-  description: |
-    Generic state definition for all resources. All states are optional, but must not have more states.
-    If a provider wants to present fine granular states, please use conditions.
-  properties:
-    phase:
-      type: string
-      description: |
-        Current phase of the resource:
-        - pending: not available, waiting for other resources
-        - creating: not available, creation started
-        - active: available for data layer usage
-        - updating: available for data layer usage
-        - deleting: maybe still available for data layer user, can fail any moment
-        - suspended: not available, provider specific behavior (payment issue, user decided to suspend)
-        - error: failed to fulfill the request; would be related to provider issue or customer related input.
-      enum:
-      - pending
-      - creating
-      - active
-      - updating
-      - deleting
-      - suspended
-      - error
 
 Status:
   type: object
@@ -229,10 +204,33 @@ Status:
   required:
   - conditions
   properties:
+    state:
+      $ref: '#/ResourceState'
     conditions:
       type: array
       items:
         $ref: "#/StatusCondition"
+
+ResourceState:
+  type: string
+  description: |
+    Current phase of the resource:
+    - pending: not available, waiting for other resources
+    - creating: not available, creation started
+    - active: available for data layer usage
+    - updating: available for data layer usage
+    - deleting: maybe still available for data layer user, can fail any moment
+    - suspended: not available, provider specific behavior (payment issue, user decided to suspend)
+    - error: failed to fulfill the request; would be related to provider issue or customer related input.
+  enum:
+  - pending
+  - creating
+  - active
+  - updating
+  - deleting
+  - suspended
+  - error
+  example: "active"
 
 StatusCondition:
   type: object
@@ -241,8 +239,7 @@ StatusCondition:
     Conditions are provider-specific and can represent different states depending on the
     resource type and provider implementation.
   required:
-  - type
-  - status
+  - state
   - lastTransitionTime
   properties:
     type:
@@ -250,8 +247,7 @@ StatusCondition:
       description: |
         Type of condition. The condition type is provider-specific and should
         reflect the specific states relevant to your resource.
-      example: "power-mgmt"
-    status:
+    state:
       $ref: '#/ResourceState'
     lastTransitionTime:
       type: string
@@ -274,6 +270,9 @@ StatusCondition:
       description: |
         A human-readable message indicating details about the transition.
       maxLength: 32768
+  example:
+    state: active
+    lastTransitionTime: "2024-11-21T14:39:22Z"
 
 ResponseMetadata:
   allOf:

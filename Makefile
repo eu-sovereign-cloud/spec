@@ -30,13 +30,13 @@ $(DIST_ZIP): build
 
 build: $(DIST) $(GOMPLATE_FINAL) $(SCHEMAS_FINAL)
 
-resource-apis: $(GOMPLATE_FINAL)
+resource-apis: $(GOMPLATE_FINAL) $(SCHEMAS_SOURCES)
 
 $(DIST): $(ASSETS_FILES) 
 	@mkdir -p $(DIST)/$(ASSETS)
 	@find $(ASSETS) -type f -exec cp {} $(DIST)/$(ASSETS)/ \;
 
-$(ROOT)/%.yaml: $(ROOT)/resources/%.yaml $(GOMPLATE_TEMPLATE)
+$(ROOT)/%.yaml: $(ROOT)/resources/%.yaml $(GOMPLATE_TEMPLATE) $(SCHEMAS)
 	$(GO) run $(GOMPLATE) -d spec=$< -f $(GOMPLATE_TEMPLATE) -o $@
 
 $(DIST)/specs/%.yaml: $(ROOT)/%.yaml $(SCHEMAS)

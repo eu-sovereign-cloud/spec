@@ -21,48 +21,35 @@ PublicIpSpec:
   description: |
     Specification of the public IP.
   required:
-    - ipVersion
+    - version
   properties:
-    ipVersion:
+    version:
       type: string
       description: IP version of the address
       enum:
         - IPv4
         - IPv6
-    ipAddress:
+    address:
       type: string
       description: The public IP address in case of BYOIP.
+  example:
+    version: "IPv4"
 
 PublicIpStatus:
-  type: object
-  readOnly: true
-  description: |
-    Current status of the public IP.
-    Condition type `allocation` indicates the status of the public IP allocation.
-    The status can be `allocated` or `released`.
-    Condition type  `binding` indicates the status of the IP binding to a resource.
-    The status can be `bound` or `unbound`.
-  properties:
-    state:
-      $ref: './resource.yaml#/ResourceState'
-    attachedTo:
-      $ref: './resource.yaml#/Reference'
-    ipAddress:
-      type: string
-      description: The public IP address in case.
-    conditions:
-      type: array
-      items:
-        $ref: "./resource.yaml#/StatusCondition"
-      example:
-      - type: "allocation"
-        status: "allocated"
-        lastTransitionTime: "2024-11-21T14:39:22Z"
-        reason: "IpAddressAssigned"
-        message: "Public IP address has been assigned"
-      - type: "binding"
-        status: "bound"
-        lastTransitionTime: "2024-11-21T14:39:22Z"
-        reason: "BoundToResource"
-        message: "IP is bound to a resource"
+  allOf:
+  - $ref: "./resource.yaml#/Status"
+  - type: object
+    readOnly: true
+    description: |
+      Current status of the public IP.
+      Condition type `allocation` indicates the status of the public IP allocation.
+      The status can be `allocated` or `released`.
+      Condition type  `binding` indicates the status of the IP binding to a resource.
+      The status can be `bound` or `unbound`.
+    properties:
+      attachedTo:
+        $ref: './resource.yaml#/Reference'
+      ipAddress:
+        type: string
+        description: The public IP address in case.
 

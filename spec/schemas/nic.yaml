@@ -58,8 +58,6 @@ NicStatus:
   - type: object
     readOnly: true
     properties:
-      state:
-        $ref: './resource.yaml#/ResourceState'
       addresses:
         type: array
         items:

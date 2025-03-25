@@ -19,6 +19,12 @@ RouteTableSpec:
       type: array
       items:
         $ref: '#/RouteSpec'
+  example:
+    routes:
+    - destinationCidrBlock: '0.0.0.0/0'
+      targetRef: '.../internet-gateway-1'
+    - destinationCidrBlock: '::/0'
+      targetRef: '.../internet-gateway-1'
 
 RouteSpec:
   type: object
@@ -57,7 +63,4 @@ RouteStatus:
       the status will be `error`. If the route is valid the status
       will be `active`. If the route is referencing a target that
       is not yet created, the status will be `pending`.
-    properties:
-      state:
-        $ref: './resource.yaml#/ResourceState'
     

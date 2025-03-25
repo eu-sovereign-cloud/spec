@@ -21,8 +21,6 @@ ObjectStorageAccountStatus:
   - type: object
     readOnly: true
     properties:
-      state:
-        $ref: './resource.yaml#/ResourceState'
       accessKey:
         type: string
         description: Access key for the object storage account
