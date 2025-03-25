@@ -28,22 +28,35 @@ SubnetSpec:
     length, ensuring proper subdivision of the address space.
     The first and last IP addresses in the subnet are reserved
     the network address and broadcast address, respectively.
+
+    Most CSP will not allow to use a different IPv6 prefix length than /64.
   required:
   - cidr
+  - zone
   properties:
     cidr:
       $ref: './network.yaml#/cidr'
+    zone:
+      $ref: './region.yaml#/Zone'
     routeTableRef:
-      type: string
-      description: |
-        Reference to the route table used by default for all NIC in this Subnet.
-        Can be overridden by the NIC
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - type: string
+        description: |
+          Reference to the route table used by default for all NIC in this Subnet.
+          Can be overridden by the NIC
     skuRef:
-      type: string
-      description: |
-        Reference to the SKU used by default for all NIC in this Network.
-        Can be overridden by the NIC
-      example: ".../seca.1000"
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - type: string
+        description: |
+          Reference to the SKU used by default for all NIC in this Network.
+          Can be overridden by the NIC  
+  example:
+    cidr:
+      ipv4: "0.0.0.0/24"
+      ipv6: "::/64"
+    skuRef: ".../seca.1000" 
 
 SubnetStatus:
   allOf:
@@ -53,5 +66,10 @@ SubnetStatus:
     description: |
       The status of the subnet, including the current state and any
       associated IP addresses.
+    properties:
       cidr:
         $ref: './network.yaml#/cidr'
+    example:
+      cidr:
+        ipv4: "10.100.1.0/24"
+        ipv6: "2001:239:203:2400::/64"

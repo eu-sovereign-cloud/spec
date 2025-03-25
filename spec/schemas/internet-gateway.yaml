@@ -18,6 +18,15 @@ InternetGatewaySpec:
   description: |
     The internet gateway will use the reserved IP address allOf:
     the subnet CIDR block to provide internet access to the subnet.
+  properties:
+    egressOnly:
+      type: boolean
+      description: |
+        If set to true, the internet gateway will only allow outgoing traffic
+        and will not allow incoming traffic. This is useful for public subnets
+        that should not be accessible from the internet.
+      default: false
+  example: {}
 
 InternetGatewayStatus:
   $ref: "./resource.yaml#/Status"

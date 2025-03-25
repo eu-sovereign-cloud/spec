@@ -14,13 +14,22 @@ NetworkLoadBalancer:
 
 NetworkLoadBalancerSpec:
   type: object
+  description: |
+    Defines the specification for a Network Load Balancer. A Load Balancer can have multiple
+    frontends, where each frontend may target multiple backend instances. Frontend ports and
+    protocols must be unique to ensure proper routing. The NIC associated with the proxy
+    determines whether the Load Balancer is internal or external.
+  required:
+  - nicRef
+  - frontends
   properties:
-    skuRef:
+    nicRef:
       $ref: './resource.yaml#/Reference'
-    ipConfigurations:
+    frontends:
       type: array
       items:
         $ref: '#/NetworkLoadBalancerFrontend'
+      minItems: 1
 
 NetworkLoadBalancerStatus:
   allOf:
@@ -28,82 +37,88 @@ NetworkLoadBalancerStatus:
   - type: object
     readOnly: true
     properties:
-      ipConfigurations:
+      healthyMembers:
+        description: 'List of healthy members'
         type: array
         items:
-          $ref: '#/NetworkLoadBalancerFrontend'
-      ipConfigurationsHealthy:
-        type: array
-        items:
-          $ref: '#/NetworkLoadBalancerFrontend'
+          $ref: './resource.yaml#/Reference'
 
 NetworkLoadBalancerFrontend:
   type: object
   description: |
-    If the LoadBalancer will be internal or external depends on the associated NIC.
+    Represents the frontend configuration of the LoadBalancer. Each frontend
+    can have multiple targets, but the combination of port and protocol must
+    be unique to ensure proper routing.
   required:
   - protocol
   - port
-  - nicRef
   - target
   properties:
     protocol:
       type: string
       description: 'Frontend Protocol to which the load balancer will be listening on'
-      enum: [ TCP, UDP ]
+      enum: [ tcp, udp, both ]
     port:
-      type: integer
-      format: int32
-      description: A valid network port number.
-      minimum: 0
-      maximum: 65535
-    nicRef:
-      $ref: './resource.yaml#/Reference'
+      $ref: './security-group.yaml#/Port'
     target:
       $ref: '#/LoadBalancerTarget'
 
 LoadBalancerTarget:
   type: object
+  description:
+    The target of the LoadBalancer. It can be a set of instances nics.
+    The port can be different from the frontend port, if omitted it will be the same.
+    If no health check is specified, the LoadBalancer will not check the health of the backend instances.
+  required:
+  - members
   properties:
     algorithm:
       type: string
-      description: 'LoadBalancer algorithm to take a backend istance'
-      enum: [ ROUND_ROBIN ]
-    protocol:
-      type: string
-      description: 'Frontend Protocol to which the load balancer will be listening on'
-      enum: [ TCP, UDP ]
+      description: 'LoadBalancer algorithm to take a backend instance'
+      enum: [ round-robin ]
+      default: round-robin
     port:
-      type: integer
-      format: int32
-      description: A valid network port number.
-      minimum: 0
-      maximum: 65535
-    membersRefs:
+      $ref: './security-group.yaml#/Port'
+    members:
       type: array
-      description: 'Nic Reference to the LoadBalancerMember as part of the LoadBalancerTarget'
+      description: 'Nic reference to the members as part of the LoadBalancerTarget'
       items:
-        $ref: '#/LoadBalancerMember'
-    healthcheck:
+        $ref: './resource.yaml#/Reference'
+    healthCheck:
       $ref: '#/LoadBalancerHealthCheck'
+  example:
+    members:
+    - '.../nic-1'
+    - '.../nic-2'
+    healthCheck:
+      interval: 10
+      timeout: 5
+      retry: 3
 
 LoadBalancerHealthCheck:
   type: object
   description: Optional port health check. It probes the port with protocol.
+  required:
+  - interval
+  - timeout
+  - retry
   properties:
+    type:
+      type: string
+      description: |
+        Specifies the type of health check. A `connect` health check attempts
+        to establish a connection to the specified port to determine its health.
+      enum: [ connect ]
+      default: connect
     interval:
       type: integer
-      description: 'healthcheck interval in seconds. It means after how many seconds it will take a new check'
+      description: 'health check interval in seconds. It means after how many seconds it will take a new check'
+      example: 10
     timeout:
       type: integer
-      description: 'healthcheck in seconds. It means after how many seconds the attempt will be considered unhealthy'
+      description: 'health check in seconds. It means after how many seconds the attempt will be considered unhealthy'
+      example: 5
     retry:
       type: integer
-      description: 'healthcheck retry number after considered unhealthy a backend istance'
-
-LoadBalancerMember:
-  type: object
-  properties:
-    nicRef:
-      type: string
-      description: Reference to the SKU used for this network-load-balancer
+      description: 'health check retry number after considered unhealthy a backend instance'
+      example: 3

@@ -4,6 +4,8 @@ Image:
   - type: object
     description: |
       Represents  an Image resource that can be used to create a virtual machine.
+    required:
+    - spec
     properties:
       metadata:
         $ref: './resource.yaml#/RegionalResourceMetadata'
@@ -38,13 +40,20 @@ ImageSpec:
       type: string
       description: Initializer for the Image
       enum:
+      - none
       - cloudinit-22
+      default: none
     boot:
       type: string
       description: Boot type for the Image
       enum:
       - UEFI
       - BIOS
+      default: UEFI
+    sizeMB:
+      type: integer
+      description: Size of the Image in MB
+      example: 628
 
 ImageStatus:
   $ref: "./resource.yaml#/Status"

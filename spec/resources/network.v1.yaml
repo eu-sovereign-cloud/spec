@@ -33,29 +33,6 @@ resources:
     hierarchy: [tenant, workspace, network]
     schema: './schemas/subnet.yaml#/Subnet'
     operations: [list, get, put, delete]
-    example:
-      list:
-        items:
-        - metadata:
-            name: standard-subnet
-            description: Standard subnet with auto gateway
-            apiVersion: v1
-            kind: subnet
-          spec:
-            ipv4Range: '10.0.100.0/24'
-            skuRef: '.../seca.100'
-            dhcpEnabled: true
-        - metadata:
-            name: firewall-subnet
-            description: Custom gateway through network appliance
-            apiVersion: v1
-            kind: subnet
-          spec:
-            ipv4Range: '10.0.120.0/24'
-            dhcpEnabled: true
-            defaultGateway:
-              type: instanceRef
-              value: 'network-firewall-01'
   - name: security group
     plural: security-groups
     hierarchy: [tenant, workspace, network]

@@ -17,14 +17,20 @@ BlockStorageSpec:
   description: |
     References the SKU used for this block.
     If a reference to the source image is used as the base for creating this block storage.
+  required:
+  - skuRef
+  - sizeGB
   properties:
     skuRef:
       $ref: './resource.yaml#/Reference'
     skuExtensions:
-      additionalProperties: true
+      type: object
+      additionalProperties:
+        type: string
       example: {}
     sizeGB:
       type: integer
+      example: 10
     sourceImageRef:
       $ref: './resource.yaml#/Reference'
 
@@ -36,6 +42,8 @@ BlockStorageStatus:
     description: |
       Conditions type `attachment` indicates the status of the volume attachment.
       The status can be `attached` or `detached`.
+    required:
+    - sizeGB
     properties:
       sizeGB:
         type: integer
@@ -56,7 +64,8 @@ VolumeReference:
       description: The connection type depends on the type of device and type of block storage.
       enum:
       - virtio
+      default: virtio
   example:
-    type: "iSCSI"
     deviceRef: ".../block-123"
+    type: "virtio"
 

@@ -24,8 +24,8 @@ NetworkSkuSpec:
       type: string
       description: Network performance tier
     capabilities:
-      additionalProperties: true
-      type: object
+      type: string
+      example: {}
       description: Network performance capabilities
     extensions:
       type: array

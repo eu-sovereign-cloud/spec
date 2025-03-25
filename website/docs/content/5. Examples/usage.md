@@ -239,11 +239,9 @@ Content-Type: application/json
     "description": "Production network for web-shop",
   }
   "spec": {
-    "profile": {
-      "skuRef": ".../seca.1000",
-      "cidr": {
-        "ipv4Range": "10.100.0.0/16"
-      }
+    "skuRef": ".../seca.1000",
+    "cidr": {
+      "ipv4": "10.100.0.0/16"
     }
   }
 }
@@ -265,7 +263,7 @@ Content-Type: application/json
   }
   "spec": {
     "cidr": {
-      "ipv4Range": "10.100.1.0/24"
+      "ipv4": "10.100.1.0/24"
     }
   }
 }
@@ -289,13 +287,12 @@ Content-Type: application/json
     "rules": [
       {
         "annotations": {
-          "description": "Allow HTTP from anyone",
+          "description": "Allow HTTP(s) from anyone",
         },
         "direction": "ingress",
         "protocol": "tcp",
-        "portRange": {
-          "from": 80,
-          "to": 80
+        "ports": {
+          "list": [80, 443]
         },
         "sourceRefs": []
       }
@@ -305,9 +302,8 @@ Content-Type: application/json
         },
         "direction": "ingress",
         "protocol": "tcp",
-        "portRange": {
-          "from": 22,
-          "to": 22
+        "ports": {
+          "from": 22
         },
         "sourceRefs": [
           "55.44.33.11"

@@ -30,8 +30,8 @@ NetworkSpec:
 
     In case the system should automatically assign IP addresses to the network cidrs
     only the network prefix is required. E.g. to request a /16 IPv4 CIDR block the
-    CIDR block would be `0.0.0.0/16` and for a /64 IPv6 CIDR block the CIDR block would
-    be `::/64`.
+    CIDR block would be `0.0.0.0/16` and for a /56 IPv6 CIDR block the CIDR block would
+    be `::/56`. Most CSP will not allow to use a different IPv6 prefix length than /56.
 
     If a network is created a RouteTable is created by default, some providers permit the
     creation and usage of additional RouteTables. Supporting multiple RouteTables is not a 
@@ -54,13 +54,13 @@ NetworkSpec:
         Can be overridden by the NIC.
       example: "seca.1000"
     skuExtensions:
-      additionalProperties: true
+      type: string
       example: {}
   example:
     skuRef: ".../seca.1000"
     cidr:
-      ipv4Range: "0.0.0.0/16"
-      ipv6Range: "::/64"
+      ipv4: "0.0.0.0/16"
+      ipv6: "::/56"
   
 NetworkStatus:
   allOf:
@@ -84,8 +84,8 @@ NetworkStatus:
         $ref: './resource.yaml#/Reference'
     example:
       cidr:
-        ipv4Range: "10.100.0.0/16"
-        ipv6Range: "2001:db8:1234:5678::/64"
+        ipv4: "10.100.0.0/16"
+        ipv6: "2001:239:203:2400::/56"
 
 cidr:
   type: object
@@ -98,12 +98,12 @@ cidr:
     * IPv6 only
     * IPv4 and IPv6 (Dual Stack)
   properties:
-    ipv4Range:
+    ipv4:
       type: string
       description: |
         IPv4 CIDR block for the subnet.
       example: '10.0.100.0/24'
-    ipv6Range:
+    ipv6:
       type: string
       description: |
         IPv6 CIDR block for the subnet.

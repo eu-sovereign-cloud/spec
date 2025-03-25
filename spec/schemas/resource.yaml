@@ -143,22 +143,20 @@ UserResourceMetadata:
       description: |
         User-defined key/value pairs that are mutable and can be used to
         organize and categorize resources. They can be used to filter resources.
+        The number of labels is eventually limited by the CSP.
       additionalProperties:
         type: string
       example:
-        language: en
-        billing.cost-center: platform-eng
         env: production
     annotations:
       type: object
       description: |
         User-defined key/value pairs that are mutable and can be used to add annotations.
+        The number of annotations is eventually limited by the CSP.
       additionalProperties:
         type: string
       example:
-        description: "Resource with some human readable description"
-        color: red
-        externalID: "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
+        description: "Human readable description"
 
 TenantMetadata:
   type: object
@@ -193,8 +191,7 @@ ZonalMetadata:
   - zone
   properties:
     zone:
-      type: string
-      description: Reference to the specific zone where the resource is located
+      $ref: './region.yaml#/Zone'
 
 
 Status:

@@ -22,7 +22,9 @@ InstanceSpec:
     skuRef:
       $ref: './resource.yaml#/Reference'
     skuExtensions:
-      additionalProperties: true
+      type: object
+      additionalProperties:
+        type: string
       example: {}
     primaryNicRef:
       $ref: './resource.yaml#/Reference'
@@ -32,7 +34,7 @@ InstanceSpec:
       items:
         $ref: './resource.yaml#/Reference'
     zone:
-      type: string
+      $ref: './region.yaml#/Zone'
     securityGroupRef:
       $ref: './resource.yaml#/Reference'
     userData:
@@ -40,17 +42,17 @@ InstanceSpec:
       description: |
         Cloud-init user data for instance initialization
         Example cloud-init user configuration with SSH key:
-        ```yaml
+      example: |
         #cloud-config
         packages:
-          - nginx
-        ```
+        - nginx
     antiAffinityGroup:
       description: |
         Anti-affinity group to which this instance belongs.
         Instances in the same anti-affinity group are placed on different physical hosts.
         The number of maximum instances in an anti-affinity group is provider-specific.
       type: string
+      example: null
     sshKeys:
       type: array
       items:

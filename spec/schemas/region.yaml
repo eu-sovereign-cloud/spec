@@ -1,5 +1,8 @@
 Region:
   type: object
+  description: |
+    Represents a region, which is a geographical location
+    with one or more zones. 
   required:
     - spec
   properties:
@@ -19,11 +22,17 @@ RegionSpec:
     availableZones:
       type: array
       items:
-        type: string
+        $ref: '#/Zone'
+      example: ["a", "b", "c"]
     providers:
       type: array
       items:
         $ref: './region.yaml#/Provider'
+
+Zone:
+  type: string
+  description: Reference to a specific zone within a region
+  example: "a"
 
 RegionStatus:
   $ref: "./resource.yaml#/Status"

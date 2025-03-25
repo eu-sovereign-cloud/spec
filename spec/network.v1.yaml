@@ -293,29 +293,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SubnetIterator"
-              example:
-                items:
-                  - metadata:
-                      apiVersion: v1
-                      description: Standard subnet with auto gateway
-                      kind: subnet
-                      name: standard-subnet
-                    spec:
-                      dhcpEnabled: true
-                      ipv4Range: 10.0.100.0/24
-                      skuRef: '.../seca.100'
-                  - metadata:
-                      apiVersion: v1
-                      description: Custom gateway through network appliance
-                      kind: subnet
-                      name: firewall-subnet
-                    spec:
-                      defaultGateway:
-                        type: instanceRef
-                        value: network-firewall-01
-                      dhcpEnabled: true
-                      ipv4Range: 10.0.120.0/24
-
         '400':
           $ref: './schemas/errors.yaml#/responses/Error400'
         '401':

@@ -24,8 +24,10 @@ StorageSkuSpec:
       type: string
       description:  storage performance tier
     capabilities:
-      additionalProperties: true
       type: object
+      additionalProperties:
+        type: string
+      example: {}
       description:  storage performance capabilities
     extensions:
       type: array
