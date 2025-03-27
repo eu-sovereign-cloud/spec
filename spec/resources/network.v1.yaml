@@ -23,38 +23,38 @@ resources:
         | SECA | seca.1000 | 1 Gbit/s | 1G-bandwidth network tier |
         | SECA | seca.5000 | 5 Gbit/s | 5G-bandwidth network tier |
         | SECA | seca.10000 | 10 Gbit/s | 10G-bandwidth network tier |
+  - name: security group
+    plural: security-groups
+    hierarchy: [tenant, workspace]
+    schema: './schemas/security-group.yaml#/SecurityGroup'
+    operations: [list, get, put, delete]
+  - name: nic
+    plural: nics
+    hierarchy: [tenant, workspace]
+    schema: './schemas/nic.yaml#/Nic'
+    operations: [list, get, put, delete]
+  - name: public ip
+    plural: public ips
+    hierarchy: [tenant, workspace]
+    schema: './schemas/public-ip.yaml#/PublicIp'
+    operations: [list, get, put, delete]
   - name: network
     plural: networks
     hierarchy: [tenant, workspace]
     schema: './schemas/network.yaml#/Network'
     operations: [list, get, put, delete]
+  - name: internet gateway
+    plural: internet gateways
+    hierarchy: [tenant, workspace]
+    schema: './schemas/internet-gateway.yaml#/InternetGateway'
+    operations: [list, get, put, delete]
   - name: subnet
     plural: subnets
-    hierarchy: [tenant, workspace, network]
+    hierarchy: [tenant, workspace]
     schema: './schemas/subnet.yaml#/Subnet'
-    operations: [list, get, put, delete]
-  - name: security group
-    plural: security-groups
-    hierarchy: [tenant, workspace, network]
-    schema: './schemas/security-group.yaml#/SecurityGroup'
-    operations: [list, get, put, delete]
-  - name: nic
-    plural: nics
-    hierarchy: [tenant, workspace, network]
-    schema: './schemas/nic.yaml#/Nic'
     operations: [list, get, put, delete]
   - name: route-table
     plural: route-tables
-    hierarchy: [tenant, workspace, network]
+    hierarchy: [tenant, workspace]
     schema: './schemas/route-table.yaml#/RouteTable'
-    operations: [list, get, put, delete]
-  - name: public ip
-    plural: public ips
-    hierarchy: [tenant, workspace, network]
-    schema: './schemas/public-ip.yaml#/PublicIp'
-    operations: [list, get, put, delete]
-  - name: internet gateway
-    plural: internet gateways
-    hierarchy: [tenant, workspace, network]
-    schema: './schemas/internet-gateway.yaml#/InternetGateway'
     operations: [list, get, put, delete]

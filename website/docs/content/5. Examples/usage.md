@@ -250,7 +250,7 @@ Content-Type: application/json
 ### 5.2 Create a Subnet
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network/subnets/web-shop-subnet
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/subnets/web-shop-subnet
 Content-Type: application/json
 
 {
@@ -262,6 +262,7 @@ Content-Type: application/json
     "description": "Public subnet",
   }
   "spec": {
+    "networkRef": ".../web-shop-network",
     "cidr": {
       "ipv4": "10.100.1.0/24"
     }
@@ -272,7 +273,7 @@ Content-Type: application/json
 ### 5.3 Set Up Security Group
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network/security-groups/web-shop-sg
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/security-groups/web-shop-sg
 Content-Type: application/json
 
 {

@@ -14,7 +14,15 @@ RouteTable:
 
 RouteTableSpec:
   type: object
+  description: |
+    The RouteTableSpec defines the routes that are associated with the route table.
+    The `localRef` is a reference to the network it will inherit the routes from.
+  required:
+  - localRef
+  - routes
   properties:
+    localRef:
+      $ref: './resource.yaml#/Reference'
     routes:
       type: array
       items:

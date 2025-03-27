@@ -32,14 +32,10 @@ NetworkSpec:
     only the network prefix is required. E.g. to request a /16 IPv4 CIDR block the
     CIDR block would be `0.0.0.0/16` and for a /56 IPv6 CIDR block the CIDR block would
     be `::/56`. Most CSP will not allow to use a different IPv6 prefix length than /56.
-
-    If a network is created a RouteTable is created by default, some providers permit the
-    creation and usage of additional RouteTables. Supporting multiple RouteTables is not a 
-    requirement for the CSP. By default a RouteTable has a default route to the internet.
-    This default route however can only be used if the NIC has a public IP address.
   required:
   - cidr
   - skuRef
+  - routeTableRef
   properties:
     cidr:
       $ref: './network.yaml#/cidr'
@@ -53,6 +49,12 @@ NetworkSpec:
         Reference to the SKU used by default for all NIC in this Network.
         Can be overridden by the NIC.
       example: "seca.1000"
+    routeTableRef:
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - type: string
+        description: |
+          Reference to the route table used by default for all Subnets.
     skuExtensions:
       type: string
       example: {}

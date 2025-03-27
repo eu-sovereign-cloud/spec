@@ -21,10 +21,9 @@ NicSpec:
     The referenced SKU overwrites the default. In case of different network SKU references
     the highest possible network SKU reference is used. The network SKU reference
     might be restricted by the instance size.
-
-    Optional override of Reference to the route table used by this NIC.
   required:
   - addresses
+  - subnetRef
   properties:
     addresses:
       type: array
@@ -44,7 +43,7 @@ NicSpec:
         type: string
     skuRef:
       $ref: './resource.yaml#/Reference'
-    routeTableRef:
+    subnetRef:
       $ref: './resource.yaml#/Reference'
   example:
     addresses:
