@@ -1,3 +1,4 @@
+group: extensions
 title: Object Storage
 name: object storage
 version: v1

@@ -100,6 +100,12 @@ source ~/.bashrc
 go version
 expected: go version go1.24.1 linux/amd64
 
+# Install gotemplate
+go install github.com/hairyhenderson/gomplate/v4/cmd/gomplate@latest
+echo 'export PATH="$HOME/go/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+
+
 # Generate resources api files
 make resource-apis
 

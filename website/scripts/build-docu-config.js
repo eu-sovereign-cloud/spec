@@ -29,12 +29,15 @@ const apiConfigs = {};
 
 for (const file of fileList) {
   const id = path.basename(file, '.yaml'); // e.g., "authorization.v1"
-  const label = capitalizeFirstLetter(id);
-  const folderName = sanitizeFolderName(id); // e.g., "authorization-v1"
+  const [group, ...rest] = id.split(".");
+  const apiObj = rest.join(".");
 
-  apiConfigs[id] = {
+  const label = capitalizeFirstLetter(apiObj);
+  const folderName = sanitizeFolderName(apiObj); // e.g., "authorization-v1"
+
+  apiConfigs[apiObj] = {
     specPath: `../spec/${file}`,
-    outputDir: `docs/api/${folderName}`,
+    outputDir: `docs/api/${capitalizeFirstLetter(group)}/${folderName}`,
     label,
   };
 }

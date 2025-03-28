@@ -12,7 +12,7 @@ REDOCLY_BUNDLE_FLAGS := --remove-unused-components
 REDOCLY_DOCS_FLAGS := --disableGoogleFont
 
 SCHEMAS := $(shell find $(ROOT)/schemas -type f)
-SCHEMAS_SOURCES := $(shell ls $(ROOT)/*.yaml)
+SCHEMAS_SOURCES := $(wildcard $(ROOT)/*.yaml)
 SCHEMAS_FINAL = $(SCHEMAS_SOURCES:$(ROOT)/%.yaml=$(DIST)/specs/%.yaml)
 
 GOMPLATE_TEMPLATE = spec/templates/resource.yaml.tpl
@@ -28,11 +28,20 @@ $(DIST_ZIP): build
 	rm -f $@
 	cd $(DIST) && zip -r ../$@ *
 
-build: $(DIST) $(GOMPLATE_FINAL) $(SCHEMAS_FINAL)
+build: $(DIST) resource-apis $(SCHEMAS_FINAL)
 
-resource-apis: $(GOMPLATE_FINAL) $(SCHEMAS_SOURCES)
+.PHONY: resource-apis
+resource-apis:
+	@for f in $(GOMPLATE_SOURCES); do \
+		group="$$(gomplate -d spec=$$f -i '{{ (ds "spec").group }}')"; \
+		name="$$(gomplate -d spec=$$f -i '{{ (ds "spec").name }}' | tr '[:upper:]' '[:lower:]' | tr -d ' -')"; \
+		version="$$(gomplate -d spec=$$f -i '{{ (ds "spec").version }}')"; \
+		out="$(ROOT)/$${group}.$${name}.$${version}.yaml"; \
+		echo "Generating $$out from $$f"; \
+		$(GO) run $(GOMPLATE) -d spec=$$f -f $(GOMPLATE_TEMPLATE) -o $$out; \
+	done
 
-$(DIST): $(ASSETS_FILES) 
+$(DIST): $(ASSETS_FILES)
 	@mkdir -p $(DIST)/$(ASSETS)
 	@find $(ASSETS) -type f -exec cp {} $(DIST)/$(ASSETS)/ \;
 
@@ -44,11 +53,11 @@ $(DIST)/specs/%.yaml: $(ROOT)/%.yaml $(SCHEMAS)
 	$(REDOCLY) bundle $(REDOCLY_BUNDLE_FLAGS) $< --output=$@
 
 .PHONY: lint
-lint: $(GOMPLATE_FINAL) $(SCHEMAS_FINAL)
+lint: resource-apis $(SCHEMAS_FINAL)
 	$(VACUUM) lint $(VACUUM_LINT_FLAGS) $(SCHEMAS_FINAL)
 
 .PHONY: lint-verbose
-lint-verbose: $(GOMPLATE_FINAL) $(SCHEMAS_FINAL)
+lint-verbose: resource-apis $(SCHEMAS_FINAL)
 	$(VACUUM) lint $(VACUUM_LINT_FLAGS) -d $(SCHEMAS_FINAL)
 
 .PHONY: clean
