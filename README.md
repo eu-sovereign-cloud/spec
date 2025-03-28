@@ -72,6 +72,10 @@ Automates the generation and validation of OpenAPI files, ensuring consistency i
 
 Configuration of linter & quality analysis tool.
 
+## Editor
+
+Enable an [editorconfig](https://editorconfig.org/) on your Editor.
+
 ## Generating OpenAPI Files Using Makefile
 
  The OpenAPI files will be used in the website.
