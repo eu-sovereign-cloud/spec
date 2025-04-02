@@ -1,4 +1,6 @@
 Image:
+  description: |
+    Represents an Image resource that can be used to create a virtual machine.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -17,7 +19,7 @@ Image:
     labels:
       os: Linux
       vendor: Ubuntu
-      version: 24.04
+      version: "24.04"
     annotations:
       description: Ubuntu 24.04 LTS Image
     spec:
@@ -26,6 +28,8 @@ Image:
       initializer: cloudinit-22
 
 ImageSpec:
+  description: |
+    Specification of the Image resource. The Image can be used to create a virtual machine.
   type: object
   required:
   - cpuArchitecture

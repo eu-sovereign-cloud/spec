@@ -26,6 +26,11 @@ resources:
         | SECA | seca.100 | 100 IOPS | High-performance block storage tier |
     example:
       list:
+        metadata:
+          skipToken: "false"
+          scope: "workspace/production"
+          resource: "seca.compute/instances/my-server"
+          verb: get  
         items:
         - { spec: { provider: 'SECA', tier: 'seca.general', description: 'a storage with no guaranteed throughput for normal usage' }}
         - { spec: { provider: 'SECA', tier: 'seca.100', description: 'minimal 100 iops, 99% of time, when >50GB' }}

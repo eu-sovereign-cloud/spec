@@ -1,4 +1,5 @@
 BlockStorage:
+  description: Represents a block storage resource.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -35,6 +36,8 @@ BlockStorageSpec:
       $ref: './resource.yaml#/Reference'
 
 BlockStorageStatus:
+  description: |
+    The status of the block storage.
   allOf:
   - $ref: './resource.yaml#/Status'
   - type: object
