@@ -59,7 +59,6 @@ SubnetSpec:
     zone: "a"
     skuRef: ".../seca.1000" 
 
-
 SubnetStatus:
   allOf:
   - $ref: "./resource.yaml#/Status"

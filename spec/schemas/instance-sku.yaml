@@ -10,7 +10,6 @@ InstanceSku:
     spec:
       $ref: "./instance-sku.yaml#/InstanceSkuSpec"
 
-
 InstanceSkuSpec:
   type: object
   description: |
