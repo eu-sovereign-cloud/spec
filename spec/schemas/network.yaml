@@ -1,4 +1,11 @@
 Network: # -> rename to PrivateNetwork works like a VPC
+  description: |
+    A Network represents a virtual network that can be used to isolate resources.
+    Key network concepts:
+
+    * Defines a range of IP addresses for compute resources (e.g. instances)
+    * Enables network segmentation and isolation
+    * Provides common performance configuration across the network using a SKU
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -67,6 +74,11 @@ NetworkSpec:
       ipv6: "::/56"
   
 NetworkStatus:
+  description: |
+    The status of the network. The status is read-only and will be set by the
+    system. The status contains information about the current state of the network
+    and its CIDR blocks. It will report the status of the CIDR blocks and the network
+    as a whole including automatically assigned IP networks.
   allOf:
   - $ref: "./resource.yaml#/Status"
   - type: object

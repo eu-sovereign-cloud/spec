@@ -1,4 +1,10 @@
 SecurityGroup:
+  description: |
+    The SecurityGroup resource defines a set of rules for controlling network access to and from compute instances.
+    It allows you to specify which traffic is allowed or denied based on various criteria.
+
+    The SecurityGroup resource is hierarchical, meaning it can be defined at different levels (tenant, workspace).
+    This allows for flexible management of network access rules across different scopes.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -46,6 +52,9 @@ SecurityGroupSpec:
         $ref: '#/SecurityGroupRuleSpec'
 
 SecurityGroupStatus:
+  description: |
+    Status of the security group, including the status of its rules.
+    The status is read-only and reflects the current state of the security group.
   allOf:
   - $ref: "./resource.yaml#/Status"
   - type: object

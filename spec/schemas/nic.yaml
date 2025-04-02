@@ -1,4 +1,9 @@
 Nic:
+  description: |
+    The Network Interface Card (NIC) represents a network interface for a compute resource.
+    It is used to connect the compute resource to a network and can have multiple IP addresses
+    associated with it. The NIC can be associated with a public IP address and is linked to a
+    specific subnet within a virtual network.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -54,6 +59,10 @@ NicSpec:
     subnetRef: "seca.networks/subnet-a1b2c3"
 
 NicStatus:
+  description: |
+    Status of the Network Interface Card (NIC). The status includes the current state
+    of the NIC and the IP addresses associated with it. The status is read-only and
+    cannot be modified directly.
   allOf:
   - $ref: "./resource.yaml#/Status"
   - type: object

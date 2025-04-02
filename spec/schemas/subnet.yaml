@@ -1,5 +1,13 @@
 
 Subnet:
+  description: |
+    A Subnet is a logical subdivision of a Network's IP address space.
+    It defines a range of IP addresses for compute instances and enables
+    network segmentation and isolation.
+
+    The Subnet resource is used to manage the configuration and status
+    of a subnet within a network. It includes properties such as the
+    CIDR block, zone, and route table reference.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -60,6 +68,10 @@ SubnetSpec:
     skuRef: ".../seca.1000" 
 
 SubnetStatus:
+  description: |
+    The status of the subnet, including the current state and any
+    associated IP addresses. The status is read-only and provides
+    information about the subnet's configuration and health.
   allOf:
   - $ref: "./resource.yaml#/Status"
   - type: object

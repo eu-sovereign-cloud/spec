@@ -1,4 +1,6 @@
 PublicIp:
+  description: |
+    Public IP resource.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -36,6 +38,8 @@ PublicIpSpec:
     version: "IPv4"
 
 PublicIpStatus:
+  description: |
+    Status of the public IP.
   allOf:
   - $ref: "./resource.yaml#/Status"
   - type: object
