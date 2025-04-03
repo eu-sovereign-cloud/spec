@@ -37,7 +37,8 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: '>=1.23.0'
-
+          cache: false 
+      
       - name: Install gomplate
         run: |
           go install github.com/hairyhenderson/gomplate/v4/cmd/gomplate@latest
