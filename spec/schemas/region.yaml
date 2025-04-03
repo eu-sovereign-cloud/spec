@@ -10,8 +10,6 @@ Region:
       $ref: './resource.yaml#/ResourceMetadata'
     spec:
       $ref: './region.yaml#/RegionSpec'
-    status:
-      $ref: './region.yaml#/RegionStatus'
 
 RegionSpec:
   type: object
@@ -40,9 +38,6 @@ Zone:
   type: string
   description: Reference to a specific zone within a region
   example: "a"
-
-RegionStatus:
-  $ref: "./resource.yaml#/Status"
 
 Provider:
   type: object

@@ -11,8 +11,6 @@ StorageSku:
       $ref: './resource.yaml#/RegionalResourceMetadata'
     spec:
       $ref: "./storage-sku.yaml#/StorageSkuSpec"
-    status:
-      $ref: "./storage-sku.yaml#/StorageSkuStatus"
 
 StorageSkuSpec:
   type: object
@@ -45,6 +43,3 @@ StorageSkuSpec:
     provider: 'SECA'
     tier: 'seca.general'
     description: 'a storage with no guaranteed throughput for normal usage'
-
-StorageSkuStatus:
-  $ref: "./resource.yaml#/Status"

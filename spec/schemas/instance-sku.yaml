@@ -9,8 +9,6 @@ InstanceSku:
       $ref: './resource.yaml#/RegionalResourceMetadata'
     spec:
       $ref: "./instance-sku.yaml#/InstanceSkuSpec"
-    status:
-      $ref: "./instance-sku.yaml#/InstanceSkuStatus"
 
 InstanceSkuSpec:
   type: object
@@ -58,6 +56,3 @@ InstanceSkuCapability:
       type: integer
     ramGB:
       type: integer
-
-InstanceSkuStatus:
-  $ref: "./resource.yaml#/Status"

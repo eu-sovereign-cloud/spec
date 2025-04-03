@@ -10,8 +10,6 @@ NetworkSku:
       $ref: './resource.yaml#/RegionalResourceMetadata'
     spec:
       $ref: "./network-sku.yaml#/NetworkSkuSpec"
-    status:
-      $ref: "./network-sku.yaml#/NetworkSkuStatus"
 
 NetworkSkuSpec:
   type: object
@@ -43,6 +41,3 @@ NetworkSkuSpec:
     provider: 'SECA'
     tier: 'seca.10'
     description: 'min   10 mbit low-bandwidth network tier'
-
-NetworkSkuStatus:
-  $ref: "./resource.yaml#/Status"
