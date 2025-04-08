@@ -12,6 +12,8 @@ InstanceSku:
 
 InstanceSkuSpec:
   type: object
+  description: |
+    Specification of the instance SKU, including its capabilities and extensions.
   properties:
     provider:
       type: string
@@ -56,3 +58,5 @@ InstanceSkuCapability:
       type: integer
     ramGB:
       type: integer
+    cpuType:
+      type: string

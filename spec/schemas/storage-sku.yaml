@@ -14,6 +14,8 @@ StorageSku:
 
 StorageSkuSpec:
   type: object
+  description: |
+    Specification of the storage SKU, including its capabilities and extensions.
   properties:
     provider:
       type: string

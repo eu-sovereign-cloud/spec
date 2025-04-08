@@ -8,6 +8,12 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+
+  background-image: url('@site/static/img/hero_secapi.webp'); /* adjust path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 480px;
 }
 
 @media screen and (max-width: 996px) {

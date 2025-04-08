@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 const FeatureList = [
   {
     title: 'API First',
-    Svg: require('@site/static/img/main/api.svg').default,
+    Svg: require('@site/static/img/main/API First.svg').default,
     description: (
       <>
         Built on the API-First principle, leveraging OpenAPI to design and document our APIs before implementation. 
@@ -15,7 +15,7 @@ const FeatureList = [
   },
   {
     title: 'Declarative Resource Model',
-    Svg: require('@site/static/img/main/model.svg').default,
+    Svg: require('@site/static/img/main/Declarative Resource Model.svg').default,
     description: (
       <>
          Follows a Declarative Resource Model, similar to Kubernetes, where users define their desired state, and the platform ensures the system continuously reconciles to match that intent. 
@@ -25,7 +25,7 @@ const FeatureList = [
   },
   {
     title: 'Fast Adoption',
-    Svg: require('@site/static/img/main/shared.svg').default,
+    Svg: require('@site/static/img/main/Fast Adoption.svg').default,
     description: (
       <>
         Benefits from fast adoption by leveraging a shared implementation ecosystem to enable standardized resource management across cloud providers. 

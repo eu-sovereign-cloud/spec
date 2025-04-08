@@ -13,6 +13,8 @@ NetworkSku:
 
 NetworkSkuSpec:
   type: object
+  description: |
+    Specification of the network SKU, including its capabilities and extensions.
   properties:
     provider:
       type: string
@@ -23,7 +25,7 @@ NetworkSkuSpec:
       description: Network performance tier
     capabilities:
       type: string
-      example: {}
+      example: ""
       description: Network performance capabilities
     extensions:
       type: array

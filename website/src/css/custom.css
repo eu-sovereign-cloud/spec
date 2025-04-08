@@ -5,6 +5,10 @@
  */
 
 /* You can override the default Infima variables here. */
+.footer {
+  background-color: rgb(12, 12, 23) !important;
+}
+
 :root {
   --ifm-color-primary: #0969b2;/*#9b3803;*/
   --ifm-color-primary-dark: #8c3203;

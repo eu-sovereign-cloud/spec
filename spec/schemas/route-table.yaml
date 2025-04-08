@@ -1,4 +1,7 @@
 RouteTable:
+  description: |
+    The RouteTable resource defines a set of routes that can be associated with a network.
+    The routes can be used to direct traffic to different targets based on the destination CIDR block.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -28,6 +31,7 @@ RouteTableSpec:
       items:
         $ref: '#/RouteSpec'
   example:
+    localRef: '.../network-1'
     routes:
     - destinationCidrBlock: '0.0.0.0/0'
       targetRef: '.../internet-gateway-1'
@@ -51,6 +55,10 @@ RouteSpec:
       $ref: './resource.yaml#/Reference'
 
 RouteTableStatus:
+  description: |
+    The status of the route table. The status is read-only and will be set by the
+    system. The status contains information about the current state of the route table
+    and its routes. It will report the status of the routes and the route table as a whole.
   allOf:
     - $ref: "./resource.yaml#/Status"
     - type: object
@@ -62,6 +70,10 @@ RouteTableStatus:
             $ref: '#/RouteStatus'
 
 RouteStatus:
+  description: |
+    The status of the route. The status is read-only and will be set by the
+    system. The status contains information about the current state of the route
+    and its target. It will report the status of the target and the route as a whole.
   allOf:
   - $ref: "./resource.yaml#/Status"
   - type: object

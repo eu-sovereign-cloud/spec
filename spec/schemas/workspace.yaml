@@ -14,6 +14,8 @@ Workspace:
 
 WorkspaceSpec:
   type: object
+  description: |
+    Specification of the workspace, including its capabilities and extensions.
   example: {}
 
 WorkspaceStatus:

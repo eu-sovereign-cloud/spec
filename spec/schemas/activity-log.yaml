@@ -1,5 +1,6 @@
 ActivityLog:
   type: object
+  description: Activity log resource
   required:
   - spec
   properties:
@@ -10,12 +11,14 @@ ActivityLog:
 
 ActivityLogSpec:
   type: object
+  description: Activity log specification
   properties:
     subject:
       type: string
       description: User-JWT executing this query
     request:
       type: object
+      description: Request object
       properties:
         verb:
           type: string
@@ -42,6 +45,7 @@ ActivityLogSpec:
           type: string
     response:
       type: object
+      description: Response object
       properties:
         code:
           type: number

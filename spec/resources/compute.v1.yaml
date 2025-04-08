@@ -26,6 +26,10 @@ resources:
         | SECA | seca.l | 8 | 16 | amd64 | min 12000 |
         | SECA | seca.xl | 16 | 32 | amd64 | min 24000 |
     example:
+      metadata: 
+        scope: "workspace/production"
+        resource: "seca.compute/instances/my-server"
+        verb: get
       list:
         items:
         - { spec: { provider: 'SECA', tier: 'seca.s',  vCPU:  2, ramGB:  4, cpuType: 'amd64', benchmarkPoints:  3000 }}

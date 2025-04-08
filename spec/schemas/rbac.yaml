@@ -28,6 +28,9 @@ Role:
 
 RoleSpec:
   type: object
+  description: |
+    Role specification, including permissions and scope.
+    Roles are used to define access control policies for users accounts.
   properties:
     permissions:
       type: array
@@ -52,6 +55,9 @@ RoleSpec:
 
 Permission:
   type: object
+  description: |
+    Permission specification, including scopes, resources, and operations.
+    Permissions are used to define access control policies for user accounts.
   properties:
     scopes:
       type: array
@@ -91,6 +97,8 @@ RoleAssignment:
 
 RoleAssignmentSpec:
   type: object
+  description: |
+    Role assignment for a user account. The role is assigned to the user account in the context of the specified scopes.
   properties:
     subs:
       type: array

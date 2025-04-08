@@ -1,4 +1,8 @@
 Instance:
+  description: |
+    Instance resource representing a virtual machine in the cloud provider's infrastructure.
+    This resource is used to manage the lifecycle of the instance, including its creation,
+    updates, and deletion.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -14,6 +18,8 @@ Instance:
 
 InstanceSpec:
   type: object
+  description: |
+    Specification of the instance, including its SKU, network configuration, and storage options.
   required:
   - skuRef
   - zone
@@ -68,7 +74,15 @@ InstanceSpec:
       type: array
       items:
         $ref: './block-storage.yaml#/VolumeReference'
+  example:
+    skuRef: ".../seca.1000"
+    zone: "a"
+    bootVolume: 
+      deviceRef: ".../block-123"
+      type: "virtio"
 
 InstanceStatus:
+  description: |
+    Current status of the instance.
   allOf:
   - $ref: "./resource.yaml#/Status"

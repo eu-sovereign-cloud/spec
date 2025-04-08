@@ -300,3 +300,8 @@ ResponseMetadata:
       skipToken:
         type: string
         description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
+  example:
+    skipToken: "false"
+    scope: "workspace/production"
+    resource: "seca.compute/instances/my-server"
+    verb: get  
