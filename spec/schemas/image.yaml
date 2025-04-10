@@ -17,23 +17,40 @@ Image:
         $ref: './image.yaml#/ImageStatus'
   example:
     labels:
-      os: Linux
-      vendor: Ubuntu
-      version: "24.04"
+      os: linux
+      version: 3.18
+      base: alpine
     annotations:
-      description: Ubuntu 24.04 LTS Image
+      name: Alpine Container
+      description: |
+        The image contains the alpine-virt image base including
+        preinstalled software for the use of linux containers.
+      release: 2025-01-01T00:00:00Z
+      eol: 2026-01-01T00:00:00Z
+      recommendedCpu: 2
+      recommendedMemory: 2
+      recommendedNics: 2
+      recommendedStorageSize: 100
     spec:
+      blockStorageRef: block-storages/temp-a9b2bc3d81
       cpuArchitecture: amd64
       boot: UEFI
       initializer: cloudinit-22
 
 ImageSpec:
   description: |
-    Specification of the Image resource. The Image can be used to create a virtual machine.
+    Detailed specification of the Image resource. 
+    The Image is derived from a block storage resource identified by 
+    `blockStorageRef` and serves as a template for creating
+    compute instances. For additional information, refer to the
+    [Image Handling](/docs/content/Other/image-handling) section.
   type: object
   required:
+  - blockStorageRef
   - cpuArchitecture
   properties:
+    blockStorageRef:
+      $ref: './resource.yaml#/Reference'
     cpuArchitecture:
       type: string
       description: CPU architecture for the Image
@@ -54,10 +71,14 @@ ImageSpec:
       - UEFI
       - BIOS
       default: UEFI
-    sizeMB:
-      type: integer
-      description: Size of the Image in MB
-      example: 628
 
 ImageStatus:
-  $ref: "./resource.yaml#/Status"
+  allOf:
+  - $ref: "./resource.yaml#/Status"
+  - type: object
+    readOnly: true
+    properties:
+      sizeMB:
+        type: integer
+        description: Size of the Image in MB
+        example: 628

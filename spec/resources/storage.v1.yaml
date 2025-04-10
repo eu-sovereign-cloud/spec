@@ -42,6 +42,11 @@ resources:
     hierarchy: [tenant]
     schema: ./schemas/image.yaml#/Image
     operations: [list, get, put, delete]
+    description:
+      put:
+        Creates or updates a image. The return code of the endpoint provides indicates if the resource was created or updated.
+        A client must accept both as successful response to the request. Please check the [Image Handling](/docs/content/Other/image-handling) section
+        before creating images.
   - name: block-storage
     plural: block-storages
     hierarchy: [tenant, workspace]

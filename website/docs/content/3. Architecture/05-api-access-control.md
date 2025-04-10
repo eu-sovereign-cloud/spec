@@ -48,7 +48,6 @@ The Key Elements of this model are listed below:
 
 A resource authorization model with a dedicated resource provider centralizes access control across resources, offering an efficient, consistent, and secure way to manage permissions and enforce policies at scale in a cloud environment. This model enhances security by reducing complexity and enabling centralized governance over resource access.
 
-
 ### Tenant Initialization
 
 To initialize a tenant we need the below requirements fulfilled:
@@ -67,10 +66,10 @@ To initialize a tenant we need the below requirements fulfilled:
     "permissions": [
       {
         "scopes": [
-          "*"
+          "seca.authorization/*"
         ],
         "resources": [
-          "seca.authorization/*"
+          "*"
         ],
         "verb": [
           "get",
@@ -83,7 +82,6 @@ To initialize a tenant we need the below requirements fulfilled:
 }
 
 //RoleAssignment with name tenant-admin
-
 {
   "labels": {},
   "annotations": {
@@ -91,10 +89,55 @@ To initialize a tenant we need the below requirements fulfilled:
   },
   "spec": {
     "subs": [
-      "user1@example.com" //subject to whoam assign the owner tenant role
+      "user1@example.com" //subject to whom to assign the role
     ],
     "roles": [
       "authorization-admin"
+    ]
+  }
+}
+```
+
+### Public images
+
+For public images the CSP is deploying the following rule to allow images
+to be fetched by all users of the SECA API:
+
+
+```json
+// Role with name: public-image-user
+{
+  "labels": {},
+  "annotations": {
+    "description": "Public Image Users"  
+  },
+  "spec": {
+    "permissions": [
+      {
+        "provider": "seca.storage",
+        "versions": [ "*" ],
+        "resources": [ "images/*" ],
+        "verb": [
+          "list",
+          "get"
+        ]
+      }
+    ]
+  }
+}
+
+// RoleAssignment with name all-tenants
+{
+  "labels": {},
+  "annotations": {
+    "description": "All Tenants are Public Image Users"  
+  },
+  "spec": {
+    "subs": [
+      "*"
+    ],
+    "roles": [
+      "public-image-user"
     ]
   }
 }

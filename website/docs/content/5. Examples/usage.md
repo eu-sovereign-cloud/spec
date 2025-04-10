@@ -189,10 +189,10 @@ Available network tiers:
 ### Review Available Images
 
 ```http
-GET ${storage-provider-url}/v1/images
+GET ${storage-provider-url}/v1/tenants/public/images
 ```
 
-Available images:
+Available images as an example:
 
 - ubuntu-24.04: Ubuntu 24.04 LTS
 - redhat-9.3: Red Hat Enterprise Linux 9.3
@@ -217,7 +217,7 @@ Content-Type: application/json
   "spec": {
     "skuRef": ".../seca.250",
     "sizeGB": 50,
-    "sourceImageRef": "tenants/{tenant_id}/images/ubuntu-24.04"
+    "sourceImageRef": "tenants/public/images/ubuntu-24.04"
   }
 }
 ```
