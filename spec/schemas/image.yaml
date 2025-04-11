@@ -18,12 +18,12 @@ Image:
   example:
     labels:
       os: linux
-      version: 3.18
-      base: alpine
+      version: 13
+      base: debian
     annotations:
-      name: Alpine Container
+      name: Debian Container
       description: |
-        The image contains the alpine-virt image base including
+        The image contains the debian image base including
         preinstalled software for the use of linux containers.
       release: 2025-01-01T00:00:00Z
       eol: 2026-01-01T00:00:00Z

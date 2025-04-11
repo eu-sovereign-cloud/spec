@@ -10,14 +10,15 @@ architecture and can be executed by the bootloader. The image serves as the foun
 the compute instance, enabling the deployment of various operating systems, applications,
 and services.
 
-## Images are global
+## Images are regional
 
-Image portability is a key consideration, as every image can be utilized across multiple
-regions, allowing for greater flexibility and deployment options. However, to facilitate
+Image portability is a key consideration, as every image can be utilized within the
+region, allowing for greater flexibility and deployment options. However, to facilitate
 this, the Cloud Service Provider (CSP) must replicate the image across all data centers,
 ensuring that it is readily available and accessible from any location. This process, known
 as image propagation or synchronization, may incur additional costs, depending on the CSP's
-pricing model and data transfer policies.
+pricing model and data transfer policies. To make an image available globally the image
+can be created with the same name in all regions.
 
 ## Images are templates
 
@@ -154,17 +155,17 @@ By using labels and annotations effectively, you can provide valuable context an
 Example of an image with annotations:
 
 ```json
-PUT /providers/seca.storage/v1/tenants/152552672/images/alpine-container-3-18
+PUT /providers/seca.storage/v1/tenants/152552672/images/debian-container-13
 
 {
   "labels": {
     "os": "linux",
-    "version": "3.18",
-    "base": "alpine"
+    "version": "13",
+    "base": "debian"
   },
   "annotations": {
-    "name": "Alpine Container",
-    "description": "The image contains the alpine-virt image base including preinstalled software for the use of linux containers",
+    "name": "debian Container",
+    "description": "The image contains the debian image base including preinstalled software for the use of linux containers",
     "release": "2025-01-01T00:00:00Z",
     "eol": "2026-01-01T00:00:00Z",
     "recommendedCpu": "2",
