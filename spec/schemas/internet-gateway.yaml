@@ -1,8 +1,10 @@
 InternetGateway:
-  type: object
-  description: |
-    The InternetGateway resource enables access to the public internet
-    when used in conjunction with a RouteTable.
+  allOf:
+  - $ref: './resource.yaml#/UserResourceMetadata'
+  - type: object
+    description: |
+      The InternetGateway resource enables access to the public internet
+      when used in conjunction with a RouteTable.
   required:
   - spec
   properties:

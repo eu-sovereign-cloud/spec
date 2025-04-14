@@ -1,7 +1,9 @@
 Workspace:
-  type: object
-  description: |
-    Represents a workspace, a workspace is a collection of resources.
+  allOf:
+  - $ref: './resource.yaml#/UserResourceMetadata'
+  - type: object
+    description: |
+      Represents a workspace, a workspace is a collection of resources.
   required:
   - spec
   properties:
