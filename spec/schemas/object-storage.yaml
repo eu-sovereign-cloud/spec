@@ -8,7 +8,7 @@ ObjectStorageAccount:
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/ZonalResourceMetadata'
+        $ref: './resource.yaml#/GlobalResourceMetadata'
       spec:
         $ref: '#/ObjectStorageAccountSpec'
       status:

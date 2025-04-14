@@ -12,7 +12,7 @@ Nic:
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/RegionalResourceMetadata'
+        $ref: './resource.yaml#/ZonalResourceMetadata'
       spec:
         $ref: '#/NicSpec'
       status:

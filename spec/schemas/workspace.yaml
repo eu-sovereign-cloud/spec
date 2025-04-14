@@ -6,7 +6,7 @@ Workspace:
   - spec
   properties:
     metadata:
-      $ref: './resource.yaml#/GlobalResourceMetadata'
+      $ref: './resource.yaml#/RegionalResourceMetadata'
     spec:
       $ref: './workspace.yaml#/WorkspaceSpec'
     status:

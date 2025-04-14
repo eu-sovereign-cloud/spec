@@ -7,7 +7,7 @@ Region:
     - spec
   properties:
     metadata:
-      $ref: './resource.yaml#/ResourceMetadata'
+      $ref: './resource.yaml#/GlobalResourceMetadata'
     spec:
       $ref: './region.yaml#/RegionSpec'
 
