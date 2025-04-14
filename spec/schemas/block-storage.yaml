@@ -56,7 +56,6 @@ BlockStorageStatus:
 
 VolumeReference:
   type: object
-  description: Represents a connection between a Block Storage and an a user of the block storage.
   required:
   - deviceRef
   properties:
@@ -68,7 +67,5 @@ VolumeReference:
       enum:
       - virtio
       default: virtio
-  example:
-    deviceRef: ".../block-123"
-    type: "virtio"
+
 
