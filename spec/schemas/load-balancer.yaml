@@ -92,6 +92,16 @@ LoadBalancerTarget:
         $ref: './resource.yaml#/Reference'
     healthCheck:
       $ref: '#/LoadBalancerHealthCheck'
+    proxyProtocol:
+      type: string
+      description: |
+        Specifies the proxy protocol version. The proxy protocol is used to
+        pass client connection information to the backend instances.
+        If not specified, the default is `none`.
+      enum:
+      - none
+      - v2
+      default: none
   example:
     members:
     - '.../nic-1'
