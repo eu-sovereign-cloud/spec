@@ -1,4 +1,7 @@
 InternetGateway:
+  description: |
+    An InternetGateway is a resource that provides internet access to a subnet.
+    It is used in conjunction with a RouteTable to enable internet connectivity.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object

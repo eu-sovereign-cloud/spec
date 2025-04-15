@@ -1,4 +1,7 @@
 Workspace:
+  description: |
+    A workspace is a collection of resources.
+    Can contain multiple resources of different types, and it can be used to manage the lifecycle of those resources.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
