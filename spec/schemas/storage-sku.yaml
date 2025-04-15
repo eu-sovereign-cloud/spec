@@ -17,24 +17,16 @@ StorageSkuSpec:
   description: |
     Specification of the storage SKU, including its capabilities and extensions.
   required:
-  - provider
-  - tier
-  - type
   - description
+  - iops
+  - type
   - minVolumeSize
   properties:
-    provider:
-      type: string
-      description: Provider namespace for storage SKUs
-    tier:
-      type: string
-      description: storage performance tier
-    capabilities:
-      type: object
-      additionalProperties:
-        type: string
-      example: {}
-      description: storage performance capabilities
+    iops:
+      type: integer
+      description: |
+        The number of IOPS (Input/Output Operations Per Second) guaranteed for
+        the storage SKU.
     type:
       type: string
       description: |
@@ -70,14 +62,8 @@ StorageSkuSpec:
       description: Additional storage feature extensions
       items:
         type: string
-    mandatoryParameters:
-      type: array
-      description: Mandatory parameters for storage resources
-      items:
-        type: string
   example:
-    provider: 'SECA'
-    tier: 'seca.general'
-    type: 'remote'
-    description: 'a storage with no guaranteed throughput for normal usage'
+    iops: 100
+    type: remote
     minVolumeSize: 50
+    description: 'Very low-performance remote block storage tier'
