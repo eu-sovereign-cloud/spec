@@ -16,32 +16,68 @@ StorageSkuSpec:
   type: object
   description: |
     Specification of the storage SKU, including its capabilities and extensions.
+  required:
+  - provider
+  - tier
+  - type
+  - description
+  - minVolumeSize
   properties:
     provider:
       type: string
-      description: Provider namespace for  storage SKUs
+      description: Provider namespace for storage SKUs
     tier:
       type: string
-      description:  storage performance tier
+      description: storage performance tier
     capabilities:
       type: object
       additionalProperties:
         type: string
       example: {}
-      description:  storage performance capabilities
+      description: storage performance capabilities
+    type:
+      type: string
+      description: |
+        Type of storage SKU. Can be one of the following:
+
+        * `local`: Local storage is directly attached to the hypervisor
+          hosting the instance. In the event of a hypervisor failure, the data
+          may either be lost or become unavailable until the hypervisor is
+          restored. The failure mode depends on the Cloud Service Provider (CSP).
+          Users of local storage should be aware of these risks and implement
+          a robust backup strategy. Local storage is typically suited for
+          high-performance workloads requiring low latency and high throughput,
+          where the application layer can handle failures. It is not recommended
+          for workloads demanding high availability or data durability.
+        * `remote`: Remote storage is a network-attached storage solution
+          designed to provide data redundancy and high availability. While
+          typically slower than local storage, remote storage offers the
+          advantage of being accessible by different hypervisors.
+          This means the storage can be used by different instances running
+          on separate hypervisors, but only one instance at a time. Remote
+          storage cannot be attached to multiple instances simultaneously.
+      enum:
+        - local
+        - remote
+    description:
+      type: string
+    minVolumeSize:
+      type: integer
+      description: |
+        Minimum volume size for guaranteed performance, in GB.
     extensions:
       type: array
-      description: Additional  storage feature extensions
+      description: Additional storage feature extensions
       items:
         type: string
     mandatoryParameters:
       type: array
-      description: Mandatory parameters for  storage resources
+      description: Mandatory parameters for storage resources
       items:
         type: string
-    description:
-      type: string
   example:
     provider: 'SECA'
     tier: 'seca.general'
+    type: 'remote'
     description: 'a storage with no guaranteed throughput for normal usage'
+    minVolumeSize: 50

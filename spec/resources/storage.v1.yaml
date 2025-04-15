@@ -17,14 +17,24 @@ resources:
         Retrieves a list of available SKU (Stock Keeping Unit) configurations for block storage resources.
 
         ## Available SECA Block Storage SKUs with their capabilities
-        Block Storage SKUs represent guaranteed IOPS performance for 99% of time within a 24h period.
-        Minimum volume size of 50GB is required for guaranteed performance.
 
-        | provider | tier | IOPS | description |
+        Block Storage SKUs represent guaranteed IOPS performance for 99% of time within a 24h period.
+        Minimum volume size for guaranteed performance is provider specific. Not all SKUs are available in 
+        all regions and all CSP. Provides can provide additional SKUs with different performance 
+        characteristics.
+
+        | name | IOPS | description | type |
         |-|-|-|-|
-        | SECA | seca.10 | 10 IOPS | Low-performance block storage tier |
-        | SECA | seca.50 | 50 IOPS | Medium-performance block storage tier |
-        | SECA | seca.100 | 100 IOPS | High-performance block storage tier |
+        | seca.r100 | 100 IOPS    | Very low-performance remote block storage tier   | remote |
+        | seca.r500 | 500 IOPS    | Low-performance remote block storage tier        | remote |
+        | seca.r2k  | 2.0 IOPS    | Medium-performance remote block storage tier     | remote |
+        | seca.r10k | 10.000 IOPS | High-performance remote block storage tier       | remote |
+        | seca.r20k | 20.000 IOPS | Very high-performance remote block storage tier  | remote |
+        | seca.l100 | 100 IOPS    | Very low-performance local block storage tier    | local |
+        | seca.l500 | 500 IOPS    | Low-performance local block storage tier         | local |
+        | seca.l5k  | 5.0 IOPS    | Medium-performance local block storage tier      | local |
+        | seca.l20k | 20.000 IOPS | High-performance local block storage tier        | local |
+        | seca.l40k | 40.000 IOPS | Very high-performance local block storage tier   | local |
     example:
       list:
         metadata:

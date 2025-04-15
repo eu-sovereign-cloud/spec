@@ -167,12 +167,19 @@ GET ${storage-provider-url}/v1/tenants/{tenant_id}/skus
 
 Important notes about storage:
 
-- Minimum 50GB recommended for guaranteed performance
-- Performance tiers:
-  - seca.general: No guaranteed throughput
-  - seca.100: 100 IOPS guaranteed (99% of time when >50GB)
-  - seca.250: 250 IOPS guaranteed (99% of time when >50GB)
-  - seca.500: 500 IOPS guaranteed (99% of time when >50GB)
+- Minimum storage size recommended for guaranteed performance depends on the CSP
+- **Remote Block Storage**:
+  - seca.r100: 100 IOPS - Very low-performance remote block storage tier
+  - seca.r500: 500 IOPS - Low-performance remote block storage tier
+  - seca.r2k: 2,000 IOPS - Medium-performance remote block storage tier
+  - seca.r10k: 10,000 IOPS - High-performance remote block storage tier
+  - seca.r20k: 20,000 IOPS - Very high-performance remote block storage tier
+- **Local Block Storage**:
+  - seca.l100: 100 IOPS - Very low-performance local block storage tier
+  - seca.l500: 500 IOPS - Low-performance local block storage tier
+  - seca.l5k: 5,000 IOPS - Medium-performance local block storage tier
+  - seca.l20k: 20,000 IOPS - High-performance local block storage tier
+  - seca.l40k: 40,000 IOPS - Very high-performance local block storage tier
 
 ### Check Network SKUs
 
@@ -215,7 +222,7 @@ Content-Type: application/json
     "description": "Linux",
   },
   "spec": {
-    "skuRef": ".../seca.250",
+    "skuRef": ".../seca.r500",
     "sizeGB": 50,
     "sourceImageRef": "tenants/public/images/ubuntu-24.04"
   }
