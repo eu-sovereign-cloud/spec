@@ -29,6 +29,7 @@ NicSpec:
   required:
   - addresses
   - subnetRef
+  - macAddress
   properties:
     addresses:
       type: array
@@ -39,6 +40,11 @@ NicSpec:
         limited by the CSP or the subnet size.
       items:
         $ref: '#/NicIp'
+    macAddress:
+      type: string
+      description: |
+        MAC address of the NIC. The MAC address is used to identify the NIC on the network.
+      example: "00:00:00:00:00:00"
     publicIpRefs:
       type: array
       description: |
@@ -55,6 +61,7 @@ NicSpec:
     - "10.100.0.10"
     - "0.0.0.0"
     - "::"
+    macAddress: "00:00:00:00:00:00"
     skuRef: "seca.1000"
     subnetRef: "seca.networks/subnet-a1b2c3"
 
@@ -72,6 +79,10 @@ NicStatus:
         type: array
         items:
           $ref: '#/NicIp'
+      macAddress:
+        type: string
+        description: |
+          MAC address of the NIC.
       publicIpRefs:
         description: |
           Array of public IP addresses associated with this NIC.
@@ -80,6 +91,7 @@ NicStatus:
           $ref: './resource.yaml#/Reference'
     example:
       state: "active"
+      macAddress: "00:00:00:00:00:00"
       addresses:
       - "10.100.0.10"
       - "10.100.0.11"
