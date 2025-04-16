@@ -1,0 +1,38 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="100" viewBox="0 0 160 100">
+  <defs>
+    <linearGradient id="lbGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eafaf1"/>
+      <stop offset="100%" stop-color="#58d68d"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="#888"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <g filter="url(#shadow)">
+    <!-- Central load balancer box -->
+    <rect x="60" y="20" width="40" height="30" rx="6" ry="6"
+          fill="url(#lbGradient)" stroke="#27ae60" stroke-width="2"/>
+    <text x="80" y="40" font-family="Arial" font-size="13" fill="#1e8449" text-anchor="middle" font-weight="bold">
+      LB
+    </text>
+
+    <!-- Arrows to targets -->
+    <line x1="80" y1="50" x2="40" y2="70" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+    <line x1="80" y1="50" x2="80" y2="70" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+    <line x1="80" y1="50" x2="120" y2="70" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+    <!-- Target boxes -->
+    <rect x="30" y="70" width="20" height="15" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="70" y="70" width="20" height="15" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="110" y="70" width="20" height="15" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+
+    <!-- Label -->
+    <text x="80" y="100" font-family="Arial" font-size="14" fill="#2c3e50" text-anchor="middle">
+      Load Balancer
+    </text>
+  </g>
+</svg>
