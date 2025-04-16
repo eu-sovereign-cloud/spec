@@ -24,11 +24,6 @@ BlockStorageSpec:
   properties:
     skuRef:
       $ref: './resource.yaml#/Reference'
-    skuExtensions:
-      type: object
-      additionalProperties:
-        type: string
-      example: {}
     sizeGB:
       type: integer
       example: 10
