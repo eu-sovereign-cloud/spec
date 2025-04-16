@@ -1,0 +1,40 @@
+InternetNatGateway:
+  description: |
+    An InternetNatGateway is a resource that provides internet access to a subnet
+    by mangling the source IP address of outgoing packets. This allows instances
+    in the subnet to access the internet while keeping their private IP addresses
+    hidden. The InternetNatGateway is used in conjunction with a RouteTable to
+    enable internet connectivity.
+  allOf:
+  - $ref: './resource.yaml#/UserResourceMetadata'
+  - type: object
+    description: |
+      An InternetNatGateway is a resource that provides internet access to a subnet
+      by mangling the source IP address of outgoing packets. This allows instances
+      in the subnet to access the internet while keeping their private IP addresses
+      hidden. The InternetNatGateway is used in conjunction with a RouteTable to
+      enable internet connectivity.
+  required:
+  - spec
+  properties:
+    metadata:
+      $ref: './resource.yaml#/RegionalResourceMetadata'
+    spec:
+      $ref: './nat-gateway.yaml#/InternetNatGatewaySpec'
+    status:
+      $ref: './nat-gateway.yaml#/InternetNatGatewayStatus'
+
+InternetNatGatewaySpec:
+  type: object
+  description: |
+    The internet gateway will allocate a public IPv4 address.
+  required:
+  - publicIpRef
+  properties:
+    publicIpRef:
+      $ref: './resource.yaml#/Reference'
+    securityGroupRef:
+      $ref: './resource.yaml#/Reference'
+
+InternetNatGatewayStatus:
+  $ref: "./resource.yaml#/Status"
