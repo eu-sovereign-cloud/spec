@@ -10,6 +10,8 @@
 |metadata| a set of standard fields included in every SECA Resource Object, which provides essential information for identifying, categorizing, and managing that resource within the CSP|
 |spec| specific settings that define the desired state of a SECA Resource Object. These properties vary depending on the type of resource and determine how the resource behaves in the CSP.|
 |status| reflects the current observed state of the object within the CSP. This field is typically managed and updated automatically by the CSP system and provides insight into the resource's actual state versus its desired configuration|
+|labels| a set of key-value pair used for organizing, categorizing, and identifying resources based on user-defined attributes|
+|annotations| a set of user defined key-value pair for describing and creating specific conditions for the resource |
 
 ### Metadata
 
@@ -21,15 +23,14 @@ Some of their functions are:
 
 The fields we are currently providing are the below listed:
 
-- **id** - Resource Id
+- **name** - Resource identifier
 - **region** - In which region the resource is hosted within the cloud provider’s infrastructure. Available with both regional and zonal resources
 - **zone** - In which availabilityZone the resource is hosted within the cloud provider’s infrastructure. Available only with zonal resources
 - **createdAt** -  cloud resource metadata to provide information about the resource’s lifecycle, specifically when it was created .
 - **deletedAt** - cloud resource metadata to provide information about when it was scheduled for deletion
 - **lastModifiedAt** - cloud resource metadata to provide information about when occurred the last update, also used for multi-version concurrency control (MVCC) - see "if-match".
-- **labels** - key-value pair mechanism used for organizing, categorizing, and identifying resources based on user-defined attributes.
 
-### Properties
+### Spec
 
 The record of intent that describes the changes to be applied to a resource; in other words, the desired state of the resource.
 
@@ -58,6 +59,14 @@ such an example:
 - **updatedReplicas** - number of nodes with the latest resource version (E.g KaaS Node Pool)
 - **replicas** - desired node replicas as per the spec (E.g KaaS Node Pool)
 - **unavailableReplicas** - number of node replicas not available due to issues (E.g KaaS Node Pool)
+
+### Labels
+
+The labels (key/value pairs) enable flexible grouping of resources according to specific organizational needs. Labels are mutable, allowing users to update them as conditions or priorities change. They also support filtering, helping users efficiently locate and manage resources at scale. 
+
+### Annotations
+
+Being flexible, it allows the user to ogranize his resources through annotation (key/value pair) to describe and configure specific conditions. They are mutable and can be limited by the CSP.
 
 ## Resource Lifecycle
 
