@@ -31,6 +31,7 @@ PublicIpSpec:
       enum:
         - IPv4
         - IPv6
+        - any
     address:
       type: string
       description: The public IP address in case of BYOIP.
