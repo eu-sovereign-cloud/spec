@@ -181,7 +181,7 @@ UserResourceMetadata:
       type: object
       description: |
         User-defined key/value pairs that are mutable and can be used to add extensions.
-        The number of extensions is eventually limited by the CSP.
+        Extensions are subject to validation by the CSP, and any value that is not accepted will be rejected during admission.
       additionalProperties:
         type: string
 
