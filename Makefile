@@ -42,6 +42,7 @@ $(DIST_ZIP): build
 build: $(DIST) resource-apis $(SCHEMAS_FINAL)
 
 resource-apis:
+	@command -v gomplate >/dev/null || { echo "$(YELLOW)⚠️  gomplate command not found or not executable. Please install gomplate.\n    For instructions visit $(BLUE)https://docs.gomplate.ca/installing/$(RESET)"; exit 1; }
 	@echo "$(BLUE)Generating OpenAPI resources with gomplate...$(RESET)"
 	@for f in $(GOMPLATE_SOURCES); do \
 		group="$$(gomplate -d spec=$$f -i '{{ (ds "spec").group }}')"; \
