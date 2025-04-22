@@ -32,25 +32,44 @@ StorageSkuSpec:
       description: |
         Type of storage SKU. Can be one of the following:
 
-        * `local`: Local storage is directly attached to the hypervisor
-          hosting the instance. In the event of a hypervisor failure, the data
-          may either be lost or become unavailable until the hypervisor is
-          restored. The failure mode depends on the Cloud Service Provider (CSP).
+        * `local-ephemeral`: Local storage is directly attached to the hypervisor
+          hosting the instance. In the event of a hypervisor failure or instance
+          restart, the data may either be lost or become unavailable. The failure
+          mode depends on the Cloud Service Provider (CSP).
           Users of local storage should be aware of these risks and implement
-          a robust backup strategy. Local storage is typically suited for
-          high-performance workloads requiring low latency and high throughput,
-          where the application layer can handle failures. It is not recommended
-          for workloads demanding high availability or data durability.
-        * `remote`: Remote storage is a network-attached storage solution
+          a robust backup strategy or application level replication of the data.
+          Local storage is typically suited for high-performance workloads requiring
+          low latency and high throughput, where the application layer can handle
+          failures. It is not recommended for workloads demanding high availability
+          or data durability. Example use-cases include caching, temporary data
+          or immutable workloads such as operating system images without local data.
+        * `local-durable`: Local durable storage is similar to local storage
+          but is designed to provide data durability while providing high-performance.
+          It is typically implemented using a redundant storage device or
+          replicated storage solution. Local durable storage is suitable for
+          workloads requiring high performance and low latency, while also
+          ensuring data durability at the cost of availability. The time to
+          restore data may vary depending on the CSP and the
+          will be significantly higher then using `remote-durable` storage.
+          Example use-cases include replicated paxos or raft based databases or 
+          replicated databases using synchronous replication, in addition to
+          file storage.
+        * `remote-durable`: Remote storage is a network-attached storage solution
           designed to provide data redundancy and high availability. While
           typically slower than local storage, remote storage offers the
           advantage of being accessible by different hypervisors.
           This means the storage can be used by different instances running
-          on separate hypervisors, but only one instance at a time. Remote
-          storage cannot be attached to multiple instances simultaneously.
+          on separate hypervisors, but only one instance at a time. This
+          enabled the recreation of the instance with the same storage on a
+          different hypervisor and therefore greatly reduces the recovery
+          time in case of failure of the hypervisor. Remote storage cannot be
+          attached to multiple instances simultaneously.
+          Example use-cases include file storage or replicated databases
+          using asynchronous replication.
       enum:
-        - local
-        - remote
+        - local-ephemeral
+        - local-durable
+        - remote-durable
     description:
       type: string
     minVolumeSize:

@@ -168,18 +168,24 @@ GET ${storage-provider-url}/v1/tenants/{tenant_id}/skus
 Important notes about storage:
 
 - Minimum storage size recommended for guaranteed performance depends on the CSP
-- **Remote Block Storage**:
-  - seca.r100: 100 IOPS - Very low-performance remote block storage tier
-  - seca.r500: 500 IOPS - Low-performance remote block storage tier
-  - seca.r2k: 2,000 IOPS - Medium-performance remote block storage tier
-  - seca.r10k: 10,000 IOPS - High-performance remote block storage tier
-  - seca.r20k: 20,000 IOPS - Very high-performance remote block storage tier
-- **Local Block Storage**:
-  - seca.l100: 100 IOPS - Very low-performance local block storage tier
-  - seca.l500: 500 IOPS - Low-performance local block storage tier
-  - seca.l5k: 5,000 IOPS - Medium-performance local block storage tier
-  - seca.l20k: 20,000 IOPS - High-performance local block storage tier
-  - seca.l40k: 40,000 IOPS - Very high-performance local block storage tier
+- **Remote Durable Block Storage**:
+  - seca.rd100: 100 IOPS - Very low-performance remote block storage tier
+  - seca.rd500: 500 IOPS - Low-performance remote block storage tier
+  - seca.rd2k: 2,000 IOPS - Medium-performance remote block storage tier
+  - seca.rd10k: 10,000 IOPS - High-performance remote block storage tier
+  - seca.rd20k: 20,000 IOPS - Very high-performance remote block storage tier
+- **Local Durable Block Storage**:
+  - seca.ld100: 100 IOPS - Very low-performance local-durable block storage tier
+  - seca.ld500: 500 IOPS - Low-performance local-durable block storage tier
+  - seca.ld5k: 5,000 IOPS - Medium-performance local-durable block storage tier
+  - seca.ld20k: 20,000 IOPS - High-performance local-durable block storage tier
+  - seca.ld40k: 40,000 IOPS - Very high-performance local-durable block storage tier
+- **Local Ephemeral Block Storage**:
+  - seca.le100: 100 IOPS - Very low-performance local-ephemeral block storage tier
+  - seca.le500: 500 IOPS - Low-performance local-ephemeral block storage tier
+  - seca.le5k: 5,000 IOPS - Medium-performance local-ephemeral block storage tier
+  - seca.le20k: 20,000 IOPS - High-performance local-ephemeral block storage tier
+  - seca.le40k: 40,000 IOPS - Very high-performance local-ephemeral block storage tier
 
 ### Check Network SKUs
 
@@ -222,7 +228,7 @@ Content-Type: application/json
     "description": "Linux",
   },
   "spec": {
-    "skuRef": ".../seca.r500",
+    "skuRef": ".../seca.rd500",
     "sizeGB": 50,
     "sourceImageRef": "tenants/public/images/ubuntu-24.04"
   }
