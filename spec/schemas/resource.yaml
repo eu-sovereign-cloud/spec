@@ -83,6 +83,14 @@ TypeMetadata:
       $ref: '#/Reference'
 
 Reference:
+  description: |
+    Reference to a resource. The reference is represented as the full URN (Uniform Resource Name) name of the resource.
+    The reference can be used to refer to a resource in other resources.
+  anyOf:
+  - $ref: '#/ReferenceURN'
+  - $ref: '#/ReferenceObject'
+
+ReferenceURN:
   type: string
   description: |
     A unique resource name used to reference this resource in other resources. The reference
@@ -109,6 +117,44 @@ Reference:
     The prefix inference is resolved on admission into the full URN format, which makes it
     mostly suitable for human use.
   example: resources/resource-a1b2c3
+
+ReferenceObject:
+  type: object
+  description: |
+    A reference to a resource using an object. The object contains the
+    same information as the ReferenceURN, but is represented as a structured object.
+    The advantage of this representation is that it can be used to reference
+    resources in different workspaces or regions without the need to specify
+    the full URN.
+  required:
+  - resource
+  properties:
+    region:
+      type: string
+      description: |
+        Region of the resource. If not set, the region is inferred from the context.
+      example: "us-west-1"
+    provider:
+      type: string
+      description: |
+        Provider of the resource. If not set, the provider is inferred from the context.
+      example: "seca.compute/v1"
+    tenant:
+      type: string
+      description: |
+        Tenant of the resource. If not set, the tenant is inferred from the context.
+      example: "tenant-1"
+    workspace:
+      type: string
+      description: |
+        Workspace of the resource. If not set, the workspace is inferred from the context.
+      example: "workspace-1"
+    resource:
+      type: string
+      description: |
+        Name and type of the resource. Must be in the format `<type>/<name>`.
+        The type is the resource type, and the name is the resource name.
+      example: resources/resource-a1b2c3
 
 PermissionMetadata:
   type: object
