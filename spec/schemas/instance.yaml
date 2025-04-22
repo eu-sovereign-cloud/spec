@@ -75,12 +75,12 @@ InstanceSpec:
       items:
         $ref: './block-storage.yaml#/VolumeReference'
   example:
-    skuRef:
-      tenant: public
-      resource: skus/seca.s
+    skuRef: "skus/seca.s"
     zone: "a"
     bootVolume: 
-      deviceRef: "block-storages/block-123"
+      deviceRef: 
+        provider: "seca.storage/v1"
+        resource: "block-storages/block-123"
       type: "virtio"
 
 InstanceStatus:
