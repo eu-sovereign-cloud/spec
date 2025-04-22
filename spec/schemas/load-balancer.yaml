@@ -104,8 +104,8 @@ LoadBalancerTarget:
       default: none
   example:
     members:
-    - '.../nic-1'
-    - '.../nic-2'
+    - 'nics/nic-1'
+    - 'nics/nic-2'
     healthCheck:
       interval: 10
       timeout: 5

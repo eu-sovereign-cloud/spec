@@ -69,6 +69,6 @@ VolumeReference:
       - virtio
       default: virtio
   example:
-    deviceRef: ".../block-123"
+    deviceRef: "block-storages/block-123"
     type: "virtio"
 

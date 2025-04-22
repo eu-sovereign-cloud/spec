@@ -86,11 +86,29 @@ Reference:
   type: string
   description: |
     A unique resource name used to reference this resource in other resources. The reference
-    is represented as the full URN (Uniform Resource Name) of the resource. In most cases,
-    the prefix of the URN can be automatically derived from the provider. To simplify usage,
-    only the resource name can be specified as a reference using the prefix `.../` to enable
-    automatic prefix inference.
-  example: .../resource-a1b2c3
+    is represented as the full URN (Uniform Resource Name) name of the resource. 
+    
+    ### Automatic Prefix Inference
+
+    In most cases, the prefix of the URN can be automatically derived in the given context.
+    To simplify usage, only the resource type and name might be specified as a reference
+    using the `<type>/<name>` notation. The suffix can be made more specific by adding
+    additional segments separated by slashes. 
+    
+    The prefix is automatically inferred from the context. For example, if the resource is a
+    block storage in the same workspace the reference can be specified as 
+    `block-storages/my-block-storage`. If the resource is a block storage in a different workspace, the
+    reference can be specified as `workspaces/ws-1/block-storages/my-block-storage`.
+
+    For automatic prefix inference, the following rules apply:
+    - the version is inferred from the current resource version
+    - the workspace is inferred from the current workspace
+    - the region is inferred from the current region
+    - the provider is inferred from the type and context of the usage
+
+    The prefix inference is resolved on admission into the full URN format, which makes it
+    mostly suitable for human use.
+  example: resources/resource-a1b2c3
 
 PermissionMetadata:
   type: object

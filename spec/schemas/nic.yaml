@@ -55,7 +55,7 @@ NicSpec:
     - "10.100.0.10"
     - "0.0.0.0"
     - "::"
-    skuRef: "seca.1000"
+    skuRef: "skus/seca.1000"
     subnetRef: "seca.networks/subnet-a1b2c3"
 
 NicStatus:
