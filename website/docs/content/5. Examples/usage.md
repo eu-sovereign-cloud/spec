@@ -366,12 +366,18 @@ Content-Type: application/json
   },
   "spec": {
     "skuRef": "skus/gold",
-    "primaryNicRef": "nics/n1"
+    "primaryNicRef": {
+      "provider": "seca.network/v1",
+      "resource": "nics/n1"
+    }
     "sshKeys": [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g..."
     ]
     "bootVolume": {
-      "deviceRef": "block-storages/web-shop-os-disk"
+      "deviceRef": {
+        "provider": "seca.storage/v1",
+        "resource": "block-storages/web-shop-os-disk"
+      }
     }
   } 
 }
