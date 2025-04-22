@@ -44,6 +44,12 @@
   --ifm-footer-background-color: #141b27; /* Footer matching navbar */
 }
 
+[data-theme='dark'] .hero__title,
+[data-theme='dark'] .hero__subtitle {
+  color: var(--ifm-text-color);
+}
+
+
 @media (max-width: 768px) {
   .hero__title {
     font-size: 2rem;
