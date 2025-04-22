@@ -62,13 +62,9 @@ NetworkSpec:
       - type: string
         description: |
           Reference to the route table used by default for all Subnets.
-    skuExtensions:
-      type: string
-      example: ""
   example:
     skuRef: "tenants/public/skus/seca.1000"
     routeTableRef: "tenants/public/route-tables/route-table-1"
-    skuExtensions: ""
     cidr:
       ipv4: "0.0.0.0/16"
       ipv6: "::/56"

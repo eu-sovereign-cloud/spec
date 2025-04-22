@@ -167,12 +167,25 @@ GET ${storage-provider-url}/v1/tenants/{tenant_id}/skus
 
 Important notes about storage:
 
-- Minimum 50GB recommended for guaranteed performance
-- Performance tiers:
-  - seca.general: No guaranteed throughput
-  - seca.100: 100 IOPS guaranteed (99% of time when >50GB)
-  - seca.250: 250 IOPS guaranteed (99% of time when >50GB)
-  - seca.500: 500 IOPS guaranteed (99% of time when >50GB)
+- Minimum storage size recommended for guaranteed performance depends on the CSP
+- **Remote Durable Block Storage**:
+  - seca.rd100: 100 IOPS - Very low-performance remote block storage tier
+  - seca.rd500: 500 IOPS - Low-performance remote block storage tier
+  - seca.rd2k: 2,000 IOPS - Medium-performance remote block storage tier
+  - seca.rd10k: 10,000 IOPS - High-performance remote block storage tier
+  - seca.rd20k: 20,000 IOPS - Very high-performance remote block storage tier
+- **Local Durable Block Storage**:
+  - seca.ld100: 100 IOPS - Very low-performance local-durable block storage tier
+  - seca.ld500: 500 IOPS - Low-performance local-durable block storage tier
+  - seca.ld5k: 5,000 IOPS - Medium-performance local-durable block storage tier
+  - seca.ld20k: 20,000 IOPS - High-performance local-durable block storage tier
+  - seca.ld40k: 40,000 IOPS - Very high-performance local-durable block storage tier
+- **Local Ephemeral Block Storage**:
+  - seca.le100: 100 IOPS - Very low-performance local-ephemeral block storage tier
+  - seca.le500: 500 IOPS - Low-performance local-ephemeral block storage tier
+  - seca.le5k: 5,000 IOPS - Medium-performance local-ephemeral block storage tier
+  - seca.le20k: 20,000 IOPS - High-performance local-ephemeral block storage tier
+  - seca.le40k: 40,000 IOPS - Very high-performance local-ephemeral block storage tier
 
 ### Check Network SKUs
 

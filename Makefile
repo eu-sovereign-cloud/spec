@@ -28,7 +28,7 @@ GREEN = \033[1;32m
 YELLOW = \033[1;33m
 RESET = \033[0m
 
-.PHONY: all build clean lint lint-verbose resource-apis
+.PHONY: all build clean lint resource-apis
 
 all: $(DIST_ZIP)
 
@@ -42,6 +42,7 @@ $(DIST_ZIP): build
 build: $(DIST) resource-apis $(SCHEMAS_FINAL)
 
 resource-apis:
+	@command -v gomplate >/dev/null || { echo "$(YELLOW)⚠️  gomplate command not found or not executable. Please install gomplate.\n    For instructions visit $(BLUE)https://docs.gomplate.ca/installing/$(RESET)"; exit 1; }
 	@echo "$(BLUE)Generating OpenAPI resources with gomplate...$(RESET)"
 	@for f in $(GOMPLATE_SOURCES); do \
 		group="$$(gomplate -d spec=$$f -i '{{ (ds "spec").group }}')"; \
@@ -70,17 +71,7 @@ lint: resource-apis
 		echo "$(YELLOW)⚠️  No OpenAPI specs found to lint.$(RESET)"; \
 		exit 1; \
 	fi; \
-	$(VACUUM) lint $(VACUUM_LINT_FLAGS) $$SCHEMAS --fail-severity warn
-
-lint-verbose: resource-apis
-	@echo "$(YELLOW)Linting OpenAPI specs (verbose)...$(RESET)"
-	@$(MAKE) $(SCHEMAS_FINAL)
-	@SCHEMAS="$$(find $(DIST)/specs -type f -name '*.yaml')"; \
-	if [ -z "$$SCHEMAS" ]; then \
-		echo "$(YELLOW)⚠️  No OpenAPI specs found to lint.$(RESET)"; \
-		exit 1; \
-	fi; \
-	$(VACUUM) lint $(VACUUM_LINT_FLAGS) -d $$SCHEMAS
+	$(VACUUM) lint $(VACUUM_LINT_FLAGS) -d $$SCHEMAS --fail-severity warn
 
 clean:
 	@echo "$(BLUE)Cleaning up...$(RESET)"

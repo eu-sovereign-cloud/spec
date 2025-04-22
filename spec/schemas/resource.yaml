@@ -245,6 +245,13 @@ UserResourceMetadata:
         type: string
       example:
         description: "Human readable description"
+    extensions:
+      type: object
+      description: |
+        User-defined key/value pairs that are mutable and can be used to add extensions.
+        Extensions are subject to validation by the CSP, and any value that is not accepted will be rejected during admission.
+      additionalProperties:
+        type: string
 
 TenantMetadata:
   type: object

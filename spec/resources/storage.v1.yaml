@@ -17,14 +17,29 @@ resources:
         Retrieves a list of available SKU (Stock Keeping Unit) configurations for block storage resources.
 
         ## Available SECA Block Storage SKUs with their capabilities
-        Block Storage SKUs represent guaranteed IOPS performance for 99% of time within a 24h period.
-        Minimum volume size of 50GB is required for guaranteed performance.
 
-        | provider | tier | IOPS | description |
+        Block Storage SKUs represent guaranteed IOPS performance for 99% of time within a 24h period.
+        Minimum volume size for guaranteed performance is provider specific. Not all SKUs are available in 
+        all regions and all CSP. Provides can provide additional SKUs with different performance 
+        characteristics.
+
+        | name | iops | description | type |
         |-|-|-|-|
-        | SECA | seca.10 | 10 IOPS | Low-performance block storage tier |
-        | SECA | seca.50 | 50 IOPS | Medium-performance block storage tier |
-        | SECA | seca.100 | 100 IOPS | High-performance block storage tier |
+        | seca.rd100 | 100     | Very low-performance remote block storage tier             | remote-durable  |
+        | seca.rd500 | 500     | Low-performance remote block storage tier                  | remote-durable  |
+        | seca.rd2k  | 2.0     | Medium-performance remote block storage tier               | remote-durable  |
+        | seca.rd10k | 10.000  | High-performance remote block storage tier                 | remote-durable  |
+        | seca.rd20k | 20.000  | Very high-performance remote block storage tier            | remote-durable  |
+        | seca.ld100 | 100     | Very low-performance local-durable block storage tier      | local-durable   |
+        | seca.ld500 | 500     | Low-performance local-durable block storage tier           | local-durable   |
+        | seca.ld5k  | 5.0     | Medium-performance local-durable block storage tier        | local-durable   |
+        | seca.ld20k | 20.000  | High-performance local-durable block storage tier          | local-durable   |
+        | seca.ld40k | 40.000  | Very high-performance local-durable block storage tier     | local-durable   |
+        | seca.le100 | 100     | Very low-performance local-ephemeral block storage tier    | local-ephemeral |
+        | seca.le500 | 500     | Low-performance local-ephemeral block storage tier         | local-ephemeral |
+        | seca.le5k  | 5.0     | Medium-performance local-ephemeral block storage tier      | local-ephemeral |
+        | seca.le20k | 20.000  | High-performance local-ephemeral block storage tier        | local-ephemeral |
+        | seca.le40k | 40.000  | Very high-performance local-ephemeral block storage tier   | local-ephemeral |
     example:
       list:
         metadata:
@@ -33,10 +48,21 @@ resources:
           resource: "seca.compute/instances/my-server"
           verb: get  
         items:
-        - { spec: { provider: 'SECA', tier: 'seca.general', description: 'a storage with no guaranteed throughput for normal usage' }}
-        - { spec: { provider: 'SECA', tier: 'seca.100', description: 'minimal 100 iops, 99% of time, when >50GB' }}
-        - { spec: { provider: 'SECA', tier: 'seca.250', description: 'minimal 250 iops, 99% of time, when >50GB' }}
-        - { spec: { provider: 'SECA', tier: 'seca.500', description: 'minimal 500 iops, 99% of time, when >50GB' }}
+        - { spec: { iops: 100, type: "remote-durable", minVolumeSize: 50, description: 'Very low-performance remote-durable block storage tier' }}
+        - { spec: { iops: 500, type: "remote-durable", minVolumeSize: 50, description: 'Low-performance remote-durable block storage tier' }}
+        - { spec: { iops: 2000, type: "remote-durable", minVolumeSize: 50, description: 'Medium-performance remote-durable block storage tier' }}
+        - { spec: { iops: 10000, type: "remote-durable", minVolumeSize: 50, description: 'High-performance remote-durable block storage tier' }}
+        - { spec: { iops: 20000, type: "remote-durable", minVolumeSize: 50, description: 'Very high-performance remote-durable block storage tier' }}
+        - { spec: { iops: 100, type: "local-durable", minVolumeSize: 50, description: 'Very low-performance local block storage tier' }}
+        - { spec: { iops: 500, type: "local-durable", minVolumeSize: 50, description: 'Low-performance local block storage tier' }}
+        - { spec: { iops: 5000, type: "local-durable", minVolumeSize: 50, description: 'Medium-performance local block storage tier' }}
+        - { spec: { iops: 20000, type: "local-durable", minVolumeSize: 50, description: 'High-performance local block storage tier' }}
+        - { spec: { iops: 40000, type: "local-durable", minVolumeSize: 50, description: 'Very high-performance local block storage tier' }}
+        - { spec: { iops: 100, type: "local-ephemeral", minVolumeSize: 50, description: 'Very low-performance local block storage tier' }}
+        - { spec: { iops: 500, type: "local-ephemeral", minVolumeSize: 50, description: 'Low-performance local block storage tier' }}
+        - { spec: { iops: 5000, type: "local-ephemeral", minVolumeSize: 50, description: 'Medium-performance local block storage tier' }}
+        - { spec: { iops: 20000, type: "local-ephemeral", minVolumeSize: 50, description: 'High-performance local block storage tier' }}
+        - { spec: { iops: 40000, type: "local-ephemeral", minVolumeSize: 50, description: 'Very high-performance local block storage tier' }}
   - name: image
     plural: images
     hierarchy: [tenant]
