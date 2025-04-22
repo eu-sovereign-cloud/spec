@@ -22,8 +22,10 @@ ActivityLogSpec:
       properties:
         verb:
           type: string
-          description: operation method
-          enum: [ 'GET', 'POST', 'PUT', 'DELETE' ]
+          description: |
+            Verb that describes the action to be performed on the resource.
+            The verb can be one of the following: get, list, put, delete, post, ..
+          example: 'get'
         body:
           oneOf:
             - $ref: './block-storage.yaml#/BlockStorageSpec'
@@ -41,7 +43,7 @@ ActivityLogSpec:
             - $ref: './storage-sku.yaml#/StorageSkuSpec'
             - $ref: './subnet.yaml#/SubnetSpec'
             - $ref: './workspace.yaml#/WorkspaceSpec'
-        scope:
+        resource:
           type: string
     response:
       type: object

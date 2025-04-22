@@ -2,7 +2,9 @@
 
 ## Overview
 
-A comprehensive REST API for managing cloud infrastructure resources in compliance with European sovereignty requirements. This API provides control over core Infrastructure-as-a-Service (IaaS) components.
+A comprehensive REST API for managing cloud infrastructure resources in
+compliance with European sovereignty requirements. This API provides control
+over core Infrastructure-as-a-Service (IaaS) components.
 
 ## Key Features
 
@@ -58,53 +60,28 @@ This guide walks you through the process of creating and managing cloud instance
 - The system uses external SSH key management
 - You'll need the reference to your SSH key for instance creation
 
-Let's suppose you, as subject user@secapi.eu, and tenant administrator, start a new project!
+Let's suppose you, as subject `user@secapi.eu`, and tenant administrator, start a new project!
 
-## Step 0: Make sure you have the grant to get region details
+## Step 0: Make sure you have the grant to manage a region
 
-Create the **Role**: region-administrator
-
-```
-PUT ${authorization-provider-url}/v1/tenants/tenant-id/roles/region-administrator
-{
-  "labels": {},
-  "annotations": {
-    "description": "Resource administrator"
-  },
-  "spec": {
-    "permissions": [
-      {
-        "scopes": [
-          "*"
-        ],
-        "resources": [
-          "regions/*"
-        ],
-        "verb": [
-          "get",
-          "list"
-        ]
-      }
-    ]
-  }
-}
-```
-
-Create the **Role-Assignment**: region-administrator
+Create the **Role-Assignment**: `region-admin-for-user-secapi-eu`
 
 ```
-PUT ${authorization-provider-url}/v1/tenants/tenant-id/role-assignments/region-administrator
+PUT ${authorization-provider-url}/v1/tenants/tenant-id/role-assignments/region-admin-for-user-secapi-eu
 {
   "labels": {}
   "annotations": {
-    "description": "Region Administrator"
+    "description": "Region Administrator for user@secapi.eu"
   },
   "spec": {
     "subs": [
       "user@secapi.eu"
     ],
+    "scopes": [
+      { "regions": ["europe-country-1"] }
+    ]
     "roles": [
-      "region-administrator"
+      "seca.region-administrator"
     ]
   }
 }

@@ -97,22 +97,22 @@ PermissionMetadata:
   readOnly: true
   description: Metadata for permission management
   required:
-  - scope
+  - provider
   - resource
   - verb
   properties:
-    scope:
+    provider:
       type: string
-      example: "workspace/production"
+      example: "seca.compute/v1"
     resource:
       type: string
-      example: "seca.compute/instances/my-server"
+      example: "tenants/1/workspaces/ws-1/instances/my-server"
     verb:
       type: string
       example: get
   example:
-    scope: "workspace/production"
-    resource: "/tenants/public/instances/my-server"
+    provider: "seca.compute/v1"
+    resource: "tenants/1/workspaces/ws-1/instances/my-server"
     verb: get
 
 ModificationMetadata:
@@ -313,6 +313,6 @@ ResponseMetadata:
         description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
   example:
     skipToken: "false"
-    scope: "workspace/production"
-    resource: "seca.compute/instances/my-server"
+    provider: "seca.compute/v1"
+    resource: "tenants/1/workspaces/ws-1/instances/my-server"
     verb: get  

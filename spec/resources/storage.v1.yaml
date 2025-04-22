@@ -44,9 +44,9 @@ resources:
       list:
         metadata:
           skipToken: "false"
-          scope: "workspace/production"
-          resource: "seca.compute/instances/my-server"
-          verb: get  
+          provider: "seca.compute/v1"
+          resource: "tenants/1/skus"
+          verb: list  
         items:
         - { spec: { iops: 100, type: "remote-durable", minVolumeSize: 50, description: 'Very low-performance remote-durable block storage tier' }}
         - { spec: { iops: 500, type: "remote-durable", minVolumeSize: 50, description: 'Low-performance remote-durable block storage tier' }}

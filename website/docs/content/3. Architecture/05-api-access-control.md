@@ -65,17 +65,12 @@ To initialize a tenant we need the below requirements fulfilled:
   "spec": {
     "permissions": [
       {
-        "scopes": [
-          "seca.authorization/*"
-        ],
+        "provider": "seca.authorization/v1",
         "resources": [
-          "*"
+          "roles/*",
+          "role-assignments/*",
         ],
-        "verb": [
-          "get",
-          "put",
-          "delete"
-        ]
+        "verb": [ "list", "get", "put",  "delete" ]
       }
     ]
   }
@@ -89,7 +84,7 @@ To initialize a tenant we need the below requirements fulfilled:
   },
   "spec": {
     "subs": [
-      "user1@example.com" //subject to whom to assign the role
+      "user1@example.com" // subject to whom to assign the role
     ],
     "roles": [
       "authorization-admin"
@@ -109,18 +104,16 @@ to be fetched by all users of the SECA API:
 {
   "labels": {},
   "annotations": {
-    "description": "Public Image Users"  
+    "description": "Public image user"  
   },
   "spec": {
     "permissions": [
       {
-        "provider": "seca.storage",
-        "versions": [ "*" ],
-        "resources": [ "images/*" ],
-        "verb": [
-          "list",
-          "get"
-        ]
+        "provider": "seca.storage/v1",
+        "resources": [
+          "images/*"
+        ],
+        "verb": [ "list", "get" ]
       }
     ]
   }
@@ -130,12 +123,13 @@ to be fetched by all users of the SECA API:
 {
   "labels": {},
   "annotations": {
-    "description": "All Tenants are Public Image Users"  
+    "description": "All users have access to public images"  
   },
   "spec": {
-    "subs": [
-      "*"
-    ],
+    "subs": [ "*" ], // all users
+    "scopes": [
+      { "tenants" : [ "*" ] } // all tenants
+    ]
     "roles": [
       "public-image-user"
     ]
@@ -193,28 +187,25 @@ A **Role** is a resource that defines a set of permissions within a specific wor
 
 Key Concepts of a SECA Role:
 
-- **tenant-scoped**: A Role is confined to a single tenant, meaning it bundles permissions to resources within that specific tenant only.
+- **tenant-scoped**: A role is besides the system default roles confined to a single tenant, meaning it bundles permissions to resources within that specific tenant only.
 - **Permissions (Rules)**: A Role contains rules that specify which actions are permitted on particular scopes. These rules are defined using:
-  - **scopes** (e.g., '*/instances', '/workspace/ws1/subnets') that the role can access.
-  - **Verbs** (e.g., get, list, create, delete) that indicate what actions can be taken on the resources.
-  - **Resource Names** (optional) to specify individual resources by name for more precise control, technical part of the scope.
+  - **provider** (e.g. 'seca.compute/v1') the provider of a resource.
+  - **resource** (e.g., 'instances/*', 'subnets/*') that the role can access.
+  - **verbs** (e.g., get, list, create, delete) that indicate what actions can be taken on the resources.
 - **Least Privilege Principle**: Roles enable Tenant Administrators to grant minimal permissions necessary for a user or application to perform its tasks, enhancing tenant security by limiting access to only what is needed.
 
 This is essential for applying granular access control within a workspace, aligning with the principle of least privilege to keep CSP tenants secure and manageable.
 
-### RoleBinding
+### RoleAssignment
 
-A **RoleBinding** is a resource used to associate a Role with specific users, groups, or customer applications, granting them the permissions defined in the role. RoleBindings are a fundamental part of SECA RBAC (Role-Based Access Control) system, as they are the mechanism through which permissions are actually applied to subjects.
+A **RoleAssignment** is a resource used to associate a Role with specific users, groups, or customer applications, granting them the permissions defined in the role. Role assignments are a fundamental part of SECA RBAC (Role-Based Access Control) system, as they are the mechanism through which permissions are actually applied to subjects.
 
-Key Concepts of a RoleBinding
+Key Concepts of a RoleAssignment
 
-- **Workspace-Specific**: A RoleBinding grants access within a single Workspace. It binds a Role (which is also Workspace-scoped) to specific subjects within that Workspace. For granting tenant-wide permissions, a TenantRoleBinding is used instead, which can apply to resources across all Workspaces.
-- **Subjects**: RoleBindings specify the subjects (such as users, groups, or customer applications) that will receive the permissions defined in the Role. These subjects can be:
+- **Subjects**: Role assignments specify the subjects (such as users, groups, or customer applications) that will receive the permissions defined in the Role. These subjects can be:
   - **Users**: The standardized JWT-subject (`sub`).
-  - **Groups**: Collections of users.
-  - **customer applications**: Accounts used by applications or other processes running within the SECA tenant.
-- **Reference to a Role**: A RoleBinding references an existing Role to grant permissions within a single Workspace.
-- **Applying Permissions**: RoleBindings do not contain permissions themselves; they simply bind a set of permissions (defined in a Role) to one or more subjects.
+- **Reference to a Role**: A role assignment references an existing Role to grant permissions within a single Workspace.
+- **Scopes**: The role assignment can be extended to other tenants or narrowed regarding regions and workspaces.
 
 ## Admission Control
 
