@@ -63,8 +63,8 @@ NetworkSpec:
         description: |
           Reference to the route table used by default for all Subnets.
   example:
-    skuRef: "tenants/public/skus/seca.1000"
-    routeTableRef: "tenants/public/route-tables/route-table-1"
+    skuRef: "skus/seca.1000"
+    routeTableRef: "route-tables/route-table-1"
     cidr:
       ipv4: "0.0.0.0/16"
       ipv6: "::/56"
