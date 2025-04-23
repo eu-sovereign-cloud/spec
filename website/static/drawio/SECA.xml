@@ -103,5 +103,10 @@
     "h": 80,
     "title": "Workspace.Workspace",
     "aspect": "fixed"
+  },
+  {
+    "data": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iLTAuNSAtMC41IDE2MSAxMDEiIGhlaWdodD0iMTAxIiB3aWR0aD0iMTYxIj4mI3hhOyAgPHJlY3Qgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2U9IiMwMDVmYTMiIGZpbGw9ImxpZ2h0Z3JleSIgcnk9IjE1IiByeD0iMTUiIGhlaWdodD0iOTgiIHdpZHRoPSIxNTgiIHk9IjEiIHg9IjEiLz4mI3hhOyAgPHRleHQgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMwMDMzNjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgeT0iNTYiIHg9IjgwIj5ab25lPC90ZXh0PiYjeGE7PC9zdmc+",
+    "w": 161,
+    "h": 101
   }
 ]</mxlibrary>
