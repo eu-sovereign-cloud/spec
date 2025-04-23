@@ -1,0 +1,8 @@
+<svg width="120" height="140" xmlns="http://www.w3.org/2000/svg">
+  <!-- Head -->
+  <circle cx="60" cy="40" r="20" fill="lightgrey" stroke="black" stroke-width="2" />
+  <!-- Shoulders -->
+  <path d="M30,90 Q60,60 90,90" fill="lightgrey" stroke="black" stroke-width="2" />
+  <!-- Label -->
+  <text x="60" y="130" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">Subject</text>
+</svg>
