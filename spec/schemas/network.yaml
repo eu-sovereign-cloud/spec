@@ -132,4 +132,4 @@ IPVersion:
     - IPv4
     - IPv6
   example:
-    version: "IPv4"
+    'IPv4'
