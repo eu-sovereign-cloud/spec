@@ -88,12 +88,7 @@ SecurityGroupRuleSpec:
         * ingress: Only incoming traffic is allowed
         * egress: Only outgoing traffic is allowed
     version:
-      type: string
-      enum:
-        - IPv4
-        - IPv6
-        - any
-      default: any
+      $ref: './network.yaml#/IPVersion'
     protocol:
       type: string
       description: Network protocol for the rule
