@@ -73,6 +73,7 @@ SecurityGroupRuleSpec:
   type: object
   description: |
     Specification of a security group rule defining network access permissions.
+    If no version is specified, any IP version will be allowed.
   required:
     - direction
     - protocol
