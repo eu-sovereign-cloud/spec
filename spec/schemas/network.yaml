@@ -120,3 +120,12 @@ cidr:
       description: |
         IPv6 CIDR block for the subnet.
       example: '2001:db8::/32'
+
+IPVersion:
+  type: string
+  description: IP version of the address
+  enum:
+    - IPv4
+    - IPv6
+  example:
+    'IPv4'
