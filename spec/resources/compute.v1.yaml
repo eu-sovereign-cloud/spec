@@ -22,10 +22,13 @@ resources:
 
         | provider | tier | vCPU | ramGB | cpuType | benchmarkPoints |
         |-|-|-|-|-|-|
+        | SECA | seca.2xs | 1 | 1 | amd64 | min 750 |
+        | SECA | seca.xs | 1 | 2 | amd64 | min 1500 |
         | SECA | seca.s | 2 | 4 | amd64 | min 3000 |
         | SECA | seca.m | 4 | 8 | amd64 | min 6000 |
         | SECA | seca.l | 8 | 16 | amd64 | min 12000 |
         | SECA | seca.xl | 16 | 32 | amd64 | min 24000 |
+        | SECA | seca.2xl | 32 | 64 | amd64 | min 48000 |
     example:
       list:
         metadata:
@@ -33,10 +36,13 @@ resources:
           resource: "tenants/1/skus"
           verb: list
         items:
+        - { spec: { provider: 'SECA', tier: 'seca.2xs', vCPU:  1, ramGB:  1, cpuType: 'amd64', benchmarkPoints:  750 }}
+        - { spec: { provider: 'SECA', tier: 'seca.xs',  vCPU:  1, ramGB:  2, cpuType: 'amd64', benchmarkPoints: 1500 }}
         - { spec: { provider: 'SECA', tier: 'seca.s',  vCPU:  2, ramGB:  4, cpuType: 'amd64', benchmarkPoints:  3000 }}
         - { spec: { provider: 'SECA', tier: 'seca.m',  vCPU:  4, ramGB:  8, cpuType: 'amd64', benchmarkPoints:  6000 }}
         - { spec: { provider: 'SECA', tier: 'seca.l',  vCPU:  8, ramGB: 16, cpuType: 'amd64', benchmarkPoints: 12000 }}
         - { spec: { provider: 'SECA', tier: 'seca.xl', vCPU: 16, ramGB: 32, cpuType: 'amd64', benchmarkPoints: 24000 }}
+        - { spec: { provider: 'SECA', tier: 'seca.2xl', vCPU: 32, ramGB: 64, cpuType: 'amd64', benchmarkPoints: 48000 }}
   - name: instance
     plural: instances
     hierarchy: [tenant, workspace]
