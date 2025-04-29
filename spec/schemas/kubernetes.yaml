@@ -111,6 +111,7 @@ NodeTemplate:
   - skuRef
   - subnetRef
   - zone
+  - rootVolume
   properties:
     skuRef:
       $ref: './resource.yaml#/Reference'

@@ -127,5 +127,3 @@ IPVersion:
   enum:
     - IPv4
     - IPv6
-  example:
-    'IPv4'

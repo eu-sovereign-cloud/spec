@@ -32,7 +32,6 @@ NetworkLoadBalancerSpec:
       type: array
       items:
         $ref: '#/NetworkLoadBalancerFrontend'
-      minItems: 1
 
 NetworkLoadBalancerStatus:
   description: |
