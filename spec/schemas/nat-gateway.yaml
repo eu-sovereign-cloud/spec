@@ -32,6 +32,10 @@ InternetNatGatewayInstanceSpec:
     the specified public IP address and network interface. This implies
     the NAT Gateway instance will inherit the availability of the zone
     and not scale beyond the capability of a compute instance.
+
+    The NIC needs to be in the same zone as the NAT Gateway instance.
+    If the NIC has a public IP address, the NAT Gateway instance will
+    report this as an error.
   required:
   - publicIpRef
   - nicRef
