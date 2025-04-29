@@ -90,7 +90,7 @@ PUT ${authorization-provider-url}/v1/tenants/{tenant_id}/role-assignments/region
 ## Step 1: Get Region Details and Provider References
 
 ```http
-GET /v1/regions
+GET ${region-provider-url}/v1/regions
 ```
 
 here you get **provider-url**, for each resources, that can be:
