@@ -144,7 +144,7 @@ RoleAssignmentScope:
       description: |
         Optionally, can be opened to all tenants or restricted to a specific tenant.
         If not specified, the role assignment is valid for the current tenant.
-      example: '["tenant-1"]'
+      example: ['tenant-1']
       items:
         type: string
         description: |
@@ -157,7 +157,7 @@ RoleAssignmentScope:
         Optionally, a restriction can be applied to the region
         where the role assignment is valid. If not specified,
         the role assignment is valid for all regions.
-      example: '["region-1"]'
+      example: ['region-1']
       items:
         type: string
         description: |
@@ -168,7 +168,7 @@ RoleAssignmentScope:
         Optionally, a restriction can be applied to the workspace
         where the role assignment is valid. If not specified,
         the role assignment is valid for all workspaces.
-      example: '["workspace-1"]'
+      example: ['workspace-1']
       items:
         type: string
         description: |

@@ -140,7 +140,7 @@ Ports:
       type: array
       items:
         $ref: '#/Port'
-      example: '[80, 443]'
+      example: [80, 443]
 
 Port:
   description: |

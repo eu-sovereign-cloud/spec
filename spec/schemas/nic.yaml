@@ -37,7 +37,7 @@ NicSpec:
         CIDR range of the subnet and not used by any other NIC in the subnet. Multiple
         IP addresses can be assigned to a NIC. The number of IP addresses is might be
         limited by the CSP or the subnet size.
-      example: '["10.100.0.10", "0.0.0.0", "::"]'
+      example: ['10.100.0.10', '0.0.0.0', '::']
       items:
         $ref: '#/NicIp'
     publicIpRefs:
