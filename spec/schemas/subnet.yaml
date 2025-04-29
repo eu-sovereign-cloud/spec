@@ -65,7 +65,7 @@ SubnetSpec:
       ipv4: "0.0.0.0/24"
       ipv6: "::/64"
     zone: "a"
-    skuRef: "skus/seca.1000" 
+    skuRef: "skus/seca.n1k" 
 
 SubnetStatus:
   description: |

@@ -172,9 +172,9 @@ GET ${network-provider-url}/v1/tenants/{tenant_id}/skus
 
 Available network tiers:
 
-- seca.10: 10 Mbps guaranteed bandwidth
-- seca.100: 100 Mbps guaranteed bandwidth
-- seca.1000: 1000 Mbps guaranteed bandwidth
+- seca.n1k: 1000 Mbps guaranteed bandwidth
+- seca.n5k: 5000 Mbps guaranteed bandwidth
+- seca.n10k: 10000 Mbps guaranteed bandwidth
 
 ### Review Available Images
 
@@ -229,7 +229,7 @@ Content-Type: application/json
     "description": "Production network for web-shop",
   }
   "spec": {
-    "skuRef": "skus/seca.1000",
+    "skuRef": "skus/seca.n1k",
     "cidr": {
       "ipv4": "10.100.0.0/16"
     }

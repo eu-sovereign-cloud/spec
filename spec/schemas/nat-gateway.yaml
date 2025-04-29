@@ -1,0 +1,54 @@
+InternetNatGatewayInstance:
+  description: |
+    An InternetNatGatewayInstance is a resource that provides internet access to a subnet
+    by mangling the source IP address of outgoing packets. This allows instances
+    in the subnet to access the internet while keeping their private IP addresses
+    hidden. The InternetNatGatewayInstance is used in conjunction with a RouteTable to
+    enable internet connectivity.
+  allOf:
+  - $ref: './resource.yaml#/UserResourceMetadata'
+  - type: object
+    description: |
+      An InternetNatGatewayInstance is a resource that provides internet access to a subnet
+      by mangling the source IP address of outgoing packets. This allows instances
+      in the subnet to access the internet while keeping their private IP addresses
+      hidden. The InternetNatGatewayInstance is used in conjunction with a RouteTable to
+      enable internet connectivity.
+  required:
+  - spec
+  properties:
+    metadata:
+      $ref: './resource.yaml#/RegionalResourceMetadata'
+    spec:
+      $ref: './nat-gateway.yaml#/InternetNatGatewayInstanceSpec'
+    status:
+      $ref: './nat-gateway.yaml#/InternetNatGatewayInstanceStatus'
+
+InternetNatGatewayInstanceSpec:
+  type: object
+  description: |
+    The internet gateway will allocate a public IPv4 address.
+    The NAT Gateway instance will be created in the specified zone using
+    the specified public IP address and network interface. This implies
+    the NAT Gateway instance will inherit the availability of the zone
+    and not scale beyond the capability of a compute instance.
+
+    The NIC needs to be in the same zone as the NAT Gateway instance.
+    If the NIC has a public IP address, the NAT Gateway instance will
+    report this as an error.
+  required:
+  - publicIpRef
+  - nicRef
+  - zone
+  properties:
+    publicIpRef:
+      $ref: './resource.yaml#/Reference'
+    nicRef:
+      $ref: './resource.yaml#/Reference'
+    zone: 
+      $ref: './region.yaml#/Zone'
+    securityGroupRef:
+      $ref: './resource.yaml#/Reference'
+
+InternetNatGatewayInstanceStatus:
+  $ref: "./resource.yaml#/Status"

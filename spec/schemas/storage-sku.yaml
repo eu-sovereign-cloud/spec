@@ -1,23 +1,24 @@
 StorageSku:
-  type: object
   description: |
     Represents a Stock Keeping Unit (SKU) for  storage resources.
 
     Storage SKUs define performance tiers for storage IOPS and characteristics.
     Properties, capabilities, and extensions can be found in the metadata.labels sections.
     Searchable with namespaces like "properties.", "capabilities.", and "extensions.".
-  properties:    
-    metadata:
-      $ref: './resource.yaml#/RegionalResourceMetadata'
-    spec:
-      $ref: "./storage-sku.yaml#/StorageSkuSpec"
+  allOf:
+  - $ref: './resource.yaml#/SystemResourceMetadata'
+  - type: object
+    properties:    
+      metadata:
+        $ref: './resource.yaml#/SkuResourceMetadata'
+      spec:
+        $ref: "./storage-sku.yaml#/StorageSkuSpec"
 
 StorageSkuSpec:
   type: object
   description: |
     Specification of the storage SKU, including its capabilities and extensions.
   required:
-  - description
   - iops
   - type
   - minVolumeSize
@@ -70,19 +71,11 @@ StorageSkuSpec:
         - local-ephemeral
         - local-durable
         - remote-durable
-    description:
-      type: string
     minVolumeSize:
       type: integer
       description: |
         Minimum volume size for guaranteed performance, in GB.
-    extensions:
-      type: array
-      description: Additional storage feature extensions
-      items:
-        type: string
   example:
     iops: 100
     type: remote-durable
     minVolumeSize: 50
-    description: 'Very low-performance remote durable block storage tier'

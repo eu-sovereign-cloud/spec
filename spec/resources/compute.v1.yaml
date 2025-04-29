@@ -20,12 +20,15 @@ resources:
         Seca-Resources don't have mandatory parameters and extensions.
         (Provider may have more SKUs available.)
 
-        | provider | tier | vCPU | ramGB | cpuType | benchmarkPoints |
-        |-|-|-|-|-|-|
-        | SECA | seca.s | 2 | 4 | amd64 | min 3000 |
-        | SECA | seca.m | 4 | 8 | amd64 | min 6000 |
-        | SECA | seca.l | 8 | 16 | amd64 | min 12000 |
-        | SECA | seca.xl | 16 | 32 | amd64 | min 24000 |
+        | Tier | vCPU | RAM | Architecture | benchmarkPoints |
+        |-|-|-|-|-|
+        | 2XS | 1 | 1 | amd64 | min 500 |
+        | XS | 1 | 2 | amd64 | min 750 |
+        | S | 2 | 4 | amd64 | min 2200 |
+        | M | 4 | 8 | amd64 | min 3500 |
+        | L | 8 | 16 | amd64 | min 6000 |
+        | XL | 16 | 32 | amd64 | min 9000 |
+        | 2XL | 32 | 64 | amd64 | min 13000 |
     example:
       list:
         metadata:
@@ -33,10 +36,13 @@ resources:
           resource: "tenants/1/skus"
           verb: list
         items:
-        - { spec: { provider: 'SECA', tier: 'seca.s',  vCPU:  2, ramGB:  4, cpuType: 'amd64', benchmarkPoints:  3000 }}
-        - { spec: { provider: 'SECA', tier: 'seca.m',  vCPU:  4, ramGB:  8, cpuType: 'amd64', benchmarkPoints:  6000 }}
-        - { spec: { provider: 'SECA', tier: 'seca.l',  vCPU:  8, ramGB: 16, cpuType: 'amd64', benchmarkPoints: 12000 }}
-        - { spec: { provider: 'SECA', tier: 'seca.xl', vCPU: 16, ramGB: 32, cpuType: 'amd64', benchmarkPoints: 24000 }}
+        - { metadata: { name: 'seca.2xs' }, labels: { tier: '2XS', provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  1, ram:  1 }}
+        - { metadata: { name: 'seca.xs'  }, labels: { tier: 'XS',  provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  1, ram:  2 }}
+        - { metadata: { name: 'seca.s'   }, labels: { tier: 'S',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  2, ram:  4 }}
+        - { metadata: { name: 'seca.m'   }, labels: { tier: 'M',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  4, ram:  8 }}
+        - { metadata: { name: 'seca.l'   }, labels: { tier: 'L',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  8, ram: 16 }}
+        - { metadata: { name: 'seca.xl'  }, labels: { tier: 'XL',  provider: 'seca', architecture: 'amd64' }, spec: { vCPU: 16, ram: 32 }}
+        - { metadata: { name: 'seca.2xl' }, labels: { tier: '2XL', provider: 'seca', architecture: 'amd64' }, spec: { vCPU: 32, ram: 64 }}
   - name: instance
     plural: instances
     hierarchy: [tenant, workspace]
