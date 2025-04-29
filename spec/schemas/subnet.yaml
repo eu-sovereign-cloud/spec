@@ -52,7 +52,8 @@ SubnetSpec:
       - type: string
         description: |
           Reference to the route table used by default for all NIC in this Subnet.
-          Can be overridden by the NIC
+          Can be overridden by the NIC.
+          If not provided, the mutate admission controller will populate this value using the routeTableRef associated with the network where the subnet will be created.
     skuRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
@@ -66,6 +67,7 @@ SubnetSpec:
       ipv6: "::/64"
     zone: "a"
     skuRef: "skus/seca.1000" 
+    routeTableRef: "route-tables/route-table-1"
 
 SubnetStatus:
   description: |

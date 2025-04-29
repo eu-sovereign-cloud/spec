@@ -173,3 +173,32 @@ BlockStorage:
 In SECA, mutation occurs during the admission control phase as part of resource validation.  
 When a request to create or modify a resource is submitted, admission control can both validate the request and mutate it. Mutation involves modifying the incoming request — for example, filling in missing fields with default values, adjusting inputs to meet system constraints, or enforcing naming conventions — before it is persisted.  
 This ensures that the resource meets business and system rules without requiring the user to manually correct their request. Mutation and validation together guarantee that all accepted resources are consistent, complete, and conformant before entering the system.
+
+#### Mutation Example
+
+As an example of mutation during admission control, consider the creation of a **subnet**, which is a subresource of a **VPC** (network).
+
+When a user submits a request with the following payload:
+
+```json
+{
+  "labels": {
+    "env": "production"
+  },
+  "annotations": {
+    "description": "Human readable description"
+  },
+  "extensions": {},
+  "spec": {
+    "cidr": {
+      "ipv4": "0.0.0.0/24",
+      "ipv6": "::/64"
+    },
+    "zone": "a",
+    "skuRef": "skus/seca.n1k"
+  }
+}
+```
+
+If the `routeTableRef` field is not specified in the request, the mutate admission controller will automatically populate it by using the `routeTableRef` associated with the parent network (VPC) to which the subnet belongs.  
+This ensures that the subnet is correctly linked to a route table without requiring explicit user input, while still preserving the user's original intent.
