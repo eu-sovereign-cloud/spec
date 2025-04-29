@@ -1,7 +1,7 @@
 group: extensions
 title: Load Balancer
 name: load balancer
-version: v1
+version: v1beta1
 description: |
   The Load Balancer API provides access to Network Load Balancer resources.
   This API is part of the Sovereign European Cloud API.

@@ -24,11 +24,6 @@ BlockStorageSpec:
   properties:
     skuRef:
       $ref: './resource.yaml#/Reference'
-    skuExtensions:
-      type: object
-      additionalProperties:
-        type: string
-      example: {}
     sizeGB:
       type: integer
       example: 10
@@ -69,6 +64,6 @@ VolumeReference:
       - virtio
       default: virtio
   example:
-    deviceRef: ".../block-123"
+    deviceRef: "block-storages/block-123"
     type: "virtio"
 

@@ -1,0 +1,183 @@
+Cluster:
+  description: |
+    Represents a kubernetes cluster resource. A cluster is
+    accessible from the internet and can be used to deploy applications
+    that require external access.
+  allOf:
+  - $ref: './resource.yaml#/UserResourceMetadata'
+  - type: object
+    required:
+    - spec
+    properties:
+      metadata:
+        $ref: './resource.yaml#/RegionalResourceMetadata'
+      spec:
+        $ref: '#/ClusterSpec'
+      status:
+        $ref: '#/ClusterStatus'
+
+ClusterSpec:
+  type: object
+  description: |
+    Specification of the  kubernetes cluster, including its configuration
+    and network settings.
+
+    Changing the sku of the cluster will cause the cluster to be recreated.
+  required:
+  - skuRef
+  properties:
+    skuRef:
+      $ref: './resource.yaml#/Reference'
+    restrictKubernetesApi:
+      description: |
+        Restrict access to the Kubernetes API to specific IP addresses or ranges.
+        This is a security feature to limit access to the cluster. If not specified,
+        the Kubernetes API is accessible from any IP address. Nodes that are 
+        part of the cluster are always allowed to access the Kubernetes API. 
+      type: array
+      items:
+        type: string
+        description: |
+          IP address or CIDR range to restrict access to the Kubernetes API.
+          The IP address or CIDR can be for IPv4 or IPv6.
+      example:
+      - "1.2.3.4/32"
+      - "2002::1234:abcd:ffff:c0a8:101/64"
+      - "1.2.3.4"
+      - "2002::1234:abcd:ffff:c0a8:101"
+
+ClusterStatus:
+  description: |
+    Represents the status of the  kubernetes cluster.
+  allOf:
+  - $ref: "./resource.yaml#/Status"
+  - type: object
+    readOnly: true
+    properties:
+      kubeConfig:
+        type: string
+        description: |
+          The kube config file for the cluster. This file is used to configure
+          access to the cluster using kubectl or other Kubernetes clients.
+        example: "---\n..."
+
+NodePool:
+  description: |
+    Represents a Node Pool resource in a Kubernetes cluster. A Node Pool is a group of
+    nodes with the same configuration, including instance SKU, network configuration,
+    and security group settings. Node Pools are used to manage the scaling and
+    lifecycle of nodes in a Kubernetes cluster.
+  allOf:
+  - $ref: './resource.yaml#/UserResourceMetadata'
+  - type: object
+    required:
+    - spec
+    properties:
+      metadata:
+        $ref: './resource.yaml#/RegionalResourceMetadata'
+      spec:
+        $ref: '#/NodePoolSpec'
+      status:
+        $ref: '#/NodePoolStatus'
+
+NodePoolSpec:
+  type: object
+  description: |
+    Specification of the  kubernetes node pool, including its configuration
+    and network settings. Since the node pool is, all nodes in the pool
+    have a IP address and are accessible from the internet.
+  required:
+  - instances
+  - nodeTemplate
+  properties:
+    instances:
+      description: |
+        The number of instances in the node pool. This field is required to
+        specify the number of nodes in the node pool.
+      type: integer
+      minimum: 1
+      maximum: 5000
+      example: 3
+    nodeTemplate:
+      $ref: '#/NodeTemplate'
+
+NodeTemplate:
+  type: object
+  description: |
+    Template for creating nodes in the node pool. The template includes
+    the instance SKU, subnet, and zone in which the nodes will be created.
+    The SKU must be one of the available compute SKUs in the region.
+  required:
+  - skuRef
+  - subnetRef
+  - zone
+  properties:
+    skuRef:
+      $ref: './resource.yaml#/Reference'
+    subnetRef:
+      $ref: './resource.yaml#/Reference'
+    zone:
+      $ref: './region.yaml#/Zone'
+    securityGroupRef:
+      $ref: './resource.yaml#/Reference'
+    rootVolume:
+      $ref: '#/NodeRootVolume'
+  example:
+    skuRef:
+      provider: seca.compute/v1
+      resource: skus/seca.xl
+    subnetRef:
+      provider: seca.network/v1
+      resource: subnets/k8s-nodes-a
+    zone: a
+    securityGroupRef:
+      provider: seca.network/v1
+      resource: security-groups/k8s-nodes
+    rootVolume:
+      skuRef:
+        provider: seca.storage/v1
+        resource: skus/seca.le500
+      sizeGB: 100
+
+NodeRootVolume:
+  type: object
+  description: |
+    Root volume for the node. The root volume is used to store the operating
+    system and other software required to run the node.
+
+    The SKU must be one of the available block storage SKUs in the region.
+  required:
+  - skuRef
+  - sizeGB
+  properties:
+    skuRef:
+      $ref: './resource.yaml#/Reference'
+    sizeGB:
+      description: |
+        Size of the root volume in GB. The size is recommended to be at least 100GB.
+      type: integer
+      example: 100
+      minimum: 20
+  example:
+    skuRef:
+      provider: seca.storage/v1
+      resource: skus/seca.le500
+    sizeGB: 100
+
+NodePoolStatus:
+  description: |
+    Represents the status of the  kubernetes node pool. The status
+    represents if the instances of the node pool are provisioned to the
+    cluster. 
+  allOf:
+  - $ref: './resource.yaml#/Status'
+  - type: object
+    readOnly: true
+    properties:
+      nodes:
+        description: |
+          List of nodes in the Node Pool. Each node is represented by its 
+          reference to a compute instance.
+        type: array
+        items:
+          $ref: './resource.yaml#/Reference'

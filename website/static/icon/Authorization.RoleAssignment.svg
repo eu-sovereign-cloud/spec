@@ -1,0 +1,26 @@
+<svg width="240" height="140" xmlns="http://www.w3.org/2000/svg">
+  <!-- Subject (Circle) -->
+  <circle cx="60" cy="50" r="25" fill="lightgrey" stroke="black" stroke-width="2" />
+  <text x="60" y="85" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">Subject</text>
+
+  <!-- Role (Document Icon) -->
+  <rect x="150" y="30" width="60" height="60" rx="10" ry="10" fill="lightgrey" stroke="black" stroke-width="2"/>
+  <line x1="160" y1="45" x2="200" y2="45" stroke="black" stroke-width="2"/>
+  <line x1="160" y1="55" x2="200" y2="55" stroke="black" stroke-width="2"/>
+  <line x1="160" y1="65" x2="200" y2="65" stroke="black" stroke-width="2"/>
+  <text x="180" y="105" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">Role</text>
+
+  <!-- Connecting Arrow -->
+  <line x1="85" y1="50" x2="150" y2="60" stroke="black" stroke-width="2" marker-end="url(#arrowhead)" />
+
+  <!-- Arrowhead Definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+            refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="black"/>
+    </marker>
+  </defs>
+
+  <!-- Label -->
+  <text x="120" y="130" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">Role Assignment</text>
+</svg>

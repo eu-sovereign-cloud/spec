@@ -2,7 +2,9 @@
 
 ## Overview
 
-A comprehensive REST API for managing cloud infrastructure resources in compliance with European sovereignty requirements. This API provides control over core Infrastructure-as-a-Service (IaaS) components.
+A comprehensive REST API for managing cloud infrastructure resources in
+compliance with European sovereignty requirements. This API provides control
+over core Infrastructure-as-a-Service (IaaS) components.
 
 ## Key Features
 
@@ -26,7 +28,7 @@ A comprehensive REST API for managing cloud infrastructure resources in complian
 - Content Types: JSON for requests and responses
 - Status: Production-ready for core IaaS operations
 
-![API Diagram](@site/static/img/api-diagram.png)
+![API Diagram](@site/static/img/usage.png)
 
 ## Current Scope
 
@@ -58,53 +60,28 @@ This guide walks you through the process of creating and managing cloud instance
 - The system uses external SSH key management
 - You'll need the reference to your SSH key for instance creation
 
-Let's suppose you, as subject user@secapi.eu, and tenant administrator, start a new project!
+Let's suppose you, as subject `user@secapi.eu`, and tenant administrator, start a new project!
 
-## Step 0: Make sure you have the grant to get region details
+## Step 0: Make sure you have the grant to manage a region
 
-Create the **Role**: region-administrator
-
-```
-PUT ${authorization-provider-url}/v1/tenants/tenant-id/roles/region-administrator
-{
-  "labels": {},
-  "annotations": {
-    "description": "Resource administrator"
-  },
-  "spec": {
-    "permissions": [
-      {
-        "scopes": [
-          "*"
-        ],
-        "resources": [
-          "regions/*"
-        ],
-        "verb": [
-          "get",
-          "list"
-        ]
-      }
-    ]
-  }
-}
-```
-
-Create the **Role-Assignment**: region-administrator
+Create the **Role-Assignment**: `region-admin-for-user-secapi-eu`
 
 ```
-PUT ${authorization-provider-url}/v1/tenants/tenant-id/role-assignments/region-administrator
+PUT ${authorization-provider-url}/v1/tenants/tenant-id/role-assignments/region-admin-for-user-secapi-eu
 {
   "labels": {}
   "annotations": {
-    "description": "Region Administrator"
+    "description": "Region Administrator for user@secapi.eu"
   },
   "spec": {
     "subs": [
       "user@secapi.eu"
     ],
+    "scopes": [
+      { "regions": ["europe-country-1"] }
+    ]
     "roles": [
-      "region-administrator"
+      "seca.region-administrator"
     ]
   }
 }
@@ -167,12 +144,25 @@ GET ${storage-provider-url}/v1/tenants/{tenant_id}/skus
 
 Important notes about storage:
 
-- Minimum 50GB recommended for guaranteed performance
-- Performance tiers:
-  - seca.general: No guaranteed throughput
-  - seca.100: 100 IOPS guaranteed (99% of time when >50GB)
-  - seca.250: 250 IOPS guaranteed (99% of time when >50GB)
-  - seca.500: 500 IOPS guaranteed (99% of time when >50GB)
+- Minimum storage size recommended for guaranteed performance depends on the CSP
+- **Remote Durable Block Storage**:
+  - seca.rd100: 100 IOPS - Very low-performance remote block storage tier
+  - seca.rd500: 500 IOPS - Low-performance remote block storage tier
+  - seca.rd2k: 2,000 IOPS - Medium-performance remote block storage tier
+  - seca.rd10k: 10,000 IOPS - High-performance remote block storage tier
+  - seca.rd20k: 20,000 IOPS - Very high-performance remote block storage tier
+- **Local Durable Block Storage**:
+  - seca.ld100: 100 IOPS - Very low-performance local-durable block storage tier
+  - seca.ld500: 500 IOPS - Low-performance local-durable block storage tier
+  - seca.ld5k: 5,000 IOPS - Medium-performance local-durable block storage tier
+  - seca.ld20k: 20,000 IOPS - High-performance local-durable block storage tier
+  - seca.ld40k: 40,000 IOPS - Very high-performance local-durable block storage tier
+- **Local Ephemeral Block Storage**:
+  - seca.le100: 100 IOPS - Very low-performance local-ephemeral block storage tier
+  - seca.le500: 500 IOPS - Low-performance local-ephemeral block storage tier
+  - seca.le5k: 5,000 IOPS - Medium-performance local-ephemeral block storage tier
+  - seca.le20k: 20,000 IOPS - High-performance local-ephemeral block storage tier
+  - seca.le40k: 40,000 IOPS - Very high-performance local-ephemeral block storage tier
 
 ### Check Network SKUs
 
@@ -215,7 +205,7 @@ Content-Type: application/json
     "description": "Linux",
   },
   "spec": {
-    "skuRef": ".../seca.250",
+    "skuRef": "skus/seca.250",
     "sizeGB": 50,
     "sourceImageRef": "tenants/public/images/ubuntu-24.04"
   }
@@ -239,7 +229,7 @@ Content-Type: application/json
     "description": "Production network for web-shop",
   }
   "spec": {
-    "skuRef": ".../seca.1000",
+    "skuRef": "skus/seca.1000",
     "cidr": {
       "ipv4": "10.100.0.0/16"
     }
@@ -262,7 +252,7 @@ Content-Type: application/json
     "description": "Public subnet",
   }
   "spec": {
-    "networkRef": ".../web-shop-network",
+    "networkRef": "networks/web-shop-network",
     "cidr": {
       "ipv4": "10.100.1.0/24"
     }
@@ -338,9 +328,9 @@ Content-Type: application/json
 
 {
   "spec": {
-    "subnetRef": ".../web-shop-subnet",
+    "subnetRef": "subnets/web-shop-subnet",
     "addresses": ["0.0.0.0"],
-    "publicIPRef": ".../ip1"
+    "publicIPRef": "public-ips/ip1"
   }
 }
 ```
@@ -365,13 +355,19 @@ Content-Type: application/json
     "externalID": "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
   },
   "spec": {
-    "skuRef": .../gold",
-    "primaryNicRef": ".../n1"
+    "skuRef": "skus/gold",
+    "primaryNicRef": {
+      "provider": "seca.network/v1",
+      "resource": "nics/n1"
+    }
     "sshKeys": [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g..."
     ]
     "bootVolume": {
-      "deviceRef": ".../web-shop-os-disk"
+      "deviceRef": {
+        "provider": "seca.storage/v1",
+        "resource": "block-storages/web-shop-os-disk"
+      }
     }
   } 
 }

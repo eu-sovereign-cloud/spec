@@ -27,11 +27,6 @@ InstanceSpec:
   properties:
     skuRef:
       $ref: './resource.yaml#/Reference'
-    skuExtensions:
-      type: object
-      additionalProperties:
-        type: string
-      example: {}
     primaryNicRef:
       $ref: './resource.yaml#/Reference'
     additionalNicRefs:
@@ -75,10 +70,12 @@ InstanceSpec:
       items:
         $ref: './block-storage.yaml#/VolumeReference'
   example:
-    skuRef: "tenants/public/skus/seca.s"
+    skuRef: "skus/seca.s"
     zone: "a"
     bootVolume: 
-      deviceRef: "tenants/public/block-storages/block-123"
+      deviceRef: 
+        provider: "seca.storage/v1"
+        resource: "block-storages/block-123"
       type: "virtio"
 
 InstanceStatus:

@@ -1,7 +1,7 @@
 group: extensions
 title: Object Storage
 name: object storage
-version: v1
+version: v1beta1
 description: |
   The Object Storage API provides access to Object Storage resources.
   This API is part of the Sovereign European Cloud API.

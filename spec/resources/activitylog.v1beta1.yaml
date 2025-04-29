@@ -1,7 +1,7 @@
 group: extensions
 title: Activity Log
 name: activity log
-version: v1
+version: v1beta1
 description: |
   The Activity Log API provides access to audit logs for all resources.
   This API is part of the Sovereign European Cloud API.

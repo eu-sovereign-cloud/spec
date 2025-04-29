@@ -19,7 +19,7 @@ We need to implement API versioning to manage changes and maintain compatibility
 The SECA Resource Versioning is specified as part of the URL path when making API calls.
 
 ```bash
-GET /v1/workspaces/my-workspace/providers/network/vpcs
+GET /providers/network/workspaces/my-workspace/networks/vpcs
 ```
 
 However, when referencing resources within API responses or configurations, the version is omitted from the resource name. This approach ensures that resource identifiers remain consistent and unaffected by version changes, promoting stability and ease of use.

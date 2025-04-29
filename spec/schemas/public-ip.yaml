@@ -26,11 +26,7 @@ PublicIpSpec:
     - version
   properties:
     version:
-      type: string
-      description: IP version of the address
-      enum:
-        - IPv4
-        - IPv6
+      $ref: './network.yaml#/IPVersion'
     address:
       type: string
       description: The public IP address in case of BYOIP.

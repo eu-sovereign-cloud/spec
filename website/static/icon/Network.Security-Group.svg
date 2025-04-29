@@ -1,0 +1,26 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="100" viewBox="0 0 160 100">
+  <defs>
+    <linearGradient id="sgBetterGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdebd0"/>
+      <stop offset="100%" stop-color="#e67e22"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#aaa"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <!-- Outer shield -->
+    <path d="M80,20 L120,30 L115,65 Q80,85 45,65 L40,30 Z"
+          fill="url(#sgBetterGradient)" stroke="#ca6f1e" stroke-width="2"/>
+
+    <!-- Padlock -->
+    <rect x="65" y="38" width="30" height="25" rx="4" fill="#ffffff" stroke="#af601a" stroke-width="1.5"/>
+    <rect x="72" y="30" width="16" height="12" rx="6" fill="none" stroke="#af601a" stroke-width="1.5"/>
+
+    <!-- Label -->
+    <text x="80" y="95" font-family="Arial" font-size="14" fill="#2c3e50" text-anchor="middle">
+      Security Group
+    </text>
+  </g>
+</svg>

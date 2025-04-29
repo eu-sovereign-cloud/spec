@@ -49,9 +49,9 @@ You can combine equality-based and set-based selectors to create more complex fi
 
 Example:
 
-* *app=my-app
-* *environment is either production or staging
-* *tier is not frontend
+* app=my-app
+* environment is either production or staging
+* tier is not frontend
 
 > labelSelector=app=my-app,environment in (production, staging),tier!=frontend
 
@@ -68,14 +68,14 @@ For endpoints returning continuously changing data, cursor-based pagination offe
 
 We call this param **skipToken** and **limit**
 
-* *It's a query parameter used in API requests to handle pagination in responses for large datasets. The skip token is essentially a marker that tells the API where to continue retrieving results from, allowing clients to navigate through paginated data efficiently.
-* *When an API returns a skip token, the client includes it in the next request to retrieve the subsequent set of results; In the response it's included in the metadata structure.
-* *The number of returned resources can be limited with the parameter "limit".
+* It's a query parameter used in API requests to handle pagination in responses for large datasets. The skip token is essentially a marker that tells the API where to continue retrieving results from, allowing clients to navigate through paginated data efficiently.
+* When an API returns a skip token, the client includes it in the next request to retrieve the subsequent set of results; In the response it's included in the metadata structure.
+* The number of returned resources can be limited with the parameter "limit".
 
 This process is repeated, with each nextLink providing a new skip token, until there are no further results.
 
 Using a skip token for pagination in APIs can introduce consistency challenges, especially in systems where data is frequently updated. This is because data may change between paginated requests, potentially leading to gaps, duplicates, or outdated information in the results. Here’s how consistency issues arise and strategies to manage them when using skip tokens.
 
-* *As you retrieve pages of data using a skip token, items may be added, deleted, or modified between requests.
+* As you retrieve pages of data using a skip token, items may be added, deleted, or modified between requests.
 
 Skip tokens are state-based, meaning they’re associated with a specific snapshot of the data state. As data changes, the relevance of the token might diminish, leading to inconsistencies in paginated responses if not handled well.

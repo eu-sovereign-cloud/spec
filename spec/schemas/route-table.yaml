@@ -31,12 +31,12 @@ RouteTableSpec:
       items:
         $ref: '#/RouteSpec'
   example:
-    localRef: '.../network-1'
+    localRef: 'networks/network-1'
     routes:
     - destinationCidrBlock: '0.0.0.0/0'
-      targetRef: '.../internet-gateway-1'
+      targetRef: 'internet-gateways/internet-gateway-1'
     - destinationCidrBlock: '::/0'
-      targetRef: '.../internet-gateway-1'
+      targetRef: 'internet-gateways/internet-gateway-1'
 
 RouteSpec:
   type: object

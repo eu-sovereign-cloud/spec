@@ -33,15 +33,15 @@ Accept: application/json
 
 #### Casing
 
-* *The field casing adopted is **camelCase**.
+* The field casing adopted is **camelCase**.
 
 #### Naming
 
-* *The identifier field of an object will be expressed in the following form: objectId.
+* The identifier field of an object will be expressed in the following form: objectId.
 
 #### Type Conversion
 
-* *For those media types where there is no 1:1 conversion between the server-side data type and the one transmitted to clients, we adopt the following convention:
+* For those media types where there is no 1:1 conversion between the server-side data type and the one transmitted to clients, we adopt the following convention:
 
 | Native Type | JSON Type | Format Spec | Note |
 |-------------|-------------|-------------|-------------|
@@ -57,32 +57,32 @@ Accept: application/json
 
 ### GET Method
 
-* *A successful GET method typically returns the HTTP status code 200 (OK). If the resource is not found, the method should return 404 (Not Found)
+* A successful GET method typically returns the HTTP status code 200 (OK). If the resource is not found, the method should return 404 (Not Found)
 
 
 
 ### PUT Method
 
-* *If a **PUT** method creates a new resource, it must return the HTTP status code 202 (Accepted). The URI of the new resource is included in the Location header of the response.
-* *If the method updates an existing resource, it will return 202 also. In some cases, it may not be possible to update an existing resource. In such circumstances, consider returning the HTTP status code 409 (Conflict).
+* If a **PUT** method creates a new resource, it must return the HTTP status code 201 (Accepted). The URI of the new resource is included in the Location header of the response.
+* If the method updates an existing resource, it will return 202 also. In some cases, it may not be possible to update an existing resource. In such circumstances, consider returning the HTTP status code 409 (Conflict).
 
 ### POST Method
 
-* *When it performs a processing task the method may return the HTTP status code 200 and include the result of the operation in the response body.
-* *If there are no results, the method can return the HTTP status code 204 (No Content) without a response body, or HTTP 202 (Accepted) if an asynchronous process has been initiated.
-  * *In this case, the Location header will contain a reference to a resource that can provide the status of the request's progress.
+* When it performs a processing task the method may return the HTTP status code 200 and include the result of the operation in the response body.
+* If there are no results, the method can return the HTTP status code 204 (No Content) without a response body, or HTTP 202 (Accepted) if an asynchronous process has been initiated.
+  * In this case, the Location header will contain a reference to a resource that can provide the status of the request's progress.
 
 If the client submits invalid data in the request, the server must return the HTTP status code 400 (Bad Request). The response body should contain additional information about the error or a link to a URI providing more details
 
 ### DELETE Method
 
-* *The API will respond with the HTTP status code 204 indicating that the process was handled correctly and that the response body will not contain further information.
+* The API will respond with the HTTP status code 202 indicating that the process was handled correctly and that the response body will not contain further information.
 
 ### Conditional Requests
 
 See the dedicated [reference](https://datatracker.ietf.org/doc/html/rfc7232) for further details. In short, it's possible to define precondition needed to consider a request valid.
 
-* *These preconditions are usually expressed through specific headers and are used in scenarios where multiple actors are simultaneously modifying a resource. Preconditions (based on an ETag, for example) help prevent the lost update phenomenon.
+* These preconditions are usually expressed through specific headers and are used in scenarios where multiple actors are simultaneously modifying a resource. Preconditions (based on an ETag, for example) help prevent the lost update phenomenon.
 
 ### Status Code
 

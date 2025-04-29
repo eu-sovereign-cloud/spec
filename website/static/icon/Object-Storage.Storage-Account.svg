@@ -1,0 +1,28 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="100" viewBox="0 0 160 100">
+  <defs>
+    <linearGradient id="storageContainerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8f8f5"/>
+      <stop offset="100%" stop-color="#1abc9c"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="#777"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <!-- Storage container box -->
+    <rect x="40" y="25" width="80" height="50" rx="10" ry="10"
+          fill="url(#storageContainerGradient)" stroke="#148f77" stroke-width="2"/>
+    
+    <!-- Container symbol -->
+    <line x1="50" y1="40" x2="110" y2="40" stroke="#148f77" stroke-width="1.5"/>
+    <line x1="50" y1="55" x2="110" y2="55" stroke="#148f77" stroke-width="1.5"/>
+    <rect x="48" y="35" width="4" height="30" fill="#148f77"/>
+    <rect x="108" y="35" width="4" height="30" fill="#148f77"/>
+
+    <!-- Label -->
+    <text x="80" y="100" font-family="Arial" font-size="14" fill="#2c3e50" text-anchor="middle">
+      Storage Account
+    </text>
+  </g>
+</svg>

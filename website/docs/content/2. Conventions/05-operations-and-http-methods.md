@@ -20,7 +20,7 @@ The effect of a specific request varies depending on the type of resource (colle
 |-------------|-------------|-------------|-------------|-------------|
 | /instances |  405 Method Not Allowed |  405 Method Not Allowed | Retrieve all virtual machines | 405 Method Not Allowed |
 | /instances/my-vm | Create or Replace the Virtual Machine **my-vm** | Remove the virtual machine **my-vm** | Retrieve details of **my-vm** virtual machine | 405 Method Not Allowed |
-| /instances/my-vm/power-Off | 405 Method Not Allowed | 405 Method Not Allowed  | 405 Method Not Allowed | Stop the virtual machine **my-vm** if makes sense  |
+| /instances/my-vm/power-off | 405 Method Not Allowed | 405 Method Not Allowed  | 405 Method Not Allowed | Stop the virtual machine **my-vm** if makes sense  |
 | /network/vpcs/my-net/subnets/my-sub/network-interfaces | 405 Method Not Allowed | 405 Method Not Allowed | Retrieve all network interfaces within network **my-net** in subnet **my-sub** | 405 Method Not Allowed |
 | /network/vpcs/my-net/subnets/my-sub/network-interfaces/my-nic | Create or Replace the  network Interface **my-nic**  | Delete the network interface **my-nic** in the subnet my-sub of network my-net | Retrieve the **my-nic** network interface detail attached to the subnet my-sub of network my-net | 405 Method Not Allowed |
 

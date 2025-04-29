@@ -84,7 +84,15 @@ parameters:
     schema:
       type: string
     description: Network name
-    
+
+  cluster:
+    name: cluster
+    in: path
+    required: true
+    schema:
+      type: string
+    description: Cluster name
+
   resourceName:
     name: name
     in: path

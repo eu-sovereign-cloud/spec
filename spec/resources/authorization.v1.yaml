@@ -14,12 +14,19 @@ resources:
     operations: [list, get, put, delete]
     description:
       put: |
-        System roles (ADMIN, WORKSPACE_ADMIN, WORKSPACE_EDITOR, WORKSPACE_VIEWER) cannot be modified.
+        System roles (seca.admin, seca.region-admin, seca.workspace-admin, seca.workspace-editor, seca.workspace-viewer) cannot be modified.
+
+        Predefined system roles that cannot be modified:
+        * `seca.admin` - Full system access, can manage everything
+        * `seca.region-admin` - Full system access, can manage everything but authorization
+        * `seca.workspace-admin` - Full access within a workspace
+        * `seca.workspace-editor` - Can edit all resources in a workspace
+        * `seca.workspace-viewer` - Can view all resources in a workspace
       delete: |
         Deletes the specified role. When a role is deleted:
-        - The role is removed from all role assignments
-        - Role assignments are NOT deleted, even if the role array becomes empty
-        - System roles (ADMIN, WORKSPACE_ADMIN, WORKSPACE_EDITOR, WORKSPACE_VIEWER) cannot be deleted
+        * The role is removed from all role assignments
+        * Role assignments are NOT deleted, even if the role array becomes empty
+        * System roles (seca.admin, seca.region-admin, seca.workspace-admin, seca.workspace-editor, seca.workspace-viewer) cannot be deleted
   - name: role assignment
     plural: role assignments
     hierarchy: [tenant]

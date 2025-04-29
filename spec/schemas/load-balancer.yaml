@@ -104,8 +104,10 @@ LoadBalancerTarget:
       default: none
   example:
     members:
-    - '.../nic-1'
-    - '.../nic-2'
+    - provider: 'seca.network/v1'
+      resource: 'nics/nic-1'
+    - provider: 'seca.network/v1'
+      resource: 'nics/nic-2'
     healthCheck:
       interval: 10
       timeout: 5

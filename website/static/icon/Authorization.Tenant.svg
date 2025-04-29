@@ -1,0 +1,19 @@
+<svg width="140" height="160" xmlns="http://www.w3.org/2000/svg">
+  <!-- Building Structure -->
+  <rect x="30" y="30" width="80" height="100" fill="lightgrey" stroke="black" stroke-width="2"/>
+  <!-- Windows -->
+  <rect x="40" y="40" width="15" height="15" fill="white" stroke="black" stroke-width="1"/>
+  <rect x="65" y="40" width="15" height="15" fill="white" stroke="black" stroke-width="1"/>
+  <rect x="90" y="40" width="15" height="15" fill="white" stroke="black" stroke-width="1"/>
+
+  <rect x="40" y="65" width="15" height="15" fill="white" stroke="black" stroke-width="1"/>
+  <rect x="65" y="65" width="15" height="15" fill="white" stroke="black" stroke-width="1"/>
+  <rect x="90" y="65" width="15" height="15" fill="white" stroke="black" stroke-width="1"/>
+
+  <rect x="40" y="90" width="15" height="15" fill="white" stroke="black" stroke-width="1"/>
+  <rect x="65" y="90" width="15" height="15" fill="white" stroke="black" stroke-width="1"/>
+  <rect x="90" y="90" width="15" height="15" fill="white" stroke="black" stroke-width="1"/>
+
+  <!-- Label -->
+  <text x="70" y="150" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">Tenant</text>
+</svg>

@@ -12,10 +12,10 @@ Such an example, a disk can be created by sending an HTTP PUT request containing
 
 ```bash
 # Correct
-https://mycloud.eu/${scope}/storage/block-storages
+https://mycloud.eu/storage/{scope}/block-storages/{name}
 
 # Not Correct
-https://mycloud.eu/${scope}/create-storage/block-storages
+https://mycloud.eu/create-storage/{scope}/block-storages/{name}
 ```
 
 - Sending an HTTP GET request to the collection's URI retrieves a list of the elements within it; each element in the collection also has its own unique URI.
@@ -105,7 +105,7 @@ Example: Virtual Machine and Disk. A Disk can exist with or without a VirtualMac
 ```
 
 - Manage relationships independently:
-  - `DELETE /virtual-machines/{virtualMachineName} only deletes the virtualMachine without impacting the storage/block-storages.`
+  - `DELETE /instances/{virtualMachineName} only deletes the virtualMachine without impacting the storage/block-storages.`
 
 #### Differences in API Design for Composition vs. Aggregation
 
@@ -126,7 +126,7 @@ For example, in a response for a disk, include links to `virtualMachine`:
 
 ```json
 {
-  "attached_instance": "/virtual-machines/{virtualMachineName}"
+  "attached_instance": "/instances/{virtualMachineName}"
 }
 
 3. Separate resource ownership logic: if the relationship requires logic specific to the parent-child relationship, consider defining an intermediate resource, such as a vm-attachment relationship resource to better manage the association.
