@@ -48,100 +48,87 @@ The Key Elements of this model are listed below:
 
 A resource authorization model with a dedicated resource provider centralizes access control across resources, offering an efficient, consistent, and secure way to manage permissions and enforce policies at scale in a cloud environment. This model enhances security by reducing complexity and enabling centralized governance over resource access.
 
-### Tenant Initialization
+> By default each tenant is initialized with the well-known [System Roles](../4.%20Other/04-system-roles.md) 
 
-To initialize a tenant we need the below requirements fulfilled:
+### Role
 
-- The TenantId should be provided to the client
-- Should exist at least a User with the following Role and RoleAssignments.
+A **role** defines a set of permissions that determine what actions a user or system can perform on specific resources within designated scopes.
 
-```json
-//Role with name: authorization-admin
-{
-  "labels": {},
-  "annotations": {
-    "description": "Authorization Admin Role"  
-  },
-  "spec": {
-    "permissions": [
-      {
-        "provider": "seca.authorization/v1",
-        "resources": [
-          "roles/*",
-          "role-assignments/*",
-        ],
-        "verb": [ "list", "get", "put",  "delete" ]
-      }
-    ]
-  }
-}
+Each permission entry consists of:
 
-//RoleAssignment with name tenant-admin
-{
-  "labels": {},
-  "annotations": {
-    "description": "Authorization Admin Role"  
-  },
-  "spec": {
-    "subs": [
-      "user1@example.com" // subject to whom to assign the role
-    ],
-    "roles": [
-      "authorization-admin"
-    ]
-  }
-}
-```
+- **Scopes**:  
+  A list of resource paths that restrict where the permissions apply (e.g., `workspaces/production`, `workspaces/develop`).
+  
+- **Resources**:  
+  A list of resource types or specific resource paths to which the permissions apply (e.g., `seca.compute/instances`, `seca.network/networks`).
 
-### Public images
+- **Verbs**:  
+  A list of allowed operations (HTTP methods) on the resources, such as `get`, `put`, or `delete`.
 
-For public images the CSP is deploying the following rule to allow images
-to be fetched by all users of the SECA API:
+Additional metadata can be attached to a role:
+
+- **Labels**:  
+  Key/value pairs used to categorize or identify the role (e.g., `env: production`).
+
+- **Annotations**:  
+  Human-readable descriptions or additional metadata to support role documentation or management.
+
+- **Extensions**:  
+  User-defined key/value pairs that are mutable and allow adding custom metadata or functionality.  
+  Extensions are subject to validation by the Cloud Service Provider (CSP), and any value that does not meet validation requirements will be rejected during admission.  
+
+The role does not directly modify resource states but governs access according to the specified permissions.
 
 
-```json
-// Role with name: public-image-user
-{
-  "labels": {},
-  "annotations": {
-    "description": "Public image user"  
-  },
-  "spec": {
-    "permissions": [
-      {
-        "provider": "seca.storage/v1",
-        "resources": [
-          "images/*"
-        ],
-        "verb": [ "list", "get" ]
-      }
-    ]
-  }
-}
+### RoleAssignment
 
-// RoleAssignment with name all-tenants
-{
-  "labels": {},
-  "annotations": {
-    "description": "All users have access to public images"  
-  },
-  "spec": {
-    "subs": [ "*" ], // all users
-    "scopes": [
-      { "tenants" : [ "*" ] } // all tenants
-    ]
-    "roles": [
-      "public-image-user"
-    ]
-  }
-}
-```
+A **role assignment** associates users or service accounts with specific roles, granting them the permissions defined by those roles within the system.
 
-## Validation
+Each role assignment consists of:
+
+- **Subjects (subs)**:  
+  A list of user identifiers or service account names to which the roles are assigned (e.g., `user1@example.com`, `service-account-1`).
+
+- **Roles**:  
+  A list of role names that are assigned to the specified subjects (e.g., `project-manager`, `workspace-viewer`).
+
+Additional metadata can be attached to a role assignment:
+
+- **Labels**:  
+  Key/value pairs used to categorize or identify the role assignment (e.g., `env: production`).
+
+- **Annotations**:  
+  Human-readable descriptions or additional metadata to document the role assignment (e.g., `description: Human readable description`).
+
+- **Extensions**:  
+  User-defined key/value pairs that are mutable and allow adding custom metadata or functionality.  
+  Extensions are subject to validation by the Cloud Service Provider (CSP), and any value that does not meet validation requirements will be rejected during admission.
+
+The role assignment links subjects to roles, enabling access control based on the permissions defined in the corresponding roles.
+
+## Admission Control
+
+**Admission control** in the SECA API Access Control is a mechanism that intercepts requests to the Control Plane before they are persisted in the database, allowing the SECA CSP to enforce policies, apply security rules, and manage resource allocation. Admission controllers act as "gatekeepers" that can accept, modify, or deny requests based on custom or predefined policies, helping ensure a consistent and secure tenant environment.
+
+Although both **admission control** and **status** involve the Cloud Service Provider (CSP) filling in values, they serve fundamentally different purposes. 
+- Admission control occurs at the time of resource creation or update, where the CSP may mutate or validate user input to enforce policy and ensure consistency before the resource is persisted. 
+- In contrast, the status section is updated after the resource has been created, reflecting changes based on the user's original intent. Status does not alter the initial request but instead provides an observed view of the resource’s state from the user's perspective. 
+
+> Thus, while admission control modifies user input during request processing, status updates track user-intent outcomes without mutating the resource specification.
+
+
+Key Concepts of Admission Control are the below listed:
+
+- **Request Interception**: When a user or application sends a request to create, update, delete, or connect to a cloud resource, the Control Plane Cloud API processes it through a sequence of admission controllers. These controllers evaluate the request before it is applied to the cluster.
+- **Types of Admission Controllers**:
+  - **Validating Controllers**: Validate requests according to certain rules. For example, they might check that a cloud resource requests are within limits defined in the tenant subscription.
+  - **Mutating Controllers**: Modify requests as needed. For example, they may inject some metadata or other mandatory fields if they would be skip by the user but are needed in the Resource API specification.
+
+### Validation
 
 Resource validation in SECA ensures that all requests to create or modify resources meet business rules before being processed. While authentication verifies who is making the request and authorization determines if they have permission, validation ensures the request itself is valid and consistent.
 
-### Common Expression Language (CEL) Validations
+#### Common Expression Language (CEL) Validations
 
 SECA implements resource validations using the Common Expression Language (CEL), providing a powerful and flexible way to define validation rules directly in the API specification.
 
@@ -181,39 +168,8 @@ BlockStorage:
       error_message: "One or more block storage volumes are already attached to other instances"
 ```
 
-### Role
+### Mutation
 
-A **Role** is a resource that defines a set of permissions within a specific workspace, allowing controlled access to resources within that workspace. Roles are a key part of **SECA RBAC (Role-Based Access Control)** mechanism, which provides fine-grained access control for users and customer applications interacting with cloud resources.
-
-Key Concepts of a SECA Role:
-
-- **tenant-scoped**: A role is besides the system default roles confined to a single tenant, meaning it bundles permissions to resources within that specific tenant only.
-- **Permissions (Rules)**: A Role contains rules that specify which actions are permitted on particular scopes. These rules are defined using:
-  - **provider** (e.g. 'seca.compute/v1') the provider of a resource.
-  - **resource** (e.g., 'instances/*', 'subnets/*') that the role can access.
-  - **verbs** (e.g., get, list, create, delete) that indicate what actions can be taken on the resources.
-- **Least Privilege Principle**: Roles enable Tenant Administrators to grant minimal permissions necessary for a user or application to perform its tasks, enhancing tenant security by limiting access to only what is needed.
-
-This is essential for applying granular access control within a workspace, aligning with the principle of least privilege to keep CSP tenants secure and manageable.
-
-### RoleAssignment
-
-A **RoleAssignment** is a resource used to associate a Role with specific users, groups, or customer applications, granting them the permissions defined in the role. Role assignments are a fundamental part of SECA RBAC (Role-Based Access Control) system, as they are the mechanism through which permissions are actually applied to subjects.
-
-Key Concepts of a RoleAssignment
-
-- **Subjects**: Role assignments specify the subjects (such as users, groups, or customer applications) that will receive the permissions defined in the Role. These subjects can be:
-  - **Users**: The standardized JWT-subject (`sub`).
-- **Reference to a Role**: A role assignment references an existing Role to grant permissions within a single Workspace.
-- **Scopes**: The role assignment can be extended to other tenants or narrowed regarding regions and workspaces.
-
-## Admission Control
-
-**Admission control** in the SECA API Access Control is a mechanism that intercepts requests to the Control Plane before they are persisted in the database, allowing the SECA CSP to enforce policies, apply security rules, and manage resource allocation. Admission controllers act as "gatekeepers" that can accept, modify, or deny requests based on custom or predefined policies, helping ensure a consistent and secure tenant environment.
-
-Key Concepts of Admission Control are the below listed:
-
-- **Request Interception**: When a user or application sends a request to create, update, delete, or connect to a cloud resource, the Control Plane Cloud API processes it through a sequence of admission controllers. These controllers evaluate the request before it is applied to the cluster.
-- **Types of Admission Controllers**:
-  - **Validating Controllers**: Validate requests according to certain rules. For example, they might check that a cloud resource requests are within limits defined in the tenant subscription.
-  - **Mutating Controllers**: Modify requests as needed. For example, they may inject some metadata or other mandatory fields if they would be skip by the user but are needed in the Resource API specification.
+In SECA, mutation occurs during the admission control phase as part of resource validation.  
+When a request to create or modify a resource is submitted, admission control can both validate the request and mutate it. Mutation involves modifying the incoming request — for example, filling in missing fields with default values, adjusting inputs to meet system constraints, or enforcing naming conventions — before it is persisted.  
+This ensures that the resource meets business and system rules without requiring the user to manually correct their request. Mutation and validation together guarantee that all accepted resources are consistent, complete, and conformant before entering the system.
