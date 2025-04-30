@@ -130,7 +130,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Sovereign Euorpean Cloud API`,
+        copyright: `Copyright © ${new Date().getFullYear()} Sovereign European Cloud API`,
       },
       prism: {
         theme: prismThemes.github,

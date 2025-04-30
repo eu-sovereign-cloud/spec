@@ -63,7 +63,7 @@ Permission:
       type: string
       description: |
         The provider for which the resource and verbs are defined.
-      example: "seca.storage/v1"
+      example: 'seca.storage/v1'
     resources:
       type: array
       items:
@@ -144,37 +144,35 @@ RoleAssignmentScope:
       description: |
         Optionally, can be opened to all tenants or restricted to a specific tenant.
         If not specified, the role assignment is valid for the current tenant.
+      example: ['tenant-1']
       items:
         type: string
         description: |
           Tenant ID for the role assignment. A `*` wildcard can be used 
           to represent all tenants. This allows the role assignment to
           be applied to other tenants if needed.
-        example: "tenant-1"
     regions:
       type: array
       description: |
         Optionally, a restriction can be applied to the region
         where the role assignment is valid. If not specified,
         the role assignment is valid for all regions.
+      example: ['region-1']
       items:
         type: string
         description: |
           Region ID for the role assignment
-        example: "region-1"
     workspaces:
       type: array
       description: |
         Optionally, a restriction can be applied to the workspace
         where the role assignment is valid. If not specified,
         the role assignment is valid for all workspaces.
+      example: ['workspace-1']
       items:
         type: string
         description: |
           Workspace ID for the role assignment.
-        example: "workspace-1"
-  example:
-    workspaces: ["*"]
 
 RoleAssignmentStatus:
   $ref: "./resource.yaml#/Status"

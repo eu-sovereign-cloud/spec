@@ -53,16 +53,16 @@ InstanceSpec:
         Instances in the same anti-affinity group are placed on different physical hosts.
         The number of maximum instances in an anti-affinity group is provider-specific.
       type: string
-      example: null
+      example: 'exclusive-server'
     sshKeys:
       type: array
       items:
         type: string
-        example: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g...'
       description: |
         Provider-specific references to SSH keys used in cloud-init vendorData.
         These references are used to inject SSH public keys during instance initialization
         through cloud-init's vendor data configuration.
+      example: ['ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g...']
     bootVolume:
       $ref: './block-storage.yaml#/VolumeReference'
     dataVolumes:

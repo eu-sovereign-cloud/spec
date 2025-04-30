@@ -37,6 +37,7 @@ NicSpec:
         CIDR range of the subnet and not used by any other NIC in the subnet. Multiple
         IP addresses can be assigned to a NIC. The number of IP addresses is might be
         limited by the CSP or the subnet size.
+      example: ['10.100.0.10', '0.0.0.0', '::']
       items:
         $ref: '#/NicIp'
     publicIpRefs:
@@ -45,7 +46,7 @@ NicSpec:
         References to public IP addresses associated with this NIC. The IP may be external
         and not directly visible on the server/NIC itself.
       items:
-        type: string
+        $ref: './resource.yaml#/Reference'
     skuRef:
       $ref: './resource.yaml#/Reference'
     subnetRef:
@@ -55,7 +56,7 @@ NicSpec:
     - "10.100.0.10"
     - "0.0.0.0"
     - "::"
-    skuRef: "skus/seca.1000"
+    skuRef: "skus/seca.n1k"
     subnetRef: "seca.networks/subnet-a1b2c3"
 
 NicStatus:

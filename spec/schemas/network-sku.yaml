@@ -1,45 +1,33 @@
 NetworkSku:
-  type: object
   description: |
     Represents a Stock Keeping Unit (SKU) for network resources.
 
     Network SKUs define performance tiers for network bandwidth and characteristics.
     capabilities can be found also in the metadata.labels sections and are searchable.
-  properties:
-    metadata:
-      $ref: './resource.yaml#/RegionalResourceMetadata'
-    spec:
-      $ref: "./network-sku.yaml#/NetworkSkuSpec"
+  allOf:
+  - $ref: './resource.yaml#/SystemResourceMetadata'
+  - type: object
+    properties:
+      metadata:
+        $ref: './resource.yaml#/SkuResourceMetadata'
+      spec:
+        $ref: "./network-sku.yaml#/NetworkSkuSpec"
 
 NetworkSkuSpec:
   type: object
   description: |
-    Specification of the network SKU, including its capabilities and extensions.
+    Specification of the network SKU, including its bandwidth and packets per second.
+  required:
+  - bandwidth
+  - packets
   properties:
-    provider:
-      type: string
-      example: SECA
-      description: Provider namespace for network SKUs
-    tier:
-      type: string
-      description: Network performance tier
-    capabilities:
-      type: string
-      example: ""
-      description: Network performance capabilities
-    extensions:
-      type: array
-      description: Additional network feature extensions
-      items:
-        type: string
-    mandatoryParameters:
-      type: array
-      description: Mandatory parameters for network resources
-      items:
-        type: string
-    description:
-          type: string
-  example:
-    provider: 'SECA'
-    tier: 'seca.10'
-    description: 'min   10 mbit low-bandwidth network tier'
+    bandwidth:
+      type: integer
+      example: 1000
+      description: |
+        The bandwidth in Mbps (Megabits per second).
+    packets:
+      type: integer
+      example: 10000
+      description: |
+        The number of packets per second (PPS) that the network SKU can handle.

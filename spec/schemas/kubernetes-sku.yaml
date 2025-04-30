@@ -1,22 +1,26 @@
 ClusterSku:
-  type: object
   description: |
     Represents a Stock Keeping Unit (SKU) for kubernetes Clusters.
-  properties:
-    metadata:
-      $ref: './resource.yaml#/RegionalResourceMetadata'
-    spec:
-      $ref: "#/ClusterSkuSpec"
+  allOf:
+  - $ref: './resource.yaml#/SystemResourceMetadata'
+  - type: object
+    properties:
+      metadata:
+        $ref: './resource.yaml#/SkuResourceMetadata'
+      spec:
+        $ref: "#/ClusterSkuSpec"
 
 ClusterSkuSpec:
   type: object
   description: |
     Specification of the instance SKU, including its capabilities and extensions.
+  required:
+  - version
+  - automaticUpdatePolicy
+  - type
+  - releasedAt
+  - endOfLifeAt
   properties:
-    description:
-      type: string
-      description: |
-        Description of the SKU.
     version:
       type: string
       description: |
@@ -65,7 +69,6 @@ ClusterSkuSpec:
         on the CSP this either means no update, more expensive pricing
         for extended support or a forced upgrade to a newer version.
   example:
-    description: 'Kubernetes Cluster SKU'
     version: '1.30'
     automaticUpdatePolicy: 'stable'
     type: 'shared'

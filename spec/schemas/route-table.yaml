@@ -54,6 +54,7 @@ RouteSpec:
         The CIDR block for the destination. The block can be 
         a specific IP address or a range of addresses. It can be
         IPv6 or IPv4.
+      example: '0.0.0.0/0'
     targetRef:
       $ref: './resource.yaml#/Reference'
 

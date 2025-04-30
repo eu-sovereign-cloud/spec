@@ -39,6 +39,8 @@ SecurityGroup:
 SecurityGroupSpec:
   type: object
   description: Specification of the security group
+  required:
+    - rules  
   properties:
     rules:
       type: array
@@ -74,9 +76,9 @@ SecurityGroupRuleSpec:
   description: |
     Specification of a security group rule defining network access permissions.
     If no version is specified, any IP version will be allowed.
+    If no protocol is specified, any network protocol will be allowed.
   required:
     - direction
-    - protocol
   properties:
     annotations:
       $ref: './resource.yaml#/UserResourceMetadata/properties/annotations'
@@ -85,7 +87,6 @@ SecurityGroupRuleSpec:
       enum: ['ingress', 'egress']
       description: |
         Direction of the traffic flow:
-
         * ingress: Only incoming traffic is allowed
         * egress: Only outgoing traffic is allowed
     version:
@@ -93,7 +94,7 @@ SecurityGroupRuleSpec:
     protocol:
       type: string
       description: Network protocol for the rule
-      enum: ['tcp', 'udp', 'tcp+udp', 'icmp', 'any']
+      enum: ['tcp', 'udp', 'tcp+udp', 'icmp']
     ports:
       $ref: '#/Ports'
     icmp:
@@ -138,10 +139,7 @@ Ports:
       type: array
       items:
         $ref: '#/Port'
-  example:
-    list:
-      - 80
-      - 443
+      example: [80, 443]
 
 Port:
   description: |

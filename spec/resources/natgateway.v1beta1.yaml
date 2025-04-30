@@ -1,0 +1,13 @@
+group: extensions
+title: NAT Gateway
+name: nat gateway
+version: v1beta1
+description: |
+  The NAT Gateway API provides access to NAT Gateway resources.
+  This API is part of the Sovereign European Cloud API.
+resources:
+  - name: internet nat gateway instance
+    plural: internet-nat-gateway-instances
+    hierarchy: [tenant, workspace]
+    schema: './schemas/nat-gateway.yaml#/InternetNatGatewayInstance'
+    operations: [list, get, put, delete]

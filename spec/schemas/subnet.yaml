@@ -68,7 +68,6 @@ SubnetSpec:
     zone: "a"
     skuRef: "skus/seca.1000" 
     routeTableRef: "route-tables/route-table-1"
-
 SubnetStatus:
   description: |
     The status of the subnet, including the current state and any

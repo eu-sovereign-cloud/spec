@@ -1,12 +1,12 @@
 InstanceSku:
-  type: object
   description: |
     Represents a Stock Keeping Unit (SKU) for compute instances.
-
-    Properties, capabilites and extensions can also be found in the metadata.labels sections for filtering.
+  allOf:
+  - $ref: './resource.yaml#/SystemResourceMetadata'
+  - type: object
   properties:
     metadata:
-      $ref: './resource.yaml#/RegionalResourceMetadata'
+      $ref: './resource.yaml#/SkuResourceMetadata'
     spec:
       $ref: "./instance-sku.yaml#/InstanceSkuSpec"
 
@@ -14,49 +14,20 @@ InstanceSkuSpec:
   type: object
   description: |
     Specification of the instance SKU, including its capabilities and extensions.
+  required:
+  - vCPU
+  - ram
   properties:
-    provider:
-      type: string
-      description: Provider namespace for instance SKUs
-    tier:
-      type: string
-    capabilities:
-      $ref: "./instance-sku.yaml#/InstanceSkuCapability"
-    skuRefs:
-      description: |
-        Reference to the network SKU allowed for this instance SKU.
-      type: array
-      items:
-        type: string
-    extensions:
-      type: array
-      description: Additional instance feature extensions
-      items:
-        type: string
-    mandatoryParameters:
-      type: array
-      description: Mandatory parameters for block storage resources
-      items:
-        type: string
-    description:
-      type: string
-  example:
-    provider: 'SECA'
-    tier: 'seca.s'
-    vCPU: 2
-    ramGB: 4
-    cpuType: 'amd64'
-    benchmarkPoints: 3000
-
-InstanceSkuCapability:
-  type: object
-  description: Instance performance capabilities
-  properties:
-    benchmarkPoints:
-      type: integer
     vCPU:
       type: integer
-    ramGB:
+      description: |
+        The number of virtual CPUs (vCPUs) allocated to the instance SKU.
+        This value represents the number of cores visible to the operating system.
+        It does not specify the number of physical processors or hyper-threads available.
+      example: 2
+    ram:
       type: integer
-    cpuType:
-      type: string
+      description: |
+        The amount of RAM (Random Access Memory) allocated to the instance SKU in gigabytes.
+        This value represents the total memory available to the instance.
+      example: 4

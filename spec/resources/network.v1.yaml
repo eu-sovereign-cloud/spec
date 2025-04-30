@@ -19,11 +19,22 @@ resources:
         ## Available SECA Network SKUs with their capabilities
         Network SKUs represent guaranteed bandwidth performance for 95% of time within a 24h period.
 
-        | provider | tier | bandwidth | description |
-        |-|-|-|-|
-        | SECA | seca.1000 | 1 Gbit/s | 1G-bandwidth network tier |
-        | SECA | seca.5000 | 5 Gbit/s | 5G-bandwidth network tier |
-        | SECA | seca.10000 | 10 Gbit/s | 10G-bandwidth network tier |
+        | Tier | Bandwidth | Packets per second |
+        |-|-|-|
+        | N1K  | 1 Gbit/s | 10000 packets/s |
+        | N5K  | 5 Gbit/s | 40000 packets/s |
+        | N10K | 10 Gbit/s | 80000 packets/s |
+    example:
+      list:
+        metadata:
+          skipToken: "false"
+          provider: "seca.network/v1"
+          resource: "tenants/1/skus"
+          verb: list
+        items:
+        - { metadata: { name: "seca.n1k"  }, labels: { provider: "seca", tier: "N1K"  }, spec: { bandwidth: 1000,  packets: 10000 } }
+        - { metadata: { name: "seca.n5k"  }, labels: { provider: "seca", tier: "N5K"  }, spec: { bandwidth: 5000,  packets: 40000 } }
+        - { metadata: { name: "seca.n10k" }, labels: { provider: "seca", tier: "N10K" }, spec: { bandwidth: 10000, packets: 80000 } }
   - name: security group
     plural: security-groups
     hierarchy: [tenant, workspace]

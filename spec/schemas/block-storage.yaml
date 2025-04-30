@@ -26,6 +26,7 @@ BlockStorageSpec:
       $ref: './resource.yaml#/Reference'
     sizeGB:
       type: integer
+      description: Size of the block storage in GB.
       example: 10
     sourceImageRef:
       $ref: './resource.yaml#/Reference'
@@ -45,6 +46,7 @@ BlockStorageStatus:
     properties:
       sizeGB:
         type: integer
+        description: Size of the block storage in GB.
         example: 10
       attachedTo:
         $ref: './resource.yaml#/Reference' 

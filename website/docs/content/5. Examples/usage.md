@@ -67,7 +67,7 @@ Let's suppose you, as subject `user@secapi.eu`, and tenant administrator, start 
 Create the **Role-Assignment**: `region-admin-for-user-secapi-eu`
 
 ```
-PUT ${authorization-provider-url}/v1/tenants/tenant-id/role-assignments/region-admin-for-user-secapi-eu
+PUT ${authorization-provider-url}/v1/tenants/{tenant_id}/role-assignments/region-admin-for-user-secapi-eu
 {
   "labels": {}
   "annotations": {
@@ -90,17 +90,17 @@ PUT ${authorization-provider-url}/v1/tenants/tenant-id/role-assignments/region-a
 ## Step 1: Get Region Details and Provider References
 
 ```http
-GET /v1/regions
+GET ${region-provider-url}/v1/regions
 ```
 
-here you get **provider-url** that can be:
+here you get **provider-url**, for each resources, that can be:
 
 - dns-based (e.g https://eu-workspace.ionos.secapi.eu)
 - path-based (e.g. https://aruba.secapi.eu/providers/seca.workspace)
 
 This will return available regions and their zones. Resources can be created at either the regional level (like Networks and Public IPs) or the zonal level (like Instances).
 
-## Step 1: Create a Workspace
+## Step 2: Create a Workspace
 
 Create a workspace to organize your resources:
 
@@ -121,7 +121,7 @@ Content-Type: application/json
 
 Note: Creating a workspace automatically grants you admin permissions for that workspace.
 
-## Step 2: Review Available SKUs
+## Step 3: Review Available SKUs
 
 ### Check Compute SKUs
 
@@ -172,11 +172,11 @@ GET ${network-provider-url}/v1/tenants/{tenant_id}/skus
 
 Available network tiers:
 
-- seca.10: 10 Mbps guaranteed bandwidth
-- seca.100: 100 Mbps guaranteed bandwidth
-- seca.1000: 1000 Mbps guaranteed bandwidth
+- seca.n1k: 1000 Mbps guaranteed bandwidth
+- seca.n5k: 5000 Mbps guaranteed bandwidth
+- seca.n10k: 10000 Mbps guaranteed bandwidth
 
-### Review Available Images
+## Step 4: Review Available Images
 
 ```http
 GET ${storage-provider-url}/v1/tenants/public/images
@@ -188,7 +188,7 @@ Available images as an example:
 - redhat-9.3: Red Hat Enterprise Linux 9.3
 - debian-12: Debian 12 (Bookworm)
 
-## Step 4: Set Up Storage
+## Step 5: Set Up Storage
 
 Create a block storage volume from an image:
 
@@ -212,9 +212,9 @@ Content-Type: application/json
 }
 ```
 
-## Step 5: Set Up Network
+## Step 6: Set Up Network
 
-### 5.1 Create a Network
+### 6.1 Create a Network
 
 ```http
 PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network
@@ -229,7 +229,7 @@ Content-Type: application/json
     "description": "Production network for web-shop",
   }
   "spec": {
-    "skuRef": "skus/seca.1000",
+    "skuRef": "skus/seca.n1k",
     "cidr": {
       "ipv4": "10.100.0.0/16"
     }
@@ -237,7 +237,7 @@ Content-Type: application/json
 }
 ```
 
-### 5.2 Create a Subnet
+### 6.2 Create a Subnet
 
 ```http
 PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/subnets/web-shop-subnet
@@ -260,7 +260,7 @@ Content-Type: application/json
 }
 ```
 
-### 5.3 Set Up Security Group
+### 6.3 Set Up Security Group
 
 ```http
 PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/security-groups/web-shop-sg
@@ -305,7 +305,7 @@ Content-Type: application/json
 }
 ```
 
-### 5.4 Create Public IP
+### 6.4 Create Public IP
 
 ```http
 PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/public-ips/ip1
@@ -318,7 +318,7 @@ Content-Type: application/json
 }
 ```
 
-## Step 6: Create NIC
+## Step 7: Create NIC
 
 Create the a NIC with a public IP for the instance (automatically generate the private IPv4):
 
@@ -335,7 +335,7 @@ Content-Type: application/json
 }
 ```
 
-## Step 7: Create Instance
+## Step 8: Create Instance
 
 Create the compute instance:
 
@@ -374,7 +374,7 @@ Content-Type: application/json
 
 ```
 
-## Step 7: Access and Use the Instance
+## Step 9: Access and Use the Instance
 
 1. Wait for the instance to be in "running" state:
 
