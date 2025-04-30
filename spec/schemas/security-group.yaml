@@ -79,7 +79,6 @@ SecurityGroupRuleSpec:
     If no protocol is specified, any network protocol will be allowed.
   required:
     - direction
-    - ports
   properties:
     annotations:
       $ref: './resource.yaml#/UserResourceMetadata/properties/annotations'

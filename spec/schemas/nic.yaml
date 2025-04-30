@@ -46,7 +46,7 @@ NicSpec:
         References to public IP addresses associated with this NIC. The IP may be external
         and not directly visible on the server/NIC itself.
       items:
-        type: string
+        $ref: './resource.yaml#/Reference'
     skuRef:
       $ref: './resource.yaml#/Reference'
     subnetRef:

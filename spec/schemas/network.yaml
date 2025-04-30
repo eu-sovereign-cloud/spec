@@ -51,16 +51,15 @@ NetworkSpec:
       items:
         $ref: './network.yaml#/cidr'
     skuRef:
-      type: string
-      description: |
-        Reference to the SKU used by default for all NIC in this Network.
-        Can be overridden by the NIC.
-      example: "seca.n1k"
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: |
+          Reference to the SKU used by default for all NIC in this Network.
+          Can be overridden by the NIC.
     routeTableRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - type: string
-        description: |
+      - description: |
           Reference to the route table used by default for all Subnets.
   example:
     skuRef: "skus/seca.n1k"
