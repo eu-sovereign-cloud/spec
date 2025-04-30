@@ -96,3 +96,4 @@ NicIp:
     IP address for the NIC. The IP is either IPv4 or IPv6. The IP
     can be `0.0.0.0` or `::` to indicate that the IP needs to be assigned
     automatically. The IP can also be a specific IP address.
+    If not provided, the mutate admission controller will populate this value using the default values for ipv4 and ipv6.
