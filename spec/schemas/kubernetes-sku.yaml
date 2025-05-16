@@ -26,6 +26,7 @@ ClusterSkuSpec:
       description: |
         The kubernetes major and minor version.
         The version is a string in the format of `<major>.<minor>`.
+      maxLength: 6  
     automaticUpdatePolicy:
       type: string
       description: |

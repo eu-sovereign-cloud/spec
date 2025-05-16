@@ -40,6 +40,7 @@ ClusterSpec:
         description: |
           IP address or CIDR range to restrict access to the Kubernetes API.
           The IP address or CIDR can be for IPv4 or IPv6.
+        maxLength: 46 
       example:
       - "1.2.3.4/32"
       - "2002::1234:abcd:ffff:c0a8:101/64"
