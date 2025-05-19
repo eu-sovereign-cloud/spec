@@ -60,6 +60,7 @@ TypeMetadata:
     apiVersion:
       type: string
       description: API version of the resource
+      maxLength: 16
       default: v1
     kind:
       type: string
@@ -122,6 +123,7 @@ ReferenceURN:
 
     The prefix inference is resolved on admission into the full URN format, which makes it
     mostly suitable for human use.
+  maxLength: 255
   example: resources/resource-a1b2c3
 
 ReferenceObject:
@@ -139,27 +141,32 @@ ReferenceObject:
       type: string
       description: |
         Region of the resource. If not set, the region is inferred from the context.
+      maxLength: 64
       example: "us-west-1"
     provider:
       type: string
       description: |
         Provider of the resource. If not set, the provider is inferred from the context.
+      maxLength: 64 
       example: "seca.compute/v1"
     tenant:
       type: string
       description: |
         Tenant of the resource. If not set, the tenant is inferred from the context.
+      maxLength: 64
       example: "tenant-1"
     workspace:
       type: string
       description: |
         Workspace of the resource. If not set, the workspace is inferred from the context.
+      maxLength: 64  
       example: "workspace-1"
     resource:
       type: string
       description: |
         Name and type of the resource. Must be in the format `<type>/<name>`.
         The type is the resource type, and the name is the resource name.
+      maxLength: 256
       example: resources/resource-a1b2c3
 
 PermissionMetadata:
@@ -173,12 +180,15 @@ PermissionMetadata:
   properties:
     provider:
       type: string
+      maxLength: 64
       example: "seca.compute/v1"
     resource:
       type: string
+      maxLength: 256
       example: "tenants/1/workspaces/ws-1/instances/my-server"
     verb:
       type: string
+      maxLength: 6
       example: get
   example:
     provider: "seca.compute/v1"
@@ -240,6 +250,7 @@ UserResourceMetadata:
         The number of labels is eventually limited by the CSP.
       additionalProperties:
         type: string
+        maxLength: 63
       example:
         env: production
     annotations:
@@ -249,6 +260,7 @@ UserResourceMetadata:
         The number of annotations is eventually limited by the CSP.
       additionalProperties:
         type: string
+        maxLength: 1024
       example:
         description: "Human readable description"
     extensions:
@@ -269,6 +281,7 @@ SystemResourceMetadata:
         System-defined key/value pairs to filter resources.
       additionalProperties:
         type: string
+        maxLength: 63
       example:
         env: production
     annotations:
@@ -277,6 +290,7 @@ SystemResourceMetadata:
         System-defined key/value pairs to annotate the resource.
       additionalProperties:
         type: string
+        maxLength: 1024
       example:
         description: "Human readable description"
     extensions:
