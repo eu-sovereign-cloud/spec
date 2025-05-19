@@ -7,15 +7,15 @@ Workspace:
   - type: object
     description: |
       Represents a workspace, a workspace is a collection of resources.
-  required:
-  - spec
-  properties:
-    metadata:
-      $ref: './resource.yaml#/RegionalResourceMetadata'
-    spec:
-      $ref: './workspace.yaml#/WorkspaceSpec'
-    status:
-      $ref: './workspace.yaml#/WorkspaceStatus'
+    required:
+    - spec
+    properties:
+      metadata:
+        $ref: './resource.yaml#/RegionalResourceMetadata'
+      spec:
+        $ref: './workspace.yaml#/WorkspaceSpec'
+      status:
+        $ref: './workspace.yaml#/WorkspaceStatus'
 
 WorkspaceSpec:
   type: object
