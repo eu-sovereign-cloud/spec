@@ -37,6 +37,7 @@ RegionSpec:
 Zone:
   type: string
   description: Reference to a specific zone within a region
+  maxLength: 32
   example: "a"
 
 Provider:
@@ -50,10 +51,13 @@ Provider:
   properties:
     name:
       type: string
+      maxLength: 64
       example: "seca.network"
     version:
       type: string
+      maxLength: 16
       example: "v1"
     url:
       type: string
+      maxLength: 2047
       example: "https://demo.secapi.cloud/providers/seca.network"

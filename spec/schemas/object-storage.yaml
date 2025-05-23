@@ -31,11 +31,14 @@ ObjectStorageAccountStatus:
         type: string
         description: Access key for the object storage account
         readOnly: true
+        maxLength: 128
       secretKey:
         type: string
         description: Secret key for the object storage account
         readOnly: true
+        maxLength: 128
       canonicalUserId:
         type: string
         description: Canonical user ID for the object storage account
-        readOnly: true   
+        readOnly: true
+        maxLength: 64

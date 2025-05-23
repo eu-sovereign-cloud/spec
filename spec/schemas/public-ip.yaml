@@ -30,6 +30,7 @@ PublicIpSpec:
     address:
       type: string
       description: The public IP address in case of BYOIP.
+      maxLength: 39
   example:
     version: "IPv4"
 
@@ -52,4 +53,5 @@ PublicIpStatus:
       ipAddress:
         type: string
         description: The public IP address in case.
+        maxLength: 39
 

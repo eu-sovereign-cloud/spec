@@ -77,6 +77,7 @@ NicStatus:
         type: string
         description: |
           MAC address of the NIC.
+        maxLength: 17  
       publicIpRefs:
         description: |
           Array of public IP addresses associated with this NIC.
@@ -98,3 +99,4 @@ NicIp:
     can be `0.0.0.0` or `::` to indicate that the IP needs to be assigned
     automatically. The IP can also be a specific IP address.
     If not provided, the mutate admission controller will populate this value using the default values for ipv4 and ipv6.
+  maxLength: 39  

@@ -16,6 +16,7 @@ ActivityLogSpec:
     subject:
       type: string
       description: User-JWT executing this query
+      maxLength: 256
     request:
       type: object
       description: Request object
@@ -25,6 +26,7 @@ ActivityLogSpec:
           description: |
             Verb that describes the action to be performed on the resource.
             The verb can be one of the following: get, list, put, delete, post, ..
+          maxLength: 7
           example: 'get'
         body:
           oneOf:
@@ -45,6 +47,7 @@ ActivityLogSpec:
             - $ref: './workspace.yaml#/WorkspaceSpec'
         resource:
           type: string
+          maxLength: 256
     response:
       type: object
       description: Response object

@@ -160,10 +160,12 @@ IcmpConfig:
     type:
       type: integer
       description: ICMP type
+      maximum: 8
       example: 8
     code:
       type: integer
       description: ICMP code
+      maximum: 5
       example: 4
 
 SecurityGroupRuleStatus:

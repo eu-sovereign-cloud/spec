@@ -23,11 +23,13 @@ NetworkSkuSpec:
   properties:
     bandwidth:
       type: integer
-      example: 1000
       description: |
         The bandwidth in Mbps (Megabits per second).
+      maximum: 10000
+      example: 1000
     packets:
       type: integer
-      example: 10000
       description: |
         The number of packets per second (PPS) that the network SKU can handle.
+      maximum: 1000000   
+      example: 10000  

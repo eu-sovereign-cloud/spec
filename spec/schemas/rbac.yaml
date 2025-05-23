@@ -63,11 +63,13 @@ Permission:
       type: string
       description: |
         The provider for which the resource and verbs are defined.
+      maxLength: 64
       example: 'seca.storage/v1'
     resources:
       type: array
       items:
         type: string
+        maxLength: 256
       description: |
         The resources are the specific resources that the permission applies to.
         The resource can be a wildcard `*` to represent all resources or a
@@ -78,6 +80,7 @@ Permission:
       type: array
       items:
         type: string
+        maxLength: 7
       description: |
         The verb is a string that represents the action to be performed on a resource.
         The standard operations are defined as `get`, `put`, `list`, `delete`. If the
@@ -118,6 +121,7 @@ RoleAssignmentSpec:
       type: array
       items:
         type: string
+        maxLength: 128
       description: |
         List of subject IDs (from JWT) to whom the roles are assigned,
         A wildcard `*` can be used to represent all users of the tenant scopes
@@ -131,6 +135,7 @@ RoleAssignmentSpec:
       type: array
       items:
         type: string
+        maxLength: 64
       description: List of assigned role names
       example: ["project-manager", "workspace-viewer"]
 
@@ -151,6 +156,7 @@ RoleAssignmentScope:
           Tenant ID for the role assignment. A `*` wildcard can be used 
           to represent all tenants. This allows the role assignment to
           be applied to other tenants if needed.
+        maxLength: 64  
     regions:
       type: array
       description: |
@@ -162,6 +168,7 @@ RoleAssignmentScope:
         type: string
         description: |
           Region ID for the role assignment
+        maxLength: 64  
     workspaces:
       type: array
       description: |
@@ -173,6 +180,7 @@ RoleAssignmentScope:
         type: string
         description: |
           Workspace ID for the role assignment.
+        maxLength: 64
 
 RoleAssignmentStatus:
   $ref: "./resource.yaml#/Status"

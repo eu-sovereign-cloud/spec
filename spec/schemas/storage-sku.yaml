@@ -28,6 +28,7 @@ StorageSkuSpec:
       description: |
         The number of IOPS (Input/Output Operations Per Second) guaranteed for
         the storage SKU.
+      maximum: 45000
     type:
       type: string
       description: |
@@ -75,6 +76,7 @@ StorageSkuSpec:
       type: integer
       description: |
         Minimum volume size for guaranteed performance, in GB.
+      minimum: 1
   example:
     iops: 100
     type: remote-durable
