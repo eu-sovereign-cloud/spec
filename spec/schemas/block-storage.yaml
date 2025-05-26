@@ -27,6 +27,7 @@ BlockStorageSpec:
     sizeGB:
       type: integer
       description: Size of the block storage in GB.
+      maximum: 4000
       example: 10
     sourceImageRef:
       $ref: './resource.yaml#/Reference'

@@ -188,7 +188,7 @@ PermissionMetadata:
       example: "tenants/1/workspaces/ws-1/instances/my-server"
     verb:
       type: string
-      maxLength: 6
+      maxLength: 7
       example: get
   example:
     provider: "seca.compute/v1"
@@ -219,6 +219,7 @@ ModificationMetadata:
     resourceVersion:
       type: integer
       description: Incremented on every modification of the resource. Used for optimistic concurrency control.
+      maxLength: 16
 
 NameMetadata:
   type: object
@@ -310,6 +311,7 @@ TenantMetadata:
     tenant:
       type: string
       description: Tenant identifier
+      maxLength:
 
 RegionalMetadata:
   type: object
@@ -321,9 +323,11 @@ RegionalMetadata:
     region:
       type: string
       description: Reference to the region where the resource is located
+      maxLength: 64
     workspace:
       type: string
       description: Workspace identifier
+      maxLength: 64
 
 ZonalMetadata:
   type: object
@@ -422,6 +426,7 @@ ResponseMetadata:
       skipToken:
         type: string
         description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
+        maxLength: 5
   example:
     skipToken: "false"
     provider: "seca.compute/v1"

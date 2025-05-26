@@ -87,4 +87,5 @@ ImageStatus:
       sizeMB:
         type: integer
         description: Size of the Image in MB
+        minimum: 1
         example: 628

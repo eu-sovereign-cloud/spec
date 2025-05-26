@@ -60,6 +60,7 @@ ClusterStatus:
         description: |
           The kube config file for the cluster. This file is used to configure
           access to the cluster using kubectl or other Kubernetes clients.
+        maxLength: 65536  
         example: "---\n..."
 
 NodePool:

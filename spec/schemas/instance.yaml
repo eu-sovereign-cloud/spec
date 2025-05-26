@@ -43,6 +43,7 @@ InstanceSpec:
       description: |
         Cloud-init user data for instance initialization
         Example cloud-init user configuration with SSH key:
+      maxLength: 65536
       example: |
         #cloud-config
         packages:

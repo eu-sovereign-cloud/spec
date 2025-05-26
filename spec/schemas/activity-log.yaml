@@ -54,4 +54,6 @@ ActivityLogSpec:
       properties:
         code:
           type: number
+          minimum: 100
+          maximum: 599
           example: 202

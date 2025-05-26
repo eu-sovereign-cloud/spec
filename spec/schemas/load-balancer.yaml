@@ -130,12 +130,15 @@ LoadBalancerHealthCheck:
     interval:
       type: integer
       description: 'health check interval in seconds. It means after how many seconds it will take a new check'
+      maximum: 86400
       example: 10
     timeout:
       type: integer
       description: 'health check in seconds. It means after how many seconds the attempt will be considered unhealthy'
+      maximum: 600
       example: 5
     retry:
       type: integer
       description: 'health check retry number after considered unhealthy a backend instance'
+      maximum: 10
       example: 3
