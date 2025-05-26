@@ -311,7 +311,7 @@ TenantMetadata:
     tenant:
       type: string
       description: Tenant identifier
-      maxLength:
+      maxLength: 64
 
 RegionalMetadata:
   type: object
