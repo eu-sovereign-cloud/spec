@@ -47,7 +47,7 @@ ActivityLogSpec:
             - $ref: './workspace.yaml#/WorkspaceSpec'
         resource:
           type: string
-          maxLength: 256
+          maxLength: 2000
     response:
       type: object
       description: Response object

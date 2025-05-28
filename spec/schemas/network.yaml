@@ -113,12 +113,14 @@ cidr:
       type: string
       description: |
         IPv4 CIDR block for the subnet.
+      minLength: 9
       maxLength: 18
       example: '10.0.100.0/24'
     ipv6:
       type: string
       description: |
         IPv6 CIDR block for the subnet.
+      minLength: 4
       maxLength: 43
       example: '2001:db8::/32'
 

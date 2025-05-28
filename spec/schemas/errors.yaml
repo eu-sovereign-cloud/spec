@@ -12,7 +12,7 @@ schemas:
       type:
         type: string
         description: The type of error, expressed as a URI.
-        maxLength: 2047
+        maxLength: 4000
         example: "https://httpstatuses.io/400"
       title:
         type: string

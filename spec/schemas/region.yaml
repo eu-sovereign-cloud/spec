@@ -59,5 +59,5 @@ Provider:
       example: "v1"
     url:
       type: string
-      maxLength: 2047
+      maxLength: 4000
       example: "https://demo.secapi.cloud/providers/seca.network"
