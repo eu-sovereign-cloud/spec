@@ -4,11 +4,11 @@ InstanceSku:
   allOf:
   - $ref: './resource.yaml#/SystemResourceMetadata'
   - type: object
-  properties:
-    metadata:
-      $ref: './resource.yaml#/SkuResourceMetadata'
-    spec:
-      $ref: "./instance-sku.yaml#/InstanceSkuSpec"
+    properties:
+      metadata:
+        $ref: './resource.yaml#/SkuResourceMetadata'
+      spec:
+        $ref: "./instance-sku.yaml#/InstanceSkuSpec"
 
 InstanceSkuSpec:
   type: object

@@ -106,7 +106,12 @@ SecurityGroupRuleSpec:
         with the security group. If a security group is specified, all instances in that group are allowed.
         If no sourceRefs are specified, all traffic is allowed.
       items:
-        $ref: './resource.yaml#/Reference'
+        allOf:
+        - $ref: './resource.yaml#/Reference'
+        - description: Reference to a CIDR block, IP address, gateway, instance or security group allowed to communicate with the security group.
+          example: 
+            provider: seca.network/v1
+            resource: security-groups/security-group-1
   example:
     annotations:
       description: "Allow incoming HTTP(s) traffic"

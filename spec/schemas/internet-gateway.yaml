@@ -21,7 +21,7 @@ InternetGateway:
 InternetGatewaySpec:
   type: object
   description: |
-    The internet gateway will use the reserved IP address allOf:
+    The internet gateway will use the reserved IP addres.
     the subnet CIDR block to provide internet access to the subnet.
   properties:
     egressOnly:

@@ -23,14 +23,20 @@ BlockStorageSpec:
   - sizeGB
   properties:
     skuRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the SKU of the block storage.
+        example: "skus/seca.n1k"
     sizeGB:
       type: integer
       description: Size of the block storage in GB.
       maximum: 1000000
       example: 10
     sourceImageRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the source image used as the base for creating the block storage.
+        example: "images/image-123"
 
 BlockStorageStatus:
   description: |
@@ -51,7 +57,12 @@ BlockStorageStatus:
         maximum: 1000000
         example: 10
       attachedTo:
-        $ref: './resource.yaml#/Reference' 
+        allOf:
+        - $ref: './resource.yaml#/Reference' 
+        - description: Reference to the instance the block storage is attached to.
+          example:
+            provider: seca.compute/v1
+            resource: instances/instance-123
 
 VolumeReference:
   type: object
@@ -60,7 +71,10 @@ VolumeReference:
   - deviceRef
   properties:
     deviceRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the block storage used to store the volume.
+        example: "block-storages/block-123"
     type:
       type: string
       description: The connection type depends on the type of device and type of block storage.

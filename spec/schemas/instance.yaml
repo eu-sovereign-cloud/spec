@@ -26,18 +26,36 @@ InstanceSpec:
   - bootVolume
   properties:
     skuRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the SKU of the instance.
+        example: 'skus/seca.s'
     primaryNicRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the primary NIC attached to this instance.
+        example:
+          provider: seca.network/v1
+          resource: network-interfaces/nic-123
     additionalNicRefs:
       type: array
       description: Additional NICs attached to this instance
       items:
-        $ref: './resource.yaml#/Reference'
+        allOf:
+        - $ref: './resource.yaml#/Reference'
+        - description: Reference to an additional NIC attached to this instance.
+          example:
+            provider: seca.network/v1
+            resource: network-interfaces/nic-124
     zone:
       $ref: './region.yaml#/Zone'
     securityGroupRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the security group associated with this instance.
+        example:
+          provider: seca.network/v1
+          resource: security-groups/sg-123
     userData:
       type: string
       description: |
@@ -67,11 +85,15 @@ InstanceSpec:
         through cloud-init's vendor data configuration.
       example: ['ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g...']
     bootVolume:
-      $ref: './block-storage.yaml#/VolumeReference'
+      allOf:
+      - $ref: './block-storage.yaml#/VolumeReference'
+      - description: Reference to the block storage used to store the boot volume of the instance.
     dataVolumes:
       type: array
       items:
-        $ref: './block-storage.yaml#/VolumeReference'
+        allOf:
+        - $ref: './block-storage.yaml#/VolumeReference'
+        - description: Reference to the block storage used to store an additional volume of the instance.
   example:
     skuRef: "skus/seca.s"
     zone: "a"

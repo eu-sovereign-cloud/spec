@@ -56,11 +56,12 @@ NetworkSpec:
       - description: |
           Reference to the SKU used by default for all NIC in this Network.
           Can be overridden by the NIC.
+        example: "skus/seca.n1k"
     routeTableRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: |
-          Reference to the route table used by default for all Subnets.
+      - description: Reference to the route table used by default for all Subnets.
+        example: "route-tables/route-table-1"
   example:
     skuRef: "skus/seca.n1k"
     routeTableRef: "route-tables/route-table-1"
@@ -92,7 +93,10 @@ NetworkStatus:
         items:
           $ref: './network.yaml#/cidr'
       routeTableRef:
-        $ref: './resource.yaml#/Reference'
+        allOf:
+        - $ref: './resource.yaml#/Reference'
+        - description: Reference to the route table used by default for all Subnets.
+          example: "route-tables/route-table-1"
     example:
       cidr:
         ipv4: "10.100.0.0/16"

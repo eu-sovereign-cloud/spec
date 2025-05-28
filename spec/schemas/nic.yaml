@@ -46,11 +46,20 @@ NicSpec:
         References to public IP addresses associated with this NIC. The IP may be external
         and not directly visible on the server/NIC itself.
       items:
-        $ref: './resource.yaml#/Reference'
+        allOf:
+        - $ref: './resource.yaml#/Reference'
+        - description: Reference to a public IP address associated with this NIC.
+          example: "public-ips/public-ip-123"
     skuRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the SKU of the NIC.
+        example: "skus/seca.n1k"
     subnetRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the subnet used by the NIC connections.
+        example: "seca.networks/subnet-a1b2c3"
   example:
     addresses:
     - "10.100.0.10"
@@ -83,7 +92,10 @@ NicStatus:
           Array of public IP addresses associated with this NIC.
         type: array
         items:
-          $ref: './resource.yaml#/Reference'
+          allOf:
+          - $ref: './resource.yaml#/Reference'
+          - description: Reference to a public IP address associated with this NIC.
+            example: "public-ips/public-ip-123"
     example:
       state: "active"
       macAddress: "00:00:00:00:00:00"

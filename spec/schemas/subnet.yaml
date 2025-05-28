@@ -49,18 +49,18 @@ SubnetSpec:
     routeTableRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - type: string
-        description: |
+      - description: |
           Reference to the route table used by default for all NIC in this Subnet.
           Can be overridden by the NIC.
           If not provided, the mutate admission controller will populate this value using the routeTableRef associated with the network where the subnet will be created.
+        example: "route-tables/route-table-1"
     skuRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - type: string
-        description: |
+      - description: |
           Reference to the SKU used by default for all NIC in this Network.
-          Can be overridden by the NIC  
+          Can be overridden by the NIC
+        example: "skus/seca.1000"
   example:
     cidr:
       ipv4: "0.0.0.0/24"
