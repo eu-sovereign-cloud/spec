@@ -1,0 +1,42 @@
+Wellknown:
+  type: object
+  description: List of global endpoints related to the seca api.
+  required:
+  - version
+  - endpoints
+  properties:
+    version:
+      type: string
+      example: v1
+      description: Version of the the Wellknown data.
+      x-extensible-enum:
+      - v1
+    endpoints:
+      type: array
+      description: All global seca proviers and their endpoints.
+      items:
+        $ref: '#/WellknownEndpoint'
+      example:
+      - provider: seca.region/v1
+        url: "https://seca.example.com/region/v1"
+      - provider: seca.authorization/v1
+        url: "https://seca.example.com/authorization/v1"
+      - provider: seca.object-storage/v1beta1
+        url: "https://seca.example.com/object-storage/v1beta1"
+
+WellknownEndpoint:
+  type: object
+  description: Represents a global available seca providers and their endpoints.
+  required:
+  - provider
+  - url
+  properties:
+    provider:
+      type: string
+      example: "seca.region/v1"
+      description: The provider that is available under the given URL.
+    url:
+      type: string
+      example: "https://seca.example.com/region/v1"
+      description: The endpoint URL.
+

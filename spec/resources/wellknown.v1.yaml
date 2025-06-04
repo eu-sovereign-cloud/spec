@@ -1,0 +1,33 @@
+group: extensions
+title: Wellknown
+name: wellknown
+version: v1
+description: |
+  The Wellknown API provides access to a list of globally available provider endpoints.
+  This API is part of the Sovereign European Cloud API.
+servers:
+  - url: "https://demo.secapi.cloud"
+    description: URL
+security: false
+resources:
+  - name: wellknown
+    plural: .wellknown
+    operations: []
+paths:
+  /.wellknown/secapi:
+    get:
+      tags:
+        - Wellknown
+      summary: Get wellknown endpoints
+      description: Provides a list of all wellknown providers and endpoints.
+      operationId: getWellknown
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/wellknown.yaml#/Wellknown'
+        '500':
+          $ref: './schemas/errors.yaml#/responses/Error500'
+

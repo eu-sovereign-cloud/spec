@@ -3,10 +3,14 @@ openapi: 3.0.3
 {{- $spec := (ds "spec") }}
 
 servers:
+{{- if coll.Has $spec "servers" }}
+{{ data.ToYAML $spec.servers | strings.TrimSuffix "\n" -}}
+{{- else }}
   - url: https://demo.secapi.cloud/providers/seca.{{ $spec.name | strings.Slug }}
     description: Path Schema
   - url: https://{{ $spec.name | strings.Slug }}.seca.demo.secapi.cloud
     description: DNS Schema
+{{- end }}
 
 info:
   title: {{ $spec.title }}
@@ -24,6 +28,12 @@ tags:
 {{- end }}
 
 paths:
+{{- if coll.Has $spec "paths" }}
+{{- range $path, $data := $spec.paths }}
+  {{ $path }}:
+{{ data.ToYAML $data | indent 4 }}
+{{- end }}
+{{- end }}
 {{- range $spec.resources }}
   {{- if coll.Has .operations "list" }}
   /{{ $spec.version }}{{ range .hierarchy }}/{{ . }}s/{{ printf "{%s}" . }}{{ end }}/{{ .plural | strings.Slug }}:
@@ -277,8 +287,17 @@ components:
   securitySchemes:
     $ref: './schemas/security.yaml#/securitySchemes'
 
+{{- $hasSchema := false }}
+{{- range $spec.resources }}
+  {{- if coll.Has . "schema" }}
+     {{- $hasSchema = true}}
+  {{- end }}
+{{- end }}
+
+{{- if $hasSchema }}
   schemas:
 {{- range $spec.resources }}
+  {{- if coll.Has . "schema" }}
     {{ .name | strings.Title | strings.ReplaceAll " " "" }}Iterator:
       description: Iterator for {{ .plural }}
       type: object
@@ -293,4 +312,6 @@ components:
             $ref: '{{ .schema }}'
         metadata:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
+  {{- end }}
 {{ end }}
+{{- end -}}
