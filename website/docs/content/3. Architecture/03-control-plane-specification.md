@@ -4,11 +4,11 @@ Control Plan APIs have all the following template:
 
 ```bash
 # Path based (central API)
-https://{csp}.{domain}/
+https://{base}/
 providers/{resourceProviderName}/{resourceProviderVersion}/
 {scope}/{resourceType}[/{resourceName}][/{action}]?[&{queryStringParameters}]
 # or DNS based (decentralized API)
-https://{resourceProviderName}.{csp}.{domain}/{resourceProviderVersion}/
+https://{base}/{resourceProviderVersion}/
 {scope}/{resourceType}[/{resourceName}][/{action}]?[&{queryStringParameters}]
 ```
 
