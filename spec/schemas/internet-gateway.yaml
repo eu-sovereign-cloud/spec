@@ -8,15 +8,15 @@ InternetGateway:
     description: |
       The InternetGateway resource enables access to the public internet
       when used in conjunction with a RouteTable.
-  required:
-  - spec
-  properties:
-    metadata:
-      $ref: './resource.yaml#/RegionalResourceMetadata'
-    spec:
-      $ref: './internet-gateway.yaml#/InternetGatewaySpec'
-    status:
-      $ref: './internet-gateway.yaml#/InternetGatewayStatus'
+    required:
+    - spec
+    properties:
+      metadata:
+        $ref: './resource.yaml#/RegionalResourceMetadata'
+      spec:
+        $ref: './internet-gateway.yaml#/InternetGatewaySpec'
+      status:
+        $ref: './internet-gateway.yaml#/InternetGatewayStatus'
 
 InternetGatewaySpec:
   type: object
