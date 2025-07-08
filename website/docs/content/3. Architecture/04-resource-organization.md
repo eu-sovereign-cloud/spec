@@ -1,8 +1,12 @@
+import Drawio from '@theme/Drawio';
+import resourceLevelsDiagram from '!!raw-loader!@site/static/assets/resource-levels.drawio';
+
+
 # Resource Organization
 
 A cloud organization model is a framework that defines how an organization structures, manages, and governs its resources, users, and permissions within a cloud environment
 
-![Resource Organization Model](@site/static/img/resource-levels.png)
+<Drawio content={resourceLevelsDiagram} page={0} />
 
 ## Tenant
 

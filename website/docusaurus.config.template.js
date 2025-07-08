@@ -140,6 +140,7 @@ const config = {
 
     themes: ["docusaurus-theme-openapi-docs"],
     plugins: [
+      ['docusaurus-plugin-drawio', {}],
       [ 
         require.resolve('docusaurus-lunr-search'), 
         {

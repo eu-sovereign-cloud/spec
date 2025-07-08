@@ -1,3 +1,6 @@
+import Drawio from '@theme/Drawio';
+import resourceUsageDiagram from '!!raw-loader!@site/static/assets/usage+overview.drawio';
+
 # SECA Usage
 
 ## Overview
@@ -28,7 +31,7 @@ over core Infrastructure-as-a-Service (IaaS) components.
 - Content Types: JSON for requests and responses
 - Status: Production-ready for core IaaS operations
 
-![API Diagram](@site/static/img/usage.png)
+<Drawio content={resourceUsageDiagram} page={0} />
 
 ## Current Scope
 
