@@ -33,6 +33,24 @@ Key Aspects of this concept are described below:
 - **Billing and Usage Tracking**: Many cloud providers allow resource usage within a workspace to be tracked separately, making it easier to allocate costs to specific projects or teams.
 - **Configuration and State Management**: Workspaces may include settings, variables, and secrets specific to the resources they contain, allowing consistent configurations across different environments (e.g., development, testing, production).
 
+## Resource Provider
+
+A **Resource Provider** acts as the crucial abstraction layer, enabling the creation and management of cloud resources of Cloud Service Provider (CSP).
+Each Resource Provider is responsible for **creating, managing, and maintaining cloud resources across all service layers** (IaaS, PaaS, SaaS). This encompasses the full lifecycle of a resource, from initial provisioning to ongoing configuration and operations. The core value of a Resource Provider lies in its ability to **handle resource provisioning and ensure users can interact with resources through a standardized API without worrying about the underlying infrastructure**. This means that regardless of the cloud provider, the OpenAPI can present a unified interface for resource manipulation.
+
+A Resource Provider is intrinsically linked to the **type of a resource** it manages. Resource types are typically defined by two segments: a csp workspace and a type name, for example, Aruba.Compute. In our context, for SECA services, all resource types managed by a Resource Provider will begin with "seca.", such as seca.network or seca.compute. This prefix ensures a consistent namespace for SECA-specific services, while still allowing providers to utilize their own namespaces for non-SECA services. It's important to note that **the implementation of a Resource Provider is CSP-specific**, meaning each cloud provider will have its unique underlying implementation for a given Resource Provider. Furthermore, a **single Resource Provider can manage multiple resource types**, providing a consolidated point of control for related cloud services.
+
+SECA groups its **Resource Providers** in two types `Foundation` and `Extensions`. Jump to this [page](https://spec.secapi.cloud/docs/api/Foundation/Authorization-v1/authorization) to have more technical informations about the SECA's providers.
+
+The Foundation **Resource Providers** are:
+- **Authorization** - provides access to authorization resources that are shared across all tenants and workspaces in all regions. Technical information [here](https://spec.secapi.cloud/docs/api/Foundation/Authorization-v1/authorization)
+- **Compute** - provides access to compute resources including virtual machines and instance management. Technical information [here](https://spec.secapi.cloud/docs/api/Foundation/Compute-v1/compute)
+- **Network** - provides access to network resources, including Networks, NICs, security groups, subnets, and routing tables. Technical information [here](https://spec.secapi.cloud/docs/api/Foundation/Network-v1/network)
+- **Region** - provides access to foundational resources that are shared across all tenants and workspaces in all regions. Technical information [here](https://spec.secapi.cloud/docs/api/Foundation/Region-v1/regions)
+- **Storage** - provides access to storage resources including block storage and images. Technical information [here](https://spec.secapi.cloud/docs/api/Foundation/Storage-v1/storage)
+- **Worksapce** - provides access to resources that are specific to a tenant's workspace. Technical information [here](https://spec.secapi.cloud/docs/api/Foundation/Workspace-v1/workspace)
+
+
 ## Cloud Resource
 
 A Cloud Resource represents a distinct, managed service or component that is provisioned, configured, and controlled by a resource provider (earlier mentioned as `resourceProviderWorkspace`). Each cloud resource in this model is managed through a unified API that defines its lifecycle, configuration, and access policies. This allows consumers to interact consistently across IaaS, PaaS, and SaaS resources, despite their differing levels of abstraction.
