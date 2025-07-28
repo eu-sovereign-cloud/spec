@@ -31,6 +31,10 @@ Accept: application/json
 
 ### JSON
 
+All requests and responses of the API are using proper [JSON](https://www.json.org/json-en.html) format. The API does not support XML or other formats.
+The client and server must verify the media format and proper schema. Any request or response that does not match the expected media type or schema must be rejected.
+This is important to not misinterpret the data and to ensure that the client and server can communicate effectively.
+
 #### Casing
 
 * The field casing adopted is **camelCase**.
@@ -59,8 +63,6 @@ Accept: application/json
 
 * A successful GET method typically returns the HTTP status code 200 (OK). If the resource is not found, the method should return 404 (Not Found)
 
-
-
 ### PUT Method
 
 * If a **PUT** method creates a new resource, it must return the HTTP status code 201 (Accepted). The URI of the new resource is included in the Location header of the response.
@@ -76,7 +78,9 @@ If the client submits invalid data in the request, the server must return the HT
 
 ### DELETE Method
 
-* The API will respond with the HTTP status code 202 indicating that the process was handled correctly and that the response body will not contain further information.
+* The API will respond with the HTTP status code 202 indicating that the deletion process was handled correctly and that the response body will not contain further information.
+* In case the API responds with 404 (Not Found), it doesn't safely indicate that the resource was deleted unless the schema is verified. A `404` response on retry can be interpreted
+  as a successful deletion of the resource if the schema is valid, and the client knows the resource did exist. If the resource was never created, the `404` response is not considered a successful deletion.
 
 ### Conditional Requests
 

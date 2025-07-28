@@ -94,6 +94,9 @@ paths:
       {{- else }}
       description: |
         Get a specific {{ .name }}, useful for polling status updates of resources.
+        A `404` response without proper schema has to be ignored and must be
+        understood as server being unavailable. Only a response with proper schema
+        can be trusted. 
       {{- end }}
       operationId: get{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
@@ -214,9 +217,15 @@ paths:
       description: |
         Deletes a {{ .name }} using the given name. In case the resource workspace
         already deleted `404` is returned. For failure tolerance in case of retry the
-        client needs to accept `404` and `202` as a successful deletion. If deletion
-        of the resource takes longer deletion can be issued multiple times with the
-        same result `202`, in all cased the resource will be only deleted once.
+        client needs to accept `404` and `202` as a successful deletion. In case the
+        client tries to delete a resource for the first time and gets a `404`, the
+        resource might not exist for other reasons or never existed in the first 
+        place. This can't be assumed as a safe deletion of the resource. 
+        If deletion of the resource takes longer deletion can be 
+        issued multiple times with the same result `202`, in all cased the resource
+        will be only deleted once. A client must verify the client response to contain
+        a proper error schema. A `404` response without proper schema has to be ignored
+        and understood as server unavailable error.
       {{- end }}
       operationId: delete{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
