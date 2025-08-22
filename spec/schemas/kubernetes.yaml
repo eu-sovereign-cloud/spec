@@ -29,14 +29,14 @@ KubernetesClusterSpec:
     skuRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the SKU of the Kubernetes cluster.
-        example: "skus/seca.xl"
+      description: Reference to the SKU of the Kubernetes cluster.
+      example: "skus/seca.xl"
     restrictKubernetesApi:
       description: |
         Restrict access to the Kubernetes API to specific IP addresses or ranges.
         This is a security feature to limit access to the cluster. If not specified,
-        the Kubernetes API is accessible from any IP address. Nodes that are 
-        part of the cluster are always allowed to access the Kubernetes API. 
+        the Kubernetes API is accessible from any IP address. Nodes that are
+        part of the cluster are always allowed to access the Kubernetes API.
       type: array
       items:
         type: string
@@ -77,7 +77,7 @@ KubernetesClusterStatus:
         description: |
           The kube config file for the cluster. This file is used to configure
           access to the cluster using kubectl or other Kubernetes clients.
-        maxLength: 65536  
+        maxLength: 65536
         example: "---\n..."
 
 KubernetesNodePool:
@@ -143,26 +143,26 @@ KubernetesNodeTemplate:
     skuRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the SKU of the node instances.
-        example:
-          provider: seca.compute/v1
-          resource: skus/seca.xl
+      description: Reference to the SKU of the node instances.
+      example:
+        provider: seca.compute/v1
+        resource: skus/seca.xl
     subnetRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the NIC attached to the node instances.
-        example:
-          provider: seca.network/v1
-          resource: subnets/k8s-nodes-a
+      description: Reference to the NIC attached to the node instances.
+      example:
+        provider: seca.network/v1
+        resource: subnets/k8s-nodes-a
     zone:
       $ref: './region.yaml#/Zone'
     securityGroupRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the security group associated with the node instances.
-        example:
-          provider: seca.network/v1
-          resource: security-groups/k8s-nodes
+      description: Reference to the security group associated with the node instances.
+      example:
+        provider: seca.network/v1
+        resource: security-groups/k8s-nodes
     rootVolume:
       $ref: '#/KubernetesNodeRootVolume'
   example:
@@ -215,7 +215,7 @@ KubernetesNodeTaint:
       - NoExecute
       description: |
         The effect of the taint. The effect determines how the taint is applied to
-        the nodes in the node pool. For details on the effects, see the 
+        the nodes in the node pool. For details on the effects, see the
         (kubernetes documentation on taints and tolerations)[https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/].
       example: "NoSchedule"
 
@@ -233,10 +233,10 @@ KubernetesNodeRootVolume:
     skuRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the SKU of the block storage created to store the root volume.
-        example: 
-          provider: seca.storage/v1
-          resource: skus/seca.le500
+      description: Reference to the SKU of the block storage created to store the root volume.
+      example:
+        provider: seca.storage/v1
+        resource: skus/seca.le500
     sizeGB:
       description: |
         Size of the root volume in GB. The size is recommended to be at least 100GB.
@@ -251,7 +251,7 @@ KubernetesNodePoolStatus:
   description: |
     Represents the status of the  kubernetes node pool. The status
     represents if the instances of the node pool are provisioned to the
-    cluster. 
+    cluster.
   allOf:
   - $ref: './resource.yaml#/Status'
   - type: object
@@ -259,13 +259,13 @@ KubernetesNodePoolStatus:
     properties:
       nodes:
         description: |
-          List of nodes in the Node Pool. Each node is represented by its 
+          List of nodes in the Node Pool. Each node is represented by its
           reference to a compute instance.
         type: array
         items:
           allOf:
           - $ref: './resource.yaml#/Reference'
-          - description: Reference to the compute instance representing the node.
-            example: 
-              provider: seca.compute/v1
-              resource: instances/instance-123
+          description: Reference to the compute instance representing the node.
+          example:
+            provider: seca.compute/v1
+            resource: instances/instance-123

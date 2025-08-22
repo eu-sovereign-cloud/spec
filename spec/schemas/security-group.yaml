@@ -40,7 +40,7 @@ SecurityGroupSpec:
   type: object
   description: Specification of the security group
   required:
-    - rules  
+    - rules
   properties:
     rules:
       type: array
@@ -108,10 +108,10 @@ SecurityGroupRuleSpec:
       items:
         allOf:
         - $ref: './resource.yaml#/Reference'
-        - description: Reference to a CIDR block, IP address, gateway, instance or security group allowed to communicate with the security group.
-          example: 
-            provider: seca.network/v1
-            resource: security-groups/security-group-1
+        description: Reference to a CIDR block, IP address, gateway, instance or security group allowed to communicate with the security group.
+        example:
+          provider: seca.network/v1
+          resource: security-groups/security-group-1
   example:
     annotations:
       description: "Allow incoming HTTP(s) traffic"
@@ -153,7 +153,7 @@ Port:
   type: integer
   minimum: 1
   maximum: 65535
-  example: 80 
+  example: 80
 
 IcmpConfig:
   type: object

@@ -28,34 +28,34 @@ InstanceSpec:
     skuRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the SKU of the instance.
-        example: 'skus/seca.s'
+      description: Reference to the SKU of the instance.
+      example: 'skus/seca.s'
     primaryNicRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the primary NIC attached to this instance.
-        example:
-          provider: seca.network/v1
-          resource: network-interfaces/nic-123
+      description: Reference to the primary NIC attached to this instance.
+      example:
+        provider: seca.network/v1
+        resource: network-interfaces/nic-123
     additionalNicRefs:
       type: array
       description: Additional NICs attached to this instance
       items:
         allOf:
         - $ref: './resource.yaml#/Reference'
-        - description: Reference to an additional NIC attached to this instance.
-          example:
-            provider: seca.network/v1
-            resource: network-interfaces/nic-124
+        description: Reference to an additional NIC attached to this instance.
+        example:
+          provider: seca.network/v1
+          resource: network-interfaces/nic-124
     zone:
       $ref: './region.yaml#/Zone'
     securityGroupRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the security group associated with this instance.
-        example:
-          provider: seca.network/v1
-          resource: security-groups/sg-123
+      description: Reference to the security group associated with this instance.
+      example:
+        provider: seca.network/v1
+        resource: security-groups/sg-123
     userData:
       type: string
       description: |
@@ -87,18 +87,18 @@ InstanceSpec:
     bootVolume:
       allOf:
       - $ref: './block-storage.yaml#/VolumeReference'
-      - description: Reference to the block storage used to store the boot volume of the instance.
+      description: Reference to the block storage used to store the boot volume of the instance.
     dataVolumes:
       type: array
       items:
         allOf:
         - $ref: './block-storage.yaml#/VolumeReference'
-        - description: Reference to the block storage used to store an additional volume of the instance.
+        description: Reference to the block storage used to store an additional volume of the instance.
   example:
     skuRef: "skus/seca.s"
     zone: "a"
-    bootVolume: 
-      deviceRef: 
+    bootVolume:
+      deviceRef:
         provider: "seca.storage/v1"
         resource: "block-storages/block-123"
       type: "virtio"

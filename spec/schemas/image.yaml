@@ -39,8 +39,8 @@ Image:
 
 ImageSpec:
   description: |
-    Detailed specification of the Image resource. 
-    The Image is derived from a block storage resource identified by 
+    Detailed specification of the Image resource.
+    The Image is derived from a block storage resource identified by
     `blockStorageRef` and serves as a template for creating
     compute instances. For additional information, refer to the
     [Image Handling](/docs/content/Other/image-handling) section.
@@ -52,15 +52,15 @@ ImageSpec:
     blockStorageRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the block storage used to store the image.
-        example: "block-storages/block-123"
+      description: Reference to the block storage used to store the image.
+      example: "block-storages/block-123"
     cpuArchitecture:
       type: string
       description: CPU architecture for the Image
       enum:
       - amd64
       - arm64
-    initializer:  
+    initializer:
       type: string
       description: Initializer for the Image
       enum:

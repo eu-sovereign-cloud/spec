@@ -102,17 +102,17 @@ ReferenceURN:
   type: string
   description: |
     A unique resource name used to reference this resource in other resources. The reference
-    is represented as the full URN (Uniform Resource Name) name of the resource. 
-    
+    is represented as the full URN (Uniform Resource Name) name of the resource.
+
     ### Automatic Prefix Inference
 
     In most cases, the prefix of the URN can be automatically derived in the given context.
     To simplify usage, only the resource type and name might be specified as a reference
     using the `<type>/<name>` notation. The suffix can be made more specific by adding
-    additional segments separated by slashes. 
-    
+    additional segments separated by slashes.
+
     The prefix is automatically inferred from the context. For example, if the resource is a
-    block storage in the same workspace the reference can be specified as 
+    block storage in the same workspace the reference can be specified as
     `block-storages/my-block-storage`. If the resource is a block storage in a different workspace, the
     reference can be specified as `workspaces/ws-1/block-storages/my-block-storage`.
 
@@ -148,7 +148,7 @@ ReferenceObject:
       type: string
       description: |
         Provider of the resource. If not set, the provider is inferred from the context.
-      maxLength: 64 
+      maxLength: 64
       example: "seca.compute/v1"
     tenant:
       type: string
@@ -160,7 +160,7 @@ ReferenceObject:
       type: string
       description: |
         Workspace of the resource. If not set, the workspace is inferred from the context.
-      maxLength: 64  
+      maxLength: 64
       example: "workspace-1"
     resource:
       type: string
@@ -201,7 +201,7 @@ ModificationMetadata:
   readOnly: true
   description: Base metadata for all resources with optional region references
   required:
-  - createdAt  
+  - createdAt
   - lastModifiedAt
   - resourceVersion
   properties:
@@ -433,4 +433,4 @@ ResponseMetadata:
     skipToken: "false"
     provider: "seca.compute/v1"
     resource: "tenants/1/workspaces/ws-1/instances/my-server"
-    verb: get  
+    verb: get

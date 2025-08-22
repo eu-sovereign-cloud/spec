@@ -24,7 +24,7 @@ InstanceSkuSpec:
         The number of virtual CPUs (vCPUs) allocated to the instance SKU.
         This value represents the number of cores visible to the operating system.
         It does not specify the number of physical processors or hyper-threads available.
-      maximum: 60  
+      maximum: 60
       example: 2
     ram:
       type: integer

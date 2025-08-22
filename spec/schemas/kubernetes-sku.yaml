@@ -36,7 +36,7 @@ KubernetesClusterSkuSpec:
         The policy can be one of the following:
         - `none`: Automatic updates are disabled for the
           kubernetes cluster.
-        - `stable`: Automatic updates are enabled for the 
+        - `stable`: Automatic updates are enabled for the
           stable version of kubernetes.
         - `preview`: Automatic updates are enabled for the
           preview version of kubernetes.
@@ -51,7 +51,7 @@ KubernetesClusterSkuSpec:
         - `dedicated`: A dedicated kubernetes control plane cluster.
           This cluster uses extra resources for the control plane.
           It is recommended for performance intensive workloads.
-        - `shared`: A shared kubernetes cluster. 
+        - `shared`: A shared kubernetes cluster.
           This cluster uses shared resources for the control plane.
           It is recommended for cost sensitive workloads.
       enum:

@@ -46,16 +46,16 @@ RouteSpec:
     destinationCidrBlock:
       type: string
       description: |
-        The CIDR block for the destination. The block can be 
+        The CIDR block for the destination. The block can be
         a specific IP address or a range of addresses. It can be
         IPv6 or IPv4.
-      maxLength: 43  
+      maxLength: 43
       example: '0.0.0.0/0'
     targetRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the target of the route. The target can be an instance, an gateway or an IP address.
-        example: 'internet-gateways/internet-gateway-1'
+      description: Reference to the target of the route. The target can be an instance, an gateway or an IP address.
+      example: 'internet-gateways/internet-gateway-1'
 
 RouteTableStatus:
   description: |

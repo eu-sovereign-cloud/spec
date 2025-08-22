@@ -2,7 +2,7 @@ Region:
   type: object
   description: |
     Represents a region, which is a geographical location
-    with one or more zones. 
+    with one or more zones.
   required:
     - spec
   properties:
@@ -28,7 +28,7 @@ RegionSpec:
       example: ["a", "b", "c"]
 
     providers:
-      description: | 
+      description: |
         The list of providers available in the region.
       type: array
       items:

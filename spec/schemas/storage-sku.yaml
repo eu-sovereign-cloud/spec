@@ -8,7 +8,7 @@ StorageSku:
   allOf:
   - $ref: './resource.yaml#/SystemResourceMetadata'
   - type: object
-    properties:    
+    properties:
       metadata:
         $ref: './resource.yaml#/SkuResourceMetadata'
       spec:
@@ -53,7 +53,7 @@ StorageSkuSpec:
           ensuring data durability at the cost of availability. The time to
           restore data may vary depending on the CSP and the
           will be significantly higher then using `remote-durable` storage.
-          Example use-cases include replicated paxos or raft based databases or 
+          Example use-cases include replicated paxos or raft based databases or
           replicated databases using synchronous replication, in addition to
           file storage.
         * `remote-durable`: Remote storage is a network-attached storage solution

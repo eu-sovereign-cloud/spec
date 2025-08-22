@@ -48,18 +48,18 @@ NicSpec:
       items:
         allOf:
         - $ref: './resource.yaml#/Reference'
-        - description: Reference to a public IP address associated with this NIC.
-          example: "public-ips/public-ip-123"
+        description: Reference to a public IP address associated with this NIC.
+        example: "public-ips/public-ip-123"
     skuRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the SKU of the NIC.
-        example: "skus/seca.n1k"
+      description: Reference to the SKU of the NIC.
+      example: "skus/seca.n1k"
     subnetRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the subnet used by the NIC connections.
-        example: "seca.networks/subnet-a1b2c3"
+      description: Reference to the subnet used by the NIC connections.
+      example: "seca.networks/subnet-a1b2c3"
   example:
     addresses:
     - "10.100.0.10"
@@ -86,7 +86,7 @@ NicStatus:
         type: string
         description: |
           MAC address of the NIC.
-        maxLength: 17  
+        maxLength: 17
       publicIpRefs:
         description: |
           Array of public IP addresses associated with this NIC.
@@ -94,8 +94,8 @@ NicStatus:
         items:
           allOf:
           - $ref: './resource.yaml#/Reference'
-          - description: Reference to a public IP address associated with this NIC.
-            example: "public-ips/public-ip-123"
+          description: Reference to a public IP address associated with this NIC.
+          example: "public-ips/public-ip-123"
     example:
       state: "active"
       macAddress: "00:00:00:00:00:00"
@@ -111,4 +111,4 @@ NicIp:
     can be `0.0.0.0` or `::` to indicate that the IP needs to be assigned
     automatically. The IP can also be a specific IP address.
     If not provided, the mutate admission controller will populate this value using the default values for ipv4 and ipv6.
-  maxLength: 39  
+  maxLength: 39

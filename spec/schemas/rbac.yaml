@@ -84,7 +84,7 @@ Permission:
       description: |
         The verb is a string that represents the action to be performed on a resource.
         The standard operations are defined as `get`, `put`, `list`, `delete`. If the
-        resource has additional actions they can to be permitted individually as 
+        resource has additional actions they can to be permitted individually as
         verb and action in the form `<verb>:<action>`. For example, `post.start`,
         `post.stop`, `post.restart` or with a wildcard for all actions `post`.
       example: ["read", "write"]
@@ -153,10 +153,10 @@ RoleAssignmentScope:
       items:
         type: string
         description: |
-          Tenant ID for the role assignment. A `*` wildcard can be used 
+          Tenant ID for the role assignment. A `*` wildcard can be used
           to represent all tenants. This allows the role assignment to
           be applied to other tenants if needed.
-        maxLength: 64  
+        maxLength: 64
     regions:
       type: array
       description: |
@@ -168,7 +168,7 @@ RoleAssignmentScope:
         type: string
         description: |
           Region ID for the role assignment
-        maxLength: 64  
+        maxLength: 64
     workspaces:
       type: array
       description: |

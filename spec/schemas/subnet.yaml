@@ -49,17 +49,17 @@ SubnetSpec:
     routeTableRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: |
+      description: |
           Reference to the route table used by default for all NICs in this Subnet.
           If not provided, the routeTableRef associated with the network of the subnet will be used.
-        example: "route-tables/route-table-1"
+      example: "route-tables/route-table-1"
     skuRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: |
-          Reference to the SKU used by default for all NICs in this Network.
-          Can be overridden by the NIC
-        example: "skus/seca.1000"
+      description: |
+        Reference to the SKU used by default for all NICs in this Network.
+        Can be overridden by the NIC
+      example: "skus/seca.1000"
   example:
     cidr:
       ipv4: "0.0.0.0/24"

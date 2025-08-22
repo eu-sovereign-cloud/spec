@@ -44,26 +44,26 @@ InternetNatGatewayInstanceSpec:
     publicIpRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the public IP allocated to this internet NAT gateway.
-        example:
-          provider: seca.network/v1
-          resource: public-ips/ip-1
+      description: Reference to the public IP allocated to this internet NAT gateway.
+      example:
+        provider: seca.network/v1
+        resource: public-ips/ip-1
     nicRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the NIC attached to the internet NAT gateway.
-        example: 
-          provider: seca.network/v1
-          resource: nics/nat-gateway-1
-    zone: 
+      description: Reference to the NIC attached to the internet NAT gateway.
+      example:
+        provider: seca.network/v1
+        resource: nics/nat-gateway-1
+    zone:
       $ref: './region.yaml#/Zone'
     securityGroupRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
-      - description: Reference to the security group associated with the NAT gateway.
-        example:
-          provider: seca.network/v1
-          resource: security-groups/security-group-1
+      description: Reference to the security group associated with the NAT gateway.
+      example:
+        provider: seca.network/v1
+        resource: security-groups/security-group-1
 
 InternetNatGatewayInstanceStatus:
   $ref: "./resource.yaml#/Status"
