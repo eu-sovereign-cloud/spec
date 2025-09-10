@@ -85,9 +85,9 @@ SubnetStatus:
       routeTableRef:
         allOf:
         - $ref: './resource.yaml#/Reference'
-        - description: |
-            The route table used by this subnet.
-          example: "route-tables/route-table-1"
+        description: |
+          The route table used by this subnet.
+        example: "route-tables/route-table-1"
     example:
       cidr:
         ipv4: "10.100.1.0/24"
