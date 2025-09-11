@@ -93,7 +93,7 @@ parameters:
       type: string
     description: Cluster name
 
-  resourceNamePathParam:
+  resourcePathParam:
     name: name
     in: path
     required: true

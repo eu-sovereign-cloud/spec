@@ -103,7 +103,7 @@ paths:
       {{- range .hierarchy }}
         - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourceNamePathParam'
+        - $ref: './schemas/parameters.yaml#/parameters/resourcePathParam'
       responses:
         '200':
           description: Successful response
@@ -147,7 +147,7 @@ paths:
       {{- range .hierarchy }}
         - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourceNamePathParam'
+        - $ref: './schemas/parameters.yaml#/parameters/resourcePathParam'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
         description: |
@@ -232,7 +232,7 @@ paths:
       {{- range .hierarchy }}
         - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourceNamePathParam'
+        - $ref: './schemas/parameters.yaml#/parameters/resourcePathParam'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
         '202':
@@ -271,7 +271,7 @@ paths:
       {{- range $resource.hierarchy }}
         - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourceNamePathParam'
+        - $ref: './schemas/parameters.yaml#/parameters/resourcePathParam'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
         '202':
