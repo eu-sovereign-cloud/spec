@@ -42,6 +42,31 @@ ZonalResourceMetadata:
   - $ref: '#/RegionalMetadata'
   - $ref: '#/ZonalMetadata'
 
+NetworkRegionalResourceMetadata:
+  description: |
+    Metadata for network regional resources with name, permission, modification, type, tenant, network and region information.
+  allOf:
+  - $ref: '#/NameMetadata'
+  - $ref: '#/PermissionMetadata'
+  - $ref: '#/ModificationMetadata'
+  - $ref: '#/TypeMetadata'
+  - $ref: '#/TenantMetadata'
+  - $ref: '#/NetworkMetadata'
+  - $ref: '#/RegionalMetadata'
+
+NetworkZonalResourceMetadata:
+  description: |
+    Metadata for network zonal resources with name, permission, modification, type, tenant, network, region, and zone information.
+  allOf:
+  - $ref: '#/NameMetadata'
+  - $ref: '#/PermissionMetadata'
+  - $ref: '#/ModificationMetadata'
+  - $ref: '#/TypeMetadata'
+  - $ref: '#/TenantMetadata'
+  - $ref: '#/NetworkMetadata'
+  - $ref: '#/RegionalMetadata'
+  - $ref: '#/ZonalMetadata'
+
 SkuResourceMetadata:
   description: |
     Metadata for SKU resources.
@@ -339,6 +364,18 @@ ZonalMetadata:
   properties:
     zone:
       $ref: './region.yaml#/Zone'
+
+NetworkMetadata:
+  type: object
+  description: Metadata for network resources
+  readOnly: true
+  required:
+  - network
+  properties:
+    network:
+      type: string
+      description: Network identifier
+      maxLength: 64
 
 Status:
   type: object
