@@ -7,7 +7,7 @@ parameters:
       Filter syntax:
         - Equals: key=value
         - Not equals: key!=value
-        - Wildcards: *key*=*value* - matches if at least one pair match
+        - Wildcards: \*key\*=\*value\* - substring (contains) match on both key and value. Each `*` can appear at start, end or in the middle to mean "any characters". Example: \*env\*=\*prod\* matches a label key containing "env" whose value contains "prod".
         - Numeric: key>value, key<value, key>=value, key<=value
         - Namespaced key examples: 'monitoring:alert-level=high' or 'billing:team=platform'
     required: false
