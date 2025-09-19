@@ -108,3 +108,15 @@ InstanceStatus:
     Current status of the instance.
   allOf:
   - $ref: "./resource.yaml#/Status"
+  - type: object
+    readOnly: true
+    required:
+    - powerState
+    properties:
+      powerState:
+        type: string
+        description: Current power state of the instance.
+        enum:
+        - "on"
+        - "off"
+        example: "on"
