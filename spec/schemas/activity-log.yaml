@@ -18,42 +18,48 @@ ActivityLogSpec:
       description: User-JWT executing this query
       maxLength: 256
     request:
-      type: object
-      description: Request object
-      properties:
-        verb:
-          type: string
-          description: |
-            Verb that describes the action to be performed on the resource.
-            The verb can be one of the following: get, list, put, delete, post, ..
-          maxLength: 7
-          example: 'get'
-        body:
-          oneOf:
-            - $ref: './block-storage.yaml#/BlockStorageSpec'
-            - $ref: './instance-sku.yaml#/InstanceSkuSpec'
-            - $ref: './instance.yaml#/InstanceSpec'
-            - $ref: './load-balancer.yaml#/NetworkLoadBalancerSpec'
-            - $ref: './network-sku.yaml#/NetworkSkuSpec'
-            - $ref: './network.yaml#/NetworkSpec'
-            - $ref: './nic.yaml#/NicSpec'
-            - $ref: './object-storage.yaml#/ObjectStorageAccountSpec'
-            - $ref: './public-ip.yaml#/PublicIpSpec'
-            - $ref: './rbac.yaml#/RoleAssignmentSpec'
-            - $ref: './rbac.yaml#/RoleSpec'
-            - $ref: './security-group.yaml#/SecurityGroupSpec'
-            - $ref: './storage-sku.yaml#/StorageSkuSpec'
-            - $ref: './subnet.yaml#/SubnetSpec'
-            - $ref: './workspace.yaml#/WorkspaceSpec'
-        resource:
-          type: string
-          maxLength: 2000
+      $ref: '#/RequestObject'
     response:
-      type: object
-      description: Response object
-      properties:
-        code:
-          type: number
-          minimum: 100
-          maximum: 599
-          example: 202
+      $ref: '#/ResponseObject'
+
+RequestObject:
+  type: object
+  description: Request object
+  properties:
+    verb:
+      type: string
+      description: |
+        Verb that describes the action to be performed on the resource.
+        The verb can be one of the following: get, list, put, delete, post, ..
+      maxLength: 7
+      example: 'get'
+    body:
+      oneOf:
+        - $ref: './block-storage.yaml#/BlockStorageSpec'
+        - $ref: './instance-sku.yaml#/InstanceSkuSpec'
+        - $ref: './instance.yaml#/InstanceSpec'
+        - $ref: './load-balancer.yaml#/NetworkLoadBalancerSpec'
+        - $ref: './network-sku.yaml#/NetworkSkuSpec'
+        - $ref: './network.yaml#/NetworkSpec'
+        - $ref: './nic.yaml#/NicSpec'
+        - $ref: './object-storage.yaml#/ObjectStorageAccountSpec'
+        - $ref: './public-ip.yaml#/PublicIpSpec'
+        - $ref: './rbac.yaml#/RoleAssignmentSpec'
+        - $ref: './rbac.yaml#/RoleSpec'
+        - $ref: './security-group.yaml#/SecurityGroupSpec'
+        - $ref: './storage-sku.yaml#/StorageSkuSpec'
+        - $ref: './subnet.yaml#/SubnetSpec'
+        - $ref: './workspace.yaml#/WorkspaceSpec'
+    resource:
+      type: string
+      maxLength: 2000
+
+ResponseObject:
+  type: object
+  description: Response object
+  properties:
+    code:
+      type: number
+      minimum: 100
+      maximum: 599
+      example: 202
