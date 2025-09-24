@@ -25,5 +25,25 @@ jobs:
         run: |
           go install github.com/hairyhenderson/gomplate/v4/cmd/gomplate@latest
           echo "$HOME/go/bin" >> $GITHUB_PATH
+
       - name: Validate
         run: make lint
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.0
+          cache: npm # Automatically caches dependencies
+          cache-dependency-path: website/package-lock.json  # 👈 Ensure caching works for the correct path
+
+      - name: Install dependencies with npm ci
+        run: npm ci
+        working-directory: website  
+
+      - name: Generate API Docs
+        run: npm run generate:all
+        working-directory: website  
+
+      - name: Build Docusaurus
+        run: npm run build
+        working-directory: website
