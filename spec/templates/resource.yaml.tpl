@@ -294,7 +294,13 @@ paths:
 {{- end }}
 components:
   securitySchemes:
-    $ref: './schemas/security.yaml#/components/securitySchemes'
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Use a JWT token for authentication. The token identifies the user,
+        and policies (RBAC, ABAC, or hybrid) determine authorization.
 
 {{- $hasSchema := false }}
 {{- range $spec.resources }}
