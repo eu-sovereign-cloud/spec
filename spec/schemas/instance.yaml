@@ -121,4 +121,7 @@ components:
             enum:
             - "on"
             - "off"
+            x-enumNames:
+            - InstanceStatusPowerStateOn
+            - InstanceStatusPowerStateOff
             example: "on"

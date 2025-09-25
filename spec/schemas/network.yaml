@@ -136,3 +136,6 @@ components:
       enum:
         - IPv4
         - IPv6
+      x-enumNames:
+        - IPVersionIPv4
+        - IPVersionIPv6

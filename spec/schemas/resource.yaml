@@ -102,6 +102,28 @@ components:
           - storage-sku
           - subnet
           - workspace
+          x-enumNames:
+          - ResourceKindActivityLog
+          - ResourceKindBlockStorage
+          - ResourceKindImage
+          - ResourceKindInstance
+          - ResourceKindInstanceSku
+          - ResourceKindInternetGateway
+          - ResourceKindNetwork
+          - ResourceKindNetworkLoadBalancer
+          - ResourceKindNetworkSku
+          - ResourceKindNic
+          - ResourceKindObjectStorageAccount
+          - ResourceKindPublicIP
+          - ResourceKindRegion
+          - ResourceKindRole
+          - ResourceKindRoleAssignment
+          - ResourceKindRoutingTable
+          - ResourceKindSecurityGroup
+          - ResourceKindSecurityGroupRule
+          - ResourceKindStorageSku
+          - ResourceKindSubnet
+          - ResourceKindWorkspace
         ref:
           $ref: '#/components/schemas/Reference'
 
@@ -383,6 +405,7 @@ components:
             $ref: "#/components/schemas/StatusCondition"
 
     ResourceState:
+
       type: string
       description: |
         Current phase of the resource:
@@ -401,6 +424,14 @@ components:
       - deleting
       - suspended
       - error
+      x-enumNames:
+      - ResourceStatePending
+      - ResourceStateCreating
+      - ResourceStateActive
+      - ResourceStateUpdating
+      - ResourceStateDeleting
+      - ResourceStateSuspended
+      - ResourceStateError
       example: "active"
 
     StatusCondition:

@@ -74,6 +74,10 @@ components:
             - local-ephemeral
             - local-durable
             - remote-durable
+          x-enumNames:
+            - StorageSkuTypeLocalEphemeral
+            - StorageSkuTypeLocalDurable
+            - StorageSkuTypeRemoteDurable
         minVolumeSize:
           type: integer
           description: |

@@ -56,6 +56,10 @@ components:
           - "application/json"
           - "application/json; deleted=true"
           - "application/json; deleted=only"
+        x-enumNames:
+          - AcceptHeaderJson
+          - AcceptHeaderJsonDeletedTrue
+          - AcceptHeaderJsonDeletedOnly
       description: |
         Controls whether deleted resources are included:
         - `"application/json"`: Returns only non-deleted resources

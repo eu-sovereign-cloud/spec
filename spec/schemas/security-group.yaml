@@ -87,6 +87,9 @@ components:
         direction:
           type: string
           enum: ['ingress', 'egress']
+          x-enumNames:
+          - SecurityGroupRuleDirectionIngress
+          - SecurityGroupRuleDirectionEgress
           description: |
             Direction of the traffic flow:
             * ingress: Only incoming traffic is allowed
@@ -97,6 +100,11 @@ components:
           type: string
           description: Network protocol for the rule
           enum: ['tcp', 'udp', 'tcp+udp', 'icmp']
+          x-enumNames:
+          - SecurityGroupRuleProtocolTCP
+          - SecurityGroupRuleProtocolUDP
+          - SecurityGroupRuleProtocolTCPUDP
+          - SecurityGroupRuleProtocolICMP
         ports:
           $ref: '#/components/schemas/Ports'
         icmp:

@@ -46,6 +46,10 @@ components:
             - none
             - stable
             - preview
+          x-enumNames:
+            - KubernetesClusterAutomaticUpdatePolicyNone
+            - KubernetesClusterAutomaticUpdatePolicyStable
+            - KubernetesClusterAutomaticUpdatePolicyPreview
         type:
           type: string
           description: |
@@ -59,6 +63,9 @@ components:
           enum:
             - dedicated
             - shared
+          x-enumNames:
+            - KubernetesClusterTypeDedicated
+            - KubernetesClusterTypeShared
         releasedAt:
           type: string
           format: date-time

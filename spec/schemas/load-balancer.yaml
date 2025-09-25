@@ -77,6 +77,10 @@ components:
           type: string
           description: 'Frontend Protocol to which the load balancer will be listening on'
           enum: [ tcp, udp, both ]
+          x-enumNames:
+          - LoadBalancerProtocolTCP
+          - LoadBalancerProtocolUDP
+          - LoadBalancerProtocolBoth
         port:
           $ref: './security-group.yaml#/components/schemas/Port'
         target:
@@ -95,6 +99,8 @@ components:
           type: string
           description: 'LoadBalancer algorithm to take a backend instance'
           enum: [ round-robin ]
+          x-enumNames:
+          - LoadBalancerAlgorithmRoundRobin
           default: round-robin
         port:
           $ref: './security-group.yaml#/components/schemas/Port'
@@ -120,6 +126,9 @@ components:
           enum:
           - none
           - v2
+          x-enumNames:
+          - LoadBalancerProxyProtocolNone
+          - LoadBalancerProxyProtocolV2
           default: none
       example:
         members:
@@ -146,6 +155,8 @@ components:
             Specifies the type of health check. A `connect` health check attempts
             to establish a connection to the specified port to determine its health.
           enum: [ connect ]
+          x-enumNames:
+          - LoadBalancerHealthCheckConnect
           default: connect
         interval:
           type: integer

@@ -83,6 +83,8 @@ components:
           enum:
           - virtio
           default: virtio
+          x-enumNames:
+          - VolumeReferenceTypeVirtio
       example:
         deviceRef: "block-storages/block-123"
         type: "virtio"

@@ -62,12 +62,18 @@ components:
           enum:
           - amd64
           - arm64
+          x-enumNames:
+          - ImageSpecCpuArchitectureAmd64
+          - ImageSpecCpuArchitectureArm64
         initializer:
           type: string
           description: Initializer for the Image
           enum:
           - none
           - cloudinit-22
+          x-enumNames:
+          - ImageSpecInitializerNone
+          - ImageSpecInitializerCloudinit22
           default: none
         boot:
           type: string
@@ -75,6 +81,9 @@ components:
           enum:
           - UEFI
           - BIOS
+          x-enumNames:
+          - ImageSpecBootUEFI
+          - ImageSpecBootBIOS
           default: UEFI
 
     ImageStatus:

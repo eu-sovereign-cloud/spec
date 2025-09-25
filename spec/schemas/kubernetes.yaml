@@ -215,6 +215,10 @@ components:
           - NoSchedule
           - PreferNoSchedule
           - NoExecute
+          x-enumNames:
+          - KubernetesNodeTaintEffectNoSchedule
+          - KubernetesNodeTaintEffectPreferNoSchedule
+          - KubernetesNodeTaintEffectNoExecute
           description: |
             The effect of the taint. The effect determines how the taint is applied to
             the nodes in the node pool. For details on the effects, see the
