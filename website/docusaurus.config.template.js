@@ -102,6 +102,10 @@ const config = {
                 label: 'JoinUs',
                 href: 'mailto:info@secapi.cloud',
               },
+              {
+                label: "Contribute",
+                href: 'https://github.com/eu-sovereign-cloud/spec/blob/main/CONTRIBUTING.md'
+              }
             ],
           },
           {
@@ -133,8 +137,8 @@ const config = {
                 href: 'https://github.com/eu-sovereign-cloud/spec',
               },
               {
-                label: "Community",
-                href: 'https://matrix.to/#/#seca-community:chat.secapi.cloud'
+                label: "Chat Guidelines",
+                href: 'https://github.com/eu-sovereign-cloud/spec/blob/main/CHAT.md'
               }
             ],
           },
