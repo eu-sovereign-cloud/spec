@@ -9,5 +9,5 @@ resources:
   - name: network load balancer
     plural: network load balancers
     hierarchy: [tenant, workspace]
-    schema: ./schemas/load-balancer.yaml#/NetworkLoadBalancer
+    schema: ./schemas/load-balancer.yaml#/components/schemas/NetworkLoadBalancer
     operations: [list, get, put, delete]

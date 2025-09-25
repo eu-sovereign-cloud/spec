@@ -1,162 +1,164 @@
-NetworkLoadBalancer:
-  description: |
-    Represents a Network Load Balancer resource. It is used to distribute incoming network traffic
-    across multiple backend instances based on the specified frontend configuration.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
-      spec:
-        $ref: '#/NetworkLoadBalancerSpec'
-      status:
-        $ref: '#/NetworkLoadBalancerStatus'
-
-NetworkLoadBalancerSpec:
-  type: object
-  description: |
-    Defines the specification for a Network Load Balancer. A Load Balancer can have multiple
-    frontends, where each frontend may target multiple backend instances. Frontend ports and
-    protocols must be unique to ensure proper routing. The NIC associated with the proxy
-    determines whether the Load Balancer is internal or external.
-  required:
-  - nicRef
-  - frontends
-  properties:
-    nicRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the NIC attached to the load balancer.
-      example:
-        provider: seca.network/v1
-        resource: nics/lb-1
-    securityGroupRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the security group associated with this instance.
-      example:
-        provider: seca.network/v1
-        resource: security-groups/sg-123
-    frontends:
-      type: array
-      items:
-        $ref: '#/NetworkLoadBalancerFrontend'
-
-NetworkLoadBalancerStatus:
-  description: |
-    Represents the status of the Network Load Balancer. It provides information about
-    the health of the backend instances and their readiness to handle traffic.
-  allOf:
-  - $ref: "./resource.yaml#/Status"
-  - type: object
-    readOnly: true
-    properties:
-      healthyMembers:
-        description: 'List of healthy members'
-        type: array
-        items:
-          $ref: './resource.yaml#/Reference'
-
-NetworkLoadBalancerFrontend:
-  type: object
-  description: |
-    Represents the frontend configuration of the LoadBalancer. Each frontend
-    can have multiple targets, but the combination of port and protocol must
-    be unique to ensure proper routing.
-  required:
-  - protocol
-  - port
-  - target
-  properties:
-    protocol:
-      type: string
-      description: 'Frontend Protocol to which the load balancer will be listening on'
-      enum: [ tcp, udp, both ]
-    port:
-      $ref: './security-group.yaml#/Port'
-    target:
-      $ref: '#/LoadBalancerTarget'
-
-LoadBalancerTarget:
-  type: object
-  description:
-    The target of the LoadBalancer. It can be a set of instances nics.
-    The port can be different from the frontend port, if omitted it will be the same.
-    If no health check is specified, the LoadBalancer will not check the health of the backend instances.
-  required:
-  - members
-  properties:
-    algorithm:
-      type: string
-      description: 'LoadBalancer algorithm to take a backend instance'
-      enum: [ round-robin ]
-      default: round-robin
-    port:
-      $ref: './security-group.yaml#/Port'
-    members:
-      type: array
-      description: 'Nic reference to the members as part of the LoadBalancerTarget'
-      items:
-        allOf:
-        - $ref: './resource.yaml#/Reference'
-        description: Reference to the NIC of a backend instance.
-        example:
-          provider: seca.network/v1
-          resource: nics/nic-1
-
-    healthCheck:
-      $ref: '#/LoadBalancerHealthCheck'
-    proxyProtocol:
-      type: string
+components:
+  schemas:
+    NetworkLoadBalancer:
       description: |
-        Specifies the proxy protocol version. The proxy protocol is used to
-        pass client connection information to the backend instances.
-        If not specified, the default is `none`.
-      enum:
-      - none
-      - v2
-      default: none
-  example:
-    members:
-    - provider: 'seca.network/v1'
-      resource: 'nics/nic-1'
-    - provider: 'seca.network/v1'
-      resource: 'nics/nic-2'
-    healthCheck:
-      interval: 10
-      timeout: 5
-      retry: 3
+        Represents a Network Load Balancer resource. It is used to distribute incoming network traffic
+        across multiple backend instances based on the specified frontend configuration.
+      allOf:
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
+          spec:
+            $ref: '#/components/schemas/NetworkLoadBalancerSpec'
+          status:
+            $ref: '#/components/schemas/NetworkLoadBalancerStatus'
 
-LoadBalancerHealthCheck:
-  type: object
-  description: Optional port health check. It probes the port with protocol.
-  required:
-  - interval
-  - timeout
-  - retry
-  properties:
-    type:
-      type: string
+    NetworkLoadBalancerSpec:
+      type: object
       description: |
-        Specifies the type of health check. A `connect` health check attempts
-        to establish a connection to the specified port to determine its health.
-      enum: [ connect ]
-      default: connect
-    interval:
-      type: integer
-      description: 'health check interval in seconds. It means after how many seconds it will take a new check'
-      maximum: 86400
-      example: 10
-    timeout:
-      type: integer
-      description: 'health check in seconds. It means after how many seconds the attempt will be considered unhealthy'
-      maximum: 600
-      example: 5
-    retry:
-      type: integer
-      description: 'health check retry number after considered unhealthy a backend instance'
-      maximum: 10
-      example: 3
+        Defines the specification for a Network Load Balancer. A Load Balancer can have multiple
+        frontends, where each frontend may target multiple backend instances. Frontend ports and
+        protocols must be unique to ensure proper routing. The NIC associated with the proxy
+        determines whether the Load Balancer is internal or external.
+      required:
+      - nicRef
+      - frontends
+      properties:
+        nicRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the NIC attached to the load balancer.
+          example:
+            provider: seca.network/v1
+            resource: nics/lb-1
+        securityGroupRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the security group associated with this instance.
+          example:
+            provider: seca.network/v1
+            resource: security-groups/sg-123
+        frontends:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkLoadBalancerFrontend'
+
+    NetworkLoadBalancerStatus:
+      description: |
+        Represents the status of the Network Load Balancer. It provides information about
+        the health of the backend instances and their readiness to handle traffic.
+      allOf:
+      - $ref: "./resource.yaml#/components/schemas/Status"
+      - type: object
+        readOnly: true
+        properties:
+          healthyMembers:
+            description: 'List of healthy members'
+            type: array
+            items:
+              $ref: './resource.yaml#/components/schemas/Reference'
+
+    NetworkLoadBalancerFrontend:
+      type: object
+      description: |
+        Represents the frontend configuration of the LoadBalancer. Each frontend
+        can have multiple targets, but the combination of port and protocol must
+        be unique to ensure proper routing.
+      required:
+      - protocol
+      - port
+      - target
+      properties:
+        protocol:
+          type: string
+          description: 'Frontend Protocol to which the load balancer will be listening on'
+          enum: [ tcp, udp, both ]
+        port:
+          $ref: './security-group.yaml#/components/schemas/Port'
+        target:
+          $ref: '#/components/schemas/LoadBalancerTarget'
+
+    LoadBalancerTarget:
+      type: object
+      description:
+        The target of the LoadBalancer. It can be a set of instances nics.
+        The port can be different from the frontend port, if omitted it will be the same.
+        If no health check is specified, the LoadBalancer will not check the health of the backend instances.
+      required:
+      - members
+      properties:
+        algorithm:
+          type: string
+          description: 'LoadBalancer algorithm to take a backend instance'
+          enum: [ round-robin ]
+          default: round-robin
+        port:
+          $ref: './security-group.yaml#/components/schemas/Port'
+        members:
+          type: array
+          description: 'Nic reference to the members as part of the LoadBalancerTarget'
+          items:
+            allOf:
+            - $ref: './resource.yaml#/components/schemas/Reference'
+            description: Reference to the NIC of a backend instance.
+            example:
+              provider: seca.network/v1
+              resource: nics/nic-1
+
+        healthCheck:
+          $ref: '#/components/schemas/LoadBalancerHealthCheck'
+        proxyProtocol:
+          type: string
+          description: |
+            Specifies the proxy protocol version. The proxy protocol is used to
+            pass client connection information to the backend instances.
+            If not specified, the default is `none`.
+          enum:
+          - none
+          - v2
+          default: none
+      example:
+        members:
+        - provider: 'seca.network/v1'
+          resource: 'nics/nic-1'
+        - provider: 'seca.network/v1'
+          resource: 'nics/nic-2'
+        healthCheck:
+          interval: 10
+          timeout: 5
+          retry: 3
+
+    LoadBalancerHealthCheck:
+      type: object
+      description: Optional port health check. It probes the port with protocol.
+      required:
+      - interval
+      - timeout
+      - retry
+      properties:
+        type:
+          type: string
+          description: |
+            Specifies the type of health check. A `connect` health check attempts
+            to establish a connection to the specified port to determine its health.
+          enum: [ connect ]
+          default: connect
+        interval:
+          type: integer
+          description: 'health check interval in seconds. It means after how many seconds it will take a new check'
+          maximum: 86400
+          example: 10
+        timeout:
+          type: integer
+          description: 'health check in seconds. It means after how many seconds the attempt will be considered unhealthy'
+          maximum: 600
+          example: 5
+        retry:
+          type: integer
+          description: 'health check retry number after considered unhealthy a backend instance'
+          maximum: 10
+          example: 3

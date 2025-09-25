@@ -10,7 +10,7 @@ resources:
   - name: role
     plural: roles
     hierarchy: [tenant]
-    schema: ./schemas/rbac.yaml#/Role
+    schema: ./schemas/rbac.yaml#/components/schemas/Role
     operations: [list, get, put, delete]
     description:
       put: |
@@ -30,7 +30,7 @@ resources:
   - name: role assignment
     plural: role assignments
     hierarchy: [tenant]
-    schema: ./schemas/rbac.yaml#/RoleAssignment
+    schema: ./schemas/rbac.yaml#/components/schemas/RoleAssignment
     operations: [list, get, put, delete]
     description:
       get: |

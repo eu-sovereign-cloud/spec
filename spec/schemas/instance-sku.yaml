@@ -1,34 +1,36 @@
-InstanceSku:
-  description: |
-    Represents a Stock Keeping Unit (SKU) for compute instances.
-  allOf:
-  - $ref: './resource.yaml#/SystemResourceMetadata'
-  - type: object
-    properties:
-      metadata:
-        $ref: './resource.yaml#/SkuResourceMetadata'
-      spec:
-        $ref: "./instance-sku.yaml#/InstanceSkuSpec"
+components:
+  schemas:
+    InstanceSku:
+      description: |
+        Represents a Stock Keeping Unit (SKU) for compute instances.
+      allOf:
+      - $ref: './resource.yaml#/components/schemas/SystemResourceMetadata'
+      - type: object
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/SkuResourceMetadata'
+          spec:
+            $ref: "./instance-sku.yaml#/components/schemas/InstanceSkuSpec"
 
-InstanceSkuSpec:
-  type: object
-  description: |
-    Specification of the instance SKU, including its capabilities and extensions.
-  required:
-  - vCPU
-  - ram
-  properties:
-    vCPU:
-      type: integer
+    InstanceSkuSpec:
+      type: object
       description: |
-        The number of virtual CPUs (vCPUs) allocated to the instance SKU.
-        This value represents the number of cores visible to the operating system.
-        It does not specify the number of physical processors or hyper-threads available.
-      maximum: 60
-      example: 2
-    ram:
-      type: integer
-      description: |
-        The amount of RAM (Random Access Memory) allocated to the instance SKU in gigabytes.
-        This value represents the total memory available to the instance.
-      example: 230
+        Specification of the instance SKU, including its capabilities and extensions.
+      required:
+      - vCPU
+      - ram
+      properties:
+        vCPU:
+          type: integer
+          description: |
+            The number of virtual CPUs (vCPUs) allocated to the instance SKU.
+            This value represents the number of cores visible to the operating system.
+            It does not specify the number of physical processors or hyper-threads available.
+          maximum: 60
+          example: 2
+        ram:
+          type: integer
+          description: |
+            The amount of RAM (Random Access Memory) allocated to the instance SKU in gigabytes.
+            This value represents the total memory available to the instance.
+          example: 230

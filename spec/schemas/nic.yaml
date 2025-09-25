@@ -1,114 +1,116 @@
-Nic:
-  description: |
-    The Network Interface Card (NIC) represents a network interface for a compute resource.
-    It is used to connect the compute resource to a network and can have multiple IP addresses
-    associated with it. The NIC can be associated with a public IP address and is linked to a
-    specific subnet within a virtual network.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    description: Network Interface Card (NIC) representing a network interface for a compute resource
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
-      spec:
-        $ref: '#/NicSpec'
-      status:
-        $ref: '#/NicStatus'
-
-NicSpec:
-  type: object
-  description: |
-    Specification of the Network Interface Card
-
-    The referenced SKU overwrites the default. In case of different network SKU references
-    the highest possible network SKU reference is used. The network SKU reference
-    might be restricted by the instance size.
-  required:
-  - addresses
-  - subnetRef
-  properties:
-    addresses:
-      type: array
+components:
+  schemas:
+    Nic:
       description: |
-        List of IP addresses for the NIC. A specific IP address needs to be in the
-        CIDR range of the subnet and not used by any other NIC in the subnet. Multiple
-        IP addresses can be assigned to a NIC. The number of IP addresses is might be
-        limited by the CSP or the subnet size.
-      example: ['10.100.0.10', '0.0.0.0', '::']
-      items:
-        $ref: '#/NicIp'
-    publicIpRefs:
-      type: array
-      description: |
-        References to public IP addresses associated with this NIC. The IP may be external
-        and not directly visible on the server/NIC itself.
-      items:
-        allOf:
-        - $ref: './resource.yaml#/Reference'
-        description: Reference to a public IP address associated with this NIC.
-        example: "public-ips/public-ip-123"
-    skuRef:
+        The Network Interface Card (NIC) represents a network interface for a compute resource.
+        It is used to connect the compute resource to a network and can have multiple IP addresses
+        associated with it. The NIC can be associated with a public IP address and is linked to a
+        specific subnet within a virtual network.
       allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the SKU of the NIC.
-      example: "skus/seca.n1k"
-    subnetRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the subnet used by the NIC connections.
-      example: "seca.networks/subnet-a1b2c3"
-  example:
-    addresses:
-    - "10.100.0.10"
-    - "0.0.0.0"
-    - "::"
-    skuRef: "skus/seca.n1k"
-    subnetRef: "seca.networks/subnet-a1b2c3"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        description: Network Interface Card (NIC) representing a network interface for a compute resource
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
+          spec:
+            $ref: '#/components/schemas/NicSpec'
+          status:
+            $ref: '#/components/schemas/NicStatus'
 
-NicStatus:
-  description: |
-    Status of the Network Interface Card (NIC). The status includes the current state
-    of the NIC and the IP addresses associated with it. The status is read-only and
-    cannot be modified directly.
-  allOf:
-  - $ref: "./resource.yaml#/Status"
-  - type: object
-    readOnly: true
-    properties:
-      addresses:
-        type: array
-        items:
-          $ref: '#/NicIp'
-      macAddress:
-        type: string
-        description: |
-          MAC address of the NIC.
-        maxLength: 17
-      publicIpRefs:
-        description: |
-          Array of public IP addresses associated with this NIC.
-        type: array
-        items:
+    NicSpec:
+      type: object
+      description: |
+        Specification of the Network Interface Card
+
+        The referenced SKU overwrites the default. In case of different network SKU references
+        the highest possible network SKU reference is used. The network SKU reference
+        might be restricted by the instance size.
+      required:
+      - addresses
+      - subnetRef
+      properties:
+        addresses:
+          type: array
+          description: |
+            List of IP addresses for the NIC. A specific IP address needs to be in the
+            CIDR range of the subnet and not used by any other NIC in the subnet. Multiple
+            IP addresses can be assigned to a NIC. The number of IP addresses is might be
+            limited by the CSP or the subnet size.
+          example: ['10.100.0.10', '0.0.0.0', '::']
+          items:
+            $ref: '#/components/schemas/NicIp'
+        publicIpRefs:
+          type: array
+          description: |
+            References to public IP addresses associated with this NIC. The IP may be external
+            and not directly visible on the server/NIC itself.
+          items:
+            allOf:
+            - $ref: './resource.yaml#/components/schemas/Reference'
+            description: Reference to a public IP address associated with this NIC.
+            example: "public-ips/public-ip-123"
+        skuRef:
           allOf:
-          - $ref: './resource.yaml#/Reference'
-          description: Reference to a public IP address associated with this NIC.
-          example: "public-ips/public-ip-123"
-    example:
-      state: "active"
-      macAddress: "00:00:00:00:00:00"
-      addresses:
-      - "10.100.0.10"
-      - "10.100.0.11"
-      - "2001:db8:1234:5678::a"
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the SKU of the NIC.
+          example: "skus/seca.n1k"
+        subnetRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the subnet used by the NIC connections.
+          example: "seca.networks/subnet-a1b2c3"
+      example:
+        addresses:
+        - "10.100.0.10"
+        - "0.0.0.0"
+        - "::"
+        skuRef: "skus/seca.n1k"
+        subnetRef: "seca.networks/subnet-a1b2c3"
 
-NicIp:
-  type: string
-  description: |
-    IP address for the NIC. The IP is either IPv4 or IPv6. The IP
-    can be `0.0.0.0` or `::` to indicate that the IP needs to be assigned
-    automatically. The IP can also be a specific IP address.
-    If not provided, the mutate admission controller will populate this value using the default values for ipv4 and ipv6.
-  maxLength: 39
+    NicStatus:
+      description: |
+        Status of the Network Interface Card (NIC). The status includes the current state
+        of the NIC and the IP addresses associated with it. The status is read-only and
+        cannot be modified directly.
+      allOf:
+      - $ref: "./resource.yaml#/components/schemas/Status"
+      - type: object
+        readOnly: true
+        properties:
+          addresses:
+            type: array
+            items:
+              $ref: '#/components/schemas/NicIp'
+          macAddress:
+            type: string
+            description: |
+              MAC address of the NIC.
+            maxLength: 17
+          publicIpRefs:
+            description: |
+              Array of public IP addresses associated with this NIC.
+            type: array
+            items:
+              allOf:
+              - $ref: './resource.yaml#/components/schemas/Reference'
+              description: Reference to a public IP address associated with this NIC.
+              example: "public-ips/public-ip-123"
+        example:
+          state: "active"
+          macAddress: "00:00:00:00:00:00"
+          addresses:
+          - "10.100.0.10"
+          - "10.100.0.11"
+          - "2001:db8:1234:5678::a"
+
+    NicIp:
+      type: string
+      description: |
+        IP address for the NIC. The IP is either IPv4 or IPv6. The IP
+        can be `0.0.0.0` or `::` to indicate that the IP needs to be assigned
+        automatically. The IP can also be a specific IP address.
+        If not provided, the mutate admission controller will populate this value using the default values for ipv4 and ipv6.
+      maxLength: 39

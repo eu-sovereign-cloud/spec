@@ -1,44 +1,46 @@
-ObjectStorageAccount:
-  description: |
-    An object storage account resource, which includes metadata, specification, and status.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/GlobalResourceMetadata'
-      spec:
-        $ref: '#/ObjectStorageAccountSpec'
-      status:
-        $ref: '#/ObjectStorageAccountStatus'
+components:
+  schemas:
+    ObjectStorageAccount:
+      description: |
+        An object storage account resource, which includes metadata, specification, and status.
+      allOf:
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/GlobalResourceMetadata'
+          spec:
+            $ref: '#/components/schemas/ObjectStorageAccountSpec'
+          status:
+            $ref: '#/components/schemas/ObjectStorageAccountStatus'
 
-ObjectStorageAccountSpec:
-  type: object
-  description: |
-    The specification of an object storage account, including the region and zone.
+    ObjectStorageAccountSpec:
+      type: object
+      description: |
+        The specification of an object storage account, including the region and zone.
 
-ObjectStorageAccountStatus:
-  description: |
-    The status of an object storage account, including the access key, secret key, and canonical user ID.
-  allOf:
-  - $ref: "./resource.yaml#/Status"
-  - type: object
-    readOnly: true
-    properties:
-      accessKey:
-        type: string
-        description: Access key for the object storage account
+    ObjectStorageAccountStatus:
+      description: |
+        The status of an object storage account, including the access key, secret key, and canonical user ID.
+      allOf:
+      - $ref: "./resource.yaml#/components/schemas/Status"
+      - type: object
         readOnly: true
-        maxLength: 128
-      secretKey:
-        type: string
-        description: Secret key for the object storage account
-        readOnly: true
-        maxLength: 128
-      canonicalUserId:
-        type: string
-        description: Canonical user ID for the object storage account
-        readOnly: true
-        maxLength: 64
+        properties:
+          accessKey:
+            type: string
+            description: Access key for the object storage account
+            readOnly: true
+            maxLength: 128
+          secretKey:
+            type: string
+            description: Secret key for the object storage account
+            readOnly: true
+            maxLength: 128
+          canonicalUserId:
+            type: string
+            description: Canonical user ID for the object storage account
+            readOnly: true
+            maxLength: 64

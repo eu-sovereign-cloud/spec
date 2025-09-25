@@ -1,94 +1,96 @@
-Image:
-  description: |
-    Represents an Image resource that can be used to create a virtual machine.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    description: |
-      Represents  an Image resource that can be used to create a virtual machine.
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/RegionalResourceMetadata'
-      spec:
-        $ref: './image.yaml#/ImageSpec'
-      status:
-        $ref: './image.yaml#/ImageStatus'
-  example:
-    labels:
-      os: linux
-      version: "13"
-      base: debian
-    annotations:
-      name: Debian Container
+components:
+  schemas:
+    Image:
       description: |
-        The image contains the debian image base including
-        preinstalled software for the use of linux containers.
-      release: 2025-01-01T00:00:00Z
-      eol: 2026-01-01T00:00:00Z
-      recommendedCpu: "2"
-      recommendedMemory: "2"
-      recommendedNics: "2"
-      recommendedStorageSize: "100"
-    spec:
-      blockStorageRef: block-storages/temp-a9b2bc3d81
-      cpuArchitecture: amd64
-      boot: UEFI
-      initializer: cloudinit-22
-
-ImageSpec:
-  description: |
-    Detailed specification of the Image resource.
-    The Image is derived from a block storage resource identified by
-    `blockStorageRef` and serves as a template for creating
-    compute instances. For additional information, refer to the
-    [Image Handling](/docs/content/Other/image-handling) section.
-  type: object
-  required:
-  - blockStorageRef
-  - cpuArchitecture
-  properties:
-    blockStorageRef:
+        Represents an Image resource that can be used to create a virtual machine.
       allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the block storage used to store the image.
-      example: "block-storages/block-123"
-    cpuArchitecture:
-      type: string
-      description: CPU architecture for the Image
-      enum:
-      - amd64
-      - arm64
-    initializer:
-      type: string
-      description: Initializer for the Image
-      enum:
-      - none
-      - cloudinit-22
-      default: none
-    boot:
-      type: string
-      description: Boot type for the Image
-      enum:
-      - UEFI
-      - BIOS
-      default: UEFI
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        description: |
+          Represents  an Image resource that can be used to create a virtual machine.
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/RegionalResourceMetadata'
+          spec:
+            $ref: './image.yaml#/components/schemas/ImageSpec'
+          status:
+            $ref: './image.yaml#/components/schemas/ImageStatus'
+      example:
+        labels:
+          os: linux
+          version: "13"
+          base: debian
+        annotations:
+          name: Debian Container
+          description: |
+            The image contains the debian image base including
+            preinstalled software for the use of linux containers.
+          release: 2025-01-01T00:00:00Z
+          eol: 2026-01-01T00:00:00Z
+          recommendedCpu: "2"
+          recommendedMemory: "2"
+          recommendedNics: "2"
+          recommendedStorageSize: "100"
+        spec:
+          blockStorageRef: block-storages/temp-a9b2bc3d81
+          cpuArchitecture: amd64
+          boot: UEFI
+          initializer: cloudinit-22
 
-ImageStatus:
-  description: |
-    Status of the Image, including the size of the Image in MB.
-  allOf:
-  - $ref: "./resource.yaml#/Status"
-  - type: object
-    readOnly: true
-    description: |
-      Current status of the Image. The status is read-only and will be set by
-      the system. The status contains information about the current state of the
-      Image.
-    properties:
-      sizeMB:
-        type: integer
-        description: Size of the Image in MB
-        minimum: 1
-        example: 628
+    ImageSpec:
+      description: |
+        Detailed specification of the Image resource.
+        The Image is derived from a block storage resource identified by
+        `blockStorageRef` and serves as a template for creating
+        compute instances. For additional information, refer to the
+        [Image Handling](/docs/content/Other/image-handling) section.
+      type: object
+      required:
+      - blockStorageRef
+      - cpuArchitecture
+      properties:
+        blockStorageRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the block storage used to store the image.
+          example: "block-storages/block-123"
+        cpuArchitecture:
+          type: string
+          description: CPU architecture for the Image
+          enum:
+          - amd64
+          - arm64
+        initializer:
+          type: string
+          description: Initializer for the Image
+          enum:
+          - none
+          - cloudinit-22
+          default: none
+        boot:
+          type: string
+          description: Boot type for the Image
+          enum:
+          - UEFI
+          - BIOS
+          default: UEFI
+
+    ImageStatus:
+      description: |
+        Status of the Image, including the size of the Image in MB.
+      allOf:
+      - $ref: "./resource.yaml#/components/schemas/Status"
+      - type: object
+        readOnly: true
+        description: |
+          Current status of the Image. The status is read-only and will be set by
+          the system. The status contains information about the current state of the
+          Image.
+        properties:
+          sizeMB:
+            type: integer
+            description: Size of the Image in MB
+            minimum: 1
+            example: 628

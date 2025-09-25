@@ -9,7 +9,7 @@ resources:
   - name: workspace
     plural: workspaces
     hierarchy: [tenant]
-    schema: ./schemas/workspace.yaml#/Workspace
+    schema: ./schemas/workspace.yaml#/components/schemas/Workspace
     operations: [list, get, put, delete]
     description:
       delete: |

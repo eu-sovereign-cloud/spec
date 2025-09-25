@@ -1,89 +1,91 @@
-RouteTable:
-  description: |
-    The RouteTable resource defines a set of routes that can be associated with a network.
-    The routes can be used to direct traffic to different targets based on the destination CIDR block.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/RegionalNetworkResourceMetadata'
-      spec:
-        $ref: '#/RouteTableSpec'
-      status:
-        $ref: '#/RouteTableStatus'
-
-RouteTableSpec:
-  type: object
-  description: |
-    The RouteTableSpec defines the routes that are associated with the route table.
-  required:
-  - routes
-  properties:
-    routes:
-      type: array
-      items:
-        $ref: '#/RouteSpec'
-  example:
-    routes:
-    - destinationCidrBlock: '0.0.0.0/0'
-      targetRef: 'internet-gateways/internet-gateway-1'
-    - destinationCidrBlock: '::/0'
-      targetRef: 'internet-gateways/internet-gateway-1'
-
-RouteSpec:
-  type: object
-  description: |
-    The target reference can be an instance,
-    a gateway or an IP address (v4 or v6) that is part of the
-    network the route table is attached to.
-  required:
-  - destinationCidrBlock
-  - targetRef
-  properties:
-    destinationCidrBlock:
-      type: string
+components:
+  schemas:
+    RouteTable:
       description: |
-        The CIDR block for the destination. The block can be
-        a specific IP address or a range of addresses. It can be
-        IPv6 or IPv4.
-      maxLength: 43
-      example: '0.0.0.0/0'
-    targetRef:
+        The RouteTable resource defines a set of routes that can be associated with a network.
+        The routes can be used to direct traffic to different targets based on the destination CIDR block.
       allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the target of the route. The target can be an instance, an gateway or an IP address.
-      example: 'internet-gateways/internet-gateway-1'
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/RegionalNetworkResourceMetadata'
+          spec:
+            $ref: '#/components/schemas/RouteTableSpec'
+          status:
+            $ref: '#/components/schemas/RouteTableStatus'
 
-RouteTableStatus:
-  description: |
-    The status of the route table. The status is read-only and will be set by the
-    system. The status contains information about the current state of the route table
-    and its routes. It will report the status of the routes and the route table as a whole.
-  allOf:
-    - $ref: "./resource.yaml#/Status"
-    - type: object
-      readOnly: true
+    RouteTableSpec:
+      type: object
+      description: |
+        The RouteTableSpec defines the routes that are associated with the route table.
+      required:
+      - routes
       properties:
         routes:
           type: array
           items:
-            $ref: '#/RouteStatus'
+            $ref: '#/components/schemas/RouteSpec'
+      example:
+        routes:
+        - destinationCidrBlock: '0.0.0.0/0'
+          targetRef: 'internet-gateways/internet-gateway-1'
+        - destinationCidrBlock: '::/0'
+          targetRef: 'internet-gateways/internet-gateway-1'
 
-RouteStatus:
-  description: |
-    The status of the route. The status is read-only and will be set by the
-    system. The status contains information about the current state of the route
-    and its target. It will report the status of the target and the route as a whole.
-  allOf:
-  - $ref: "./resource.yaml#/Status"
-  - type: object
-    readOnly: true
-    description: |
-      The status of the route. If the `targetRef` is invalid,
-      the status will be `error`. If the route is valid the status
-      will be `active`. If the route is referencing a target that
-      is not yet created, the status will be `pending`.
-    maxLength: 9
+    RouteSpec:
+      type: object
+      description: |
+        The target reference can be an instance,
+        a gateway or an IP address (v4 or v6) that is part of the
+        network the route table is attached to.
+      required:
+      - destinationCidrBlock
+      - targetRef
+      properties:
+        destinationCidrBlock:
+          type: string
+          description: |
+            The CIDR block for the destination. The block can be
+            a specific IP address or a range of addresses. It can be
+            IPv6 or IPv4.
+          maxLength: 43
+          example: '0.0.0.0/0'
+        targetRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the target of the route. The target can be an instance, an gateway or an IP address.
+          example: 'internet-gateways/internet-gateway-1'
+
+    RouteTableStatus:
+      description: |
+        The status of the route table. The status is read-only and will be set by the
+        system. The status contains information about the current state of the route table
+        and its routes. It will report the status of the routes and the route table as a whole.
+      allOf:
+        - $ref: "./resource.yaml#/components/schemas/Status"
+        - type: object
+          readOnly: true
+          properties:
+            routes:
+              type: array
+              items:
+                $ref: '#/components/schemas/RouteStatus'
+
+    RouteStatus:
+      description: |
+        The status of the route. The status is read-only and will be set by the
+        system. The status contains information about the current state of the route
+        and its target. It will report the status of the target and the route as a whole.
+      allOf:
+      - $ref: "./resource.yaml#/components/schemas/Status"
+      - type: object
+        readOnly: true
+        description: |
+          The status of the route. If the `targetRef` is invalid,
+          the status will be `error`. If the route is valid the status
+          will be `active`. If the route is referencing a target that
+          is not yet created, the status will be `pending`.
+        maxLength: 9

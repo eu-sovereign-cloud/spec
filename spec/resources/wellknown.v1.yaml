@@ -27,7 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './schemas/wellknown.yaml#/Wellknown'
+                $ref: './schemas/wellknown.yaml#/components/schemas/Wellknown'
         '500':
-          $ref: './schemas/errors.yaml#/responses/Error500'
+          $ref: './schemas/errors.yaml#/components/responses/Error500'
 

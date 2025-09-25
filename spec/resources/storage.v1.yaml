@@ -10,7 +10,7 @@ resources:
   - name: sku
     plural: skus
     hierarchy: [tenant]
-    schema: ./schemas/storage-sku.yaml#/StorageSku
+    schema: ./schemas/storage-sku.yaml#/components/schemas/StorageSku
     operations: [list, get]
     description:
       list: |
@@ -66,7 +66,7 @@ resources:
   - name: image
     plural: images
     hierarchy: [tenant]
-    schema: ./schemas/image.yaml#/Image
+    schema: ./schemas/image.yaml#/components/schemas/Image
     operations: [list, get, put, delete]
     description:
       put:
@@ -76,5 +76,5 @@ resources:
   - name: block-storage
     plural: block-storages
     hierarchy: [tenant, workspace]
-    schema: ./schemas/block-storage.yaml#/BlockStorage
+    schema: ./schemas/block-storage.yaml#/components/schemas/BlockStorage
     operations: [list, get, put, delete]

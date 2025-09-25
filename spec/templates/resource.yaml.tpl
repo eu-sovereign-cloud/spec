@@ -53,12 +53,12 @@ paths:
       operationId: list{{ .plural | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- range .hierarchy }}
-        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
+        - $ref: './schemas/parameters.yaml#/components/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
-        - $ref: './schemas/parameters.yaml#/parameters/limitParam'
-        - $ref: './schemas/parameters.yaml#/parameters/skipTokenParam'
-        - $ref: './schemas/parameters.yaml#/parameters/acceptHeader'
+        - $ref: './schemas/parameters.yaml#/components/parameters/labelSelector'
+        - $ref: './schemas/parameters.yaml#/components/parameters/limitParam'
+        - $ref: './schemas/parameters.yaml#/components/parameters/skipTokenParam'
+        - $ref: './schemas/parameters.yaml#/components/parameters/acceptHeader'
       responses:
         '200':
           description: Successful response
@@ -71,13 +71,13 @@ paths:
 {{ .example.list | data.ToYAML | indent 16 }}
               {{- end }}
         '400':
-          $ref: './schemas/errors.yaml#/responses/Error400'
+          $ref: './schemas/errors.yaml#/components/responses/Error400'
         '401':
-          $ref: './schemas/errors.yaml#/responses/Error401'
+          $ref: './schemas/errors.yaml#/components/responses/Error401'
         '403':
-          $ref: './schemas/errors.yaml#/responses/Error403'
+          $ref: './schemas/errors.yaml#/components/responses/Error403'
         '500':
-          $ref: './schemas/errors.yaml#/responses/Error500'
+          $ref: './schemas/errors.yaml#/components/responses/Error500'
   {{ end }}
   {{- if or (coll.Has .operations "get") (coll.Has .operations "put") (coll.Has .operations "delete") }}
   /{{ $spec.version }}{{ range .hierarchy }}/{{ . }}s/{{ printf "{%s}" . }}{{ end }}/{{ .plural | strings.Slug }}/{name}:
@@ -101,9 +101,9 @@ paths:
       operationId: get{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- range .hierarchy }}
-        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
+        - $ref: './schemas/parameters.yaml#/components/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourcePathParam'
+        - $ref: './schemas/parameters.yaml#/components/parameters/resourcePathParam'
       responses:
         '200':
           description: Successful response
@@ -116,15 +116,15 @@ paths:
 {{ .example.get | data.ToYAML | indent 16 }}
               {{- end }}
         '400':
-          $ref: './schemas/errors.yaml#/responses/Error400'
+          $ref: './schemas/errors.yaml#/components/responses/Error400'
         '401':
-          $ref: './schemas/errors.yaml#/responses/Error401'
+          $ref: './schemas/errors.yaml#/components/responses/Error401'
         '403':
-          $ref: './schemas/errors.yaml#/responses/Error403'
+          $ref: './schemas/errors.yaml#/components/responses/Error403'
         '404':
-          $ref: './schemas/errors.yaml#/responses/Error404'
+          $ref: './schemas/errors.yaml#/components/responses/Error404'
         '500':
-          $ref: './schemas/errors.yaml#/responses/Error500'
+          $ref: './schemas/errors.yaml#/components/responses/Error500'
     {{ end }}
     {{- if coll.Has .operations "put" }}
     put:
@@ -145,10 +145,10 @@ paths:
       operationId: createOrUpdate{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- range .hierarchy }}
-        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
+        - $ref: './schemas/parameters.yaml#/components/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourcePathParam'
-        - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
+        - $ref: './schemas/parameters.yaml#/components/parameters/resourcePathParam'
+        - $ref: './schemas/parameters.yaml#/components/parameters/ifUnmodifiedSince'
       requestBody:
         description: |
           Any provided `metadata` on the {{ .name }} will be ignored by the resource server.
@@ -187,21 +187,21 @@ paths:
 {{ .example.putResponse | data.ToYAML | indent 16 }}
               {{- end }}
         '400':
-          $ref: './schemas/errors.yaml#/responses/Error400'
+          $ref: './schemas/errors.yaml#/components/responses/Error400'
         '401':
-          $ref: './schemas/errors.yaml#/responses/Error401'
+          $ref: './schemas/errors.yaml#/components/responses/Error401'
         '403':
-          $ref: './schemas/errors.yaml#/responses/Error403'
+          $ref: './schemas/errors.yaml#/components/responses/Error403'
         '404':
-          $ref: './schemas/errors.yaml#/responses/Error404'
+          $ref: './schemas/errors.yaml#/components/responses/Error404'
         '409':
-          $ref: './schemas/errors.yaml#/responses/Error409'
+          $ref: './schemas/errors.yaml#/components/responses/Error409'
         '412':
-          $ref: './schemas/errors.yaml#/responses/Error412'
+          $ref: './schemas/errors.yaml#/components/responses/Error412'
         '422':
-          $ref: './schemas/errors.yaml#/responses/Error422'
+          $ref: './schemas/errors.yaml#/components/responses/Error422'
         '500':
-          $ref: './schemas/errors.yaml#/responses/Error500'
+          $ref: './schemas/errors.yaml#/components/responses/Error500'
     {{ end }}
     {{- if coll.Has .operations "delete" }}
     delete:
@@ -230,27 +230,27 @@ paths:
       operationId: delete{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- range .hierarchy }}
-        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
+        - $ref: './schemas/parameters.yaml#/components/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourcePathParam'
-        - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
+        - $ref: './schemas/parameters.yaml#/components/parameters/resourcePathParam'
+        - $ref: './schemas/parameters.yaml#/components/parameters/ifUnmodifiedSince'
       responses:
         '202':
           description: {{ .name | strings.Title }} deletion accepted
         '400':
-          $ref: './schemas/errors.yaml#/responses/Error400'
+          $ref: './schemas/errors.yaml#/components/responses/Error400'
         '401':
-          $ref: './schemas/errors.yaml#/responses/Error401'
+          $ref: './schemas/errors.yaml#/components/responses/Error401'
         '403':
-          $ref: './schemas/errors.yaml#/responses/Error403'
+          $ref: './schemas/errors.yaml#/components/responses/Error403'
         '404':
-          $ref: './schemas/errors.yaml#/responses/Error404'
+          $ref: './schemas/errors.yaml#/components/responses/Error404'
         '409':
-          $ref: './schemas/errors.yaml#/responses/Error409'  
+          $ref: './schemas/errors.yaml#/components/responses/Error409'  
         '412':
-          $ref: './schemas/errors.yaml#/responses/Error412'
+          $ref: './schemas/errors.yaml#/components/responses/Error412'
         '500':
-          $ref: './schemas/errors.yaml#/responses/Error500'
+          $ref: './schemas/errors.yaml#/components/responses/Error500'
     {{ end }}
     {{- $resource := . }}
     {{- if coll.Has . "actions" }}
@@ -269,32 +269,32 @@ paths:
       operationId: {{ .name | strings.Title | strings.ReplaceAll " " "" }}{{ $resource.name | strings.Title }}
       parameters:
       {{- range $resource.hierarchy }}
-        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
+        - $ref: './schemas/parameters.yaml#/components/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourcePathParam'
-        - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
+        - $ref: './schemas/parameters.yaml#/components/parameters/resourcePathParam'
+        - $ref: './schemas/parameters.yaml#/components/parameters/ifUnmodifiedSince'
       responses:
         '202':
           description: action accepted
         '400':
-          $ref: './schemas/errors.yaml#/responses/Error400'
+          $ref: './schemas/errors.yaml#/components/responses/Error400'
         '401':
-          $ref: './schemas/errors.yaml#/responses/Error401'
+          $ref: './schemas/errors.yaml#/components/responses/Error401'
         '403':
-          $ref: './schemas/errors.yaml#/responses/Error403'
+          $ref: './schemas/errors.yaml#/components/responses/Error403'
         '404':
-          $ref: './schemas/errors.yaml#/responses/Error404'
+          $ref: './schemas/errors.yaml#/components/responses/Error404'
         '409':
-          $ref: './schemas/errors.yaml#/responses/Error409'  
+          $ref: './schemas/errors.yaml#/components/responses/Error409'  
         '500':
-          $ref: './schemas/errors.yaml#/responses/Error500'
+          $ref: './schemas/errors.yaml#/components/responses/Error500'
     {{ end }}
     {{- end }}
   {{- end }}
 {{- end }}
 components:
   securitySchemes:
-    $ref: './schemas/security.yaml#/securitySchemes'
+    $ref: './schemas/security.yaml#/components/securitySchemes'
 
 {{- $hasSchema := false }}
 {{- range $spec.resources }}
@@ -320,7 +320,7 @@ components:
           items:
             $ref: '{{ .schema }}'
         metadata:
-          $ref: './schemas/resource.yaml#/ResponseMetadata'
+          $ref: './schemas/resource.yaml#/components/schemas/ResponseMetadata'
   {{- end }}
 {{ end }}
 {{- end -}}

@@ -1,65 +1,67 @@
-ActivityLog:
-  type: object
-  description: Activity log resource
-  required:
-  - spec
-  properties:
-    metadata:
-      $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
-    spec:
-      $ref: './activity-log.yaml#/ActivityLogSpec'
+components:
+  schemas:
+    ActivityLog:
+      type: object
+      description: Activity log resource
+      required:
+      - spec
+      properties:
+        metadata:
+          $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
+        spec:
+          $ref: './activity-log.yaml#/components/schemas/ActivityLogSpec'
 
-ActivityLogSpec:
-  type: object
-  description: Activity log specification
-  properties:
-    subject:
-      type: string
-      description: User-JWT executing this query
-      maxLength: 256
-    request:
-      $ref: '#/RequestObject'
-    response:
-      $ref: '#/ResponseObject'
+    ActivityLogSpec:
+      type: object
+      description: Activity log specification
+      properties:
+        subject:
+          type: string
+          description: User-JWT executing this query
+          maxLength: 256
+        request:
+          $ref: '#/components/schemas/RequestObject'
+        response:
+          $ref: '#/components/schemas/ResponseObject'
 
-RequestObject:
-  type: object
-  description: Request object
-  properties:
-    verb:
-      type: string
-      description: |
-        Verb that describes the action to be performed on the resource.
-        The verb can be one of the following: get, list, put, delete, post, ..
-      maxLength: 7
-      example: 'get'
-    body:
-      oneOf:
-        - $ref: './block-storage.yaml#/BlockStorageSpec'
-        - $ref: './instance-sku.yaml#/InstanceSkuSpec'
-        - $ref: './instance.yaml#/InstanceSpec'
-        - $ref: './load-balancer.yaml#/NetworkLoadBalancerSpec'
-        - $ref: './network-sku.yaml#/NetworkSkuSpec'
-        - $ref: './network.yaml#/NetworkSpec'
-        - $ref: './nic.yaml#/NicSpec'
-        - $ref: './object-storage.yaml#/ObjectStorageAccountSpec'
-        - $ref: './public-ip.yaml#/PublicIpSpec'
-        - $ref: './rbac.yaml#/RoleAssignmentSpec'
-        - $ref: './rbac.yaml#/RoleSpec'
-        - $ref: './security-group.yaml#/SecurityGroupSpec'
-        - $ref: './storage-sku.yaml#/StorageSkuSpec'
-        - $ref: './subnet.yaml#/SubnetSpec'
-        - $ref: './workspace.yaml#/WorkspaceSpec'
-    resource:
-      type: string
-      maxLength: 2000
+    RequestObject:
+      type: object
+      description: Request object
+      properties:
+        verb:
+          type: string
+          description: |
+            Verb that describes the action to be performed on the resource.
+            The verb can be one of the following: get, list, put, delete, post, ..
+          maxLength: 7
+          example: 'get'
+        body:
+          oneOf:
+            - $ref: './block-storage.yaml#/components/schemas/BlockStorageSpec'
+            - $ref: './instance-sku.yaml#/components/schemas/InstanceSkuSpec'
+            - $ref: './instance.yaml#/components/schemas/InstanceSpec'
+            - $ref: './load-balancer.yaml#/components/schemas/NetworkLoadBalancerSpec'
+            - $ref: './network-sku.yaml#/components/schemas/NetworkSkuSpec'
+            - $ref: './network.yaml#/components/schemas/NetworkSpec'
+            - $ref: './nic.yaml#/components/schemas/NicSpec'
+            - $ref: './object-storage.yaml#/components/schemas/ObjectStorageAccountSpec'
+            - $ref: './public-ip.yaml#/components/schemas/PublicIpSpec'
+            - $ref: './rbac.yaml#/components/schemas/RoleAssignmentSpec'
+            - $ref: './rbac.yaml#/components/schemas/RoleSpec'
+            - $ref: './security-group.yaml#/components/schemas/SecurityGroupSpec'
+            - $ref: './storage-sku.yaml#/components/schemas/StorageSkuSpec'
+            - $ref: './subnet.yaml#/components/schemas/SubnetSpec'
+            - $ref: './workspace.yaml#/components/schemas/WorkspaceSpec'
+        resource:
+          type: string
+          maxLength: 2000
 
-ResponseObject:
-  type: object
-  description: Response object
-  properties:
-    code:
-      type: number
-      minimum: 100
-      maximum: 599
-      example: 202
+    ResponseObject:
+      type: object
+      description: Response object
+      properties:
+        code:
+          type: number
+          minimum: 100
+          maximum: 599
+          example: 202

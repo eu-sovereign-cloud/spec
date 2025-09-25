@@ -1,41 +1,43 @@
-Workspace:
-  description: |
-    A workspace is a collection of resources.
-    Can contain multiple resources of different types, and it can be used to manage the lifecycle of those resources.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    description: |
-      Represents a workspace, a workspace is a collection of resources.
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/RegionalResourceMetadata'
-      spec:
-        $ref: './workspace.yaml#/WorkspaceSpec'
-      status:
-        $ref: './workspace.yaml#/WorkspaceStatus'
+components:
+  schemas:
+    Workspace:
+      description: |
+        A workspace is a collection of resources.
+        Can contain multiple resources of different types, and it can be used to manage the lifecycle of those resources.
+      allOf:
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        description: |
+          Represents a workspace, a workspace is a collection of resources.
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/RegionalResourceMetadata'
+          spec:
+            $ref: './workspace.yaml#/components/schemas/WorkspaceSpec'
+          status:
+            $ref: './workspace.yaml#/components/schemas/WorkspaceStatus'
 
-WorkspaceSpec:
-  type: object
-  description: |
-    Specification of the workspace, including its capabilities and extensions.
-  example: {}
+    WorkspaceSpec:
+      type: object
+      description: |
+        Specification of the workspace, including its capabilities and extensions.
+      example: {}
 
-WorkspaceStatus:
-  description: |
-    Status of the workspace, including the number of resources in the workspace.
-  allOf:
-  - $ref: "./resource.yaml#/Status"
-  - type: object
-    description: |
-      Current status of the workspace. The status is read-only and will be set by
-      the system. The status contains information about the current state of the
-      workspace and its resources.
-    readOnly: true
-    properties:
-      resourceCount:
-        type: integer
-        description: Number of resources currently in the workspace
-        minimum: 0
+    WorkspaceStatus:
+      description: |
+        Status of the workspace, including the number of resources in the workspace.
+      allOf:
+      - $ref: "./resource.yaml#/components/schemas/Status"
+      - type: object
+        description: |
+          Current status of the workspace. The status is read-only and will be set by
+          the system. The status contains information about the current state of the
+          workspace and its resources.
+        readOnly: true
+        properties:
+          resourceCount:
+            type: integer
+            description: Number of resources currently in the workspace
+            minimum: 0

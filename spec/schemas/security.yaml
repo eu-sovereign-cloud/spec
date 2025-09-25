@@ -1,8 +1,9 @@
-securitySchemes:
-  bearerAuth:
-    type: http
-    scheme: bearer
-    bearerFormat: JWT
-    description: |
-      Use a JWT token for authentication. The token identifies the user,
-      and policies (RBAC, ABAC, or hybrid) determine authorization.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Use a JWT token for authentication. The token identifies the user,
+        and policies (RBAC, ABAC, or hybrid) determine authorization.

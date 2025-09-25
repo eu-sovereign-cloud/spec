@@ -9,5 +9,5 @@ resources:
   - name: internet nat gateway instance
     plural: internet-nat-gateway-instances
     hierarchy: [tenant, workspace]
-    schema: './schemas/nat-gateway.yaml#/InternetNatGatewayInstance'
+    schema: './schemas/nat-gateway.yaml#/components/schemas/InternetNatGatewayInstance'
     operations: [list, get, put, delete]

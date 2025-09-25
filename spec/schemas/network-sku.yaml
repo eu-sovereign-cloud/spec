@@ -1,37 +1,39 @@
-NetworkSku:
-  description: |
-    Represents a Stock Keeping Unit (SKU) for network resources.
-
-    Network SKUs define performance tiers for network bandwidth and characteristics.
-    capabilities can be found also in the metadata.labels sections and are searchable.
-  allOf:
-  - $ref: './resource.yaml#/SystemResourceMetadata'
-  - type: object
-    properties:
-      metadata:
-        $ref: './resource.yaml#/SkuResourceMetadata'
-      spec:
-        $ref: "./network-sku.yaml#/NetworkSkuSpec"
-
-NetworkSkuSpec:
-  type: object
-  description: |
-    Specification of the network SKU, including its bandwidth and packets per second.
-  required:
-  - bandwidth
-  - packets
-  properties:
-    bandwidth:
-      type: integer
+components:
+  schemas:
+    NetworkSku:
       description: |
-        The bandwidth in Mbps (Megabits per second).
-      minimum: 1
-      maximum: 800000
-      example: 1000
-    packets:
-      type: integer
+        Represents a Stock Keeping Unit (SKU) for network resources.
+
+        Network SKUs define performance tiers for network bandwidth and characteristics.
+        capabilities can be found also in the metadata.labels sections and are searchable.
+      allOf:
+      - $ref: './resource.yaml#/components/schemas/SystemResourceMetadata'
+      - type: object
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/SkuResourceMetadata'
+          spec:
+            $ref: "./network-sku.yaml#/components/schemas/NetworkSkuSpec"
+
+    NetworkSkuSpec:
+      type: object
       description: |
-        The number of packets per second (PPS) that the network SKU can handle.
-      minimum: 1
-      maximum: 200000000000
-      example: 10000
+        Specification of the network SKU, including its bandwidth and packets per second.
+      required:
+      - bandwidth
+      - packets
+      properties:
+        bandwidth:
+          type: integer
+          description: |
+            The bandwidth in Mbps (Megabits per second).
+          minimum: 1
+          maximum: 800000
+          example: 1000
+        packets:
+          type: integer
+          description: |
+            The number of packets per second (PPS) that the network SKU can handle.
+          minimum: 1
+          maximum: 200000000000
+          example: 10000

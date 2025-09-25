@@ -9,5 +9,5 @@ resources:
   - name: activity log
     plural: activity logs
     hierarchy: [tenant, workspace]
-    schema: ./schemas/activity-log.yaml#/ActivityLog
+    schema: ./schemas/activity-log.yaml#/components/schemas/ActivityLog
     operations: [list]

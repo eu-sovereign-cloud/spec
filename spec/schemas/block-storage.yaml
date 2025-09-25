@@ -1,87 +1,89 @@
-BlockStorage:
-  description: Represents a block storage resource.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
-      spec:
-        $ref: '#/BlockStorageSpec'
-      status:
-        $ref: '#/BlockStorageStatus'
-
-BlockStorageSpec:
-  type: object
-  description: |
-    References the SKU used for this block.
-    If a reference to the source image is used as the base for creating this block storage.
-  required:
-  - skuRef
-  - sizeGB
-  properties:
-    skuRef:
+components:
+  schemas:
+    BlockStorage:
+      description: Represents a block storage resource.
       allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the SKU of the block storage.
-      example: "skus/seca.n1k"
-    sizeGB:
-      type: integer
-      description: Size of the block storage in GB.
-      maximum: 1000000
-      example: 10
-    sourceImageRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the source image used as the base for creating the block storage.
-      example: "images/image-123"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
+          spec:
+            $ref: '#/components/schemas/BlockStorageSpec'
+          status:
+            $ref: '#/components/schemas/BlockStorageStatus'
 
-BlockStorageStatus:
-  description: |
-    The status of the block storage.
-  allOf:
-  - $ref: './resource.yaml#/Status'
-  - type: object
-    readOnly: true
-    description: |
-      Conditions type `attachment` indicates the status of the volume attachment.
-      The status can be `attached` or `detached`.
-    required:
-    - sizeGB
-    properties:
-      sizeGB:
-        type: integer
-        description: Size of the block storage in GB.
-        maximum: 1000000
-        example: 10
-      attachedTo:
-        allOf:
-        - $ref: './resource.yaml#/Reference'
-        description: Reference to the instance the block storage is attached to.
-        example:
-          provider: seca.compute/v1
-          resource: instances/instance-123
+    BlockStorageSpec:
+      type: object
+      description: |
+        References the SKU used for this block.
+        If a reference to the source image is used as the base for creating this block storage.
+      required:
+      - skuRef
+      - sizeGB
+      properties:
+        skuRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the SKU of the block storage.
+          example: "skus/seca.n1k"
+        sizeGB:
+          type: integer
+          description: Size of the block storage in GB.
+          maximum: 1000000
+          example: 10
+        sourceImageRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the source image used as the base for creating the block storage.
+          example: "images/image-123"
 
-VolumeReference:
-  type: object
-  description: Represents a connection between a Block Storage and an a user of the block storage.
-  required:
-  - deviceRef
-  properties:
-    deviceRef:
+    BlockStorageStatus:
+      description: |
+        The status of the block storage.
       allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the block storage used to store the volume.
-      example: "block-storages/block-123"
-    type:
-      type: string
-      description: The connection type depends on the type of device and type of block storage.
-      enum:
-      - virtio
-      default: virtio
-  example:
-    deviceRef: "block-storages/block-123"
-    type: "virtio"
+      - $ref: './resource.yaml#/components/schemas/Status'
+      - type: object
+        readOnly: true
+        description: |
+          Conditions type `attachment` indicates the status of the volume attachment.
+          The status can be `attached` or `detached`.
+        required:
+        - sizeGB
+        properties:
+          sizeGB:
+            type: integer
+            description: Size of the block storage in GB.
+            maximum: 1000000
+            example: 10
+          attachedTo:
+            allOf:
+            - $ref: './resource.yaml#/components/schemas/Reference'
+            description: Reference to the instance the block storage is attached to.
+            example:
+              provider: seca.compute/v1
+              resource: instances/instance-123
+
+    VolumeReference:
+      type: object
+      description: Represents a connection between a Block Storage and an a user of the block storage.
+      required:
+      - deviceRef
+      properties:
+        deviceRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the block storage used to store the volume.
+          example: "block-storages/block-123"
+        type:
+          type: string
+          description: The connection type depends on the type of device and type of block storage.
+          enum:
+          - virtio
+          default: virtio
+      example:
+        deviceRef: "block-storages/block-123"
+        type: "virtio"
 

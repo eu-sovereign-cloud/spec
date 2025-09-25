@@ -1,102 +1,103 @@
-parameters:
-  labelSelector:
-    in: query
-    name: labels
-    description: |
-      Filter resources by their labels. Multiple filters are combined with comma.
-      Filter syntax:
-        - Equals: key=value
-        - Not equals: key!=value
-        - Wildcards: \*key\*=\*value\* - substring (contains) match on both key and value. Each `*` can appear at start, end or in the middle to mean "any characters". Example: \*env\*=\*prod\* matches a label key containing "env" whose value contains "prod".
-        - Numeric: key>value, key<value, key>=value, key<=value
-        - Namespaced key examples: 'monitoring:alert-level=high' or 'billing:team=platform'
-    required: false
-    schema:
-      type: string
-      example: "cloud:region=us-east-1,billing:team=platform,tier!=dev"
+components:
+  parameters:
+    labelSelector:
+      in: query
+      name: labels
+      description: |
+        Filter resources by their labels. Multiple filters are combined with comma.
+        Filter syntax:
+          - Equals: key=value
+          - Not equals: key!=value
+          - Wildcards: \*key\*=\*value\* - substring (contains) match on both key and value. Each `*` can appear at start, end or in the middle to mean "any characters". Example: \*env\*=\*prod\* matches a label key containing "env" whose value contains "prod".
+          - Numeric: key>value, key<value, key>=value, key<=value
+          - Namespaced key examples: 'monitoring:alert-level=high' or 'billing:team=platform'
+      required: false
+      schema:
+        type: string
+        example: "cloud:region=us-east-1,billing:team=platform,tier!=dev"
 
-  limitParam:
-    in: query
-    name: limit
-    description: Maximum number of resources to return in the response
-    required: false
-    schema:
-      type: integer
-      minimum: 1
-      maximum: 10000
-      default: 1000
+    limitParam:
+      in: query
+      name: limit
+      description: Maximum number of resources to return in the response
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+        default: 1000
 
-  skipTokenParam:
-    in: query
-    name: skipToken
-    description: Opaque cursor for pagination. Use the skipToken from the previous response to get the next page of results. Note that skipTokens do not guarantee consistency across pages if the underlying data changes between requests
-    required: false
-    schema:
-      type: string
+    skipTokenParam:
+      in: query
+      name: skipToken
+      description: Opaque cursor for pagination. Use the skipToken from the previous response to get the next page of results. Note that skipTokens do not guarantee consistency across pages if the underlying data changes between requests
+      required: false
+      schema:
+        type: string
 
-  ifUnmodifiedSince:
-    in: header
-    name: if-unmodified-since
-    schema:
-      type: integer
-    required: false
-    description: |
-      Returns resources only if they have not been modified since the specified version.
-      Uses metadata.resourceVersion for comparison.
+    ifUnmodifiedSince:
+      in: header
+      name: if-unmodified-since
+      schema:
+        type: integer
+      required: false
+      description: |
+        Returns resources only if they have not been modified since the specified version.
+        Uses metadata.resourceVersion for comparison.
 
-  acceptHeader:
-    in: header
-    name: Accept
-    schema:
-      type: string
-      default: application/json
-      example: "application/json; deleted=true"
-      enum:
-        - "application/json"
-        - "application/json; deleted=true"
-        - "application/json; deleted=only"
-    description: |
-      Controls whether deleted resources are included:
-      - `"application/json"`: Returns only non-deleted resources
-      - `"application/json; deleted=true"`: Returns both deleted and non-deleted resources
-      - `"application/json; deleted=only"`: Returns only deleted resources
+    acceptHeader:
+      in: header
+      name: Accept
+      schema:
+        type: string
+        default: application/json
+        example: "application/json; deleted=true"
+        enum:
+          - "application/json"
+          - "application/json; deleted=true"
+          - "application/json; deleted=only"
+      description: |
+        Controls whether deleted resources are included:
+        - `"application/json"`: Returns only non-deleted resources
+        - `"application/json; deleted=true"`: Returns both deleted and non-deleted resources
+        - `"application/json; deleted=only"`: Returns only deleted resources
 
-  tenantPathParam:
-    name: tenant
-    in: path
-    required: true
-    schema:
-      type: string
-    description: Tenant ID
+    tenantPathParam:
+      name: tenant
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Tenant ID
 
-  workspacePathParam:
-    name: workspace
-    in: path
-    required: true
-    schema:
-      type: string
-    description: Workspace name
+    workspacePathParam:
+      name: workspace
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Workspace name
 
-  networkPathParam:
-    name: network
-    in: path
-    required: true
-    schema:
-      type: string
-    description: Network name
+    networkPathParam:
+      name: network
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Network name
 
-  clusterPathParam:
-    name: cluster
-    in: path
-    required: true
-    schema:
-      type: string
-    description: Cluster name
+    clusterPathParam:
+      name: cluster
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Cluster name
 
-  resourcePathParam:
-    name: name
-    in: path
-    required: true
-    schema:
-      type: string
-    description: Resource name
+    resourcePathParam:
+      name: name
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource name

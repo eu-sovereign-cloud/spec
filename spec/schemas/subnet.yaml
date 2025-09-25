@@ -1,95 +1,96 @@
-
-Subnet:
-  description: |
-    A Subnet is a logical subdivision of a Network's IP address space.
-    It defines a range of IP addresses for compute instances and enables
-    network segmentation and isolation.
-
-    The Subnet resource is used to manage the configuration and status
-    of a subnet within a network. It includes properties such as the
-    CIDR block, zone, and route table reference.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    description: |
-      A Subnet represents a logical subdivision of a Network's IP address space.
-
-      Key Network Routing Concepts:
-      - Defines a range of IP addresses for compute instances
-      - Enables network segmentation and isolation
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/RegionalNetworkResourceMetadata'
-      spec:
-        $ref: './subnet.yaml#/SubnetSpec'
-      status:
-        $ref: './subnet.yaml#/SubnetStatus'
-
-SubnetSpec:
-  type: object
-  description: |
-    Detailed specification of the subnet. Automatic address
-    assignment is supported, similar to the network configuration. The
-    subnet's prefix length must be smaller than the network's prefix
-    length, ensuring proper subdivision of the address space.
-    The first and last IP addresses in the subnet are reserved
-    the network address and broadcast address, respectively.
-
-    Most CSP will not allow to use a different IPv6 prefix length than /64.
-  required:
-  - cidr
-  - zone
-  properties:
-    cidr:
-      $ref: './network.yaml#/cidr'
-    zone:
-      $ref: './region.yaml#/Zone'
-    routeTableRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
+components:
+  schemas:
+    Subnet:
       description: |
-          Reference to the route table used by default for all NICs in this Subnet.
-          If not provided, the routeTableRef associated with the network of the subnet will be used.
-      example: "route-tables/route-table-1"
-    skuRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: |
-        Reference to the SKU used by default for all NICs in this Network.
-        Can be overridden by the NIC
-      example: "skus/seca.1000"
-  example:
-    cidr:
-      ipv4: "0.0.0.0/24"
-      ipv6: "::/64"
-    zone: "a"
-    skuRef: "skus/seca.1000"
+        A Subnet is a logical subdivision of a Network's IP address space.
+        It defines a range of IP addresses for compute instances and enables
+        network segmentation and isolation.
 
-SubnetStatus:
-  description: |
-    The status of the subnet, including the current state and any
-    associated IP addresses. The status is read-only and provides
-    information about the subnet's configuration and health.
-  allOf:
-  - $ref: "./resource.yaml#/Status"
-  - type: object
-    readOnly: true
-    description: |
-      The status of the subnet, including the current state and any
-      associated IP addresses.
-    properties:
-      cidr:
-        $ref: './network.yaml#/cidr'
-      routeTableRef:
-        allOf:
-        - $ref: './resource.yaml#/Reference'
+        The Subnet resource is used to manage the configuration and status
+        of a subnet within a network. It includes properties such as the
+        CIDR block, zone, and route table reference.
+      allOf:
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
         description: |
-          The route table used by this subnet.
-        example: "route-tables/route-table-1"
-    example:
-      cidr:
-        ipv4: "10.100.1.0/24"
-        ipv6: "2001:239:203:2400::/64"
-      routeTableRef: "route-tables/route-table-1"
+          A Subnet represents a logical subdivision of a Network's IP address space.
+
+          Key Network Routing Concepts:
+          - Defines a range of IP addresses for compute instances
+          - Enables network segmentation and isolation
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/RegionalNetworkResourceMetadata'
+          spec:
+            $ref: './subnet.yaml#/components/schemas/SubnetSpec'
+          status:
+            $ref: './subnet.yaml#/components/schemas/SubnetStatus'
+
+    SubnetSpec:
+      type: object
+      description: |
+        Detailed specification of the subnet. Automatic address
+        assignment is supported, similar to the network configuration. The
+        subnet's prefix length must be smaller than the network's prefix
+        length, ensuring proper subdivision of the address space.
+        The first and last IP addresses in the subnet are reserved
+        the network address and broadcast address, respectively.
+
+        Most CSP will not allow to use a different IPv6 prefix length than /64.
+      required:
+      - cidr
+      - zone
+      properties:
+        cidr:
+          $ref: './network.yaml#/components/schemas/cidr'
+        zone:
+          $ref: './region.yaml#/components/schemas/Zone'
+        routeTableRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: |
+              Reference to the route table used by default for all NICs in this Subnet.
+              If not provided, the routeTableRef associated with the network of the subnet will be used.
+          example: "route-tables/route-table-1"
+        skuRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: |
+            Reference to the SKU used by default for all NICs in this Network.
+            Can be overridden by the NIC
+          example: "skus/seca.1000"
+      example:
+        cidr:
+          ipv4: "0.0.0.0/24"
+          ipv6: "::/64"
+        zone: "a"
+        skuRef: "skus/seca.1000"
+
+    SubnetStatus:
+      description: |
+        The status of the subnet, including the current state and any
+        associated IP addresses. The status is read-only and provides
+        information about the subnet's configuration and health.
+      allOf:
+      - $ref: "./resource.yaml#/components/schemas/Status"
+      - type: object
+        readOnly: true
+        description: |
+          The status of the subnet, including the current state and any
+          associated IP addresses.
+        properties:
+          cidr:
+            $ref: './network.yaml#/components/schemas/cidr'
+          routeTableRef:
+            allOf:
+            - $ref: './resource.yaml#/components/schemas/Reference'
+            description: |
+              The route table used by this subnet.
+            example: "route-tables/route-table-1"
+        example:
+          cidr:
+            ipv4: "10.100.1.0/24"
+            ipv6: "2001:239:203:2400::/64"
+          routeTableRef: "route-tables/route-table-1"

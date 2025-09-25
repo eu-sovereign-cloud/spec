@@ -9,5 +9,5 @@ resources:
   - name: account
     plural: accounts
     hierarchy: [tenant, workspace]
-    schema: ./schemas/object-storage.yaml#/ObjectStorageAccount
+    schema: ./schemas/object-storage.yaml#/components/schemas/ObjectStorageAccount
     operations: [list, get, put, delete]

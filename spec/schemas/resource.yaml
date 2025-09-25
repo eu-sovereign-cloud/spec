@@ -1,459 +1,461 @@
-ResourceMetadata:
-  description: |
-    Metadata for all resources with type and name information.
-  allOf:
-  - $ref: '#/NameMetadata'
-  - $ref: '#/TypeMetadata'
-  example:
-    name: "resource-name"
-    apiVersion: "v1"
-    kind: "workspace"
+components:
+  schemas: 
+    ResourceMetadata:
+      description: |
+        Metadata for all resources with type and name information.
+      allOf:
+      - $ref: '#/components/schemas/NameMetadata'
+      - $ref: '#/components/schemas/TypeMetadata'
+      example:
+        name: "resource-name"
+        apiVersion: "v1"
+        kind: "workspace"
 
-GlobalResourceMetadata:
-  description: |
-    Metadata for global resources with name, permission, modification, type, and tenant information.
-  allOf:
-  - $ref: '#/NameMetadata'
-  - $ref: '#/PermissionMetadata'
-  - $ref: '#/ModificationMetadata'
-  - $ref: '#/TypeMetadata'
-  - $ref: '#/TenantMetadata'
+    GlobalResourceMetadata:
+      description: |
+        Metadata for global resources with name, permission, modification, type, and tenant information.
+      allOf:
+      - $ref: '#/components/schemas/NameMetadata'
+      - $ref: '#/components/schemas/PermissionMetadata'
+      - $ref: '#/components/schemas/ModificationMetadata'
+      - $ref: '#/components/schemas/TypeMetadata'
+      - $ref: '#/components/schemas/TenantMetadata'
 
-RegionalResourceMetadata:
-  description: |
-    Metadata for regional resources with name, permission, modification, type, tenant and region information.
-  allOf:
-  - $ref: '#/NameMetadata'
-  - $ref: '#/PermissionMetadata'
-  - $ref: '#/ModificationMetadata'
-  - $ref: '#/TypeMetadata'
-  - $ref: '#/TenantMetadata'
-  - $ref: '#/RegionalMetadata'
+    RegionalResourceMetadata:
+      description: |
+        Metadata for regional resources with name, permission, modification, type, tenant and region information.
+      allOf:
+      - $ref: '#/components/schemas/NameMetadata'
+      - $ref: '#/components/schemas/PermissionMetadata'
+      - $ref: '#/components/schemas/ModificationMetadata'
+      - $ref: '#/components/schemas/TypeMetadata'
+      - $ref: '#/components/schemas/TenantMetadata'
+      - $ref: '#/components/schemas/RegionalMetadata'
 
-RegionalWorkspaceResourceMetadata:
-  description: |
-    Metadata for regional resources with name, permission, modification, type, tenant and workspace and region information.
-  allOf:
-  - $ref: '#/NameMetadata'
-  - $ref: '#/PermissionMetadata'
-  - $ref: '#/ModificationMetadata'
-  - $ref: '#/TypeMetadata'
-  - $ref: '#/TenantMetadata'
-  - $ref: '#/WorkspaceMetadata'
-  - $ref: '#/RegionalMetadata'  
+    RegionalWorkspaceResourceMetadata:
+      description: |
+        Metadata for regional resources with name, permission, modification, type, tenant and workspace and region information.
+      allOf:
+      - $ref: '#/components/schemas/NameMetadata'
+      - $ref: '#/components/schemas/PermissionMetadata'
+      - $ref: '#/components/schemas/ModificationMetadata'
+      - $ref: '#/components/schemas/TypeMetadata'
+      - $ref: '#/components/schemas/TenantMetadata'
+      - $ref: '#/components/schemas/WorkspaceMetadata'
+      - $ref: '#/components/schemas/RegionalMetadata'  
 
-RegionalNetworkResourceMetadata:
-  description: |
-    Metadata for regional resources with name, permission, modification, type, tenant, workspace, network and region information.
-  allOf:
-  - $ref: '#/NameMetadata'
-  - $ref: '#/PermissionMetadata'
-  - $ref: '#/ModificationMetadata'
-  - $ref: '#/TypeMetadata'
-  - $ref: '#/TenantMetadata'
-  - $ref: '#/WorkspaceMetadata'
-  - $ref: '#/NetworkMetadata'
-  - $ref: '#/RegionalMetadata'
+    RegionalNetworkResourceMetadata:
+      description: |
+        Metadata for regional resources with name, permission, modification, type, tenant, workspace, network and region information.
+      allOf:
+      - $ref: '#/components/schemas/NameMetadata'
+      - $ref: '#/components/schemas/PermissionMetadata'
+      - $ref: '#/components/schemas/ModificationMetadata'
+      - $ref: '#/components/schemas/TypeMetadata'
+      - $ref: '#/components/schemas/TenantMetadata'
+      - $ref: '#/components/schemas/WorkspaceMetadata'
+      - $ref: '#/components/schemas/NetworkMetadata'
+      - $ref: '#/components/schemas/RegionalMetadata'
 
-SkuResourceMetadata:
-  description: |
-    Metadata for SKU resources.
-  allOf:
-  - $ref: '#/NameMetadata'
+    SkuResourceMetadata:
+      description: |
+        Metadata for SKU resources.
+      allOf:
+      - $ref: '#/components/schemas/NameMetadata'
 
-TypeMetadata:
-  type: object
-  readOnly: true
-  required:
-  - apiVersion
-  - kind
-  description:  |
-    Metadata for all resources with type information.
-  properties:
-    apiVersion:
-      type: string
-      description: API version of the resource
-      maxLength: 16
-      default: v1
-    kind:
-      type: string
-      description: Type of the resource
-      enum:
-      - activity-log
-      - block-storage
-      - image
-      - instance
-      - instance-sku
-      - internet-gateway
-      - network
-      - network-load-balancer
-      - network-sku
-      - nic
-      - object-storage-account
-      - public-ip
-      - region
-      - role
-      - role-assignment
-      - routing-table
-      - security-group
-      - security-group-rule
-      - storage-sku
-      - subnet
-      - workspace
-    ref:
-      $ref: '#/Reference'
+    TypeMetadata:
+      type: object
+      readOnly: true
+      required:
+      - apiVersion
+      - kind
+      description:  |
+        Metadata for all resources with type information.
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the resource
+          maxLength: 16
+          default: v1
+        kind:
+          type: string
+          description: Type of the resource
+          enum:
+          - activity-log
+          - block-storage
+          - image
+          - instance
+          - instance-sku
+          - internet-gateway
+          - network
+          - network-load-balancer
+          - network-sku
+          - nic
+          - object-storage-account
+          - public-ip
+          - region
+          - role
+          - role-assignment
+          - routing-table
+          - security-group
+          - security-group-rule
+          - storage-sku
+          - subnet
+          - workspace
+        ref:
+          $ref: '#/components/schemas/Reference'
 
-Reference:
-  description: |
-    Reference to a resource. The reference is represented as the full URN (Uniform Resource Name) name of the resource.
-    The reference can be used to refer to a resource in other resources.
-  anyOf:
-  - $ref: '#/ReferenceURN'
-  - $ref: '#/ReferenceObject'
+    Reference:
+      description: |
+        Reference to a resource. The reference is represented as the full URN (Uniform Resource Name) name of the resource.
+        The reference can be used to refer to a resource in other resources.
+      anyOf:
+      - $ref: '#/components/schemas/ReferenceURN'
+      - $ref: '#/components/schemas/ReferenceObject'
 
-ReferenceURN:
-  type: string
-  description: |
-    A unique resource name used to reference this resource in other resources. The reference
-    is represented as the full URN (Uniform Resource Name) name of the resource.
-
-    ### Automatic Prefix Inference
-
-    In most cases, the prefix of the URN can be automatically derived in the given context.
-    To simplify usage, only the resource type and name might be specified as a reference
-    using the `<type>/<name>` notation. The suffix can be made more specific by adding
-    additional segments separated by slashes.
-
-    The prefix is automatically inferred from the context. For example, if the resource is a
-    block storage in the same workspace the reference can be specified as
-    `block-storages/my-block-storage`. If the resource is a block storage in a different workspace, the
-    reference can be specified as `workspaces/ws-1/block-storages/my-block-storage`.
-
-    For automatic prefix inference, the following rules apply:
-    - the version is inferred from the current resource version
-    - the workspace is inferred from the current workspace
-    - the region is inferred from the current region
-    - the provider is inferred from the type and context of the usage
-
-    The prefix inference is resolved on admission into the full URN format, which makes it
-    mostly suitable for human use.
-  maxLength: 255
-  example: resources/resource-a1b2c3
-
-ReferenceObject:
-  type: object
-  description: |
-    A reference to a resource using an object. The object contains the
-    same information as the ReferenceURN, but is represented as a structured object.
-    The advantage of this representation is that it can be used to reference
-    resources in different workspaces or regions without the need to specify
-    the full URN.
-  required:
-  - resource
-  properties:
-    region:
+    ReferenceURN:
       type: string
       description: |
-        Region of the resource. If not set, the region is inferred from the context.
-      maxLength: 64
-      example: "us-west-1"
-    provider:
-      type: string
-      description: |
-        Provider of the resource. If not set, the provider is inferred from the context.
-      maxLength: 64
-      example: "seca.compute/v1"
-    tenant:
-      type: string
-      description: |
-        Tenant of the resource. If not set, the tenant is inferred from the context.
-      maxLength: 64
-      example: "tenant-1"
-    workspace:
-      type: string
-      description: |
-        Workspace of the resource. If not set, the workspace is inferred from the context.
-      maxLength: 64
-      example: "workspace-1"
-    resource:
-      type: string
-      description: |
-        Name and type of the resource. Must be in the format `<type>/<name>`.
-        The type is the resource type, and the name is the resource name.
-      maxLength: 256
+        A unique resource name used to reference this resource in other resources. The reference
+        is represented as the full URN (Uniform Resource Name) name of the resource.
+
+        ### Automatic Prefix Inference
+
+        In most cases, the prefix of the URN can be automatically derived in the given context.
+        To simplify usage, only the resource type and name might be specified as a reference
+        using the `<type>/<name>` notation. The suffix can be made more specific by adding
+        additional segments separated by slashes.
+
+        The prefix is automatically inferred from the context. For example, if the resource is a
+        block storage in the same workspace the reference can be specified as
+        `block-storages/my-block-storage`. If the resource is a block storage in a different workspace, the
+        reference can be specified as `workspaces/ws-1/block-storages/my-block-storage`.
+
+        For automatic prefix inference, the following rules apply:
+        - the version is inferred from the current resource version
+        - the workspace is inferred from the current workspace
+        - the region is inferred from the current region
+        - the provider is inferred from the type and context of the usage
+
+        The prefix inference is resolved on admission into the full URN format, which makes it
+        mostly suitable for human use.
+      maxLength: 255
       example: resources/resource-a1b2c3
 
-PermissionMetadata:
-  type: object
-  readOnly: true
-  description: Metadata for permission management
-  required:
-  - provider
-  - resource
-  - verb
-  properties:
-    provider:
-      type: string
-      maxLength: 64
-      example: "seca.compute/v1"
-    resource:
-      type: string
-      maxLength: 256
-      example: "tenants/1/workspaces/ws-1/instances/my-server"
-    verb:
-      type: string
-      maxLength: 7
-      example: get
-  example:
-    provider: "seca.compute/v1"
-    resource: "tenants/1/workspaces/ws-1/instances/my-server"
-    verb: get
-
-ModificationMetadata:
-  type: object
-  readOnly: true
-  description: Base metadata for all resources with optional region references
-  required:
-  - createdAt
-  - lastModifiedAt
-  - resourceVersion
-  properties:
-    createdAt:
-      type: string
-      format: date-time
-      description: Indicates the time when the resource was created. The field is set by the provider and should not be modified by the user.
-    deletedAt:
-      type: string
-      format: date-time
-      description: If set, indicates the time when the resource was marked for deletion. Resources with this field set are considered pending deletion.
-    lastModifiedAt:
-      type: string
-      format: date-time
-      description: Indicates the time when the resource was created or last modified. Field is used for "If-Unmodified-Since" logic for concurrency control. The provider guarantees that a modification on a single resource can happen only once every millisecond.
-    resourceVersion:
-      type: integer
-      description: Incremented on every modification of the resource. Used for optimistic concurrency control.
-      maxLength: 16
-
-NameMetadata:
-  type: object
-  readOnly: true
-  required:
-  - name
-  description: Metadata for resource names
-  properties:
-    name:
-      type: string
-      description: |
-        Resource identifier in dash-case (kebab-case) format. Must start and end with an alphanumeric character.
-        Can contain lowercase letters, numbers, and hyphens. Multiple segments can be joined with dots.
-        Each segment follows the same rules.
-      minLength: 1
-      maxLength: 128
-      pattern: '^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$'
-      example: "resource-name"
-
-UserResourceMetadata:
-  type: object
-  description: Metadata for user-defined resource properties
-  properties:
-    labels:
+    ReferenceObject:
       type: object
       description: |
-        User-defined key/value pairs that are mutable and can be used to
-        organize and categorize resources. They can be used to filter resources.
-        The number of labels is eventually limited by the CSP.
-      additionalProperties:
-        type: string
-        maxLength: 63
+        A reference to a resource using an object. The object contains the
+        same information as the ReferenceURN, but is represented as a structured object.
+        The advantage of this representation is that it can be used to reference
+        resources in different workspaces or regions without the need to specify
+        the full URN.
+      required:
+      - resource
+      properties:
+        region:
+          type: string
+          description: |
+            Region of the resource. If not set, the region is inferred from the context.
+          maxLength: 64
+          example: "us-west-1"
+        provider:
+          type: string
+          description: |
+            Provider of the resource. If not set, the provider is inferred from the context.
+          maxLength: 64
+          example: "seca.compute/v1"
+        tenant:
+          type: string
+          description: |
+            Tenant of the resource. If not set, the tenant is inferred from the context.
+          maxLength: 64
+          example: "tenant-1"
+        workspace:
+          type: string
+          description: |
+            Workspace of the resource. If not set, the workspace is inferred from the context.
+          maxLength: 64
+          example: "workspace-1"
+        resource:
+          type: string
+          description: |
+            Name and type of the resource. Must be in the format `<type>/<name>`.
+            The type is the resource type, and the name is the resource name.
+          maxLength: 256
+          example: resources/resource-a1b2c3
+
+    PermissionMetadata:
+      type: object
+      readOnly: true
+      description: Metadata for permission management
+      required:
+      - provider
+      - resource
+      - verb
+      properties:
+        provider:
+          type: string
+          maxLength: 64
+          example: "seca.compute/v1"
+        resource:
+          type: string
+          maxLength: 256
+          example: "tenants/1/workspaces/ws-1/instances/my-server"
+        verb:
+          type: string
+          maxLength: 7
+          example: get
       example:
-        env: production
-    annotations:
+        provider: "seca.compute/v1"
+        resource: "tenants/1/workspaces/ws-1/instances/my-server"
+        verb: get
+
+    ModificationMetadata:
+      type: object
+      readOnly: true
+      description: Base metadata for all resources with optional region references
+      required:
+      - createdAt
+      - lastModifiedAt
+      - resourceVersion
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          description: Indicates the time when the resource was created. The field is set by the provider and should not be modified by the user.
+        deletedAt:
+          type: string
+          format: date-time
+          description: If set, indicates the time when the resource was marked for deletion. Resources with this field set are considered pending deletion.
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: Indicates the time when the resource was created or last modified. Field is used for "If-Unmodified-Since" logic for concurrency control. The provider guarantees that a modification on a single resource can happen only once every millisecond.
+        resourceVersion:
+          type: integer
+          description: Incremented on every modification of the resource. Used for optimistic concurrency control.
+          maxLength: 16
+
+    NameMetadata:
+      type: object
+      readOnly: true
+      required:
+      - name
+      description: Metadata for resource names
+      properties:
+        name:
+          type: string
+          description: |
+            Resource identifier in dash-case (kebab-case) format. Must start and end with an alphanumeric character.
+            Can contain lowercase letters, numbers, and hyphens. Multiple segments can be joined with dots.
+            Each segment follows the same rules.
+          minLength: 1
+          maxLength: 128
+          pattern: '^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$'
+          example: "resource-name"
+
+    UserResourceMetadata:
+      type: object
+      description: Metadata for user-defined resource properties
+      properties:
+        labels:
+          type: object
+          description: |
+            User-defined key/value pairs that are mutable and can be used to
+            organize and categorize resources. They can be used to filter resources.
+            The number of labels is eventually limited by the CSP.
+          additionalProperties:
+            type: string
+            maxLength: 63
+          example:
+            env: production
+        annotations:
+          type: object
+          description: |
+            User-defined key/value pairs that are mutable and can be used to add annotations.
+            The number of annotations is eventually limited by the CSP.
+          additionalProperties:
+            type: string
+            maxLength: 1024
+          example:
+            description: "Human readable description"
+        extensions:
+          type: object
+          description: |
+            User-defined key/value pairs that are mutable and can be used to add extensions.
+            Extensions are subject to validation by the CSP, and any value that is not accepted will be rejected during admission.
+          additionalProperties:
+            type: string
+
+    SystemResourceMetadata:
+      type: object
+      description: Metadata for user-defined resource properties
+      properties:
+        labels:
+          type: object
+          description: |
+            System-defined key/value pairs to filter resources.
+          additionalProperties:
+            type: string
+            maxLength: 63
+          example:
+            env: production
+        annotations:
+          type: object
+          description: |
+            System-defined key/value pairs to annotate the resource.
+          additionalProperties:
+            type: string
+            maxLength: 1024
+          example:
+            description: "Human readable description"
+        extensions:
+          type: object
+          description: |
+            System-defined key/value pairs to document available extensions.
+          additionalProperties:
+            type: string
+
+    TenantMetadata:
+      type: object
+      description: Metadata for resources with tenant constraints
+      readOnly: true
+      required:
+      - tenant
+      properties:
+        tenant:
+          type: string
+          description: Tenant identifier
+          maxLength: 64
+
+    WorkspaceMetadata:
+      type: object
+      description: Metadata for resources with workspace constraints
+      readOnly: true
+      required:
+      - workspace
+      properties:
+        workspace:
+          type: string
+          description: Workspace identifier
+          maxLength: 64
+
+    NetworkMetadata:
+      type: object
+      description: Metadata for resources with network constraints
+      readOnly: true
+      required:
+      - network
+      properties:
+        network:
+          type: string
+          description: Network identifier
+          maxLength: 64
+
+    RegionalMetadata:
+      type: object
+      description: Metadata for regional resources
+      readOnly: true
+      required:
+      - region
+      properties:
+        region:
+          type: string
+          description: Reference to the region where the resource is located
+          maxLength: 64
+
+    Status:
+      type: object
+      readOnly: true
+      description: Current status of the resource
+      required:
+      - conditions
+      properties:
+        state:
+          $ref: '#/components/schemas/ResourceState'
+        conditions:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatusCondition"
+
+    ResourceState:
+      type: string
+      description: |
+        Current phase of the resource:
+        - pending: not available, waiting for other resources
+        - creating: not available, creation started
+        - active: available for data layer usage
+        - updating: available for data layer usage
+        - deleting: maybe still available for data layer user, can fail any moment
+        - suspended: not available, provider specific behavior (payment issue, user decided to suspend)
+        - error: failed to fulfill the request; would be related to provider issue or customer related input.
+      enum:
+      - pending
+      - creating
+      - active
+      - updating
+      - deleting
+      - suspended
+      - error
+      example: "active"
+
+    StatusCondition:
       type: object
       description: |
-        User-defined key/value pairs that are mutable and can be used to add annotations.
-        The number of annotations is eventually limited by the CSP.
-      additionalProperties:
-        type: string
-        maxLength: 1024
+        StatusCondition describes the state of a resource at a certain point.
+        Conditions are provider-specific and can represent different states depending on the
+        resource type and provider implementation.
+      required:
+      - state
+      - lastTransitionAt
+      properties:
+        type:
+          type: string
+          description: |
+            Type of condition. The condition type is provider-specific and should
+            reflect the specific states relevant to your resource.
+        state:
+          $ref: '#/components/schemas/ResourceState'
+        lastTransitionAt:
+          type: string
+          format: date-time
+          description: |
+            LastTransitionAt is the last time the condition transitioned from one
+            status to another. This should be when the underlying condition changed.
+            If that is not known, then using the time when the API field changed is
+            acceptable.
+        reason:
+          type: string
+          description: |
+            The reason for the condition's last transition in CamelCase.
+            The specific set of reason values is provider-specific and should be
+            documented by the provider.
+          maxLength: 1024
+          pattern: '^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$'
+        message:
+          type: string
+          description: |
+            A human-readable message indicating details about the transition.
+          maxLength: 32768
       example:
-        description: "Human readable description"
-    extensions:
-      type: object
-      description: |
-        User-defined key/value pairs that are mutable and can be used to add extensions.
-        Extensions are subject to validation by the CSP, and any value that is not accepted will be rejected during admission.
-      additionalProperties:
-        type: string
+        state: active
+        lastTransitionAt: "2024-11-21T14:39:22Z"
 
-SystemResourceMetadata:
-  type: object
-  description: Metadata for user-defined resource properties
-  properties:
-    labels:
-      type: object
+    ResponseMetadata:
       description: |
-        System-defined key/value pairs to filter resources.
-      additionalProperties:
-        type: string
-        maxLength: 63
+        Metadata for response objects.
+      allOf:
+      - $ref: '#/components/schemas/PermissionMetadata'
+      - type: object
+        readOnly: true
+        properties:
+          skipToken:
+            type: string
+            description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
+            maxLength: 5
       example:
-        env: production
-    annotations:
-      type: object
-      description: |
-        System-defined key/value pairs to annotate the resource.
-      additionalProperties:
-        type: string
-        maxLength: 1024
-      example:
-        description: "Human readable description"
-    extensions:
-      type: object
-      description: |
-        System-defined key/value pairs to document available extensions.
-      additionalProperties:
-        type: string
-
-TenantMetadata:
-  type: object
-  description: Metadata for resources with tenant constraints
-  readOnly: true
-  required:
-  - tenant
-  properties:
-    tenant:
-      type: string
-      description: Tenant identifier
-      maxLength: 64
-
-WorkspaceMetadata:
-  type: object
-  description: Metadata for resources with workspace constraints
-  readOnly: true
-  required:
-  - workspace
-  properties:
-    workspace:
-      type: string
-      description: Workspace identifier
-      maxLength: 64
-
-NetworkMetadata:
-  type: object
-  description: Metadata for resources with network constraints
-  readOnly: true
-  required:
-  - network
-  properties:
-    network:
-      type: string
-      description: Network identifier
-      maxLength: 64
-
-RegionalMetadata:
-  type: object
-  description: Metadata for regional resources
-  readOnly: true
-  required:
-  - region
-  properties:
-    region:
-      type: string
-      description: Reference to the region where the resource is located
-      maxLength: 64
-
-Status:
-  type: object
-  readOnly: true
-  description: Current status of the resource
-  required:
-  - conditions
-  properties:
-    state:
-      $ref: '#/ResourceState'
-    conditions:
-      type: array
-      items:
-        $ref: "#/StatusCondition"
-
-ResourceState:
-  type: string
-  description: |
-    Current phase of the resource:
-    - pending: not available, waiting for other resources
-    - creating: not available, creation started
-    - active: available for data layer usage
-    - updating: available for data layer usage
-    - deleting: maybe still available for data layer user, can fail any moment
-    - suspended: not available, provider specific behavior (payment issue, user decided to suspend)
-    - error: failed to fulfill the request; would be related to provider issue or customer related input.
-  enum:
-  - pending
-  - creating
-  - active
-  - updating
-  - deleting
-  - suspended
-  - error
-  example: "active"
-
-StatusCondition:
-  type: object
-  description: |
-    StatusCondition describes the state of a resource at a certain point.
-    Conditions are provider-specific and can represent different states depending on the
-    resource type and provider implementation.
-  required:
-  - state
-  - lastTransitionAt
-  properties:
-    type:
-      type: string
-      description: |
-        Type of condition. The condition type is provider-specific and should
-        reflect the specific states relevant to your resource.
-    state:
-      $ref: '#/ResourceState'
-    lastTransitionAt:
-      type: string
-      format: date-time
-      description: |
-        LastTransitionAt is the last time the condition transitioned from one
-        status to another. This should be when the underlying condition changed.
-        If that is not known, then using the time when the API field changed is
-        acceptable.
-    reason:
-      type: string
-      description: |
-        The reason for the condition's last transition in CamelCase.
-        The specific set of reason values is provider-specific and should be
-        documented by the provider.
-      maxLength: 1024
-      pattern: '^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$'
-    message:
-      type: string
-      description: |
-        A human-readable message indicating details about the transition.
-      maxLength: 32768
-  example:
-    state: active
-    lastTransitionAt: "2024-11-21T14:39:22Z"
-
-ResponseMetadata:
-  description: |
-    Metadata for response objects.
-  allOf:
-  - $ref: '#/PermissionMetadata'
-  - type: object
-    readOnly: true
-    properties:
-      skipToken:
-        type: string
-        description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
-        maxLength: 5
-  example:
-    skipToken: "false"
-    provider: "seca.compute/v1"
-    resource: "tenants/1/workspaces/ws-1/instances/my-server"
-    verb: get
+        skipToken: "false"
+        provider: "seca.compute/v1"
+        resource: "tenants/1/workspaces/ws-1/instances/my-server"
+        verb: get

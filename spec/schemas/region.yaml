@@ -1,63 +1,65 @@
-Region:
-  type: object
-  description: |
-    Represents a region, which is a geographical location
-    with one or more zones.
-  required:
-    - spec
-  properties:
-    metadata:
-      $ref: './resource.yaml#/GlobalResourceMetadata'
-    spec:
-      $ref: './region.yaml#/RegionSpec'
-
-RegionSpec:
-  type: object
-  description: |
-    The specification of a region, including the available zones and providers.
-  required:
-    - availableZones
-    - providers
-  properties:
-    availableZones:
+components:
+  schemas:
+    Region:
+      type: object
       description: |
-        The list of zones available in the region.
-      type: array
-      items:
-        $ref: '#/Zone'
-      example: ["a", "b", "c"]
+        Represents a region, which is a geographical location
+        with one or more zones.
+      required:
+        - spec
+      properties:
+        metadata:
+          $ref: './resource.yaml#/components/schemas/GlobalResourceMetadata'
+        spec:
+          $ref: './region.yaml#/components/schemas/RegionSpec'
 
-    providers:
+    RegionSpec:
+      type: object
       description: |
-        The list of providers available in the region.
-      type: array
-      items:
-        $ref: './region.yaml#/Provider'
+        The specification of a region, including the available zones and providers.
+      required:
+        - availableZones
+        - providers
+      properties:
+        availableZones:
+          description: |
+            The list of zones available in the region.
+          type: array
+          items:
+            $ref: '#/components/schemas/Zone'
+          example: ["a", "b", "c"]
 
-Zone:
-  type: string
-  description: Reference to a specific zone within a region
-  maxLength: 32
-  example: "a"
+        providers:
+          description: |
+            The list of providers available in the region.
+          type: array
+          items:
+            $ref: './region.yaml#/components/schemas/Provider'
 
-Provider:
-  type: object
-  description: |
-    A provider of cloud services
-  required:
-    - name
-    - version
-    - url
-  properties:
-    name:
+    Zone:
       type: string
-      maxLength: 64
-      example: "seca.network"
-    version:
-      type: string
-      maxLength: 16
-      example: "v1"
-    url:
-      type: string
-      maxLength: 4000
-      example: "https://demo.secapi.cloud/providers/seca.network"
+      description: Reference to a specific zone within a region
+      maxLength: 32
+      example: "a"
+
+    Provider:
+      type: object
+      description: |
+        A provider of cloud services
+      required:
+        - name
+        - version
+        - url
+      properties:
+        name:
+          type: string
+          maxLength: 64
+          example: "seca.network"
+        version:
+          type: string
+          maxLength: 16
+          example: "v1"
+        url:
+          type: string
+          maxLength: 4000
+          example: "https://demo.secapi.cloud/providers/seca.network"

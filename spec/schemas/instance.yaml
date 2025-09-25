@@ -1,122 +1,124 @@
-Instance:
-  description: |
-    Instance resource representing a virtual machine in the cloud provider's infrastructure.
-    This resource is used to manage the lifecycle of the instance, including its creation,
-    updates, and deletion.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
-      spec:
-        $ref: './instance.yaml#/InstanceSpec'
-      status:
-        $ref: './instance.yaml#/InstanceStatus'
+components:
+  schemas:
+    Instance:
+      description: |
+        Instance resource representing a virtual machine in the cloud provider's infrastructure.
+        This resource is used to manage the lifecycle of the instance, including its creation,
+        updates, and deletion.
+      allOf:
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
+          spec:
+            $ref: './instance.yaml#/components/schemas/InstanceSpec'
+          status:
+            $ref: './instance.yaml#/components/schemas/InstanceStatus'
 
-InstanceSpec:
-  type: object
-  description: |
-    Specification of the instance, including its SKU, network configuration, and storage options.
-  required:
-  - skuRef
-  - zone
-  - bootVolume
-  properties:
-    skuRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the SKU of the instance.
-      example: 'skus/seca.s'
-    primaryNicRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the primary NIC attached to this instance.
+    InstanceSpec:
+      type: object
+      description: |
+        Specification of the instance, including its SKU, network configuration, and storage options.
+      required:
+      - skuRef
+      - zone
+      - bootVolume
+      properties:
+        skuRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the SKU of the instance.
+          example: 'skus/seca.s'
+        primaryNicRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the primary NIC attached to this instance.
+          example:
+            provider: seca.network/v1
+            resource: network-interfaces/nic-123
+        additionalNicRefs:
+          type: array
+          description: Additional NICs attached to this instance
+          items:
+            allOf:
+            - $ref: './resource.yaml#/components/schemas/Reference'
+            description: Reference to an additional NIC attached to this instance.
+            example:
+              provider: seca.network/v1
+              resource: network-interfaces/nic-124
+        zone:
+          $ref: './region.yaml#/components/schemas/Zone'
+        securityGroupRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the security group associated with this instance.
+          example:
+            provider: seca.network/v1
+            resource: security-groups/sg-123
+        userData:
+          type: string
+          description: |
+            Cloud-init user data for instance initialization
+            Example cloud-init user configuration with SSH key:
+          maxLength: 65536
+          example: |
+            #cloud-config
+            packages:
+            - nginx
+        antiAffinityGroup:
+          description: |
+            Anti-affinity group to which this instance belongs.
+            Instances in the same anti-affinity group are placed on different physical hosts.
+            The number of maximum instances in an anti-affinity group is provider-specific.
+          type: string
+          maxLength: 64
+          example: 'exclusive-server'
+        sshKeys:
+          type: array
+          items:
+            type: string
+            maxLength: 4096
+          description: |
+            Provider-specific references to SSH keys used in cloud-init vendorData.
+            These references are used to inject SSH public keys during instance initialization
+            through cloud-init's vendor data configuration.
+          example: ['ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g...']
+        bootVolume:
+          allOf:
+          - $ref: './block-storage.yaml#/components/schemas/VolumeReference'
+          description: Reference to the block storage used to store the boot volume of the instance.
+        dataVolumes:
+          type: array
+          items:
+            allOf:
+            - $ref: './block-storage.yaml#/components/schemas/VolumeReference'
+            description: Reference to the block storage used to store an additional volume of the instance.
       example:
-        provider: seca.network/v1
-        resource: network-interfaces/nic-123
-    additionalNicRefs:
-      type: array
-      description: Additional NICs attached to this instance
-      items:
-        allOf:
-        - $ref: './resource.yaml#/Reference'
-        description: Reference to an additional NIC attached to this instance.
-        example:
-          provider: seca.network/v1
-          resource: network-interfaces/nic-124
-    zone:
-      $ref: './region.yaml#/Zone'
-    securityGroupRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the security group associated with this instance.
-      example:
-        provider: seca.network/v1
-        resource: security-groups/sg-123
-    userData:
-      type: string
-      description: |
-        Cloud-init user data for instance initialization
-        Example cloud-init user configuration with SSH key:
-      maxLength: 65536
-      example: |
-        #cloud-config
-        packages:
-        - nginx
-    antiAffinityGroup:
-      description: |
-        Anti-affinity group to which this instance belongs.
-        Instances in the same anti-affinity group are placed on different physical hosts.
-        The number of maximum instances in an anti-affinity group is provider-specific.
-      type: string
-      maxLength: 64
-      example: 'exclusive-server'
-    sshKeys:
-      type: array
-      items:
-        type: string
-        maxLength: 4096
-      description: |
-        Provider-specific references to SSH keys used in cloud-init vendorData.
-        These references are used to inject SSH public keys during instance initialization
-        through cloud-init's vendor data configuration.
-      example: ['ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g...']
-    bootVolume:
-      allOf:
-      - $ref: './block-storage.yaml#/VolumeReference'
-      description: Reference to the block storage used to store the boot volume of the instance.
-    dataVolumes:
-      type: array
-      items:
-        allOf:
-        - $ref: './block-storage.yaml#/VolumeReference'
-        description: Reference to the block storage used to store an additional volume of the instance.
-  example:
-    skuRef: "skus/seca.s"
-    zone: "a"
-    bootVolume:
-      deviceRef:
-        provider: "seca.storage/v1"
-        resource: "block-storages/block-123"
-      type: "virtio"
+        skuRef: "skus/seca.s"
+        zone: "a"
+        bootVolume:
+          deviceRef:
+            provider: "seca.storage/v1"
+            resource: "block-storages/block-123"
+          type: "virtio"
 
-InstanceStatus:
-  description: |
-    Current status of the instance.
-  allOf:
-  - $ref: "./resource.yaml#/Status"
-  - type: object
-    readOnly: true
-    required:
-    - powerState
-    properties:
-      powerState:
-        type: string
-        description: Current power state of the instance.
-        enum:
-        - "on"
-        - "off"
-        example: "on"
+    InstanceStatus:
+      description: |
+        Current status of the instance.
+      allOf:
+      - $ref: "./resource.yaml#/components/schemas/Status"
+      - type: object
+        readOnly: true
+        required:
+        - powerState
+        properties:
+          powerState:
+            type: string
+            description: Current power state of the instance.
+            enum:
+            - "on"
+            - "off"
+            example: "on"

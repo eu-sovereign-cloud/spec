@@ -1,69 +1,71 @@
-InternetNatGatewayInstance:
-  description: |
-    An InternetNatGatewayInstance is a resource that provides internet access to a subnet
-    by mangling the source IP address of outgoing packets. This allows instances
-    in the subnet to access the internet while keeping their private IP addresses
-    hidden. The InternetNatGatewayInstance is used in conjunction with a RouteTable to
-    enable internet connectivity.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    description: |
-      An InternetNatGatewayInstance is a resource that provides internet access to a subnet
-      by mangling the source IP address of outgoing packets. This allows instances
-      in the subnet to access the internet while keeping their private IP addresses
-      hidden. The InternetNatGatewayInstance is used in conjunction with a RouteTable to
-      enable internet connectivity.
-  required:
-  - spec
-  properties:
-    metadata:
-      $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
-    spec:
-      $ref: './nat-gateway.yaml#/InternetNatGatewayInstanceSpec'
-    status:
-      $ref: './nat-gateway.yaml#/InternetNatGatewayInstanceStatus'
-
-InternetNatGatewayInstanceSpec:
-  type: object
-  description: |
-    The internet gateway will allocate a public IPv4 address.
-    The NAT Gateway instance will be created in the specified zone using
-    the specified public IP address and network interface. This implies
-    the NAT Gateway instance will inherit the availability of the zone
-    and not scale beyond the capability of a compute instance.
-
-    The NIC needs to be in the same zone as the NAT Gateway instance.
-    If the NIC has a public IP address, the NAT Gateway instance will
-    report this as an error.
-  required:
-  - publicIpRef
-  - nicRef
-  - zone
-  properties:
-    publicIpRef:
+components:
+  schemas:
+    InternetNatGatewayInstance:
+      description: |
+        An InternetNatGatewayInstance is a resource that provides internet access to a subnet
+        by mangling the source IP address of outgoing packets. This allows instances
+        in the subnet to access the internet while keeping their private IP addresses
+        hidden. The InternetNatGatewayInstance is used in conjunction with a RouteTable to
+        enable internet connectivity.
       allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the public IP allocated to this internet NAT gateway.
-      example:
-        provider: seca.network/v1
-        resource: public-ips/ip-1
-    nicRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the NIC attached to the internet NAT gateway.
-      example:
-        provider: seca.network/v1
-        resource: nics/nat-gateway-1
-    zone:
-      $ref: './region.yaml#/Zone'
-    securityGroupRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      description: Reference to the security group associated with the NAT gateway.
-      example:
-        provider: seca.network/v1
-        resource: security-groups/security-group-1
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        description: |
+          An InternetNatGatewayInstance is a resource that provides internet access to a subnet
+          by mangling the source IP address of outgoing packets. This allows instances
+          in the subnet to access the internet while keeping their private IP addresses
+          hidden. The InternetNatGatewayInstance is used in conjunction with a RouteTable to
+          enable internet connectivity.
+      required:
+      - spec
+      properties:
+        metadata:
+          $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
+        spec:
+          $ref: './nat-gateway.yaml#/components/schemas/InternetNatGatewayInstanceSpec'
+        status:
+          $ref: './nat-gateway.yaml#/components/schemas/InternetNatGatewayInstanceStatus'
 
-InternetNatGatewayInstanceStatus:
-  $ref: "./resource.yaml#/Status"
+    InternetNatGatewayInstanceSpec:
+      type: object
+      description: |
+        The internet gateway will allocate a public IPv4 address.
+        The NAT Gateway instance will be created in the specified zone using
+        the specified public IP address and network interface. This implies
+        the NAT Gateway instance will inherit the availability of the zone
+        and not scale beyond the capability of a compute instance.
+
+        The NIC needs to be in the same zone as the NAT Gateway instance.
+        If the NIC has a public IP address, the NAT Gateway instance will
+        report this as an error.
+      required:
+      - publicIpRef
+      - nicRef
+      - zone
+      properties:
+        publicIpRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the public IP allocated to this internet NAT gateway.
+          example:
+            provider: seca.network/v1
+            resource: public-ips/ip-1
+        nicRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the NIC attached to the internet NAT gateway.
+          example:
+            provider: seca.network/v1
+            resource: nics/nat-gateway-1
+        zone:
+          $ref: './region.yaml#/components/schemas/Zone'
+        securityGroupRef:
+          allOf:
+          - $ref: './resource.yaml#/components/schemas/Reference'
+          description: Reference to the security group associated with the NAT gateway.
+          example:
+            provider: seca.network/v1
+            resource: security-groups/security-group-1
+
+    InternetNatGatewayInstanceStatus:
+      $ref: "./resource.yaml#/components/schemas/Status"

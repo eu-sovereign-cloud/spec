@@ -1,61 +1,63 @@
-PublicIp:
-  description: |
-    Public IP resource.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    description: |
-      Represents a public IP address that can be assigned to network
-      resources. A CSP might enable Bring Your Own IP (BYOIP) where
-      the IP address are made available.
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
-      spec:
-        $ref: '#/PublicIpSpec'
-      status:
-        $ref: '#/PublicIpStatus'
+components:
+  schemas:
+    PublicIp:
+      description: |
+        Public IP resource.
+      allOf:
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        description: |
+          Represents a public IP address that can be assigned to network
+          resources. A CSP might enable Bring Your Own IP (BYOIP) where
+          the IP address are made available.
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
+          spec:
+            $ref: '#/components/schemas/PublicIpSpec'
+          status:
+            $ref: '#/components/schemas/PublicIpStatus'
 
-PublicIpSpec:
-  type: object
-  description: |
-    Specification of the public IP.
-  required:
-    - version
-  properties:
-    version:
-      $ref: './network.yaml#/IPVersion'
-    address:
-      type: string
-      description: The public IP address in case of BYOIP.
-      maxLength: 39
-  example:
-    version: "IPv4"
+    PublicIpSpec:
+      type: object
+      description: |
+        Specification of the public IP.
+      required:
+        - version
+      properties:
+        version:
+          $ref: './network.yaml#/components/schemas/IPVersion'
+        address:
+          type: string
+          description: The public IP address in case of BYOIP.
+          maxLength: 39
+      example:
+        version: "IPv4"
 
-PublicIpStatus:
-  description: |
-    Status of the public IP.
-  allOf:
-  - $ref: "./resource.yaml#/Status"
-  - type: object
-    readOnly: true
-    description: |
-      Current status of the public IP.
-      Condition type `allocation` indicates the status of the public IP allocation.
-      The status can be `allocated` or `released`.
-      Condition type  `binding` indicates the status of the IP binding to a resource.
-      The status can be `bound` or `unbound`.
-    properties:
-      attachedTo:
-        allOf:
-        - $ref: './resource.yaml#/Reference'
-        description: Reference to the instance the public IP is attached to.
-        example:
-          provider: seca.compute/v1
-          resource: instances/instance-123
-      ipAddress:
-        type: string
-        description: The public IP address in case.
-        maxLength: 39
+    PublicIpStatus:
+      description: |
+        Status of the public IP.
+      allOf:
+      - $ref: "./resource.yaml#/components/schemas/Status"
+      - type: object
+        readOnly: true
+        description: |
+          Current status of the public IP.
+          Condition type `allocation` indicates the status of the public IP allocation.
+          The status can be `allocated` or `released`.
+          Condition type  `binding` indicates the status of the IP binding to a resource.
+          The status can be `bound` or `unbound`.
+        properties:
+          attachedTo:
+            allOf:
+            - $ref: './resource.yaml#/components/schemas/Reference'
+            description: Reference to the instance the public IP is attached to.
+            example:
+              provider: seca.compute/v1
+              resource: instances/instance-123
+          ipAddress:
+            type: string
+            description: The public IP address in case.
+            maxLength: 39

@@ -10,5 +10,5 @@ resources:
   - name: region
     plural: regions
     hierarchy: []
-    schema: './schemas/region.yaml#/Region'
+    schema: './schemas/region.yaml#/components/schemas/Region'
     operations: [list, get]

@@ -9,7 +9,7 @@ resources:
   - name: sku
     plural: skus
     hierarchy: [tenant]
-    schema: ./schemas/network-sku.yaml#/NetworkSku
+    schema: ./schemas/network-sku.yaml#/components/schemas/NetworkSku
     operations: [list, get]
     description:
       list: |
@@ -38,35 +38,35 @@ resources:
   - name: security group
     plural: security-groups
     hierarchy: [tenant, workspace]
-    schema: './schemas/security-group.yaml#/SecurityGroup'
+    schema: './schemas/security-group.yaml#/components/schemas/SecurityGroup'
     operations: [list, get, put, delete]
   - name: nic
     plural: nics
     hierarchy: [tenant, workspace]
-    schema: './schemas/nic.yaml#/Nic'
+    schema: './schemas/nic.yaml#/components/schemas/Nic'
     operations: [list, get, put, delete]
   - name: public ip
     plural: public ips
     hierarchy: [tenant, workspace]
-    schema: './schemas/public-ip.yaml#/PublicIp'
+    schema: './schemas/public-ip.yaml#/components/schemas/PublicIp'
     operations: [list, get, put, delete]
   - name: network
     plural: networks
     hierarchy: [tenant, workspace]
-    schema: './schemas/network.yaml#/Network'
+    schema: './schemas/network.yaml#/components/schemas/Network'
     operations: [list, get, put, delete]
   - name: internet gateway
     plural: internet gateways
     hierarchy: [tenant, workspace]
-    schema: './schemas/internet-gateway.yaml#/InternetGateway'
+    schema: './schemas/internet-gateway.yaml#/components/schemas/InternetGateway'
     operations: [list, get, put, delete]
   - name: subnet
     plural: subnets
     hierarchy: [tenant, workspace, network]
-    schema: './schemas/subnet.yaml#/Subnet'
+    schema: './schemas/subnet.yaml#/components/schemas/Subnet'
     operations: [list, get, put, delete]
   - name: route-table
     plural: route-tables
     hierarchy: [tenant, workspace, network]
-    schema: './schemas/route-table.yaml#/RouteTable'
+    schema: './schemas/route-table.yaml#/components/schemas/RouteTable'
     operations: [list, get, put, delete]

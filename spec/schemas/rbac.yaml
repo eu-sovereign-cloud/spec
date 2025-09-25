@@ -1,186 +1,188 @@
-Role:
-  description: |
-    Role represents a set of permissions that can be assigned to users.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/GlobalResourceMetadata'
-      spec:
-        $ref: "#/RoleSpec"
-      status:
-        $ref: "#/RoleStatus"
+components:
+  schemas:
+    Role:
+      description: |
+        Role represents a set of permissions that can be assigned to users.
+      allOf:
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/GlobalResourceMetadata'
+          spec:
+            $ref: "#/components/schemas/RoleSpec"
+          status:
+            $ref: "#/components/schemas/RoleStatus"
 
-RoleSpec:
-  type: object
-  description: |
-    Role specification defined as a list of permissions.
-    Roles are used to define access control policies for
-    a user account using a role assignment.
-  required:
-  - permissions
-  properties:
-    permissions:
-      type: array
-      items:
-        $ref: "#/Permission"
-      description: List of permissions granted by this role
-      example:
-      - provider: "seca.storage/v1"
+    RoleSpec:
+      type: object
+      description: |
+        Role specification defined as a list of permissions.
+        Roles are used to define access control policies for
+        a user account using a role assignment.
+      required:
+      - permissions
+      properties:
+        permissions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Permission"
+          description: List of permissions granted by this role
+          example:
+          - provider: "seca.storage/v1"
+            resources:
+            - "images/*"
+            - "block-storages/*"
+            verb: ["get", "list"]
+          - provider: "seca.compute/v1"
+            resources:
+            - "instances/*"
+            verb: ["get", "list"]
+          - provider: "seca.network/v1"
+            resources:
+            - "networks/*"
+            - "subnets/*"
+            - "route-tables/*"
+            - "nics/*"
+            - "internet-gateways/*"
+            - "security-groups/*"
+            - "public-ips/*"
+            verb: ["get", "list"]
+
+    Permission:
+      type: object
+      description: |
+        Permission specification, including providers, resources, and verbs.
+        Permissions are used to define access control policies for user accounts.
+      required:
+      - provider
+      - resources
+      - verb
+      properties:
+        provider:
+          type: string
+          description: |
+            The provider for which the resource and verbs are defined.
+          maxLength: 64
+          example: 'seca.storage/v1'
         resources:
-        - "images/*"
-        - "block-storages/*"
-        verb: ["get", "list"]
-      - provider: "seca.compute/v1"
-        resources:
-        - "instances/*"
-        verb: ["get", "list"]
-      - provider: "seca.network/v1"
-        resources:
-        - "networks/*"
-        - "subnets/*"
-        - "route-tables/*"
-        - "nics/*"
-        - "internet-gateways/*"
-        - "security-groups/*"
-        - "public-ips/*"
-        verb: ["get", "list"]
+          type: array
+          items:
+            type: string
+            maxLength: 256
+          description: |
+            The resources are the specific resources that the permission applies to.
+            The resource can be a wildcard `*` to represent all resources or a
+            specific resource type. For example, `images/my-image` or
+            `images/*`.
+          example: ["images/*", "skus/*"]
+        verb:
+          type: array
+          items:
+            type: string
+            maxLength: 7
+          description: |
+            The verb is a string that represents the action to be performed on a resource.
+            The standard operations are defined as `get`, `put`, `list`, `delete`. If the
+            resource has additional actions they can to be permitted individually as
+            verb and action in the form `<verb>:<action>`. For example, `post.start`,
+            `post.stop`, `post.restart` or with a wildcard for all actions `post`.
+          example: ["read", "write"]
 
-Permission:
-  type: object
-  description: |
-    Permission specification, including providers, resources, and verbs.
-    Permissions are used to define access control policies for user accounts.
-  required:
-  - provider
-  - resources
-  - verb
-  properties:
-    provider:
-      type: string
-      description: |
-        The provider for which the resource and verbs are defined.
-      maxLength: 64
-      example: 'seca.storage/v1'
-    resources:
-      type: array
-      items:
-        type: string
-        maxLength: 256
-      description: |
-        The resources are the specific resources that the permission applies to.
-        The resource can be a wildcard `*` to represent all resources or a
-        specific resource type. For example, `images/my-image` or
-        `images/*`.
-      example: ["images/*", "skus/*"]
-    verb:
-      type: array
-      items:
-        type: string
-        maxLength: 7
-      description: |
-        The verb is a string that represents the action to be performed on a resource.
-        The standard operations are defined as `get`, `put`, `list`, `delete`. If the
-        resource has additional actions they can to be permitted individually as
-        verb and action in the form `<verb>:<action>`. For example, `post.start`,
-        `post.stop`, `post.restart` or with a wildcard for all actions `post`.
-      example: ["read", "write"]
+    RoleStatus:
+      $ref: "./resource.yaml#/components/schemas/Status"
 
-RoleStatus:
-  $ref: "./resource.yaml#/Status"
-
-RoleAssignment:
-  description: |
-    Role assignment for a user account. The role is assigned to the user account in the context of the specified scopes.
-  allOf:
-  - $ref: './resource.yaml#/UserResourceMetadata'
-  - type: object
-    required:
-    - spec
-    properties:
-      metadata:
-        $ref: './resource.yaml#/GlobalResourceMetadata'
-      spec:
-        $ref: "#/RoleAssignmentSpec"
-      status:
-        $ref: "#/RoleAssignmentStatus"
-
-RoleAssignmentSpec:
-  type: object
-  description: |
-    Role assignment for a user account. The role is assigned to the user account in the context of the specified scopes.
-  required:
-  - subs
-  - scopes
-  - roles
-  properties:
-    subs:
-      type: array
-      items:
-        type: string
-        maxLength: 128
+    RoleAssignment:
       description: |
-        List of subject IDs (from JWT) to whom the roles are assigned,
-        A wildcard `*` can be used to represent all users of the tenant scopes
-      example: ["user1@example.com", "service-account-1"]
-    scopes:
-      type: array
-      items:
-        $ref: "#/RoleAssignmentScope"
-      description: List of scopes (e.g., tenant, workspace) for the role assignment
-    roles:
-      type: array
-      items:
-        type: string
-        maxLength: 64
-      description: List of assigned role names
-      example: ["project-manager", "workspace-viewer"]
+        Role assignment for a user account. The role is assigned to the user account in the context of the specified scopes.
+      allOf:
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
+      - type: object
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/GlobalResourceMetadata'
+          spec:
+            $ref: "#/components/schemas/RoleAssignmentSpec"
+          status:
+            $ref: "#/components/schemas/RoleAssignmentStatus"
 
-RoleAssignmentScope:
-  type: object
-  description: |
-    Role assignment scope, including the workspaces, regions and tenants.
-  properties:
-    tenants:
-      type: array
+    RoleAssignmentSpec:
+      type: object
       description: |
-        Optionally, can be opened to all tenants or restricted to a specific tenant.
-        If not specified, the role assignment is valid for the current tenant.
-      example: ['tenant-1']
-      items:
-        type: string
-        description: |
-          Tenant ID for the role assignment. A `*` wildcard can be used
-          to represent all tenants. This allows the role assignment to
-          be applied to other tenants if needed.
-        maxLength: 64
-    regions:
-      type: array
-      description: |
-        Optionally, a restriction can be applied to the region
-        where the role assignment is valid. If not specified,
-        the role assignment is valid for all regions.
-      example: ['region-1']
-      items:
-        type: string
-        description: |
-          Region ID for the role assignment
-        maxLength: 64
-    workspaces:
-      type: array
-      description: |
-        Optionally, a restriction can be applied to the workspace
-        where the role assignment is valid. If not specified,
-        the role assignment is valid for all workspaces.
-      example: ['workspace-1']
-      items:
-        type: string
-        description: |
-          Workspace ID for the role assignment.
-        maxLength: 64
+        Role assignment for a user account. The role is assigned to the user account in the context of the specified scopes.
+      required:
+      - subs
+      - scopes
+      - roles
+      properties:
+        subs:
+          type: array
+          items:
+            type: string
+            maxLength: 128
+          description: |
+            List of subject IDs (from JWT) to whom the roles are assigned,
+            A wildcard `*` can be used to represent all users of the tenant scopes
+          example: ["user1@example.com", "service-account-1"]
+        scopes:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoleAssignmentScope"
+          description: List of scopes (e.g., tenant, workspace) for the role assignment
+        roles:
+          type: array
+          items:
+            type: string
+            maxLength: 64
+          description: List of assigned role names
+          example: ["project-manager", "workspace-viewer"]
 
-RoleAssignmentStatus:
-  $ref: "./resource.yaml#/Status"
+    RoleAssignmentScope:
+      type: object
+      description: |
+        Role assignment scope, including the workspaces, regions and tenants.
+      properties:
+        tenants:
+          type: array
+          description: |
+            Optionally, can be opened to all tenants or restricted to a specific tenant.
+            If not specified, the role assignment is valid for the current tenant.
+          example: ['tenant-1']
+          items:
+            type: string
+            description: |
+              Tenant ID for the role assignment. A `*` wildcard can be used
+              to represent all tenants. This allows the role assignment to
+              be applied to other tenants if needed.
+            maxLength: 64
+        regions:
+          type: array
+          description: |
+            Optionally, a restriction can be applied to the region
+            where the role assignment is valid. If not specified,
+            the role assignment is valid for all regions.
+          example: ['region-1']
+          items:
+            type: string
+            description: |
+              Region ID for the role assignment
+            maxLength: 64
+        workspaces:
+          type: array
+          description: |
+            Optionally, a restriction can be applied to the workspace
+            where the role assignment is valid. If not specified,
+            the role assignment is valid for all workspaces.
+          example: ['workspace-1']
+          items:
+            type: string
+            description: |
+              Workspace ID for the role assignment.
+            maxLength: 64
+
+    RoleAssignmentStatus:
+      $ref: "./resource.yaml#/components/schemas/Status"

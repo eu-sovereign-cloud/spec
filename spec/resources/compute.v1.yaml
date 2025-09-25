@@ -10,7 +10,7 @@ resources:
   - name: sku
     plural: skus
     hierarchy: [tenant]
-    schema: ./schemas/instance-sku.yaml#/InstanceSku
+    schema: ./schemas/instance-sku.yaml#/components/schemas/InstanceSku
     operations: [list, get]
     description:
       list: |
@@ -60,7 +60,7 @@ resources:
   - name: instance
     plural: instances
     hierarchy: [tenant, workspace]
-    schema: ./schemas/instance.yaml#/Instance
+    schema: ./schemas/instance.yaml#/components/schemas/Instance
     operations: [list, get, put, delete]
     actions:
     - name: start
