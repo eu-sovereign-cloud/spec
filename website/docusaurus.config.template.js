@@ -84,7 +84,12 @@ const config = {
             href: 'https://secapi.cloud/',
             label: 'Blog',
             position: 'right',
-          },          
+          },
+          {
+            href: 'https://matrix.to/#/#seca-community:chat.secapi.cloud',
+            label: 'Community',
+            position: 'right',
+          },           
         ],
       },
       footer: {
@@ -127,6 +132,10 @@ const config = {
                 label: 'Repository',
                 href: 'https://github.com/eu-sovereign-cloud/spec',
               },
+              {
+                label: "Community",
+                href: 'https://matrix.to/#/#seca-community:chat.secapi.cloud'
+              }
             ],
           },
         ],
