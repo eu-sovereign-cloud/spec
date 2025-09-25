@@ -83,7 +83,7 @@ components:
         - direction
       properties:
         annotations:
-          $ref: './resource.yaml#/components/schemas/UserResourceMetadata/properties/annotations'
+          $ref: './resource.yaml#/components/schemas/Annotations'
         direction:
           type: string
           enum: ['ingress', 'egress']

@@ -271,15 +271,7 @@ components:
           example:
             env: production
         annotations:
-          type: object
-          description: |
-            User-defined key/value pairs that are mutable and can be used to add annotations.
-            The number of annotations is eventually limited by the CSP.
-          additionalProperties:
-            type: string
-            maxLength: 1024
-          example:
-            description: "Human readable description"
+          ref: '#/components/schemas/Annotations'
         extensions:
           type: object
           description: |
@@ -287,6 +279,17 @@ components:
             Extensions are subject to validation by the CSP, and any value that is not accepted will be rejected during admission.
           additionalProperties:
             type: string
+
+    Annotations:
+      type: object
+      description: |
+        User-defined key/value pairs that are mutable and can be used to add annotations.
+        The number of annotations is eventually limited by the CSP.
+      additionalProperties:
+        type: string
+        maxLength: 1024
+      example:
+        description: "Human readable description"
 
     SystemResourceMetadata:
       type: object
