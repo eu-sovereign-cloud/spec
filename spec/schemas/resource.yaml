@@ -282,27 +282,36 @@ components:
       description: Metadata for user-defined resource properties
       properties:
         labels:
-          type: object
-          description: |
-            User-defined key/value pairs that are mutable and can be used to
-            organize and categorize resources. They can be used to filter resources.
-            The number of labels is eventually limited by the CSP.
-          additionalProperties:
-            type: string
-            maxLength: 63
-          example:
-            env: production
+          $ref: '#/components/schemas/Labels'
         annotations:
           ref: '#/components/schemas/Annotations'
         extensions:
-          type: object
-          description: |
-            User-defined key/value pairs that are mutable and can be used to add extensions.
-            Extensions are subject to validation by the CSP, and any value that is not accepted will be rejected during admission.
-          additionalProperties:
-            type: string
+          $ref: '#/components/schemas/Extensions'
+    
+    Extensions:
+      x-go-type-skip-optional-pointer: true
+      type: object
+      description: |
+        User-defined key/value pairs that are mutable and can be used to add extensions.
+        Extensions are subject to validation by the CSP, and any value that is not accepted will be rejected during admission.
+      additionalProperties:
+        type: string
+
+    Labels: 
+      x-go-type-skip-optional-pointer: true
+      type: object
+      description: |
+        User-defined key/value pairs that are mutable and can be used to
+        organize and categorize resources. They can be used to filter resources.
+        The number of labels is eventually limited by the CSP.
+      additionalProperties:
+        type: string
+        maxLength: 63
+      example:
+        env: production
 
     Annotations:
+      x-go-type-skip-optional-pointer: true
       type: object
       description: |
         User-defined key/value pairs that are mutable and can be used to add annotations.
@@ -318,29 +327,11 @@ components:
       description: Metadata for user-defined resource properties
       properties:
         labels:
-          type: object
-          description: |
-            System-defined key/value pairs to filter resources.
-          additionalProperties:
-            type: string
-            maxLength: 63
-          example:
-            env: production
+          $ref: '#/components/schemas/Labels'
         annotations:
-          type: object
-          description: |
-            System-defined key/value pairs to annotate the resource.
-          additionalProperties:
-            type: string
-            maxLength: 1024
-          example:
-            description: "Human readable description"
+          ref: '#/components/schemas/Annotations'
         extensions:
-          type: object
-          description: |
-            System-defined key/value pairs to document available extensions.
-          additionalProperties:
-            type: string
+          $ref: '#/components/schemas/Extensions'
 
     TenantMetadata:
       type: object
