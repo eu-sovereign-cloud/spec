@@ -284,7 +284,7 @@ components:
         labels:
           $ref: '#/components/schemas/Labels'
         annotations:
-          ref: '#/components/schemas/Annotations'
+          $ref: '#/components/schemas/Annotations'
         extensions:
           $ref: '#/components/schemas/Extensions'
     
@@ -329,7 +329,7 @@ components:
         labels:
           $ref: '#/components/schemas/Labels'
         annotations:
-          ref: '#/components/schemas/Annotations'
+          $ref: '#/components/schemas/Annotations'
         extensions:
           $ref: '#/components/schemas/Extensions'
 
