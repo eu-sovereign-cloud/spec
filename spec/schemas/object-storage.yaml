@@ -10,7 +10,7 @@ components:
         - spec
         properties:
           metadata:
-            $ref: './resource.yaml#/components/schemas/GlobalResourceMetadata'
+            $ref: './resource.yaml#/components/schemas/GlobalTenantResourceMetadata'
           spec:
             $ref: '#/components/schemas/ObjectStorageAccountSpec'
           status:

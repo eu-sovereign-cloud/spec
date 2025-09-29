@@ -13,13 +13,22 @@ components:
 
     GlobalResourceMetadata:
       description: |
+        Metadata for global resources with name, permission, modification and type information.
+      allOf:
+      - $ref: '#/components/schemas/NameMetadata'
+      - $ref: '#/components/schemas/PermissionMetadata'
+      - $ref: '#/components/schemas/ModificationMetadata'
+      - $ref: '#/components/schemas/TypeMetadata'
+
+    GlobalTenantResourceMetadata:
+      description: |
         Metadata for global resources with name, permission, modification, type, and tenant information.
       allOf:
       - $ref: '#/components/schemas/NameMetadata'
       - $ref: '#/components/schemas/PermissionMetadata'
       - $ref: '#/components/schemas/ModificationMetadata'
       - $ref: '#/components/schemas/TypeMetadata'
-      - $ref: '#/components/schemas/TenantMetadata'
+      - $ref: '#/components/schemas/TenantMetadata'      
 
     RegionalResourceMetadata:
       description: |
