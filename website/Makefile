@@ -1,7 +1,9 @@
-.PHONY: generate
+.PHONY: generate start
+
+all: generate
+
 generate:
 	npm run generate:all
 
-.PHONY: start
 start:
 	npm run start

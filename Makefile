@@ -4,7 +4,6 @@ GOMPLATE = github.com/hairyhenderson/gomplate/v4/cmd/gomplate@latest
 
 ROOT = spec
 DIST = dist
-DIST_ZIP = dist.zip
 SPEC = openapi.yaml
 OUTPUT = /tmp/swagger.yaml
 
@@ -30,14 +29,7 @@ RESET = \033[0m
 
 .PHONY: all build clean lint resource-apis
 
-all: $(DIST_ZIP)
-
-$(DIST_ZIP): build
-	@command -v zip >/dev/null || { echo "$(YELLOW)⚠️  zip command not found or not executable. Please install zip.$(RESET)"; exit 1; }
-	@echo "$(BLUE)Zipping build output...$(RESET)"
-	@rm -f $@
-	@cd $(DIST) && zip -r ../$@ *
-
+all: build
 
 build: $(DIST) resource-apis $(SCHEMAS_FINAL)
 
@@ -75,4 +67,4 @@ lint: resource-apis
 
 clean:
 	@echo "$(BLUE)Cleaning up...$(RESET)"
-	@rm -rf $(DIST) $(DIST_ZIP) $(OUTPUT) $(ROOT)/*.yaml
+	@rm -rf $(DIST) $(OUTPUT) $(ROOT)/*.yaml
