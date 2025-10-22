@@ -32,7 +32,7 @@ components:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the SKU of the Kubernetes cluster.
-          example: "skus/seca.xl"
+          example: "tenants/seca/skus/seca.xl"
         restrictKubernetesApi:
           description: |
             Restrict access to the Kubernetes API to specific IP addresses or ranges.
@@ -148,7 +148,7 @@ components:
           description: Reference to the SKU of the node instances.
           example:
             provider: seca.compute/v1
-            resource: skus/seca.xl
+            resource: tenants/seca/skus/seca.xl
         subnetRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -170,7 +170,7 @@ components:
       example:
         skuRef:
           provider: seca.compute/v1
-          resource: skus/seca.xl
+          resource: tenants/seca/skus/seca.xl
         subnetRef:
           provider: seca.network/v1
           resource: subnets/k8s-nodes-a
@@ -181,7 +181,7 @@ components:
         rootVolume:
           skuRef:
             provider: seca.storage/v1
-            resource: skus/seca.le500
+            resource: tenants/seca/skus/seca.le500
           sizeGB: 100
 
     KubernetesNodeTaint:

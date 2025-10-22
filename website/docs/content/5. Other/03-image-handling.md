@@ -33,7 +33,7 @@ management of the device's origins and configuration.
 
 ## Public Images
 
-The Cloud Service Provider (CSP) can designate a specific tenant, aliased as `public`,
+The Cloud Service Provider (CSP) can designate a specific tenant, aliased as `seca`,
 to serve as a repository for pre-made images. This public tenant hosts a collection of
 images that are intentionally made available to all other tenants, facilitating a shared
 resource model. Although the public tenant itself is not inherently special, it leverages
@@ -174,4 +174,33 @@ PUT /providers/seca.storage/v1/tenants/152552672/images/debian-container-13
     "recommendedStorageSize": "100"
   },
   "spec" ...
+}
+```
+
+Using a public Ubuntu 24.04 Image:
+
+```json
+GET /providers/seca.storage/v1/tenants/seca/images/ubuntu-24
+
+{
+  "labels": {
+    "os": "linux",
+    "version": "24.04",
+    "base": "ubuntu"
+  },
+  "annotations": {
+    "name": "Ubuntu 24.04 Container",
+    "description": "The image contains the Ubuntu 24.04 base including preinstalled software for the use of linux containers",
+    "release": "2024-04-25T00:00:00Z",
+    "eol": "2026-04-25T00:00:00Z",
+    "recommendedCpu": "2",
+    "recommendedMemory": "2",
+    "recommendedNics": "2",
+    "recommendedStorageSize": "100"
+  },
+  "spec": {
+    "cpuArchitecture": "amd64",
+    "initializer": "cloudinit-22",
+    "boot": "UEFI"
+  }
 }

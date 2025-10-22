@@ -60,13 +60,13 @@ components:
           description: |
             Reference to the SKU used by default for all NICs in this Network.
             Can be overridden by the NIC
-          example: "skus/seca.1000"
+          example: "tenants/seca/skus/seca.1000"
       example:
         cidr:
           ipv4: "0.0.0.0/24"
           ipv6: "::/64"
         zone: "a"
-        skuRef: "skus/seca.1000"
+        skuRef: "tenants/seca/skus/seca.1000"
 
     SubnetStatus:
       description: |

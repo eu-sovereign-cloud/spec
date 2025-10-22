@@ -28,7 +28,7 @@ components:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the SKU of the block storage.
-          example: "skus/seca.n1k"
+          example: "tenants/seca/skus/seca.n1k"
         sizeGB:
           type: integer
           description: Size of the block storage in GB.
