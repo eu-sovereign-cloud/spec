@@ -33,7 +33,7 @@ management of the device's origins and configuration.
 
 ## Public Images
 
-The Cloud Service Provider (CSP) can designate a specific tenant, aliased as `seca`,
+The Cloud Service Provider (CSP) can designate a specific tenant, aliased as `public`,
 to serve as a repository for pre-made images. This public tenant hosts a collection of
 images that are intentionally made available to all other tenants, facilitating a shared
 resource model. Although the public tenant itself is not inherently special, it leverages

@@ -57,6 +57,7 @@ The number of vCPU is instead a suggested value as you can get to the baseline p
 | SECA.DXL   | 32       | 9000      |  16  |
 | SECA.D2XL  | 64       | 13000     |  32  |
 
+> SECA Standard SKUs will be provided under **seca** tenant (e.g: skuRef: /tenants/seca/d2xs)
 
 ### Minimum Score per SECA.Size Shared vCPU Flavour
 
@@ -73,3 +74,5 @@ The number of vCPU is instead a suggested value as you can get to the baseline p
 | SECA.SL    | 16        | 5500      | 8 |
 | SECA.SXL   | 32       | 8000      | 16 |
 | SECA.S2XL  | 64       | 9000     | 32 |
+
+> SECA Standard SKUs will be provided under **seca** tenant (e.g: skuRef: /tenants/seca/s2xs)

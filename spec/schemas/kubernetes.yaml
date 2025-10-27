@@ -148,7 +148,7 @@ components:
           description: Reference to the SKU of the node instances.
           example:
             provider: seca.compute/v1
-            resource: tenants/seca/skus/seca.xl
+            resource: tenants/seca/skus/xl
         subnetRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -170,7 +170,7 @@ components:
       example:
         skuRef:
           provider: seca.compute/v1
-          resource: tenants/seca/skus/seca.xl
+          resource: tenants/seca/skus/xl
         subnetRef:
           provider: seca.network/v1
           resource: subnets/k8s-nodes-a
@@ -181,7 +181,7 @@ components:
         rootVolume:
           skuRef:
             provider: seca.storage/v1
-            resource: tenants/seca/skus/seca.le500
+            resource: tenants/seca/skus/le500
           sizeGB: 100
 
     KubernetesNodeTaint:
@@ -242,7 +242,7 @@ components:
           description: Reference to the SKU of the block storage created to store the root volume.
           example:
             provider: seca.storage/v1
-            resource: skus/seca.le500
+            resource: tenats/seca/skus/le500
         sizeGB:
           description: |
             Size of the root volume in GB. The size is recommended to be at least 100GB.
@@ -250,7 +250,7 @@ components:
           example: 100
           minimum: 20
       example:
-        skuRef: skus/seca.le500
+        skuRef: tenants/seca/skus/le500
         sizeGB: 100
 
     KubernetesNodePoolStatus:

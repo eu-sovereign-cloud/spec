@@ -12,7 +12,7 @@ SKUs are regional resources, meaning their availability and characteristics may 
 
 ## Shared and Tenant-Specific SKUs
 
-By convention, CSPs can designate a public tenant, aliased as `seca`, to host shared SKUs. These public SKUs are available to all tenants, facilitating a common resource catalog and simplifying management. However, CSPs may also offer tenant-specific SKUs, which are only available within a particular customer tenant. This enables tailored offerings for specific customers, such as custom hardware configurations or exclusive service levels.
+By convention, CSPs can designate a public tenant, aliased as `public`, to host shared SKUs. These public SKUs are available to all tenants, facilitating a common resource catalog and simplifying management. However, CSPs may also offer tenant-specific SKUs, which are only available within a particular customer tenant. This enables tailored offerings for specific customers, such as custom hardware configurations or exclusive service levels.
 
 The public tenant is not inherently special but leverages the general Role-Based Access Control (RBAC) system to grant access to its SKUs. Shared SKUs in the `seca` tenant provide a baseline for resource provisioning, while tenant-specific SKUs allow for customization and differentiation.
 
@@ -94,9 +94,9 @@ Content-Type: application/json
     "description": "Linux OS Disk - High Performance",
   },
   "spec": {
-    "skuRef": "tenants/seca/skus/seca.rd20k", // High-performance remote durable block storage SKU (20,000 IOPS)
+    "skuRef": "tenants/seca/skus/rd20k", // High-performance remote durable block storage SKU (20,000 IOPS)
     "sizeGB": 50,
-    "sourceImageRef": "tenants/seca/images/ubuntu-24.04"
+    "sourceImageRef": "tenants/public/images/ubuntu-24.04"
   }
 }
 ```
@@ -105,7 +105,7 @@ Content-Type: application/json
 
 When specifying `skuRef` (or other resource references) in your API requests:
 
-- If the reference includes a tenant (e.g., `tenants/seca/skus/seca.rd20k`), the resource is resolved in that tenant (such as the public tenant `seca`).
+- If the reference includes a tenant (e.g., `tenants/seca/skus/seca.rd20k`), the resource is resolved in that tenant (such as the well-known standard tenant `seca`).
 - If the tenant is omitted (e.g., `skus/seca.rd20k`), the resource is resolved in the same tenant as the resource being created.
 
 This allows referencing shared resources in the public tenant or using tenant-specific resources by default.
@@ -125,9 +125,9 @@ Content-Type: application/json
     "description": "Linux OS Disk - High Performance",
   },
   "spec": {
-    "skuRef": "skus/seca.rd20k", // Looks up SKU in the same tenant as the resource being created
+    "skuRef": "tenants/seca/skus/rd20k", // Looks up SKU in the same tenant as the resource being created
     "sizeGB": 50,
-    "sourceImageRef": "tenants/seca/images/ubuntu-24.04"
+    "sourceImageRef": "tenants/ubuntu/images/ubuntu-24.04"
   }
 }
 ```
@@ -147,9 +147,9 @@ Content-Type: application/json
     "description": "Linux OS Disk - High Performance",
   },
   "spec": {
-    "skuRef": "tenants/seca/skus/seca.rd20k", // Looks up SKU in the public tenant 'seca'
+    "skuRef": "tenants/seca/skus/rd20k", // Looks up SKU in the standard tenant 'seca'
     "sizeGB": 50,
-    "sourceImageRef": "tenants/seca/images/ubuntu-24.04"
+    "sourceImageRef": "tenants/public/images/ubuntu-24.04"
   }
 }
 ```
