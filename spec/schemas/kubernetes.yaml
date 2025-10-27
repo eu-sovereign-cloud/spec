@@ -32,7 +32,7 @@ components:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the SKU of the Kubernetes cluster.
-          example: "tenants/seca/skus/seca.xl"
+          example: "tenants/seca/skus/xl"
         restrictKubernetesApi:
           description: |
             Restrict access to the Kubernetes API to specific IP addresses or ranges.
