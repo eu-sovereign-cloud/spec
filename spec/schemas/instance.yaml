@@ -31,7 +31,7 @@ components:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the SKU of the instance.
-          example: 'tenants/seca/skus/seca.s'
+          example: 'tenants/seca/skus/s'
         primaryNicRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
