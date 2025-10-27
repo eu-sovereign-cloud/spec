@@ -97,7 +97,7 @@ components:
             - $ref: './block-storage.yaml#/components/schemas/VolumeReference'
             description: Reference to the block storage used to store an additional volume of the instance.
       example:
-        skuRef: "tenants/seca/skus/seca.s"
+        skuRef: "tenants/seca/skus/s"
         zone: "a"
         bootVolume:
           deviceRef:
