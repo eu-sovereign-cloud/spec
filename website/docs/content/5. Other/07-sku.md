@@ -53,7 +53,7 @@ By using labels and annotations effectively, you can provide valuable context an
 Example of a SKU with annotations:
 
 ```json
-GET /providers/seca.compute/v1/tenants/seca/skus/standard-4cpu-16gb
+GET /providers/seca.compute/v1/tenants/public/skus/standard-4cpu-16gb
 
 {
   "labels": {
