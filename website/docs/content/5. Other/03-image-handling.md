@@ -180,7 +180,7 @@ PUT /providers/seca.storage/v1/tenants/152552672/images/debian-container-13
 Using a public Ubuntu 24.04 Image:
 
 ```json
-GET /providers/seca.storage/v1/tenants/seca/images/ubuntu-24
+GET /providers/seca.storage/v1/tenants/public/images/ubuntu-24
 
 {
   "labels": {
