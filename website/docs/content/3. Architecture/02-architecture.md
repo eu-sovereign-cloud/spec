@@ -8,7 +8,15 @@ These APIs are used to create and manage cloud resources within a specific tenan
 
 ![Shared API Gateway Model](@site/static/img/shared-api-gw-model.png)
 
-To maintain consistency of the SECA API across all providers, a **common API gateway** is introduced. This server acts as the entry point for clients and relies on a set of shared delegators to manage resource provisioning according to SECA specifications. The delegators then pass execution to the appropriate Cloud Service Provider (CSP) plugin, which performs the actual provisioning. This layered approach ensures seamless integration, provider compatibility, and a unified experience for clients.
+A key component of the SECA architectural model is the **SECA REST API Gateway**, which provides users and customers a standard way to interact with SECA resources across all **Cloud Service Providers (CSPs)**.
+
+The API Gateway relies on Kubernetes Custom Resources (**SECA CRs**) to represent and store the state of SECA resources. In response to API calls, the Gateway writes the desired state to the CR's **Spec** section and reads the actual state from its **Status** section.
+
+These SECA CRs are managed by **SECA Delegators**, which are Kubernetes Controllers that reconcile the resources. The Delegators detect changes to a CR's Spec and trigger the appropriate actions on the CSP to achieve the desired state. They are also responsible for updating the CR's Status field when responses are received from the CSPs.
+
+Delegators do not interact directly with CSPs; instead, they use **CSP Plugins**. A Plugin acts as the first translation layer, providing a set of common interfaces and their specific implementation for a particular CSP.
+
+The Plugins enable the Delegator to interact with the **CSP Provisioner** — the native mechanism the CSP provides to allow the SECA machinery to manage resources on its platform.
 
 ## Data-Plane
 
@@ -53,7 +61,7 @@ They operate at the instance level and are not part of the SECA API, as their sc
 
 ### Summary Table
 
-| Aspect              | Control Plane APIs                                                                 | Data Plane APIs                                                                 |
+| Aspect              | Control Plane APIs                                                                  | Data Plane APIs                                                                 |
 |---------------------|-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
 | **Primary Role**    | Manage lifecycle, configuration, and metadata of resources                          | Operate directly on data and services                                           |
 | **Endpoints**       | Common, provider-agnostic API server                                                | Instance-specific service endpoints                                             |
