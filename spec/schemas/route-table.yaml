@@ -88,4 +88,4 @@ components:
           the status will be `error`. If the route is valid the status
           will be `active`. If the route is referencing a target that
           is not yet created, the status will be `pending`.
-        maxLength: 9
+        maxProperties: 9

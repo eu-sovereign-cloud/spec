@@ -270,7 +270,8 @@ components:
         resourceVersion:
           type: integer
           description: Incremented on every modification of the resource. Used for optimistic concurrency control.
-          maxLength: 16
+          minimum: 1
+          format: int64
 
     NameMetadata:
       type: object

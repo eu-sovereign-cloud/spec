@@ -201,14 +201,14 @@ components:
             The key of the taint. The key is used to identify the taint and is used
             in conjunction with the value and effect.
           example: "example-key"
-          maximum: 63
+          maxLength: 63
         value:
           type: string
           description: |
             The value of the taint. The value is used to identify the taint and is used
             in conjunction with the key and effect.
           example: "example-value"
-          maximum: 63
+          maxLength: 63
         effect:
           type: string
           enum:
