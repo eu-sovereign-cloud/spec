@@ -125,3 +125,8 @@ components:
             - InstanceStatusPowerStateOn
             - InstanceStatusPowerStateOff
             example: "on"
+          upSince:
+            type: string
+            format: date-time
+            description: Indicates the time when the instance was started. If the powerState is "off", this field will be null.
+            example: "2023-01-01T12:00:00Z"
