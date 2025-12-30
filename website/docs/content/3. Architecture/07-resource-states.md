@@ -91,7 +91,7 @@ The internal reconciliation states map to the user-visible `status.state` field 
 | Pending | `Pending` | Awaiting reconciliation |
 | Creating | `Pending` | Provisioning in progress |
 | Active | `Succeeded` | Resource ready and operational |
-| Updating | `Succeeded` | Update in progress (resource remains available) |
+| Updating | `Pending` | Update in progress |
 | Error | `Failed` | Reconciliation failed |
 | Deleting | `Pending` | Deletion in progress |
 
