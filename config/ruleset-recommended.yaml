@@ -256,31 +256,32 @@ rules:
             field: host
             function: truthy
         type: style
-    oas2-api-schemes:
-        category:
-            description: The info object contains licencing, contact, authorship details and more. Checks to confirm required details have been completed.
-            id: information
-            name: Contract Information
-        description: OpenAPI host `schemes` must be present and non-empty array
-        formats:
-            - oas2
-        given: $
-        howToFix: Add an array of supported host 'schemes' to the root of the specification. These are the available API schemes (like https/http).
-        id: oas2-api-schemes
-        recommended: true
-        severity: warn
-        then:
-            field: schemes
-            function: schema
-            functionOptions:
-                forceValidation: true
-                schema:
-                    items:
-                        minItems: 1
-                        type: string
-                    type: array
-                    uniqueItems: true
-        type: validation
+    # Disabled: This OAS2 rule incorrectly triggers on OAS3 specs due to a vacuum bug
+    # oas2-api-schemes:
+    #     category:
+    #         description: The info object contains licencing, contact, authorship details and more. Checks to confirm required details have been completed.
+    #         id: information
+    #         name: Contract Information
+    #     description: OpenAPI host `schemes` must be present and non-empty array
+    #     formats:
+    #         - oas2
+    #     given: $
+    #     howToFix: Add an array of supported host 'schemes' to the root of the specification. These are the available API schemes (like https/http).
+    #     id: oas2-api-schemes
+    #     recommended: true
+    #     severity: warn
+    #     then:
+    #         field: schemes
+    #         function: schema
+    #         functionOptions:
+    #             forceValidation: true
+    #             schema:
+    #                 items:
+    #                     minItems: 1
+    #                     type: string
+    #                 type: array
+    #                 uniqueItems: true
+    #     type: validation
     oas2-discriminator:
         category:
             description: Schemas are how request bodies and response payloads are defined. They define the data going in and the data flowing out of an operation. These rules check for structural validity, checking types, checking required fields and validating correct use of structures.
