@@ -51,13 +51,6 @@ components:
               resource: network-interfaces/nic-124
         zone:
           $ref: './region.yaml#/components/schemas/Zone'
-        securityGroupRef:
-          allOf:
-          - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the security group associated with this instance.
-          example:
-            provider: seca.network/v1
-            resource: security-groups/sg-123
         userData:
           type: string
           description: |

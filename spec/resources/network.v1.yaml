@@ -40,6 +40,11 @@ resources:
     hierarchy: [tenant, workspace]
     schema: './schemas/security-group.yaml#/components/schemas/SecurityGroup'
     operations: [list, get, put, delete]
+  - name: security group rule
+    plural: security-group-rules
+    hierarchy: [tenant, workspace]
+    schema: './schemas/security-group-rule.yaml#/components/schemas/SecurityGroupRule'
+    operations: [list, get, put, delete]
   - name: nic
     plural: nics
     hierarchy: [tenant, workspace]
