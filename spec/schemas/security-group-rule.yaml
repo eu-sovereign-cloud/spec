@@ -69,7 +69,7 @@ components:
         annotations:
           description: "Allow incoming HTTP(s) traffic"
         direction: ingress
-        version: ipv4
+        version: "IPv4"
         protocol: tcp
         ports:
           list:
