@@ -13,7 +13,7 @@ components:
         - spec
         properties:
           metadata:
-            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
+            $ref: './resource.yaml#/components/schemas/RegionalSecurityGroupResourceMetadata'
           spec:
             $ref: '#/components/schemas/SecurityGroupRuleSpec'
           status:
@@ -56,6 +56,7 @@ components:
         icmp:
           $ref: '#/components/schemas/IcmpConfig'
         sourceRef:
+          type: array
           description: |
             Reference to a CIDR block, IP address, gateway, instance or security group that is allowed to communicate
             with the security group. If a security group is specified, all instances in that group are allowed.
@@ -76,9 +77,8 @@ components:
           - 80
           - 443
         sourceRef:
-          provider: seca.network/v1
-          resource: security-groups/frontend-sg
-
+          - provider: seca.network/v1
+            resource: security-groups/frontend-sg
     Ports:
       type: object
       description: |

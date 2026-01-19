@@ -66,6 +66,19 @@ components:
       - $ref: '#/components/schemas/NetworkMetadata'
       - $ref: '#/components/schemas/RegionalMetadata'
 
+    RegionalSecurityGroupResourceMetadata:
+      description: |
+        Metadata for regional resources with name, permission, modification, type, tenant, workspace, security group and region information.
+      allOf:
+      - $ref: '#/components/schemas/NameMetadata'
+      - $ref: '#/components/schemas/PermissionMetadata'
+      - $ref: '#/components/schemas/ModificationMetadata'
+      - $ref: '#/components/schemas/TypeMetadata'
+      - $ref: '#/components/schemas/TenantMetadata'
+      - $ref: '#/components/schemas/WorkspaceMetadata'
+      - $ref: '#/components/schemas/SecurityGroupMetadata'
+      - $ref: '#/components/schemas/RegionalMetadata'
+
     SkuResourceMetadata:
       description: |
         Metadata for SKU resources with name, permission, type, tenant and region information.
@@ -381,6 +394,18 @@ components:
         network:
           type: string
           description: Network identifier
+          maxLength: 64
+
+    SecurityGroupMetadata:
+      type: object
+      description: Metadata for resources with security group constraints
+      readOnly: true
+      required:
+      - securityGroup
+      properties:
+        securityGroup:
+          type: string
+          description: Security Group identifier
           maxLength: 64
 
     RegionalMetadata:
