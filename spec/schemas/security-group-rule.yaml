@@ -61,11 +61,11 @@ components:
             Reference to a CIDR block, IP address, gateway, instance or security group that is allowed to communicate
             with the security group. If a security group is specified, all instances in that group are allowed.
             If no sourceRef is specified, all traffic is allowed.
-          allOf:
-          - $ref: './resource.yaml#/components/schemas/Reference'
+          items:
+            $ref: './resource.yaml#/components/schemas/Reference'
           example:
-            provider: seca.network/v1
-            resource: security-groups/security-group-1
+            - provider: seca.network/v1
+              resource: security-groups/security-group-1
       example:
         annotations:
           description: "Allow incoming HTTP(s) traffic"
