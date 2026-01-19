@@ -42,6 +42,18 @@ components:
           example:
             provider: seca.network/v1
             resource: security-groups/sg-123
+        fePort:
+          type: integer
+          description: 'Front End Port to which the load balancer will be listening on'
+          minimum: 1
+          maximum: 65535
+          example: 443
+        bePort:
+          type: integer
+          description: 'Back End Port to which the load balancer will be forwarding the traffic to'
+          minimum: 1
+          maximum: 65535
+          example: 443
         frontends:
           type: array
           items:
@@ -82,13 +94,7 @@ components:
           - LoadBalancerProtocolUDP
           - LoadBalancerProtocolBoth
         port:
-          type: integer
-          # Removed the reference to the security group or security group rule
-          # as a LB could be with no SG at all and config should be independent from other constructs
-          description: 'Frontend port to which the load balancer will be listening on'
-          minimum: 1
-          maximum: 65535
-          example: 80
+          $ref: '#/components/schemas/NetworkLoadBalancerSpec/properties/fePort'
         target:
           $ref: '#/components/schemas/LoadBalancerTarget'
 
@@ -109,13 +115,7 @@ components:
           - LoadBalancerAlgorithmRoundRobin
           default: round-robin
         port:
-          type: integer
-          # As above this port should be independent from tha configuration of the Security group,
-          # or independent from the configuration of the security group rule 
-          description: 'Port the load balancer will forward the traffic to'
-          minimum: 1
-          maximum: 65535
-          example: 80
+          $ref: '#/components/schemas/NetworkLoadBalancerSpec/properties/bePort'
         members:
           type: array
           description: 'Nic reference to the members as part of the LoadBalancerTarget'
