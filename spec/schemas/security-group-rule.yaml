@@ -12,8 +12,6 @@ components:
         required:
         - spec
         properties:
-          metadata:
-            $ref: './resource.yaml#/components/schemas/RegionalSecurityGroupResourceMetadata'
           spec:
             $ref: '#/components/schemas/SecurityGroupRuleSpec'
           status:
