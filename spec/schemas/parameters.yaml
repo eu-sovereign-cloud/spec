@@ -105,3 +105,4 @@ components:
       schema:
         type: string
       description: Resource name
+      
