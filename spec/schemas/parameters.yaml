@@ -105,11 +105,3 @@ components:
       schema:
         type: string
       description: Resource name
-
-    security-groupPathParam:
-      name: security-group
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Security Group name
