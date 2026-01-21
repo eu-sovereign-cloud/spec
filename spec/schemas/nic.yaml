@@ -32,6 +32,16 @@ components:
       - addresses
       - subnetRef
       properties:
+        securityGroupRefs:
+          type: array
+          description: References to the security groups associated with this NIC.
+          items:
+            allOf:
+            - $ref: './resource.yaml#/components/schemas/Reference'
+            description: Reference to a security group.
+            example:
+              provider: seca.network/v1
+              resource: security-groups/sg-123
         addresses:
           type: array
           description: |

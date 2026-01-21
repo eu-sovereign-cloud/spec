@@ -53,7 +53,19 @@ components:
             - Default behavior is to deny all traffic not explicitly allowed
             - Rules provide granular control over allowed traffic types, sources, and destinations
           items:
-            $ref: '#/components/schemas/SecurityGroupRuleSpec'
+            $ref: './security-group-rule.yaml#/components/schemas/SecurityGroupRuleSpec'
+        ruleRefs:
+          type: array
+          description: |
+            References to shared SecurityGroupRule resources.
+            These rules are applied in addition to the inline rules.
+          items:
+            allOf:
+            - $ref: './resource.yaml#/components/schemas/Reference'
+            description: Reference to a SecurityGroupRule resource.
+            example:
+              provider: seca.network/v1
+              resource: security-group-rules/rule-1
 
     SecurityGroupStatus:
       description: |
@@ -71,117 +83,4 @@ components:
           rules:
             type: array
             items:
-              $ref: '#/components/schemas/SecurityGroupRuleStatus'
-
-    SecurityGroupRuleSpec:
-      type: object
-      description: |
-        Specification of a security group rule defining network access permissions.
-        If no version is specified, any IP version will be allowed.
-        If no protocol is specified, any network protocol will be allowed.
-      required:
-        - direction
-      properties:
-        annotations:
-          $ref: './resource.yaml#/components/schemas/Annotations'
-        direction:
-          type: string
-          enum: ['ingress', 'egress']
-          x-enumNames:
-          - SecurityGroupRuleDirectionIngress
-          - SecurityGroupRuleDirectionEgress
-          description: |
-            Direction of the traffic flow:
-            * ingress: Only incoming traffic is allowed
-            * egress: Only outgoing traffic is allowed
-        version:
-          $ref: './network.yaml#/components/schemas/IPVersion'
-        protocol:
-          type: string
-          description: Network protocol for the rule
-          enum: ['tcp', 'udp', 'tcp+udp', 'icmp']
-          x-enumNames:
-          - SecurityGroupRuleProtocolTCP
-          - SecurityGroupRuleProtocolUDP
-          - SecurityGroupRuleProtocolTCPUDP
-          - SecurityGroupRuleProtocolICMP
-        ports:
-          $ref: '#/components/schemas/Ports'
-        icmp:
-          $ref: '#/components/schemas/IcmpConfig'
-        sourceRefs:
-          type: array
-          description: |
-            List of CIDR blocks, IP addresses, gateways, instances or security group references that are allowed to communicate
-            with the security group. If a security group is specified, all instances in that group are allowed.
-            If no sourceRefs are specified, all traffic is allowed.
-          items:
-            allOf:
-            - $ref: './resource.yaml#/components/schemas/Reference'
-            description: Reference to a CIDR block, IP address, gateway, instance or security group allowed to communicate with the security group.
-            example:
-              provider: seca.network/v1
-              resource: security-groups/security-group-1
-      example:
-        annotations:
-          description: "Allow incoming HTTP(s) traffic"
-        direction: ingress
-        protocol: tcp
-        ports:
-          list:
-          - 80
-          - 443
-
-    Ports:
-      type: object
-      description: |
-        Defines a specific port list or port range for the rule.
-        The configuration allows specifying individual ports, ranges, or a combination of both.
-
-        Behavior:
-        - If only `from` is specified, the range is interpreted as a single port: `from` to `from`.
-        - If only `to` is specified, the range is interpreted as a single port: `to` to `to`.
-        - If both `from` and `to` are specified, the range spans from `from` to `to`.
-        - The `list` property can be used to explicitly define additional individual ports.
-
-        The final result is a comprehensive list of ports and/or port ranges.
-      properties:
-        from:
-          $ref: '#/components/schemas/Port'
-        to:
-          $ref: '#/components/schemas/Port'
-        list:
-          type: array
-          items:
-            $ref: '#/components/schemas/Port'
-          example: [80, 443]
-
-    Port:
-      description: |
-        A valid network port number.
-        The port number is a 16-bit unsigned integer ranging from 1 to 65535.
-      type: integer
-      minimum: 1
-      maximum: 65535
-      example: 80
-
-    IcmpConfig:
-      type: object
-      description: ICMP specific rule configuration
-      required:
-      - type
-      - code
-      properties:
-        type:
-          type: integer
-          description: ICMP type
-          maximum: 8
-          example: 8
-        code:
-          type: integer
-          description: ICMP code
-          maximum: 5
-          example: 4
-
-    SecurityGroupRuleStatus:
-      $ref: "./resource.yaml#/components/schemas/Status"
+              $ref: './security-group-rule.yaml#/components/schemas/SecurityGroupRuleStatus'
