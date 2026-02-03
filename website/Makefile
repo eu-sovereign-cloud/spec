@@ -1,6 +1,6 @@
 .PHONY: all install generate start
 
-all: install generate start
+all: generate start
 
 install:
 	npm install
