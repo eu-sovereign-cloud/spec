@@ -82,6 +82,7 @@ components:
       required:
       - apiVersion
       - kind
+      - ref
       description:  |
         Metadata for all resources with type information.
       properties:
