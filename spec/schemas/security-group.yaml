@@ -41,8 +41,9 @@ components:
     SecurityGroupSpec:
       type: object
       description: Specification of the security group
-      required:
-        - rules
+      anyOf:
+        - required: [rules]
+        - required: [ruleRefs]
       properties:
         rules:
           type: array
