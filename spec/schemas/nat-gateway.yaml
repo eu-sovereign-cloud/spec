@@ -50,6 +50,7 @@ components:
           example:
             provider: seca.network/v1
             resource: public-ips/ip-1
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/public-ips/ip-1
         nicRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -57,6 +58,7 @@ components:
           example:
             provider: seca.network/v1
             resource: nics/nat-gateway-1
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/nics/nat-gateway-1
         zone:
           $ref: './region.yaml#/components/schemas/Zone'
         securityGroupRef:
@@ -66,6 +68,7 @@ components:
           example:
             provider: seca.network/v1
             resource: security-groups/security-group-1
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/security-group-1
 
     InternetNatGatewayInstanceStatus:
       $ref: "./resource.yaml#/components/schemas/Status"

@@ -67,6 +67,7 @@ components:
             example:
               provider: seca.network/v1
               resource: security-group-rules/rule-1
+              ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-group-rules/rule-1
 
     SecurityGroupStatus:
       description: |

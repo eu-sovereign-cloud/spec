@@ -57,6 +57,7 @@ components:
             example:
               provider: seca.compute/v1
               resource: instances/instance-123
+              ref: seca.compute/v1/tenants/tn-1/workspaces/ws-1/instances/instance-123
           ipAddress:
             type: string
             description: The public IP address in case.

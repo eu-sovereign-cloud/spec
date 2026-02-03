@@ -149,6 +149,7 @@ components:
           example:
             provider: seca.compute/v1
             resource: tenants/seca/skus/xl
+            ref: seca.compute/v1/tenants/seca/skus/xl
         subnetRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -156,6 +157,7 @@ components:
           example:
             provider: seca.network/v1
             resource: subnets/k8s-nodes-a
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/subnets/k8s-nodes-a
         zone:
           $ref: './region.yaml#/components/schemas/Zone'
         securityGroupRef:
@@ -165,23 +167,28 @@ components:
           example:
             provider: seca.network/v1
             resource: security-groups/k8s-nodes
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/k8s-nodes
         rootVolume:
           $ref: '#/components/schemas/KubernetesNodeRootVolume'
       example:
         skuRef:
           provider: seca.compute/v1
           resource: tenants/seca/skus/xl
+          ref: seca.compute/v1/tenants/seca/skus/xl
         subnetRef:
           provider: seca.network/v1
           resource: subnets/k8s-nodes-a
+          ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/subnets/k8s-nodes-a
         zone: a
         securityGroupRef:
           provider: seca.network/v1
           resource: security-groups/k8s-nodes
+          ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/k8s-nodes
         rootVolume:
           skuRef:
             provider: seca.storage/v1
             resource: tenants/seca/skus/le500
+            ref: seca.storage/v1/tenants/seca/skus/le500
           sizeGB: 100
 
     KubernetesNodeTaint:

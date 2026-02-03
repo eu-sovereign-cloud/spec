@@ -42,6 +42,7 @@ components:
             example:
               provider: seca.network/v1
               resource: security-groups/sg-123
+              ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/sg-123
         addresses:
           type: array
           description: |

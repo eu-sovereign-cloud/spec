@@ -79,6 +79,7 @@ components:
         sourceRef:
           - provider: seca.network/v1
             resource: security-groups/frontend-sg
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/frontend-sg
     Ports:
       type: object
       description: |

@@ -32,9 +32,9 @@ resources:
           resource: "tenants/1/skus"
           verb: list
         items:
-        - { metadata: { name: "seca.n1k", provider: "seca.network/v1", resource: "tenants/tn-1/skus/seca.n1k", verb: "get", apiVersion: "v1", kind: "network-sku", tenant: "ts-1", region: "eu-central-1"   }, labels: { provider: "seca", tier: "N1K"  }, spec: { bandwidth: 1000,  packets: 10000 } }
-        - { metadata: { name: "seca.n5k", provider: "seca.network/v1", resource: "tenants/tn-1/skus/seca.n5k", verb: "get", apiVersion: "v1", kind: "network-sku", tenant: "ts-1", region: "eu-central-1"   }, labels: { provider: "seca", tier: "N5K"  }, spec: { bandwidth: 5000,  packets: 40000 } }
-        - { metadata: { name: "seca.n10k", provider: "seca.network/v1", resource: "tenants/tn-1/skus/seca.n10k", verb: "get", apiVersion: "v1", kind: "network-sku", tenant: "ts-1", region: "eu-central-1" }, labels: { provider: "seca", tier: "N10K" }, spec: { bandwidth: 10000, packets: 80000 } }
+        - { metadata: { name: "seca.n1k", provider: "seca.network/v1", resource: "tenants/tn-1/skus/seca.n1k", ref: "seca.network/v1/tenants/tn-1/skus/seca.n1k", verb: "get", apiVersion: "v1", kind: "network-sku", tenant: "ts-1", region: "eu-central-1"   }, labels: { provider: "seca", tier: "N1K"  }, spec: { bandwidth: 1000,  packets: 10000 } }
+        - { metadata: { name: "seca.n5k", provider: "seca.network/v1", resource: "tenants/tn-1/skus/seca.n5k", ref: "seca.network/v1/tenants/tn-1/skus/seca.n5k", verb: "get", apiVersion: "v1", kind: "network-sku", tenant: "ts-1", region: "eu-central-1"   }, labels: { provider: "seca", tier: "N5K"  }, spec: { bandwidth: 5000,  packets: 40000 } }
+        - { metadata: { name: "seca.n10k", provider: "seca.network/v1", resource: "tenants/tn-1/skus/seca.n10k", ref: "seca.network/v1/tenants/tn-1/skus/seca.n10k", verb: "get", apiVersion: "v1", kind: "network-sku", tenant: "ts-1", region: "eu-central-1" }, labels: { provider: "seca", tier: "N10K" }, spec: { bandwidth: 10000, packets: 80000 } }
   - name: security group
     plural: security-groups
     hierarchy: [tenant, workspace]

@@ -42,6 +42,7 @@ components:
           example:
             provider: seca.network/v1
             resource: nics/lb-1
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/nics/lb-1
         securityGroupRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -49,6 +50,7 @@ components:
           example:
             provider: seca.network/v1
             resource: security-groups/sg-123
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/sg-123
         frontendPort:
           allOf:
           - $ref: '#/components/schemas/NetworkLoadBalancerPort'
@@ -133,6 +135,7 @@ components:
             example:
               provider: seca.network/v1
               resource: nics/nic-1
+              ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/nics/nic-1
 
         healthCheck:
           $ref: '#/components/schemas/LoadBalancerHealthCheck'

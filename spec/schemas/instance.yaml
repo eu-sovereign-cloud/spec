@@ -39,6 +39,7 @@ components:
           example:
             provider: seca.network/v1
             resource: network-interfaces/nic-123
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/network-interfaces/nic-123
         additionalNicRefs:
           type: array
           description: Additional NICs attached to this instance
@@ -49,6 +50,7 @@ components:
             example:
               provider: seca.network/v1
               resource: network-interfaces/nic-124
+              ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/network-interfaces/nic-124
         zone:
           $ref: './region.yaml#/components/schemas/Zone'
         securityGroupRef:
@@ -58,6 +60,7 @@ components:
           example:
             provider: seca.network/v1
             resource: security-groups/sg-123
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/sg-123
         userData:
           type: string
           description: |
