@@ -1,6 +1,9 @@
-.PHONY: generate start
+.PHONY: all install generate start
 
-all: generate
+all: install generate start
+
+install:
+	npm install
 
 generate:
 	npm run generate:all
