@@ -109,10 +109,7 @@ go install github.com/hairyhenderson/gomplate/v4/cmd/gomplate@latest
 echo 'export PATH="$HOME/go/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 
-# Generate resources api files && Lint
-make lint
-
-# Run the Makefile to generate OpenAPI files
+# Run the Makefile to run lint and generate the OpenAPI files
 make
 
 # Verify that the `dist/specs` directory contains the generated YAML files
@@ -137,14 +134,11 @@ git clone https://github.com/eu-sovereign-cloud/spec.git
 
 cd spec/website
 
-# Install dependencies
+# Run the Makefile to install the dependencies
 npm install
 
-# Generate API Docs
-npm run generate:all
-
-# Run it
-npm run start
+# Run the Makefile to generate the API Docs and start the web interface
+make
 
 # Expected Result
 > docs-site@0.0.0 start

@@ -27,9 +27,9 @@ GREEN = \033[1;32m
 YELLOW = \033[1;33m
 RESET = \033[0m
 
-.PHONY: all build clean lint resource-apis
+.PHONY: all build resource-apis lint clean
 
-all: build
+all: clean build lint
 
 build: $(DIST) resource-apis $(SCHEMAS_FINAL)
 
