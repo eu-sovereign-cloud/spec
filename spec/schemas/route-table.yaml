@@ -31,9 +31,11 @@ components:
       example:
         routes:
         - destinationCidrBlock: '0.0.0.0/0'
-          targetRef: 'internet-gateways/internet-gateway-1'
+          targetRef:
+            resource: 'internet-gateways/internet-gateway-1'
         - destinationCidrBlock: '::/0'
-          targetRef: 'internet-gateways/internet-gateway-1'
+          targetRef:
+            resource: 'internet-gateways/internet-gateway-1'
 
     RouteSpec:
       type: object
@@ -57,7 +59,8 @@ components:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the target of the route. The target can be an instance, an gateway or an IP address.
-          example: 'internet-gateways/internet-gateway-1'
+          example:
+            resource: 'internet-gateways/internet-gateway-1'
 
     RouteTableStatus:
       description: |

@@ -34,7 +34,8 @@ components:
           recommendedNics: "2"
           recommendedStorageSize: "100"
         spec:
-          blockStorageRef: block-storages/temp-a9b2bc3d81
+          blockStorageRef:
+            resource: block-storages/temp-a9b2bc3d81
           cpuArchitecture: amd64
           boot: UEFI
           initializer: cloudinit-22
@@ -55,7 +56,8 @@ components:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the block storage used to store the image.
-          example: "block-storages/block-123"
+          example:
+            resource: "block-storages/block-123"
         cpuArchitecture:
           type: string
           description: CPU architecture for the Image

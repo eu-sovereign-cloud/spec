@@ -10,6 +10,7 @@ components:
         name: "resource-name"
         apiVersion: "v1"
         kind: "workspace"
+        ref: "seca.workspace/v1/tenants/tn-1/workspaces/resource-name"
 
     GlobalResourceMetadata:
       description: |
@@ -139,15 +140,10 @@ components:
           - ResourceKindSubnet
           - ResourceKindWorkspace
         ref:
-          $ref: '#/components/schemas/Reference'
+          $ref: '#/components/schemas/ReferenceURN'
 
     Reference:
-      description: |
-        Reference to a resource. The reference is represented as the full URN (Uniform Resource Name) name of the resource.
-        The reference can be used to refer to a resource in other resources.
-      anyOf:
-      - $ref: '#/components/schemas/ReferenceURN'
-      - $ref: '#/components/schemas/ReferenceObject'
+      $ref: '#/components/schemas/ReferenceObject'
 
     ReferenceURN:
       type: string

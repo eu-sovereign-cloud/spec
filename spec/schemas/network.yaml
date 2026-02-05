@@ -58,15 +58,19 @@ components:
           description: |
             Reference to the SKU used by default for all NIC in this Network.
             Can be overridden by the NIC.
-          example: "tenants/seca/skus/n1k"
+          example:
+            resource: "tenants/seca/skus/n1k"
         routeTableRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the route table used by default for all Subnets.
-          example: "route-tables/route-table-1"
+          example:
+            resource: "route-tables/route-table-1"
       example:
-        skuRef: "tenants/seca/skus/n1k"
-        routeTableRef: "route-tables/route-table-1"
+        skuRef:
+          resource: "tenants/seca/skus/n1k"
+        routeTableRef:
+          resource: "route-tables/route-table-1"
         cidr:
           ipv4: "0.0.0.0/16"
           ipv6: "::/56"
@@ -98,12 +102,14 @@ components:
             allOf:
             - $ref: './resource.yaml#/components/schemas/Reference'
             description: Reference to the route table used by default for all Subnets.
-            example: "route-tables/route-table-1"
+            example:
+              resource: "route-tables/route-table-1"
         example:
           cidr:
             ipv4: "10.100.0.0/16"
             ipv6: "2001:239:203:2400::/56"
-
+          routeTableRef:
+            resource: "route-tables/route-table-1"
     cidr:
       type: object
       description: |

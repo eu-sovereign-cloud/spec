@@ -31,7 +31,8 @@ components:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the SKU of the instance.
-          example: 'tenants/seca/skus/s'
+          example:
+            resource: 'tenants/seca/skus/s'
         primaryNicRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -100,7 +101,8 @@ components:
             - $ref: './block-storage.yaml#/components/schemas/VolumeReference'
             description: Reference to the block storage used to store an additional volume of the instance.
       example:
-        skuRef: "tenants/seca/skus/s"
+        skuRef:
+          resource: "tenants/seca/skus/s"
         zone: "a"
         bootVolume:
           deviceRef:

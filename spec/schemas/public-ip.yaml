@@ -52,7 +52,7 @@ components:
         properties:
           attachedTo:
             allOf:
-            - $ref: './resource.yaml#/components/schemas/Reference'
+            - $ref: './resource.yaml#/components/schemas/ReferenceObject'
             description: Reference to the instance the public IP is attached to.
             example:
               provider: seca.compute/v1

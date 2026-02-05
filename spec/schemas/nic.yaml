@@ -62,24 +62,29 @@ components:
             allOf:
             - $ref: './resource.yaml#/components/schemas/Reference'
             description: Reference to a public IP address associated with this NIC.
-            example: "public-ips/public-ip-123"
+            example:
+              resource: "public-ips/public-ip-123"
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the SKU of the NIC.
-          example: "tenants/seca/skus/n1k"
+          example:
+            resource: "tenants/seca/skus/n1k"
         subnetRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the subnet used by the NIC connections.
-          example: "seca.networks/subnet-a1b2c3"
+          example:
+            resource: "seca.networks/subnet-a1b2c3"
       example:
         addresses:
         - "10.100.0.10"
         - "0.0.0.0"
         - "::"
-        skuRef: "tenants/seca/skus/n1k"
-        subnetRef: "seca.networks/subnet-a1b2c3"
+        skuRef:
+          resource: "tenants/seca/skus/n1k"
+        subnetRef:
+          resource: "seca.networks/subnet-a1b2c3"
 
     NicStatus:
       description: |
@@ -108,7 +113,8 @@ components:
               allOf:
               - $ref: './resource.yaml#/components/schemas/Reference'
               description: Reference to a public IP address associated with this NIC.
-              example: "public-ips/public-ip-123"
+              example:
+                resource: "public-ips/public-ip-123"
         example:
           state: "active"
           macAddress: "00:00:00:00:00:00"
