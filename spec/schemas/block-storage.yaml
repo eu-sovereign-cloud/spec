@@ -62,7 +62,7 @@ components:
             example: 10
           attachedTo:
             allOf:
-            - $ref: './resource.yaml#/components/schemas/Reference'
+            - $ref: './resource.yaml#/components/schemas/ReferenceObject'
             description: Reference to the instance the block storage is attached to.
             example:
               provider: seca.compute/v1
