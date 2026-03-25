@@ -41,9 +41,10 @@ The fields we are currently providing are the below listed:
 
 - **name** - Resource identifier in dash-case (kebab-case) format. Must start and end with an alphanumeric character. Can contain lowercase letters, numbers, and hyphens. Multiple segments can be joined with dots. Each segment follows the same rules.
 - **provider** - resource provider which is responsible for managing the lifecycle, configuration, and operations of the resource. (E.g: seca.compute/v1)
-- **resource** - resource URN which uniquely identifies a resource within the hierarchy, following the path format 
+- **resource** - resource-specific path that identifies the resource within its workspace context. Contains the type and name segment(s) of the resource, without the provider, version, tenant, or workspace prefix (those are available as separate metadata fields):
   ```
-  tenants/{tenant-id}/workspaces/{workspace-name}/instances/{instance-name}
+  instances/{instance-name}
+  networks/{network-name}/route-tables/{rt-name}
   ```
 - **verb** - specifies the HTTP method used by the customer to perform an operation on the resource, such as GET, POST, PUT, or DELETE.
 - **createdAt** -  Indicates the time when the resource was created. The field is set by the provider and should not be modified by the user.
@@ -52,7 +53,13 @@ The fields we are currently providing are the below listed:
 - **resourceVersion** - Incremented on every modification of the resource. Used for optimistic concurrency control.
 - **apiVersion** - API version of the resource.
 - **kind** - identifies the resource type.
-- **ref** - Reference to a resource. The reference is represented as the full URN (Uniform Resource Name) name of the resource. The reference can be used to refer to a resource in other resources.
+- **ref** - Full URN (Uniform Resource Name) of the resource. The URN is **not** a URL — it has no protocol scheme, host, or endpoint prefix. It is a portable, transport-agnostic identifier. The format is:
+  ```
+  {provider}/{version}/tenants/{tenant}/workspaces/{workspace}/{type}/{name}
+  ```
+  Example: `seca.compute/v1/tenants/tn-1/workspaces/ws-1/instances/my-server`
+
+  A configured SDK client can derive a transport URL from a URN, but the URN alone is not a URL. This keeps the URN portable across environments and CSP deployments.
 - **tenant** - specifies the tenant identifier to which the resource belongs.
 - **workspace** - specifies the workspace identifier to which the resource belongs.
 - **region** -  specifies the geographical region where the resource is located.
