@@ -35,6 +35,11 @@ components:
           description: Size of the block storage in GB.
           maximum: 1000000
           example: 10
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: '!oldSelf.hasValue() || self >= oldSelf.value()'
+            x-cel-message-0: 'spec.sizeGB cannot be decreased'
+            x-cel-rule-1: 'self > 0'
+            x-cel-message-1: 'spec.sizeGB must be greater than 0'
         sourceImageRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
