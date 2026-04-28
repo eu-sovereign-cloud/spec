@@ -10,27 +10,27 @@ When a resource is submitted to the API, it enters a continuous reconciliation l
 
 ```mermaid
 flowchart TD
-    Start(( )) -->|Resource Submitted| Pending
-    Pending -->|Reconciler Picks Up| Creating
-    Creating -->|Creation Complete| Active
-    Creating -->|Creation Failed| Error
-    Active -->|Spec Changed| Updating
-    Active -->|Delete Requested| Deleting
-    Updating -->|Update Complete| Active
-    Updating -->|Update Failed| Error
-    Error -->|Retry if new| Creating
-    Error -->|Retry if exists| Updating
-    Error -->|Delete Requested| Deleting
-    Deleting -->|Finalizers Complete| End(( ))
+    Start(( )) -->|Resource Submitted| pending
+    pending -->|Reconciler Picks Up| creating
+    creating -->|Creation Complete| active
+    creating -->|Creation Failed| error
+    active -->|Spec Changed| updating
+    active -->|Delete Requested| deleting
+    updating -->|Update Complete| active
+    updating -->|Update Failed| error
+    error -->|Retry if new| creating
+    error -->|Retry if exists| updating
+    error -->|Delete Requested| deleting
+    deleting -->|Finalizers Complete| End(( ))
 
     classDef success fill:#10b981,color:#fff,stroke:#10b981
     classDef error fill:#ef4444,color:#fff,stroke:#ef4444
     classDef progress fill:#3b82f6,color:#fff,stroke:#3b82f6
     classDef point fill:#333,stroke:#333
 
-    class Active success
-    class Error error
-    class Pending,Creating,Updating,Deleting progress
+    class active success
+    class error error
+    class pending,creating,updating,deleting progress
     class Start,End point
 
     linkStyle 0,1,2,4,5,6,11 stroke:#10b981,stroke-width:2px
@@ -42,34 +42,34 @@ flowchart TD
 
 | State | Description |
 |-------|-------------|
-| **Pending** | The resource has been submitted to the API and accepted. The desired state has been declared and stored, awaiting the reconciler to begin processing. |
-| **Creating** | The reconciler has picked up the resource and is provisioning it. Backend systems are being configured. |
-| **Active** | The resource is fully provisioned and operational. The current state matches the desired state. |
-| **Updating** | A change to the spec has been detected. The reconciler is applying the new desired state. |
-| **Error** | Reconciliation has failed. The resource may be partially provisioned. Automatic retry may occur. |
-| **Deleting** | Deletion has been requested. The reconciler is running finalizers and cleaning up backend resources. |
+| `pending` | The resource has been submitted to the API and accepted. The desired state has been declared and stored, awaiting the reconciler to begin processing. |
+| `creating` | The reconciler has picked up the resource and is provisioning it. Backend systems are being configured. |
+| `active` | The resource is fully provisioned and operational. The current state matches the desired state. |
+| `updating` | A change to the spec has been detected. The reconciler is applying the new desired state. |
+| `error` | Reconciliation has failed. The resource may be partially provisioned. Automatic retry may occur. |
+| `deleting` | Deletion has been requested. The reconciler is running finalizers and cleaning up backend resources. |
 
 ## State Transitions
 
 ### Successful Lifecycle
 
 1. **Resource Submitted** - User creates a resource via PUT request
-2. **Pending** - API accepts the resource, stores the desired state
-3. **Creating** - Reconciler detects new resource, begins provisioning
-4. **Active** - Provisioning completes, resource is ready for use
+2. `pending` - API accepts the resource, stores the desired state
+3. `creating` - Reconciler detects new resource, begins provisioning
+4. `active` - Provisioning completes, resource is ready for use
 
 ### Update Flow
 
-1. **Active** - Resource is operational
+1. `active` - Resource is operational
 2. **Spec Changed** - User updates the resource via PUT request
-3. **Updating** - Reconciler detects spec change, applies modifications
-4. **Active** - Update completes, new desired state achieved
+3. `updating` - Reconciler detects spec change, applies modifications
+4. `active` - Update completes, new desired state achieved
 
 ### Error Handling
 
 When reconciliation fails:
 
-- The resource enters the **Error** state
+- The resource enters the `error` state
 - The `conditions` array is updated with failure details
 - The reconciler may automatically retry based on the error type
 - Transient errors (network issues, temporary unavailability) trigger automatic retry
@@ -78,22 +78,24 @@ When reconciliation fails:
 ### Deletion Flow
 
 1. **Delete Requested** - User sends DELETE request
-2. **Deleting** - Resource marked with `deletedAt` timestamp
+2. `deleting` - Resource marked with `deletedAt` timestamp
 3. **Finalizers Execute** - Cleanup operations run (detach volumes, release IPs, etc.)
 4. **Resource Removed** - Resource is removed from the system
 
-## Mapping to Status Fields
+## Status State Values
 
-The internal reconciliation states map to the user-visible `status.state` field as follows:
+The `status.state` field directly reflects the current internal state as one of:
 
-| Internal State | `status.state` | Description |
-|----------------|----------------|-------------|
-| Pending | `Pending` | Awaiting reconciliation |
-| Creating | `Pending` | Provisioning in progress |
-| Active | `Succeeded` | Resource ready and operational |
-| Updating | `Pending` | Update in progress |
-| Error | `Failed` | Reconciliation failed |
-| Deleting | `Pending` | Deletion in progress |
+| `status.state` | Description |
+|----------------|-------------|
+| `pending` | Awaiting reconciliation |
+| `creating` | Provisioning in progress |
+| `active` | Resource ready and operational |
+| `updating` | Update in progress |
+| `deleting` | Deletion in progress |
+| `error` | Reconciliation failed |
+
+These are the exact string values returned in the API response.
 
 ## Conditions and Observability
 
@@ -107,7 +109,7 @@ For detailed information about status fields, conditions structure, and practica
 
 - Implement exponential backoff when polling for state changes
 - Use conditions to understand why a resource is in a particular state
-- Handle the `Error` state gracefully - check conditions for retry guidance
+- Handle the `error` state gracefully - check conditions for retry guidance
 
 ### For Resource Providers
 

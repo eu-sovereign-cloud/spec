@@ -88,7 +88,7 @@ The status object contains two complementary parts:
 
 The status section includes various fields that describe the current state of a resource. These fields are updated by the CSP to reflect the actual observed state:
 
-- **state** - indicates the resource lifecycle phase, like Pending, Succeeded, Failed or Unknown.
+- **state** - indicates the resource lifecycle phase: `pending`, `creating`, `active`, `updating`, `deleting`, or `error`.
 - **Resource-specific fields** - Additional fields that vary by resource type (e.g., `powerState` for Instances, `primary` for database clusters, `endpoint` for services)
 
 These fields represent the "what is" - the current snapshot of the resource state at any given moment.
@@ -103,10 +103,13 @@ Conditions complement status fields by providing a historical view and event-bas
 
 Each condition in the conditions array contains:
 
-- **type** - The condition type (e.g., Ready, Available, PowerStateChanged, PrimaryChanged)
-- **lastTransitionAt** - Timestamp when the condition last changed state
-- **reason** - Machine-readable cause for the condition (e.g., UserRequested, Failover, AutoScaling)
-- **message** - Human-readable message providing details about the transition
+- **state** *(required)* - The lifecycle phase this entry represents, using the same enum as `status.state`.
+- **lastTransitionAt** *(required)* - Timestamp when this condition was recorded.
+- **type** *(optional)* - Identifies which sub-resource or aspect this condition tracks (e.g., `powerState`). Use together with `reason`.
+- **reason** *(optional)* - Machine-readable CamelCase cause for the change (e.g., `turnedOn`, `turnedOff`). Always paired with `type`.
+- **message** *(optional)* - Human-readable description of what changed.
+
+Conditions act as a capped history: providers must retain at least the last 5 entries; CSPs may choose to retain more.
 
 #### How Status Fields and Conditions Work Together
 
@@ -122,72 +125,76 @@ Consider an Instance resource where the user requests a power-off operation:
 **Before power-off (Instance running):**
 ```yaml
 status:
-  state: Succeeded
+  state: active
   powerState: "on"
   conditions:
-    - type: Ready
-      status: "True"
+    - state: active
       lastTransitionAt: "2024-12-11T10:00:00Z"
-      reason: InstanceRunning
       message: "Instance is running and ready"
 ```
 
 **During power-off (transition in progress):**
 ```yaml
 status:
-  state: Succeeded
-  powerState: "transitioning"    # status field reflects current state
+  state: updating
+  powerState: "on"
   conditions:
-    - type: Ready
+    - state: updating
+      type: powerState
+      reason: turningOff
       lastTransitionAt: "2024-12-11T11:30:00Z"
-      reason: PowerStateChanging
-      message: "Instance is shutting down"
-    
-    - type: PowerStateChanged      # New condition added
-      lastTransitionAt: "2024-12-11T11:30:00Z"
-      reason: UserRequested
       message: "Power state changing from 'on' to 'off' as requested by user"
+    - state: active
+      lastTransitionAt: "2024-12-11T10:00:00Z"
+      message: "Instance is running and ready"
 ```
 
 **After power-off (Instance stopped):**
 ```yaml
 status:
-  state: Succeeded
-  powerState: "off"                # status field updated to new state
+  state: active
+  powerState: "off"
   conditions:
-    - type: Ready
-      lastTransitionAt: "2024-12-11T11:30:00Z"
-      reason: InstanceStopped
+    - state: active
+      lastTransitionAt: "2024-12-11T11:30:30Z"
       message: "Instance is stopped"
-    
-    - type: PowerStateChanged      # Condition remains in history
+    - state: updating
+      type: powerState
+      reason: turnedOff
       lastTransitionAt: "2024-12-11T11:30:15Z"
-      reason: UserRequested
       message: "Power state changed from 'on' to 'off' successfully"
+    - state: active
+      lastTransitionAt: "2024-12-11T10:00:00Z"
+      message: "Instance is running and ready"
 ```
 
 **After power-on (Instance restarted):**
 ```yaml
 status:
-  state: Succeeded
-  powerState: "on"                 # status field back to 'on'
+  state: active
+  powerState: "on"
   conditions:
-    - type: Ready
-      lastTransitionAt: "2024-12-11T12:00:00Z"
-      reason: InstanceRunning
+    - state: active
+      lastTransitionAt: "2024-12-11T12:01:00Z"
       message: "Instance is running and ready"
-    
-    - type: PowerStateChanged      # New event recorded
-      lastTransitionAt: "2024-12-11T12:00:00Z"
-      reason: UserRequested
+    - state: updating
+      type: powerState
+      reason: turnedOn
+      lastTransitionAt: "2024-12-11T12:00:30Z"
       message: "Power state changed from 'off' to 'on' successfully"
+    - state: updating
+      type: powerState
+      reason: turnedOff
+      lastTransitionAt: "2024-12-11T12:00:00Z"
+      message: "Power state changed from 'on' to 'off' successfully"
 ```
 
 In this example:
-- The `powerState` field always shows the **current** power state
-- The `state` field shows the overall lifecycle phase (remains "Succeeded" as the resource exists and operations complete successfully)
-- The `Ready` condition indicates whether the instance is **currently** ready to serve requests
-- The `PowerStateChanged` condition provides a **historical record** of power state transitions, capturing when, why, and how the state changed
+- The `powerState` field always shows the **current** confirmed power state
+- The `state` field shows the overall lifecycle phase (`active` when the resource is operational, `updating` while a change is in progress)
+- General lifecycle conditions have only `state`, `lastTransitionAt`, and `message`
+- Sub-resource conditions (e.g., power state transitions) also carry `type` and `reason` to identify what changed and why
+- The conditions array is a **history**, ordered newest-first; at least the last 5 entries are always retained
 
 This pattern allows clients to:
 1. **Poll status fields** to check current state
