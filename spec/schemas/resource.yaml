@@ -467,12 +467,6 @@ components:
       - state
       - lastTransitionAt
       properties:
-        type:
-          type: string
-          x-go-type-skip-optional-pointer: true
-          description: |
-            Type of condition. The condition type is provider-specific and should
-            reflect the specific states relevant to your resource.
         state:
           $ref: '#/components/schemas/ResourceState'
         lastTransitionAt:
@@ -483,6 +477,12 @@ components:
             status to another. This should be when the underlying condition changed.
             If that is not known, then using the time when the API field changed is
             acceptable.
+        type:
+          type: string
+          x-go-type-skip-optional-pointer: true
+          description: |
+            Type of condition. The condition type is provider-specific and should
+            reflect the specific states relevant to your resource.
         reason:
           type: string
           x-go-type-skip-optional-pointer: true
