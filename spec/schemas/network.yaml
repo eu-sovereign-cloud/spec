@@ -97,8 +97,6 @@ components:
           Current status of the network and its CIDR blocks. Will report
           the status of the CIDR blocks and the network as a whole including
           automatically assigned IP networks.
-        required:
-        - cidr
         properties:
           cidr:
             $ref: './network.yaml#/components/schemas/cidr'

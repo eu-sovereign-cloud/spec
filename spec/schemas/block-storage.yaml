@@ -63,8 +63,6 @@ components:
         description: |
           Conditions type `attachment` indicates the status of the volume attachment.
           The status can be `attached` or `detached`.
-        required:
-        - sizeGB
         properties:
           sizeGB:
             type: integer

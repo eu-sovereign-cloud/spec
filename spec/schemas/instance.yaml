@@ -154,8 +154,6 @@ components:
       - $ref: "./resource.yaml#/components/schemas/Status"
       - type: object
         readOnly: true
-        required:
-        - powerState
         properties:
           powerState:
             type: string
