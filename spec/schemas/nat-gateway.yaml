@@ -16,15 +16,15 @@ components:
           in the subnet to access the internet while keeping their private IP addresses
           hidden. The InternetNatGatewayInstance is used in conjunction with a RouteTable to
           enable internet connectivity.
-      required:
-      - spec
-      properties:
-        metadata:
-          $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
-        spec:
-          $ref: './nat-gateway.yaml#/components/schemas/InternetNatGatewayInstanceSpec'
-        status:
-          $ref: './nat-gateway.yaml#/components/schemas/InternetNatGatewayInstanceStatus'
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
+          spec:
+            $ref: './nat-gateway.yaml#/components/schemas/InternetNatGatewayInstanceSpec'
+          status:
+            $ref: './nat-gateway.yaml#/components/schemas/InternetNatGatewayInstanceStatus'
 
     InternetNatGatewayInstanceSpec:
       type: object
