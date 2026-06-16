@@ -44,7 +44,6 @@ components:
       required:
       - cidr
       - skuRef
-      - routeTableRef
       properties:
         cidr:
           $ref: './network.yaml#/components/schemas/cidr'
@@ -68,17 +67,9 @@ components:
           x-oapi-codegen-extra-tags:
             x-cel-rule-0: "self == oldSelf"
             x-cel-message-0: "spec.skuRef is immutable"
-        routeTableRef:
-          allOf:
-          - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the route table used by default for all Subnets.
-          example:
-            resource: "route-tables/route-table-1"
       example:
         skuRef:
           resource: "tenants/seca/skus/n1k"
-        routeTableRef:
-          resource: "route-tables/route-table-1"
         cidr:
           ipv4: "0.0.0.0/16"
           ipv6: "::/56"
@@ -110,18 +101,10 @@ components:
               $ref: './network.yaml#/components/schemas/cidr'
             x-oapi-codegen-extra-tags:
               x-kubebuilder-validation-max-items: "32"
-          routeTableRef:
-            allOf:
-            - $ref: './resource.yaml#/components/schemas/Reference'
-            description: Reference to the route table used by default for all Subnets.
-            example:
-              resource: "route-tables/route-table-1"
         example:
           cidr:
             ipv4: "10.100.0.0/16"
             ipv6: "2001:239:203:2400::/56"
-          routeTableRef:
-            resource: "route-tables/route-table-1"
     cidr:
       type: object
       description: |
