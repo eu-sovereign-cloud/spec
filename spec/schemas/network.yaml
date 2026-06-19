@@ -41,6 +41,10 @@ components:
         only the network prefix is required. E.g. to request a /16 IPv4 CIDR block the
         CIDR block would be `0.0.0.0/16` and for a /56 IPv6 CIDR block the CIDR block would
         be `::/56`. Most CSP will not allow to use a different IPv6 prefix length than /56.
+
+        Route tables associated with this network automatically include local routes for
+        all network CIDRs (including `additionalCidrs`). These network-local routes are
+        present by default and cannot be removed.
       required:
       - cidr
       - skuRef
