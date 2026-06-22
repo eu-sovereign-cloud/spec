@@ -14,20 +14,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v6
         with:
           go-version: '>=1.23.0'
-          cache: false 
+          cache: false
 
       - name: Validate
         run: make lint
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20.11.0
+          node-version: 22
           cache: npm # Automatically caches dependencies
           cache-dependency-path: website/package-lock.json  # 👈 Ensure caching works for the correct path
 
