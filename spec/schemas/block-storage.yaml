@@ -63,18 +63,15 @@ components:
         description: |
           Conditions type `attachment` indicates the status of the volume attachment.
           The status can be `attached` or `detached`.
-        required:
-        - sizeGB
         properties:
           sizeGB:
-            default: 0
             type: integer
-            description: Size of the block storage in GB. When the size is 0, the block storage is not yet provisioned. When the size is greater than 0, the block storage is provisioned and ready to use.
-            minimum: 0
+            description: Size of the block storage in GB.
+            minimum: 1
             maximum: 1000000
             example: 10
             x-oapi-codegen-extra-tags:
-              x-kubebuilder-validation-minimum: "0"
+              x-kubebuilder-validation-minimum: "1"
               x-kubebuilder-validation-maximum: "1000000"
           attachedTo:
             allOf:
