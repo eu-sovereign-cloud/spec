@@ -158,6 +158,7 @@ components:
         - powerState
         properties:
           powerState:
+            default: "off"
             type: string
             description: Current power state of the instance.
             enum:
