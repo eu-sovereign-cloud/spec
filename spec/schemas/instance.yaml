@@ -170,6 +170,7 @@ components:
             example: "on"
             x-oapi-codegen-extra-tags:
               x-kubebuilder-validation-enum: "on;off"
+              x-kubebuilder-default: "off"
           powerStateSince:
             type: string
             format: date-time

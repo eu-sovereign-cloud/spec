@@ -102,7 +102,7 @@ components:
               ipv4: "0.0.0.0/0"
               ipv6: "::/0"
             x-oapi-codegen-extra-tags:
-              x-kubebuilder-default: '{ipv4: "0.0.0.0/0", ipv6: "::/0"}'
+              x-kubebuilder-default: "{ipv4: '0.0.0.0/0', ipv6: '::/0'}"
           additionalCidrs:
             type: array
             x-go-type-skip-optional-pointer: true
