@@ -285,7 +285,9 @@ paths:
         '404':
           $ref: './schemas/errors.yaml#/components/responses/Error404'
         '409':
-          $ref: './schemas/errors.yaml#/components/responses/Error409'  
+          $ref: './schemas/errors.yaml#/components/responses/Error409'
+        '412':
+          $ref: './schemas/errors.yaml#/components/responses/Error412'
         '500':
           $ref: './schemas/errors.yaml#/components/responses/Error500'
     {{ end }}
