@@ -1,0 +1,10 @@
+{
+  "name": "brace-expansion",
+  "version": "5.0.8",
+  "description": "CJS-compatible re-export of brace-expansion@5.0.8 (callable default + named expand)",
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "brace-expansion-v5": "npm:brace-expansion@5.0.8"
+  }
+}
