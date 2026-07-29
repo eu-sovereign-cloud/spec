@@ -64,9 +64,21 @@ resources:
     operations: [list, get, put, delete]
     actions:
     - name: start
-      description: Power on (boot) a specific instance
+      description: |
+        Power on (boot) a specific instance.
+
+        This action is only valid when the instance's `status.powerState` is `off`. If the
+        instance is already `on`, a `409` is returned.
     - name: stop
-      description: Power off (shutdown) a specific instance
+      description: |
+        Power off (shutdown) a specific instance.
+
+        This action is only valid when the instance's `status.powerState` is `on`. If the
+        instance is already `off`, a `409` is returned.
     - name: restart
-      description: Power cycle (reboot) a specific instance
+      description: |
+        Power cycle (reboot) a specific instance.
+
+        This action is only valid when the instance's `status.powerState` is `on`. If the
+        instance is `off`, a `409` is returned.
     

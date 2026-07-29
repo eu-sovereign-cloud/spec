@@ -1,5 +1,0 @@
-plugins:
-  - ./flatten-allof.js
-
-decorators:
-  flatten-allof/flatten-all-of: on

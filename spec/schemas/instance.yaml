@@ -156,6 +156,7 @@ components:
         readOnly: true
         properties:
           powerState:
+            default: "off"
             type: string
             description: Current power state of the instance.
             enum:
@@ -167,6 +168,7 @@ components:
             example: "on"
             x-oapi-codegen-extra-tags:
               x-kubebuilder-validation-enum: "on;off"
+              x-kubebuilder-default: "off"
           powerStateSince:
             type: string
             format: date-time

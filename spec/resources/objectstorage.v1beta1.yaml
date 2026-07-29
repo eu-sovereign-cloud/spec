@@ -8,6 +8,6 @@ description: |
 resources:
   - name: account
     plural: accounts
-    hierarchy: [tenant, workspace]
+    hierarchy: [tenant]
     schema: ./schemas/object-storage.yaml#/components/schemas/ObjectStorageAccount
     operations: [list, get, put, delete]
