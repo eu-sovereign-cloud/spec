@@ -19,16 +19,17 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.8.1",
-    "@docusaurus/preset-classic": "^3.8.1",
-    "@docusaurus/theme-mermaid": "^3.8.1",
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/preset-classic": "3.9.2",
+    "@docusaurus/theme-mermaid": "3.9.2",
     "@mdx-js/react": "^3.0.0",
     "@reduxjs/toolkit": "^2.6.1",
     "clsx": "^2.0.0",
     "docusaurus-lunr-search": "^3.6.0",
     "docusaurus-plugin-drawio": "^0.4.0",
-    "docusaurus-plugin-openapi-docs": "^4.3.7",
-    "docusaurus-theme-openapi-docs": "^4.3.7",
+    "docusaurus-plugin-openapi-docs": "4.3.7",
+    "docusaurus-plugin-sass": "^0.2.6",
+    "docusaurus-theme-openapi-docs": "4.3.7",
     "fs-extra": "^11.3.0",
     "prism-react-renderer": "^2.3.0",
     "raw-loader": "^4.0.2",
@@ -36,11 +37,12 @@
     "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",
     "redux": "^5.0.1",
-    "remark-variables": "^1.4.9"
+    "remark-variables": "^1.4.9",
+    "sass": "^1.80.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.8.1",
-    "@docusaurus/types": "^3.8.1"
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/types": "3.9.2"
   },
   "browserslist": {
     "production": [
@@ -56,5 +58,42 @@
   },
   "engines": {
     "node": ">=18.0"
+  },
+  "overrides": {
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/types": "3.9.2",
+    "@docusaurus/utils": "3.9.2",
+    "@docusaurus/utils-common": "3.9.2",
+    "@docusaurus/utils-validation": "3.9.2",
+    "@docusaurus/logger": "3.9.2",
+    "@docusaurus/mdx-loader": "3.9.2",
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/babel": "3.9.2",
+    "@docusaurus/bundler": "3.9.2",
+    "@docusaurus/cssnano-preset": "3.9.2",
+    "@docusaurus/plugin-content-docs": "3.9.2",
+    "@docusaurus/plugin-content-blog": "3.9.2",
+    "@docusaurus/plugin-content-pages": "3.9.2",
+    "@docusaurus/theme-common": "3.9.2",
+    "@docusaurus/theme-classic": "3.9.2",
+    "webpack": "5.104.1",
+    "webpack-dev-server": "5.2.6",
+    "launch-editor": "2.14.1",
+    "shell-quote": "1.10.0",
+    "websocket-driver": "0.7.5",
+    "lodash": "4.18.1",
+    "lodash-es": "4.18.1",
+    "js-yaml": "4.3.0",
+    "serialize-javascript": "7.0.5",
+    "yaml": "1.10.3",
+    "uuid": "11.1.1",
+    "ajv": "8.18.0",
+    "schema-utils@3": {
+      "ajv": "6.15.0"
+    },
+    "gray-matter": {
+      "js-yaml": "3.15.0"
+    },
+    "http-proxy-middleware": "2.0.10"
   }
 }
