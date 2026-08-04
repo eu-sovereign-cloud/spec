@@ -13,8 +13,8 @@ resources:
     operations: [list, get, put, delete]
     description:
       delete: |
-        Deletes the specified workspace. When a workspace is deleted:
-        - All resources within the workspace are permanently deleted
-        - This includes all compute, network, storage, and other resources
-        - Role assignments specific to this workspace are also deleted
-        - Deletion is a cascading operation that removes all associated resources
+        Deletes the specified workspace.
+
+        Deletion is not cascading. All child resources in the workspace must be
+        deleted first. If the workspace still contains child resources, a `409`
+        is returned.

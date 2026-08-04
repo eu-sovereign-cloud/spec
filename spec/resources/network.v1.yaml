@@ -60,6 +60,13 @@ resources:
     hierarchy: [tenant, workspace]
     schema: './schemas/network.yaml#/components/schemas/Network'
     operations: [list, get, put, delete]
+    description:
+      delete: |
+        Deletes the specified network.
+
+        Deletion is not cascading. All child resources of the network (such as
+        subnets and route tables) must be deleted first. If the network still
+        contains child resources, a `409` is returned.
   - name: internet gateway
     plural: internet gateways
     hierarchy: [tenant, workspace]
