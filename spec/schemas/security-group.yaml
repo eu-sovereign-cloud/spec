@@ -56,6 +56,10 @@ components:
             $ref: './security-group-rule.yaml#/components/schemas/SecurityGroupRuleSpec'
           x-oapi-codegen-extra-tags:
             x-kubebuilder-validation-max-items: "500"
+            x-cel-rule-0: "self.all(x, !has(x.icmp) || !has(x.protocol) || x.protocol == 'icmp')"
+            x-cel-message-0: "icmp is only allowed when protocol is icmp"
+            x-cel-rule-1: "self.all(x, !has(x.ports) || !has(x.protocol) || x.protocol != 'icmp')"
+            x-cel-message-1: "ports is not allowed when protocol is icmp"
         ruleRefs:
           type: array
           x-go-type-skip-optional-pointer: true
