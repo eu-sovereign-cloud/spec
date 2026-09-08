@@ -50,7 +50,11 @@ components:
         zone:
           allOf:
           - $ref: './region.yaml#/components/schemas/Zone'
+          description: |
+            The zone in which the subnet is deployed. The zone is immutable after the subnet is created.
           x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "spec.zone is immutable"
             x-kubebuilder-validation-min-length: "1"
             x-kubebuilder-validation-max-length: "32"
         routeTableRef:
@@ -65,9 +69,12 @@ components:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: |
             Reference to the SKU used by default for all NICs in this Network.
-            Can be overridden by the NIC
+            Can be overridden by the NIC. The SKU is immutable after the subnet is created.
           example:
             resource: "tenants/seca/skus/1000"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "!oldSelf.hasValue() || self == oldSelf.value()"
+            x-cel-message-0: "spec.skuRef is immutable"
       example:
         cidr:
           ipv4: "0.0.0.0/24"

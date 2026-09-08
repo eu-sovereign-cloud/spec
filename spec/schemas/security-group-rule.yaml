@@ -15,7 +15,13 @@ components:
           metadata:
             $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
           spec:
-            $ref: '#/components/schemas/SecurityGroupRuleSpec'
+            allOf:
+            - $ref: '#/components/schemas/SecurityGroupRuleSpec'
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "!has(self.icmp) || !has(self.protocol) || self.protocol == 'icmp'"
+              x-cel-message-0: "spec.icmp is only allowed when spec.protocol is icmp"
+              x-cel-rule-1: "!has(self.ports) || !has(self.protocol) || self.protocol != 'icmp'"
+              x-cel-message-1: "spec.ports is not allowed when spec.protocol is icmp"
           status:
             $ref: '#/components/schemas/SecurityGroupRuleStatus'
 
@@ -61,7 +67,11 @@ components:
             x-kubebuilder-validation-enum: "tcp;udp;tcp+udp;icmp"
             x-kubebuilder-validation-max-length: "7"
         ports:
-          $ref: '#/components/schemas/Ports'
+          allOf:
+          - $ref: '#/components/schemas/Ports'
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "!has(self.from) || !has(self.to) || self.to >= self.from"
+            x-cel-message-0: "ports.to must be greater than or equal to ports.from"
         icmp:
           $ref: '#/components/schemas/IcmpConfig'
         sourceRef:
