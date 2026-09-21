@@ -60,7 +60,8 @@ GET /providers/seca.compute/v1/tenants/public/skus/standard-4cpu-16gb
     "resourceType": "compute",
     "cpu": "4",
     "memory": "16",
-    "region": "eu-west-1"
+    "region": "eu-west-1",
+    "architecture": "amd64"
   },
   "annotations": {
     "name": "Standard Compute 4CPU 16GB",
@@ -71,8 +72,9 @@ GET /providers/seca.compute/v1/tenants/public/skus/standard-4cpu-16gb
     "performanceTier": "standard"
   },
   "spec": {
-    "cpuArchitecture": "amd64",
-    "bootType": "UEFI"
+    "vCPU": 4,
+    "ram": 16,
+    "cpuArchitecture": "amd64"
   }
 }
 ```
