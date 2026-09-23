@@ -20,22 +20,25 @@ resources:
         Seca-Resources don"t have mandatory parameters and extensions.
         (Provider may have more SKUs available.)
 
-        | Tier | vCPU | RAM | Architecture | benchmarkPoints |
-        |-|-|-|-|-|
-        | D2XS | 1 | 1 | amd64 | min 500 |
-        | DXS | 1 | 2 | amd64 | min 750 |
-        | DS | 2 | 4 | amd64 | min 2200 |
-        | DM | 4 | 8 | amd64 | min 3500 |
-        | DL | 8 | 16 | amd64 | min 6000 |
-        | DXL | 16 | 32 | amd64 | min 9000 |
-        | D2XL | 32 | 64 | amd64 | min 13000 |
-        | S2XS | 1 | 1 | amd64 | min 500 |
-        | SXS | 1 | 2 | amd64 | min 700 |
-        | SS | 2 | 4 | amd64 | min 2000 |
-        | SM | 4 | 8 | amd64 | min 3000 |
-        | SL | 8 | 16 | amd64 | min 5500 |
-        | SXL | 16 | 32 | amd64 | min 8000 |
-        | S2XL | 32 | 64 | amd64 | min 9000 |
+        | Tier | vCPU | RAM | Architecture | GPU | benchmarkPoints |
+        |-|-|-|-|-|-|
+        | D2XS | 1 | 1 | amd64 | - | min 500 |
+        | DXS | 1 | 2 | amd64 | - | min 750 |
+        | DS | 2 | 4 | amd64 | - | min 2200 |
+        | DM | 4 | 8 | amd64 | - | min 3500 |
+        | DL | 8 | 16 | amd64 | - | min 6000 |
+        | DXL | 16 | 32 | amd64 | - | min 9000 |
+        | D2XL | 32 | 64 | amd64 | - | min 13000 |
+        | S2XS | 1 | 1 | amd64 | - | min 500 |
+        | SXS | 1 | 2 | amd64 | - | min 700 |
+        | SS | 2 | 4 | amd64 | - | min 2000 |
+        | SM | 4 | 8 | amd64 | - | min 3000 |
+        | SL | 8 | 16 | amd64 | - | min 5500 |
+        | SXL | 16 | 32 | amd64 | - | min 8000 |
+        | S2XL | 32 | 64 | amd64 | - | min 9000 |
+        | GXS | 8 | 64 | amd64 | 1x NVIDIA L40S (48GB) | min 6000 |
+        | GXL | 16 | 128 | amd64 | 1x NVIDIA H100 (80GB) | min 9000 |
+        | G2XL | 32 | 256 | amd64 | 2x NVIDIA H100 (80GB) | min 13000 |
     example:
       list:
         metadata:
@@ -57,6 +60,9 @@ resources:
         - { metadata: { name: "seca.sl", provider: "seca.compute/v1", resource: "tenants/tn-1/skus/seca.sl", ref: "seca.compute/v1/tenants/tn-1/skus/seca.sl", verb: "get", apiVersion: "v1", kind: "instance-sku", tenant: "ts-1", region: "eu-central-1"     }, labels: { tier: "SL",   provider: "seca", architecture: "amd64" }, spec: { vCPU:  8, ram: 16 }}
         - { metadata: { name: "seca.sxl", provider: "seca.compute/v1", resource: "tenants/tn-1/skus/seca.sxl", ref: "seca.compute/v1/tenants/tn-1/skus/seca.sxl", verb: "get", apiVersion: "v1", kind: "instance-sku", tenant: "ts-1", region: "eu-central-1"   }, labels: { tier: "SXL",  provider: "seca", architecture: "amd64" }, spec: { vCPU: 16, ram: 32 }}
         - { metadata: { name: "seca.s2xl", provider: "seca.compute/v1", resource: "tenants/tn-1/skus/seca.s2xl", ref: "seca.compute/v1/tenants/tn-1/skus/seca.s2xl", verb: "get", apiVersion: "v1", kind: "instance-sku", tenant: "ts-1", region: "eu-central-1" }, labels: { tier: "S2XL", provider: "seca", architecture: "amd64" }, spec: { vCPU: 32, ram: 64 }}
+        - { metadata: { name: "seca.gxs", provider: "seca.compute/v1", resource: "tenants/tn-1/skus/seca.gxs", ref: "seca.compute/v1/tenants/tn-1/skus/seca.gxs", verb: "get", apiVersion: "v1", kind: "instance-sku", tenant: "ts-1", region: "eu-central-1"   }, labels: { tier: "GXS",  provider: "seca", architecture: "amd64", gpu: "nvidia" }, spec: { vCPU:  8, ram:  64, gpu: { count: 1, vendor: "nvidia", model: "L40S", ram: 48 } }}
+        - { metadata: { name: "seca.gxl", provider: "seca.compute/v1", resource: "tenants/tn-1/skus/seca.gxl", ref: "seca.compute/v1/tenants/tn-1/skus/seca.gxl", verb: "get", apiVersion: "v1", kind: "instance-sku", tenant: "ts-1", region: "eu-central-1"   }, labels: { tier: "GXL",  provider: "seca", architecture: "amd64", gpu: "nvidia" }, spec: { vCPU: 16, ram: 128, gpu: { count: 1, vendor: "nvidia", model: "H100", ram: 80 } }}
+        - { metadata: { name: "seca.g2xl", provider: "seca.compute/v1", resource: "tenants/tn-1/skus/seca.g2xl", ref: "seca.compute/v1/tenants/tn-1/skus/seca.g2xl", verb: "get", apiVersion: "v1", kind: "instance-sku", tenant: "ts-1", region: "eu-central-1" }, labels: { tier: "G2XL", provider: "seca", architecture: "amd64", gpu: "nvidia" }, spec: { vCPU: 32, ram: 256, gpu: { count: 2, vendor: "nvidia", model: "H100", ram: 80 } }}
   - name: instance
     plural: instances
     hierarchy: [tenant, workspace]

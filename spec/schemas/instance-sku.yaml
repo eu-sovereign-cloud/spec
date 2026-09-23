@@ -43,3 +43,73 @@ components:
           x-oapi-codegen-extra-tags:
             x-kubebuilder-validation-minimum: "1"
             x-kubebuilder-validation-maximum: "65536"
+        gpu:
+          allOf:
+          - $ref: './instance-sku.yaml#/components/schemas/InstanceSkuGpuSpec'
+          description: |
+            GPU specification for this instance SKU. Omitted for instance SKUs
+            without a GPU.
+
+    InstanceSkuGpuSpec:
+      type: object
+      description: |
+        Specification of the GPU(s) attached to an instance SKU.
+      required:
+      - count
+      - vendor
+      - model
+      - ram
+      properties:
+        count:
+          type: integer
+          description: |
+            The number of GPUs allocated to the instance SKU.
+          minimum: 1
+          maximum: 16
+          example: 1
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-minimum: "1"
+            x-kubebuilder-validation-maximum: "16"
+        vendor:
+          type: string
+          description: |
+            The GPU vendor. An instance created with this SKU can only use images
+            and drivers built for the same vendor.
+          enum:
+          - nvidia
+          - amd
+          - intel
+          x-enumNames:
+          - InstanceSkuGpuSpecVendorNvidia
+          - InstanceSkuGpuSpecVendorAmd
+          - InstanceSkuGpuSpecVendorIntel
+          example: nvidia
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-enum: "nvidia;amd;intel"
+        model:
+          type: string
+          description: |
+            The GPU model name, as reported by the vendor (e.g. "H100", "MI300X",
+            "L40S"). Free-form, since GPU model names change frequently as new
+            hardware is released, unlike vendor, which is a small, stable set.
+          minLength: 1
+          maxLength: 64
+          example: "H100"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "64"
+        ram:
+          type: integer
+          description: |
+            The amount of dedicated video memory (VRAM) per GPU, in gigabytes.
+          minimum: 1
+          maximum: 256
+          example: 80
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-minimum: "1"
+            x-kubebuilder-validation-maximum: "256"
+      example:
+        count: 1
+        vendor: "nvidia"
+        model: "H100"
+        ram: 80

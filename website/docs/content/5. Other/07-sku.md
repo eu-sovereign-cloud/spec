@@ -71,8 +71,43 @@ GET /providers/seca.compute/v1/tenants/public/skus/standard-4cpu-16gb
     "performanceTier": "standard"
   },
   "spec": {
-    "cpuArchitecture": "amd64",
-    "bootType": "UEFI"
+    "vCPU": 4,
+    "ram": 16
+  }
+}
+```
+
+### Example: GPU-Accelerated SKU
+
+A GPU-accelerated SKU carries the same `vCPU`/`ram` capacity fields plus an optional `gpu` specification describing the accelerator(s) attached to it. A `gpu` label is also set so GPU SKUs can be discovered via label selectors without inspecting every SKU's spec.
+
+```json
+GET /providers/seca.compute/v1/tenants/public/skus/seca.gxl
+
+{
+  "labels": {
+    "resourceType": "compute",
+    "cpu": "16",
+    "memory": "128",
+    "region": "eu-west-1",
+    "gpu": "nvidia"
+  },
+  "annotations": {
+    "name": "GPU Compute GXL",
+    "description": "A GPU-accelerated compute SKU with 16 vCPUs, 128GB RAM, and 1x NVIDIA H100 GPU.",
+    "release": "2026-09-21T00:00:00Z",
+    "eol": "2028-09-21T00:00:00Z",
+    "performanceTier": "gpu"
+  },
+  "spec": {
+    "vCPU": 16,
+    "ram": 128,
+    "gpu": {
+      "count": 1,
+      "vendor": "nvidia",
+      "model": "H100",
+      "ram": 80
+    }
   }
 }
 ```
