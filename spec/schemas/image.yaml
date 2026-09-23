@@ -64,11 +64,13 @@ components:
           enum:
           - amd64
           - arm64
+          - riscv
           x-enumNames:
           - ImageSpecCpuArchitectureAmd64
           - ImageSpecCpuArchitectureArm64
+          - ImageSpecCpuArchitectureRiscv
           x-oapi-codegen-extra-tags:
-            x-kubebuilder-validation-enum: "amd64;arm64"
+            x-kubebuilder-validation-enum: "amd64;arm64;riscv"
         initializer:
           type: string
           x-go-type-skip-optional-pointer: true

@@ -19,6 +19,7 @@ components:
       required:
       - vCPU
       - ram
+      - cpuArchitecture
       properties:
         vCPU:
           type: integer
@@ -43,6 +44,22 @@ components:
           x-oapi-codegen-extra-tags:
             x-kubebuilder-validation-minimum: "1"
             x-kubebuilder-validation-maximum: "65536"
+        cpuArchitecture:
+          type: string
+          description: |
+            CPU architecture provided by the instance SKU. An instance created with this
+            SKU can only use images built for the same architecture.
+          enum:
+          - amd64
+          - arm64
+          - riscv
+          x-enumNames:
+          - InstanceSkuSpecCpuArchitectureAmd64
+          - InstanceSkuSpecCpuArchitectureArm64
+          - InstanceSkuSpecCpuArchitectureRiscv
+          example: amd64
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-enum: "amd64;arm64;riscv"
         gpu:
           allOf:
           - $ref: './instance-sku.yaml#/components/schemas/InstanceSkuGpuSpec'
