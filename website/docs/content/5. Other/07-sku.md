@@ -53,7 +53,7 @@ By using labels and annotations effectively, you can provide valuable context an
 Example of a SKU with annotations:
 
 ```json
-GET /providers/seca.compute/v1/tenants/public/skus/standard-4cpu-16gb
+GET /providers/seca.compute/v1/tenants/public/skus/standard-4cpu-16gib
 
 {
   "labels": {
@@ -64,8 +64,8 @@ GET /providers/seca.compute/v1/tenants/public/skus/standard-4cpu-16gb
     "architecture": "amd64"
   },
   "annotations": {
-    "name": "Standard Compute 4CPU 16GB",
-    "description": "A standard compute SKU with 4 vCPUs and 16GB RAM, suitable for general workloads.",
+    "name": "Standard Compute 4CPU 16GiB",
+    "description": "A standard compute SKU with 4 vCPUs and 16 GiB RAM, suitable for general workloads.",
     "release": "2024-04-25T00:00:00Z",
     "eol": "2026-04-25T00:00:00Z",
     "recommendedStorage": "100",
@@ -96,7 +96,7 @@ GET /providers/seca.compute/v1/tenants/public/skus/seca.gxl
   },
   "annotations": {
     "name": "GPU Compute GXL",
-    "description": "A GPU-accelerated compute SKU with 16 vCPUs, 128GB RAM, and 1x NVIDIA H100 GPU.",
+    "description": "A GPU-accelerated compute SKU with 16 vCPUs, 128 GiB RAM, and 1x NVIDIA H100 GPU.",
     "release": "2026-09-21T00:00:00Z",
     "eol": "2028-09-21T00:00:00Z",
     "performanceTier": "gpu"

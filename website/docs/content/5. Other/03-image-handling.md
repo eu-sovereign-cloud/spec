@@ -142,7 +142,7 @@ To ensure efficient, secure, and reliable image management, follow these best pr
    * `annotations.recommendedCpu` to specify the recommended number of CPU cores for the
      image (e.g., `2`).
    * `annotations.recommendedMemory` to specify the recommended amount of memory for the
-     image in GB (e.g., `2`).
+     image in GiB (e.g., `2`).
    * `annotations.recommendedNics` to specify the recommended number of network interfaces
      for the image (e.g., `2`).
    * `annotations.recommendedStorageSize` to specify the recommended storage size for the

@@ -305,7 +305,7 @@ components:
             x-cel-message-0: "rootVolume.skuRef is immutable"
         sizeGB:
           description: |
-            Size of the root volume in GB. The size is recommended to be at least 100GB.
+            Size of the root volume in GB. The size is recommended to be at least 100 GB.
           type: integer
           example: 100
           minimum: 20
