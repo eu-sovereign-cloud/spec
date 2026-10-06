@@ -46,6 +46,8 @@ To ensure efficient, secure, and reliable SKU management, follow these best prac
 5. Document SKU changes and updates, including version numbers, update dates, and descriptions.
 6. Use labels and annotations to provide context and metadata for SKUs, such as resource type, performance tier, and region.
 
+Sizes in labels and annotations are plain numbers without a unit. By convention, memory (the `memory` label and the `ram` field) is in GiB, and storage sizes (such as `recommendedStorageSize`) are in GB.
+
 ### Example
 
 By using labels and annotations effectively, you can provide valuable context and metadata about your SKUs, making it easier to manage, track, and maintain your resource catalog.
@@ -68,7 +70,7 @@ GET /providers/seca.compute/v1/tenants/public/skus/standard-4cpu-16gib
     "description": "A standard compute SKU with 4 vCPUs and 16 GiB RAM, suitable for general workloads.",
     "release": "2024-04-25T00:00:00Z",
     "eol": "2026-04-25T00:00:00Z",
-    "recommendedStorage": "100",
+    "recommendedStorageSize": "100",
     "performanceTier": "standard"
   },
   "spec": {

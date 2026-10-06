@@ -40,7 +40,7 @@ components:
             This value represents the total memory available to the instance.
           minimum: 1
           maximum: 65536
-          example: 230
+          example: 16
           x-oapi-codegen-extra-tags:
             x-kubebuilder-validation-minimum: "1"
             x-kubebuilder-validation-maximum: "65536"

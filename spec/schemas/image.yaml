@@ -30,9 +30,9 @@ components:
           release: 2025-01-01T00:00:00Z
           eol: 2026-01-01T00:00:00Z
           recommendedCpu: "2"
-          recommendedMemory: "2"
+          recommendedMemory: "2" # in GiB
           recommendedNics: "2"
-          recommendedStorageSize: "100"
+          recommendedStorageSize: "100" # in GB
         spec:
           blockStorageRef:
             resource: block-storages/temp-a9b2bc3d81
@@ -114,7 +114,7 @@ components:
         properties:
           sizeMB:
             type: integer
-            description: Size of the Image in MB
+            description: Size of the Image in MB (decimal, 10^6 bytes).
             minimum: 1
             example: 628
             x-oapi-codegen-extra-tags:
